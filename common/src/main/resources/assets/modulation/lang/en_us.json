@@ -8,5 +8,15 @@
 
   "config.modulation.module.figura": "Figura Tweaks",
   "config.modulation.tweak.figura.enable_target_selectors": "/Mofigura Load Command",
-  "config.modulation.tweak.figura.enable_target_selectors.tooltip": "Adds a modified /figura load command with target selection and autocomplete (@a, @s, ...)"
+  "config.modulation.tweak.figura.enable_target_selectors.tooltip": "Adds a modified /figura load command with target selection and autocomplete (@a, @s, ...)",
+
+  "config.modulation.module.music": "Music Module",
+  "config.modulation.tweak.music.enabled": "Enable Combat Music",
+  "config.modulation.tweak.music.enabled.tooltip": "Whether combat music should play when monsters are nearby.",
+  "config.modulation.tweak.music.min_pursuit_entities": "Minimum Mobs for Combat",
+  "config.modulation.tweak.music.min_pursuit_entities.tooltip": "The minimum number of pursuing mobs required to trigger combat music.",
+  "config.modulation.tweak.music.decay_time": "Combat Decay Time",
+  "config.modulation.tweak.music.decay_time.tooltip": "Seconds required without any mobs around before the combat music fades out.",
+  "config.modulation.tweak.music.sounds": "Combat Music Tracks",
+  "config.modulation.tweak.music.sounds.tooltip": "A list of Resource Locations for sounds to play during combat."
 }

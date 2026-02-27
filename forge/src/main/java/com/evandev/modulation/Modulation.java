@@ -1,6 +1,6 @@
 package com.evandev.modulation;
 
-import com.evandev.modulation.client.ClientConfigSetup;
+import com.evandev.modulation.client.ModulationClient;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -19,7 +19,7 @@ public class Modulation {
         MinecraftForge.EVENT_BUS.addListener(this::onRegisterCommands);
 
         if (FMLEnvironment.dist.isClient()) {
-            ClientConfigSetup.register(ModLoadingContext.get().getActiveContainer());
+            ModulationClient.register(ModLoadingContext.get().getActiveContainer());
         }
     }
 
