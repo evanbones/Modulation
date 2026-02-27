@@ -1,6 +1,7 @@
 package com.evandev.modulation.platform;
 
 import com.evandev.modulation.Constants;
+import com.evandev.modulation.client.compat.FiguraClientHandler;
 import com.evandev.modulation.platform.services.IPlatformHelper;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -11,6 +12,7 @@ import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 
 import java.nio.file.Path;
@@ -30,7 +32,17 @@ public class ForgePlatformHelper implements IPlatformHelper {
                 .encoder((skin, buf) -> buf.writeUtf(skin))
                 .decoder(FriendlyByteBuf::readUtf)
                 .consumerMainThread((skin, context) -> {
-                    net.minecraft.client.Minecraft.getInstance().player.connection.sendCommand("figura load " + skin);
+                    FiguraClientHandler.loadSkin(skin);
+                    context.get().setPacketHandled(true);
+                })
+                .add();
+
+        CHANNEL.messageBuilder(ClearAvatarPacket.class, 1, NetworkDirection.PLAY_TO_CLIENT)
+                .encoder((packet, buf) -> {
+                })
+                .decoder(buf -> new ClearAvatarPacket())
+                .consumerMainThread((packet, context) -> {
+                    FiguraClientHandler.clearSkin();
                     context.get().setPacketHandled(true);
                 })
                 .add();
@@ -63,6 +75,14 @@ public class ForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public void sendFiguraLoadPacket(ServerPlayer player, String skinName) {
-        CHANNEL.send(net.minecraftforge.network.PacketDistributor.PLAYER.with(() -> player), skinName);
+        CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), skinName);
+    }
+
+    @Override
+    public void sendFiguraClearPacket(ServerPlayer player) {
+        CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new ClearAvatarPacket());
+    }
+
+    public static class ClearAvatarPacket {
     }
 }
