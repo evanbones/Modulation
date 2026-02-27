@@ -4,7 +4,6 @@ import com.evandev.modulation.Constants;
 import com.evandev.modulation.api.AbstractTweak;
 import com.evandev.modulation.api.IModule;
 import com.evandev.modulation.api.ModuleManager;
-import com.evandev.modulation.api.tweaks.BooleanTweak;
 import com.evandev.modulation.platform.Services;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -31,8 +30,11 @@ public class DynamicModConfig {
                 if (root.has(module.getId())) {
                     JsonObject moduleJson = root.getAsJsonObject(module.getId());
                     for (AbstractTweak<?> tweak : module.getTweaks()) {
-                        if (moduleJson.has(tweak.getId())) {
-                            parseValue(tweak, moduleJson);
+                        try {
+                            tweak.readFromJson(moduleJson);
+                            tweak.onApply();
+                        } catch (Exception e) {
+                            Constants.LOG.warn("Failed to parse config value for tweak: {}", tweak.getId(), e);
                         }
                     }
                 }
@@ -42,24 +44,12 @@ public class DynamicModConfig {
         }
     }
 
-    @SuppressWarnings("unchecked")
-    private static void parseValue(AbstractTweak<?> tweak, JsonObject json) {
-        if (tweak instanceof BooleanTweak) {
-            ((AbstractTweak<Boolean>) tweak).setValue(json.get(tweak.getId()).getAsBoolean());
-        }
-        // TODO: Add parsing for IntTweak, DoubleTweak, StringTweak...
-        tweak.onApply();
-    }
-
     public static void save() {
         JsonObject root = new JsonObject();
         for (IModule module : ModuleManager.getModules()) {
             JsonObject moduleJson = new JsonObject();
             for (AbstractTweak<?> tweak : module.getTweaks()) {
-                if (tweak instanceof BooleanTweak booleanTweak) {
-                    moduleJson.addProperty(tweak.getId(), booleanTweak.getValue());
-                }
-                // TODO: Add saving for IntTweak, etc...
+                tweak.writeToJson(moduleJson);
             }
             root.add(module.getId(), moduleJson);
         }

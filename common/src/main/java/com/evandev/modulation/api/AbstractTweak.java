@@ -1,5 +1,7 @@
 package com.evandev.modulation.api;
 
+import com.google.gson.JsonObject;
+
 public abstract class AbstractTweak<T> {
     private final String id;
     private final T defaultValue;
@@ -29,4 +31,8 @@ public abstract class AbstractTweak<T> {
 
     public void onApply() {
     }
+
+    public abstract void readFromJson(JsonObject json);
+
+    public abstract void writeToJson(JsonObject json);
 }

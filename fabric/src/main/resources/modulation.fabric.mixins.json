@@ -3,9 +3,7 @@
   "minVersion": "0.8",
   "package": "com.evandev.modulation.mixin",
   "compatibilityLevel": "JAVA_17",
-  "mixins": [
-    "gametest.StructureUtilsMixin"
-  ],
+  "mixins": [],
   "client": [
   ],
   "server": [
@@ -13,5 +11,5 @@
   "injectors": {
     "defaultRequire": 1
   }
-  }
+}
   
