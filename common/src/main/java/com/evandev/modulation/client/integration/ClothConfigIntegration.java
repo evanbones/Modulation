@@ -3,10 +3,7 @@ package com.evandev.modulation.client.integration;
 import com.evandev.modulation.api.AbstractTweak;
 import com.evandev.modulation.api.IModule;
 import com.evandev.modulation.api.ModuleManager;
-import com.evandev.modulation.api.tweaks.BooleanTweak;
-import com.evandev.modulation.api.tweaks.DoubleTweak;
-import com.evandev.modulation.api.tweaks.IntTweak;
-import com.evandev.modulation.api.tweaks.StringTweak;
+import com.evandev.modulation.api.tweaks.*;
 import com.evandev.modulation.config.DynamicModConfig;
 import me.shedaniel.clothconfig2.api.AbstractConfigListEntry;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
@@ -64,6 +61,17 @@ public class ClothConfigIntegration {
                     .setSaveConsumer(v -> {
                         st.setValue(v);
                         st.onApply();
+                    }).build();
+        });
+
+        BUILDERS.put(StringListTweak.class, (t, k, b) -> {
+            StringListTweak slt = (StringListTweak) t;
+            return b.startStrList(Component.translatable(k), slt.getValue())
+                    .setDefaultValue(slt.getDefaultValue())
+                    .setTooltip(Component.translatable(k + ".tooltip"))
+                    .setSaveConsumer(v -> {
+                        slt.setValue(v);
+                        slt.onApply();
                     }).build();
         });
     }
