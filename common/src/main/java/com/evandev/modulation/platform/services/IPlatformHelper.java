@@ -51,5 +51,17 @@ public interface IPlatformHelper {
      */
     boolean isPhysicalClient();
 
+    /**
+     * Sends a packet to change the Figura avatar for the specified player.
+     *
+     * @param player The target player whose avatar should be changed.
+     */
     void sendFiguraLoadPacket(ServerPlayer player, String skinName);
+
+    /**
+     * Sends a packet to clear the Figura avatar for the specified player.
+     *
+     * @param player The target player whose avatar should be cleared.
+     */
+    void sendFiguraClearPacket(ServerPlayer player);
 }

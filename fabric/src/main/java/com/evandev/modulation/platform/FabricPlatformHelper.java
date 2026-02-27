@@ -14,6 +14,7 @@ import java.nio.file.Path;
 
 public class FabricPlatformHelper implements IPlatformHelper {
     public static final ResourceLocation FIGURA_SYNC = new ResourceLocation(Constants.MOD_ID, "figura_sync");
+    public static final ResourceLocation FIGURA_CLEAR = new ResourceLocation(Constants.MOD_ID, "figura_clear");
 
     @Override
     public String getPlatformName() {
@@ -45,5 +46,10 @@ public class FabricPlatformHelper implements IPlatformHelper {
         FriendlyByteBuf buf = PacketByteBufs.create();
         buf.writeUtf(skinName);
         ServerPlayNetworking.send(player, FIGURA_SYNC, buf);
+    }
+
+    @Override
+    public void sendFiguraClearPacket(ServerPlayer player) {
+        ServerPlayNetworking.send(player, FIGURA_CLEAR, PacketByteBufs.empty());
     }
 }

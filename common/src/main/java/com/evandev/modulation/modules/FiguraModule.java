@@ -11,7 +11,6 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.commands.arguments.EntityArgument;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 
 import java.io.File;
@@ -104,15 +103,22 @@ public class FiguraModule implements IModule {
 
                                             for (ServerPlayer player : players) {
                                                 Services.PLATFORM.sendFiguraLoadPacket(player, skinName);
-
-                                                context.getSource().sendSuccess(() ->
-                                                                Component.literal("Requested Figura skin '" + skinName + "' load for " + player.getName().getString()),
-                                                        true
-                                                );
                                             }
                                             return players.size();
                                         })
                                 )
+                        )
+                )
+                .then(Commands.literal("clear")
+                        .then(Commands.argument("targets", EntityArgument.players())
+                                .executes(context -> {
+                                    Collection<ServerPlayer> players = EntityArgument.getPlayers(context, "targets");
+
+                                    for (ServerPlayer player : players) {
+                                        Services.PLATFORM.sendFiguraClearPacket(player);
+                                    }
+                                    return players.size();
+                                })
                         )
                 )
         );
