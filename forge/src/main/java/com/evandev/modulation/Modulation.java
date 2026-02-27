@@ -1,6 +1,8 @@
 package com.evandev.modulation;
 
 import com.evandev.modulation.client.ClientConfigSetup;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -13,6 +15,9 @@ public class Modulation {
     public Modulation() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         modEventBus.addListener(this::commonSetup);
+
+        MinecraftForge.EVENT_BUS.addListener(this::onRegisterCommands);
+
         if (FMLEnvironment.dist.isClient()) {
             ClientConfigSetup.register(ModLoadingContext.get().getActiveContainer());
         }
@@ -20,5 +25,9 @@ public class Modulation {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(CommonClass::init);
+    }
+
+    private void onRegisterCommands(RegisterCommandsEvent event) {
+        CommonClass.registerCommands(event.getDispatcher());
     }
 }

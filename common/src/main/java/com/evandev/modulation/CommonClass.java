@@ -1,7 +1,10 @@
 package com.evandev.modulation;
 
+import com.evandev.modulation.api.IModule;
 import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.config.DynamicModConfig;
+import com.mojang.brigadier.CommandDispatcher;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.MinecraftServer;
 
 public class CommonClass {
@@ -17,9 +20,15 @@ public class CommonClass {
 
     public static void init() {
         // Register Modules
-        // ModuleManager.register(new VanillaModule());
+        ModuleManager.loadModules();
 
         // Load Config
         DynamicModConfig.load();
+    }
+
+    public static void registerCommands(CommandDispatcher<CommandSourceStack> dispatcher) {
+        for (IModule module : ModuleManager.getModules()) {
+            module.registerCommands(dispatcher);
+        }
     }
 }

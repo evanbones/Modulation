@@ -3,14 +3,14 @@ package com.evandev.modulation.api.tweaks;
 import com.evandev.modulation.api.AbstractTweak;
 import com.google.gson.JsonObject;
 
-public class BooleanTweak extends AbstractTweak<Boolean> {
-    public BooleanTweak(String id, Boolean defaultValue) {
+public class DoubleTweak extends AbstractTweak<Double> {
+    public DoubleTweak(String id, Double defaultValue) {
         super(id, defaultValue);
     }
 
     @Override
     public void readFromJson(JsonObject json) {
-        if (json.has(getId())) setValue(json.get(getId()).getAsBoolean());
+        if (json.has(getId())) setValue(json.get(getId()).getAsDouble());
     }
 
     @Override
