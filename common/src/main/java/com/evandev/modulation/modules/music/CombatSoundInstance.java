@@ -16,6 +16,8 @@ public class CombatSoundInstance extends AbstractTickableSoundInstance {
         this.looping = true;
         this.delay = 0;
         this.volume = 0.001f;
+        this.relative = true;
+        this.attenuation = SoundInstance.Attenuation.NONE;
     }
 
     public void fadeOut() {
