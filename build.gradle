@@ -12,7 +12,7 @@ subprojects {
 
 wiki {
     wikiAccessToken = System.getenv("WIKI_ACCESS_TOKEN")
-    docs.create("mod-template") {
+    docs.create("modulation") {
         root = file("docs/")
     }
 }
