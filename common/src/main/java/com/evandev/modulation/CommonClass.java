@@ -1,6 +1,7 @@
 package com.evandev.modulation;
 
-import com.evandev.modulation.config.ModConfig;
+import com.evandev.modulation.api.ModuleManager;
+import com.evandev.modulation.config.DynamicModConfig;
 import net.minecraft.server.MinecraftServer;
 
 public class CommonClass {
@@ -15,6 +16,10 @@ public class CommonClass {
     }
 
     public static void init() {
-        ModConfig.load();
+        // Register Modules
+        // ModuleManager.register(new VanillaModule());
+
+        // Load Config
+        DynamicModConfig.load();
     }
 }
