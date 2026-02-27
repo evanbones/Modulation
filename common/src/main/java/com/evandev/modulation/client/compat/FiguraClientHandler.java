@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import java.io.File;
 import java.lang.reflect.Method;
 
+// TODO: Just use a mixin plugin with MixinSquared or something
 public class FiguraClientHandler {
 
     public static void loadSkin(String skin) {
