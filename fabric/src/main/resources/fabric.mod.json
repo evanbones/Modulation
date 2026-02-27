@@ -8,24 +8,24 @@
     "${mod_author}"
   ],
   "contact": {
-    "homepage": "https://github.com/evanbones/Mod-Template",
-    "sources": "https://github.com/evanbones/Mod-Template"
+    "homepage": "https://github.com/evanbones/Modulation",
+    "sources": "https://github.com/evanbones/Modulation"
   },
   "license": "${license}",
   "icon": "${mod_id}.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.evandev.mod_template.ExampleMod"
+      "com.evandev.modulation.Modulation"
     ],
     "client": [
-      "com.evandev.mod_template.client.ExampleModClient"
+      "com.evandev.modulation.client.ModulationClient"
     ],
     "modmenu": [
-      "com.evandev.mod_template.compat.ModMenuIntegration"
+      "com.evandev.modulation.compat.ModMenuIntegration"
     ],
     "fabric-datagen": [
-      "com.evandev.mod_template.datagen.TemplateDataGenerator"
+      "com.evandev.modulation.datagen.TemplateDataGenerator"
     ]
   },
   "mixins": [
