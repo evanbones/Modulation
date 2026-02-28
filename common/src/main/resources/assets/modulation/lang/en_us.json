@@ -7,8 +7,8 @@
   "config.modulation.tweak.vanilla.fix_focus_bug.tooltip": "Fixes a vanilla bug where buttons/sliders retain keyboard focus after being clicked.",
 
   "config.modulation.module.figura": "Figura Tweaks",
-  "config.modulation.tweak.figura.enable_target_selectors": "/Mofigura Load Command",
-  "config.modulation.tweak.figura.enable_target_selectors.tooltip": "Adds a modified /figura load command with target selection and autocomplete (@a, @s, ...)",
+  "config.modulation.tweak.figura.enable_target_selectors": "Improved Figura Load Command",
+  "config.modulation.tweak.figura.enable_target_selectors.tooltip": "Modifies the /figura load command with target selection and autocomplete (@a, @s, ...)",
 
   "config.modulation.module.music": "Music Module",
   "config.modulation.tweak.music.enabled": "Enable Combat Music",

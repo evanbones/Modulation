@@ -1,26 +1,25 @@
 package com.evandev.modulation.client.compat;
 
 import com.evandev.modulation.Constants;
-import net.minecraft.client.Minecraft;
+import org.figuramc.figura.avatar.AvatarManager;
+import org.figuramc.figura.avatar.local.LocalAvatarFetcher;
 
-import java.io.File;
-import java.lang.reflect.Method;
+import java.nio.file.Path;
 
-// TODO: Just use a mixin plugin with MixinSquared or something
 public class FiguraClientHandler {
 
     public static void loadSkin(String skin) {
-        Minecraft mc = Minecraft.getInstance();
-        if (mc.player != null) {
-            mc.player.connection.sendCommand("figura load " + skin);
+        try {
+            Path p = LocalAvatarFetcher.getLocalAvatarDirectory().resolve(Path.of(skin));
+            AvatarManager.loadLocalAvatar(p);
+        } catch (Exception e) {
+            Constants.LOG.error("Failed to load Figura avatar", e);
         }
     }
 
     public static void clearSkin() {
         try {
-            Class<?> avatarManagerClass = Class.forName("org.figuramc.figura.avatar.AvatarManager");
-            Method loadLocalAvatar = avatarManagerClass.getMethod("loadLocalAvatar", File.class);
-            loadLocalAvatar.invoke(null, (File) null);
+            AvatarManager.loadLocalAvatar(null);
         } catch (Exception e) {
             Constants.LOG.error("Failed to clear Figura avatar", e);
         }
