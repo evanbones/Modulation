@@ -67,6 +67,7 @@ public class FiguraModule implements IModule {
 
         return SharedSuggestionProvider.suggest(availableSkins, builder);
     };
+
     private final BooleanTweak enableTargetSelectors = new BooleanTweak("enable_target_selectors", true);
 
     @Override
@@ -92,7 +93,7 @@ public class FiguraModule implements IModule {
     public void registerCommands(CommandDispatcher<CommandSourceStack> dispatcher) {
         if (!enableTargetSelectors.getValue()) return;
 
-        dispatcher.register(Commands.literal("mofigura")
+        dispatcher.register(Commands.literal("modulation_figura")
                 .then(Commands.literal("load")
                         .then(Commands.argument("targets", EntityArgument.players())
                                 .then(Commands.argument("skin", StringArgumentType.string())
@@ -100,7 +101,6 @@ public class FiguraModule implements IModule {
                                         .executes(context -> {
                                             Collection<ServerPlayer> players = EntityArgument.getPlayers(context, "targets");
                                             String skinName = StringArgumentType.getString(context, "skin");
-
                                             for (ServerPlayer player : players) {
                                                 Services.PLATFORM.sendFiguraLoadPacket(player, skinName);
                                             }
@@ -113,7 +113,6 @@ public class FiguraModule implements IModule {
                         .then(Commands.argument("targets", EntityArgument.players())
                                 .executes(context -> {
                                     Collection<ServerPlayer> players = EntityArgument.getPlayers(context, "targets");
-
                                     for (ServerPlayer player : players) {
                                         Services.PLATFORM.sendFiguraClearPacket(player);
                                     }
