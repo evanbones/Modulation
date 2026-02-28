@@ -6,7 +6,8 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "figura.CommandDispatcherMixin",
-    "figura.LoadCommandMixin"
+    "figura.LoadCommandMixin",
+    "minecraft.EntityMixin"
   ],
   "client": [
     "minecraft.ContainerEventHandlerMixin",
