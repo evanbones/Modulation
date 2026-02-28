@@ -9,6 +9,7 @@ import java.util.List;
 public class VanillaModule implements IModule {
 
     private final BooleanTweak fixFocusBug = new BooleanTweak("fix_focus_bug", true);
+    private final BooleanTweak attackSleepingVillagers = new BooleanTweak("attack_sleeping_villagers", true);
 
     @Override
     public String getId() {
@@ -22,7 +23,7 @@ public class VanillaModule implements IModule {
 
     @Override
     public List<AbstractTweak<?>> getTweaks() {
-        return List.of(fixFocusBug);
+        return List.of(fixFocusBug, attackSleepingVillagers);
     }
 
     @Override
@@ -31,5 +32,9 @@ public class VanillaModule implements IModule {
 
     public boolean isFixFocusBugEnabled() {
         return fixFocusBug.getValue();
+    }
+
+    public boolean isAttackSleepingVillagersEnabled() {
+        return attackSleepingVillagers.getValue();
     }
 }
