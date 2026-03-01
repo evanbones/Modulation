@@ -20,5 +20,14 @@
   "config.modulation.tweak.music.decay_time": "Combat Decay Time",
   "config.modulation.tweak.music.decay_time.tooltip": "Seconds required without any mobs around before the combat music fades out.",
   "config.modulation.tweak.music.sounds": "Combat Music Tracks",
-  "config.modulation.tweak.music.sounds.tooltip": "A list of Resource Locations for sounds to play during combat."
+  "config.modulation.tweak.music.sounds.tooltip": "A list of Resource Locations for sounds to play during combat.",
+
+  "config.modulation.module.reconnectible_chains": "Reconnectible Chains Integration",
+  "config.modulation.tweak.reconnectible_chains.enabled": "Enable Module",
+  "config.modulation.tweak.reconnectible_chains.enabled.tooltip": "Enables the Chain Staff logic and post placement.",
+  "config.modulation.tweak.reconnectible_chains.charge_up_ticks": "Staff Charge Up Time",
+  "config.modulation.tweak.reconnectible_chains.charge_up_ticks.tooltip": "The time (in ticks) required to hold right-click before the staff casts a post (20 ticks = 1 second).",
+
+  "item.modulation.chain_staff": "Chain Staff",
+  "block.modulation.cast_post": "Cast Post"
 }

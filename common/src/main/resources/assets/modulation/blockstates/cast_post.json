@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "modulation:block/cast_post"
+    }
+  }
+}

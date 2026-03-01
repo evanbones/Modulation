@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/bamboo_fence_post",
+  "textures": {
+    "texture": "modulation:block/cast_post",
+    "particle": "modulation:block/cast_post"
+  }
+}
