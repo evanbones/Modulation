@@ -1,7 +1,30 @@
 {
   "variants": {
-    "": {
+    "facing=up": {
       "model": "modulation:block/cast_post"
+    },
+    "facing=down": {
+      "model": "modulation:block/cast_post",
+      "x": 180
+    },
+    "facing=north": {
+      "model": "modulation:block/cast_post",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "modulation:block/cast_post",
+      "x": 90,
+      "y": 180
+    },
+    "facing=east": {
+      "model": "modulation:block/cast_post",
+      "x": 90,
+      "y": 90
+    },
+    "facing=west": {
+      "model": "modulation:block/cast_post",
+      "x": 90,
+      "y": 270
     }
   }
 }

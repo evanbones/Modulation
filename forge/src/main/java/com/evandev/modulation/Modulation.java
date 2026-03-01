@@ -7,6 +7,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -37,10 +38,17 @@ public class Modulation {
         ITEMS.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
+        MinecraftForge.EVENT_BUS.addListener(this::onServerTick);
         MinecraftForge.EVENT_BUS.addListener(this::onRegisterCommands);
 
         if (FMLEnvironment.dist.isClient()) {
             ModulationClient.register(ModLoadingContext.get().getActiveContainer());
+        }
+    }
+
+    private void onServerTick(TickEvent.ServerTickEvent event) {
+        if (event.phase == TickEvent.Phase.END) {
+            CommonClass.onServerTick();
         }
     }
 
