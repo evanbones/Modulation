@@ -3,6 +3,7 @@ package com.evandev.modulation;
 import com.evandev.modulation.api.IModule;
 import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.config.DynamicModConfig;
+import com.evandev.modulation.modules.reconnectible_chains.ReconnectibleChainsModule;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.MinecraftServer;
@@ -24,6 +25,13 @@ public class CommonClass {
 
         // Load Config
         DynamicModConfig.load();
+    }
+
+    public static void onServerTick() {
+        ReconnectibleChainsModule module = (ReconnectibleChainsModule) ModuleManager.getModule("reconnectible_chains");
+        if (module != null) {
+            module.onServerTick();
+        }
     }
 
     public static void registerCommands(CommandDispatcher<CommandSourceStack> dispatcher) {

@@ -4,6 +4,7 @@ import com.evandev.modulation.platform.Services;
 import com.evandev.modulation.registry.ModRegistry;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -24,6 +25,10 @@ public class Modulation implements ModInitializer {
 
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             CommonClass.registerCommands(dispatcher);
+        });
+
+        ServerTickEvents.END_SERVER_TICK.register(server -> {
+            CommonClass.onServerTick();
         });
     }
 }
