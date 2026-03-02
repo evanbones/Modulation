@@ -20,6 +20,7 @@ import net.minecraft.world.entity.Display;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.material.Fluids;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -41,8 +42,30 @@ public class PostPlacementManager {
             if (pending.ticksLeft == 8) {
                 ((DisplayInvoker) pending.display).invokeSetInterpolationDuration(8);
                 ((DisplayInvoker) pending.display).invokeSetInterpolationDelay(0);
+
+                float targetSx = 1f, targetSy = 1f, targetSz = 1f;
+                float targetTx = 0f, targetTy = 0f, targetTz = 0f;
+
+                switch (pending.facing) {
+                    case UP -> targetSy = 2f;
+                    case DOWN -> {
+                        targetSy = 2f;
+                        targetTy = -1f;
+                    }
+                    case SOUTH -> targetSz = 2f;
+                    case NORTH -> {
+                        targetSz = 2f;
+                        targetTz = -1f;
+                    }
+                    case EAST -> targetSx = 2f;
+                    case WEST -> {
+                        targetSx = 2f;
+                        targetTx = -1f;
+                    }
+                }
+
                 ((DisplayInvoker) pending.display).invokeSetTransformation(new Transformation(
-                        new Vector3f(0f, 0f, 0f), new Quaternionf(), new Vector3f(1f, 1f, 1f), new Quaternionf()
+                        new Vector3f(targetTx, targetTy, targetTz), new Quaternionf(), new Vector3f(targetSx, targetSy, targetSz), new Quaternionf()
                 ));
             }
 
@@ -58,10 +81,17 @@ public class PostPlacementManager {
     public void handlePostPlacement(ServerPlayer player, BlockPos pos, Direction clickedFace) {
         ServerLevel level = player.serverLevel();
 
+        BlockPos extensionPos = pos.relative(clickedFace);
+        if (level.isOutsideBuildHeight(pos) || level.isOutsideBuildHeight(extensionPos) ||
+                !level.getBlockState(pos).canBeReplaced() || !level.getBlockState(extensionPos).canBeReplaced()) {
+            return;
+        }
+
         boolean waterlogged = level.getFluidState(pos).getType() == Fluids.WATER;
         BlockState finalState = ModRegistry.CAST_POST.defaultBlockState()
                 .setValue(CastPostBlock.FACING, clickedFace)
-                .setValue(CastPostBlock.WATERLOGGED, waterlogged);
+                .setValue(CastPostBlock.WATERLOGGED, waterlogged)
+                .setValue(CastPostBlock.HALF, DoubleBlockHalf.LOWER);
 
         level.playSound(null, pos, SoundEvents.BAMBOO_WOOD_PLACE, SoundSource.BLOCKS, 1.0f, 0.5f);
         level.sendParticles(ParticleTypes.POOF, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 5, 0.1, 0.1, 0.1, 0.05);
@@ -117,10 +147,18 @@ public class PostPlacementManager {
         ServerPlayer player = pending.player;
 
         boolean waterlogged = level.getFluidState(pos).getType() == Fluids.WATER;
-        BlockState finalState = ModRegistry.CAST_POST.defaultBlockState()
+        BlockState finalStateLower = ModRegistry.CAST_POST.defaultBlockState()
                 .setValue(CastPostBlock.FACING, pending.facing)
-                .setValue(CastPostBlock.WATERLOGGED, waterlogged);
-        level.setBlock(pos, finalState, 3);
+                .setValue(CastPostBlock.WATERLOGGED, waterlogged)
+                .setValue(CastPostBlock.HALF, DoubleBlockHalf.LOWER);
+        level.setBlock(pos, finalStateLower, 3);
+
+        BlockPos upperPos = pos.relative(pending.facing);
+        boolean upperWaterlogged = level.getFluidState(upperPos).getType() == Fluids.WATER;
+        BlockState finalStateUpper = finalStateLower
+                .setValue(CastPostBlock.HALF, DoubleBlockHalf.UPPER)
+                .setValue(CastPostBlock.WATERLOGGED, upperWaterlogged);
+        level.setBlock(upperPos, finalStateUpper, 3);
 
         BlockParticleOption particleOption = new BlockParticleOption(ParticleTypes.BLOCK, level.getBlockState(pos.relative(pending.facing.getOpposite())));
         for (int i = 0; i < 15; i++) {
@@ -130,14 +168,14 @@ public class PostPlacementManager {
         }
 
         if (!firstPostMap.containsKey(player.getUUID())) {
-            firstPostMap.put(player.getUUID(), pos);
+            firstPostMap.put(player.getUUID(), upperPos);
         } else {
             BlockPos firstPos = firstPostMap.remove(player.getUUID());
-            double dist = Math.sqrt(pos.distSqr(firstPos));
+            double dist = Math.sqrt(upperPos.distSqr(firstPos));
 
             if (dist <= CommonClass.runtimeConfig.getMaxChainRange()) {
                 ChainKnotEntity knot1 = ChainKnotEntity.getOrCreate(level, firstPos, Items.CHAIN);
-                ChainKnotEntity knot2 = ChainKnotEntity.getOrCreate(level, pos, Items.CHAIN);
+                ChainKnotEntity knot2 = ChainKnotEntity.getOrCreate(level, upperPos, Items.CHAIN);
 
                 if (!knot1.equals(knot2)) {
                     knot1.attachChain(new Chainable.ChainData(knot2, Items.CHAIN), null, true);
