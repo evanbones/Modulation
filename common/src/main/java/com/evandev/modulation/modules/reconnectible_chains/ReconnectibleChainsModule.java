@@ -14,7 +14,7 @@ import java.util.List;
 public class ReconnectibleChainsModule implements IModule {
 
     private final BooleanTweak enabled = new BooleanTweak("enabled", true);
-    private final IntTweak chargeUpTicks = new IntTweak("charge_up_ticks", 20);
+    private final IntTweak chargeUpTicks = new IntTweak("charge_up_ticks", 10);
 
     @Override
     public String getId() {

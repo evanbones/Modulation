@@ -14,6 +14,7 @@
   "client": [
     "minecraft.ContainerEventHandlerMixin",
     "minecraft.GameRendererMixin",
+    "minecraft.LocalPlayerMixin",
     "minecraft.MusicManagerAccessor",
     "minecraft.SoundEngineMixin",
     "minecraft.SoundManagerAccessor"

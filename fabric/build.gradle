@@ -24,6 +24,7 @@ dependencies {
 
     // Reconnectible Chains
     modImplementation "maven.modrinth:reconnectible-chains:${reconnectible_chains_version}-fabric"
+    modRuntimeOnly "maven.modrinth:ziplines-rezipped:${ziplines_version}-fabric"
 
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
     implementation project(":common")
