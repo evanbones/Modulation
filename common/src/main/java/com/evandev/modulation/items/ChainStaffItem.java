@@ -81,7 +81,14 @@ public class ChainStaffItem extends PickaxeItem {
             Direction clickedFace = hit.getDirection();
 
             BlockState hitState = level.getBlockState(targetPos);
-            BlockPos placePos = hitState.canBeReplaced() ? targetPos : targetPos.relative(clickedFace);
+            BlockPos placePos;
+
+            if (hitState.canBeReplaced()) {
+                placePos = targetPos;
+                clickedFace = Direction.UP;
+            } else {
+                placePos = targetPos.relative(clickedFace);
+            }
 
             if (!level.isClientSide) {
                 module.handlePostPlacement((ServerPlayer) player, placePos, clickedFace);
