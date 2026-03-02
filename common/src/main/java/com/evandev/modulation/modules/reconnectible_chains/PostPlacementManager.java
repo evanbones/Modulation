@@ -174,8 +174,17 @@ public class PostPlacementManager {
             double dist = Math.sqrt(upperPos.distSqr(firstPos));
 
             if (dist <= CommonClass.runtimeConfig.getMaxChainRange()) {
-                ChainKnotEntity knot1 = ChainKnotEntity.getOrCreate(level, firstPos, Items.CHAIN);
-                ChainKnotEntity knot2 = ChainKnotEntity.getOrCreate(level, upperPos, Items.CHAIN);
+
+                BlockState state1 = level.getBlockState(firstPos);
+                Direction dir1 = Direction.UP;
+                if (state1.hasProperty(CastPostBlock.FACING)) {
+                    dir1 = state1.getValue(CastPostBlock.FACING);
+                }
+
+                Direction dir2 = pending.facing;
+
+                ChainKnotEntity knot1 = ChainKnotEntity.getOrCreate(level, firstPos, Items.CHAIN, dir1);
+                ChainKnotEntity knot2 = ChainKnotEntity.getOrCreate(level, upperPos, Items.CHAIN, dir2);
 
                 if (!knot1.equals(knot2)) {
                     knot1.attachChain(new Chainable.ChainData(knot2, Items.CHAIN), null, true);
