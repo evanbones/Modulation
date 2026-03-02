@@ -2,6 +2,7 @@ package com.evandev.modulation.registry;
 
 import com.evandev.modulation.blocks.CastPostBlock;
 import com.evandev.modulation.items.ChainStaffItem;
+import com.evandev.modulation.items.ZiplineStaffItem;
 import com.evandev.modulation.platform.Services;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -14,6 +15,7 @@ public class ModRegistry {
     public static Block CAST_POST;
     public static Item CAST_POST_ITEM;
     public static Item CHAIN_STAFF;
+    public static Item ZIPLINE_STAFF;
 
     public static void init() {
         if (Services.PLATFORM.isModLoaded("connectiblechains")) {
@@ -21,6 +23,7 @@ public class ModRegistry {
 
             CAST_POST_ITEM = new BlockItem(CAST_POST, new Item.Properties());
             CHAIN_STAFF = new ChainStaffItem();
+            ZIPLINE_STAFF = new ZiplineStaffItem();
         }
     }
 }

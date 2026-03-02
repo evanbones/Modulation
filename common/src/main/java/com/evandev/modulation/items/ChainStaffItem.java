@@ -2,9 +2,14 @@ package com.evandev.modulation.items;
 
 import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.reconnectible_chains.ReconnectibleChainsModule;
+import com.evandev.modulation.registry.ModRegistry;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
@@ -12,9 +17,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class ChainStaffItem extends PickaxeItem {
     public ChainStaffItem() {
@@ -33,8 +42,23 @@ public class ChainStaffItem extends PickaxeItem {
 
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+
+        if (player.isShiftKeyDown()) {
+            if (!level.isClientSide) {
+                ItemStack newStack = new ItemStack(ModRegistry.ZIPLINE_STAFF);
+                if (stack.hasTag()) if (stack.getTag() != null) {
+                    newStack.setTag(stack.getTag().copy());
+                }
+                newStack.setDamageValue(stack.getDamageValue());
+                player.setItemInHand(hand, newStack);
+                level.playSound(null, player.blockPosition(), SoundEvents.CHAIN_PLACE, SoundSource.PLAYERS, 1.0F, 1.0F);
+            }
+            return InteractionResultHolder.success(player.getItemInHand(hand));
+        }
+
         player.startUsingItem(hand);
-        return InteractionResultHolder.consume(player.getItemInHand(hand));
+        return InteractionResultHolder.consume(stack);
     }
 
     @Override
@@ -55,12 +79,21 @@ public class ChainStaffItem extends PickaxeItem {
         if (hit.getType() == HitResult.Type.BLOCK) {
             BlockPos targetPos = hit.getBlockPos();
             Direction clickedFace = hit.getDirection();
-            BlockPos placePos = targetPos.relative(clickedFace);
+
+            BlockState hitState = level.getBlockState(targetPos);
+            BlockPos placePos = hitState.canBeReplaced() ? targetPos : targetPos.relative(clickedFace);
 
             if (!level.isClientSide) {
                 module.handlePostPlacement((ServerPlayer) player, placePos, clickedFace);
             }
+            level.playSound(null, player.blockPosition(), SoundEvents.EVOKER_CAST_SPELL, SoundSource.PLAYERS, 1.0F, 1.0F);
             player.getCooldowns().addCooldown(this, 20);
         }
+    }
+
+    @Override
+    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, @NotNull TooltipFlag isAdvanced) {
+        tooltipComponents.add(Component.translatable("tooltip.modulation.placement_mode").withStyle(ChatFormatting.GOLD));
+        tooltipComponents.add(Component.translatable("tooltip.modulation.switch_zipline_mode").withStyle(ChatFormatting.GRAY));
     }
 }

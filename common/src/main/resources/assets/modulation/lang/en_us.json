@@ -29,5 +29,9 @@
   "config.modulation.tweak.reconnectible_chains.charge_up_ticks.tooltip": "The time (in ticks) required to hold right-click before the staff casts a post (20 ticks = 1 second).",
 
   "item.modulation.chain_staff": "Chain Staff",
-  "block.modulation.cast_post": "Cast Post"
+  "item.modulation.zipline_staff": "Chain Staff",
+  "block.modulation.cast_post": "Cast Post",
+
+  "tooltip.modulation.placement_mode": "Placement Mode",
+  "tooltip.modulation.switch_zipline_mode": "Shift + Right-Click to switch to Zipline mode"
 }

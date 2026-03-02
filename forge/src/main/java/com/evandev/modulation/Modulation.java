@@ -1,10 +1,17 @@
 package com.evandev.modulation;
 
+import com.evandev.modulation.blocks.CastPostBlock;
 import com.evandev.modulation.client.ModulationClient;
+import com.evandev.modulation.items.ChainStaffItem;
+import com.evandev.modulation.items.ZiplineStaffItem;
 import com.evandev.modulation.platform.Services;
 import com.evandev.modulation.registry.ModRegistry;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.TickEvent;
@@ -26,12 +33,27 @@ public class Modulation {
     public Modulation() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        ModRegistry.init();
-
         if (Services.PLATFORM.isModLoaded("connectiblechains")) {
-            BLOCKS.register("cast_post", () -> ModRegistry.CAST_POST);
-            ITEMS.register("cast_post", () -> ModRegistry.CAST_POST_ITEM);
-            ITEMS.register("chain_staff", () -> ModRegistry.CHAIN_STAFF);
+
+            BLOCKS.register("cast_post", () -> {
+                ModRegistry.CAST_POST = new CastPostBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(5.0f, 6.0f).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion());
+                return ModRegistry.CAST_POST;
+            });
+
+            ITEMS.register("cast_post", () -> {
+                ModRegistry.CAST_POST_ITEM = new BlockItem(ModRegistry.CAST_POST, new Item.Properties());
+                return ModRegistry.CAST_POST_ITEM;
+            });
+
+            ITEMS.register("chain_staff", () -> {
+                ModRegistry.CHAIN_STAFF = new ChainStaffItem();
+                return ModRegistry.CHAIN_STAFF;
+            });
+
+            ITEMS.register("zipline_staff", () -> {
+                ModRegistry.ZIPLINE_STAFF = new ZiplineStaffItem();
+                return ModRegistry.ZIPLINE_STAFF;
+            });
         }
 
         BLOCKS.register(modEventBus);

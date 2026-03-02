@@ -20,6 +20,7 @@ import net.minecraft.world.entity.Display;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluids;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
@@ -37,8 +38,8 @@ public class PostPlacementManager {
         pendingPosts.removeIf(pending -> {
             pending.ticksLeft--;
 
-            if (pending.ticksLeft == 10) {
-                ((DisplayInvoker) pending.display).invokeSetInterpolationDuration(10);
+            if (pending.ticksLeft == 8) {
+                ((DisplayInvoker) pending.display).invokeSetInterpolationDuration(8);
                 ((DisplayInvoker) pending.display).invokeSetInterpolationDelay(0);
                 ((DisplayInvoker) pending.display).invokeSetTransformation(new Transformation(
                         new Vector3f(0f, 0f, 0f), new Quaternionf(), new Vector3f(1f, 1f, 1f), new Quaternionf()
@@ -56,9 +57,14 @@ public class PostPlacementManager {
 
     public void handlePostPlacement(ServerPlayer player, BlockPos pos, Direction clickedFace) {
         ServerLevel level = player.serverLevel();
-        BlockState finalState = ModRegistry.CAST_POST.defaultBlockState().setValue(CastPostBlock.FACING, clickedFace);
+
+        boolean waterlogged = level.getFluidState(pos).getType() == Fluids.WATER;
+        BlockState finalState = ModRegistry.CAST_POST.defaultBlockState()
+                .setValue(CastPostBlock.FACING, clickedFace)
+                .setValue(CastPostBlock.WATERLOGGED, waterlogged);
 
         level.playSound(null, pos, SoundEvents.BAMBOO_WOOD_PLACE, SoundSource.BLOCKS, 1.0f, 0.5f);
+        level.sendParticles(ParticleTypes.POOF, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 5, 0.1, 0.1, 0.1, 0.05);
 
         Display.BlockDisplay display = EntityType.BLOCK_DISPLAY.create(level);
         if (display != null) {
@@ -101,7 +107,7 @@ public class PostPlacementManager {
             ));
 
             level.addFreshEntity(display);
-            pendingPosts.add(new PendingPost(pos, clickedFace, level, display, player, 11));
+            pendingPosts.add(new PendingPost(pos, clickedFace, level, display, player, 9));
         }
     }
 
@@ -110,7 +116,10 @@ public class PostPlacementManager {
         BlockPos pos = pending.pos;
         ServerPlayer player = pending.player;
 
-        BlockState finalState = ModRegistry.CAST_POST.defaultBlockState().setValue(CastPostBlock.FACING, pending.facing);
+        boolean waterlogged = level.getFluidState(pos).getType() == Fluids.WATER;
+        BlockState finalState = ModRegistry.CAST_POST.defaultBlockState()
+                .setValue(CastPostBlock.FACING, pending.facing)
+                .setValue(CastPostBlock.WATERLOGGED, waterlogged);
         level.setBlock(pos, finalState, 3);
 
         BlockParticleOption particleOption = new BlockParticleOption(ParticleTypes.BLOCK, level.getBlockState(pos.relative(pending.facing.getOpposite())));
@@ -119,7 +128,6 @@ public class PostPlacementManager {
             double offsetZ = level.random.nextGaussian() * 0.15;
             level.sendParticles(particleOption, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 1, offsetX, 0.2, offsetZ, 0.1);
         }
-        level.sendParticles(ParticleTypes.POOF, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 5, 0.1, 0.1, 0.1, 0.05);
 
         if (!firstPostMap.containsKey(player.getUUID())) {
             firstPostMap.put(player.getUUID(), pos);
