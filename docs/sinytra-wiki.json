@@ -1,6 +1,7 @@
 {
   "id": "modulation",
   "platforms": {
+    "curseforge": "modulation",
     "modrinth": "modulation"
   }
 }
