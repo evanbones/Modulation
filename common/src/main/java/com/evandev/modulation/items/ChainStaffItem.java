@@ -21,17 +21,18 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class ChainStaffItem extends PickaxeItem {
     public ChainStaffItem() {
-        super(Tiers.IRON, 4, -2.8F, new Item.Properties().durability(2031));
+        super(Tiers.IRON, new Item.Properties()
+                .durability(2031)
+                .attributes(PickaxeItem.createAttributes(Tiers.IRON, 4.0F, -2.8F)));
     }
 
     @Override
-    public int getUseDuration(@NotNull ItemStack stack) {
+    public int getUseDuration(@NotNull ItemStack stack, @NotNull LivingEntity entity) {
         return 72000;
     }
 
@@ -47,10 +48,10 @@ public class ChainStaffItem extends PickaxeItem {
         if (player.isShiftKeyDown()) {
             if (!level.isClientSide) {
                 ItemStack newStack = new ItemStack(ModRegistry.ZIPLINE_STAFF);
-                if (stack.hasTag()) if (stack.getTag() != null) {
-                    newStack.setTag(stack.getTag().copy());
-                }
+
+                newStack.applyComponents(stack.getComponentsPatch());
                 newStack.setDamageValue(stack.getDamageValue());
+
                 player.setItemInHand(hand, newStack);
                 level.playSound(null, player.blockPosition(), SoundEvents.CHAIN_PLACE, SoundSource.PLAYERS, 1.0F, 1.0F);
             }
@@ -68,7 +69,7 @@ public class ChainStaffItem extends PickaxeItem {
         ReconnectibleChainsModule module = (ReconnectibleChainsModule) ModuleManager.getModule("reconnectible_chains");
         if (module == null || !module.isEnabled()) return;
 
-        int duration = this.getUseDuration(stack) - timeLeft;
+        int duration = this.getUseDuration(stack, player) - timeLeft;
         if (duration < module.getChargeUpTicks()) return;
 
         BlockHitResult hit = level.clip(new ClipContext(
@@ -99,7 +100,7 @@ public class ChainStaffItem extends PickaxeItem {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, @NotNull TooltipFlag isAdvanced) {
+    public void appendHoverText(@NotNull ItemStack stack, @NotNull Item.TooltipContext context, List<Component> tooltipComponents, @NotNull TooltipFlag isAdvanced) {
         tooltipComponents.add(Component.translatable("tooltip.modulation.placement_mode").withStyle(ChatFormatting.GOLD));
         tooltipComponents.add(Component.translatable("tooltip.modulation.switch_zipline_mode").withStyle(ChatFormatting.GRAY));
     }

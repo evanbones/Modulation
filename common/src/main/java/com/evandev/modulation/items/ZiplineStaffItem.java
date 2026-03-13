@@ -11,13 +11,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class ZiplineStaffItem extends PickaxeItem {
     public ZiplineStaffItem() {
-        super(Tiers.IRON, 4, -2.8F, new Item.Properties().durability(2031));
+        super(Tiers.IRON, new Item.Properties()
+                .durability(2031)
+                .attributes(PickaxeItem.createAttributes(Tiers.IRON, 4.0F, -2.8F)));
     }
 
     @Override
@@ -27,10 +28,10 @@ public class ZiplineStaffItem extends PickaxeItem {
         if (player.isShiftKeyDown()) {
             if (!level.isClientSide) {
                 ItemStack newStack = new ItemStack(ModRegistry.CHAIN_STAFF);
-                if (stack.hasTag()) if (stack.getTag() != null) {
-                    newStack.setTag(stack.getTag().copy());
-                }
+
+                newStack.applyComponents(stack.getComponentsPatch());
                 newStack.setDamageValue(stack.getDamageValue());
+
                 player.setItemInHand(hand, newStack);
                 level.playSound(null, player.blockPosition(), SoundEvents.CHAIN_PLACE, SoundSource.PLAYERS, 1.0F, 1.0F);
             }
@@ -40,7 +41,7 @@ public class ZiplineStaffItem extends PickaxeItem {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, @NotNull TooltipFlag isAdvanced) {
+    public void appendHoverText(@NotNull ItemStack stack, @NotNull Item.TooltipContext context, List<Component> tooltipComponents, @NotNull TooltipFlag isAdvanced) {
         tooltipComponents.add(Component.literal("Zipline Mode").withStyle(ChatFormatting.AQUA));
         tooltipComponents.add(Component.literal("Shift + Right-Click to switch to Placement Mode").withStyle(ChatFormatting.GRAY));
     }

@@ -1,4 +1,4 @@
-package com.evandev.modulation.mixin.minecraft;
+package com.evandev.modulation.mixin.minecraft.accessor;
 
 import net.minecraft.world.entity.Display;
 import net.minecraft.world.level.block.state.BlockState;

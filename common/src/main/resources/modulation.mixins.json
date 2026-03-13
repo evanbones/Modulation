@@ -7,17 +7,17 @@
   "mixins": [
     "figura.CommandDispatcherMixin",
     "figura.LoadCommandMixin",
-    "minecraft.BlockDisplayInvoker",
-    "minecraft.DisplayInvoker",
+    "minecraft.accessor.BlockDisplayInvoker",
+    "minecraft.accessor.DisplayAccessor",
     "minecraft.EntityMixin"
   ],
   "client": [
     "minecraft.ContainerEventHandlerMixin",
     "minecraft.GameRendererMixin",
     "minecraft.LocalPlayerMixin",
-    "minecraft.MusicManagerAccessor",
+    "minecraft.accessor.MusicManagerAccessor",
     "minecraft.SoundEngineMixin",
-    "minecraft.SoundManagerAccessor"
+    "minecraft.accessor.SoundManagerAccessor"
   ],
   "server": [],
   "plugin": "com.evandev.modulation.mixin.ModulationMixinPlugin",

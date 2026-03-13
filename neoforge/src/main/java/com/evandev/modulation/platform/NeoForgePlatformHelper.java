@@ -3,47 +3,49 @@ package com.evandev.modulation.platform;
 import com.evandev.modulation.networking.FiguraClearPayload;
 import com.evandev.modulation.networking.FiguraSyncPayload;
 import com.evandev.modulation.platform.services.IPlatformHelper;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.level.ServerPlayer;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.loading.FMLLoader;
+import net.neoforged.fml.loading.FMLPaths;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.nio.file.Path;
 
-public class FabricPlatformHelper implements IPlatformHelper {
+public class NeoForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public String getPlatformName() {
-        return "Fabric";
+        return "NeoForge";
     }
 
     @Override
     public boolean isModLoaded(String modId) {
-        return FabricLoader.getInstance().isModLoaded(modId);
+        return ModList.get().isLoaded(modId);
     }
 
     @Override
     public boolean isDevelopmentEnvironment() {
-        return FabricLoader.getInstance().isDevelopmentEnvironment();
+        return !FMLLoader.isProduction();
     }
 
     @Override
     public Path getConfigDirectory() {
-        return FabricLoader.getInstance().getConfigDir();
+        return FMLPaths.CONFIGDIR.get();
     }
 
     @Override
     public boolean isPhysicalClient() {
-        return FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT;
+        return FMLLoader.getDist() == Dist.CLIENT;
     }
 
     @Override
     public void sendFiguraLoadPacket(ServerPlayer player, String skinName) {
-        ServerPlayNetworking.send(player, new FiguraSyncPayload(skinName));
+        PacketDistributor.sendToPlayer(player, new FiguraSyncPayload(skinName));
     }
 
     @Override
     public void sendFiguraClearPacket(ServerPlayer player) {
-        ServerPlayNetworking.send(player, new FiguraClearPayload());
+        PacketDistributor.sendToPlayer(player, new FiguraClearPayload());
     }
 }

@@ -4,10 +4,9 @@ import com.evandev.connectiblechains.CommonClass;
 import com.evandev.connectiblechains.entity.ChainKnotEntity;
 import com.evandev.connectiblechains.entity.Chainable;
 import com.evandev.modulation.blocks.CastPostBlock;
-import com.evandev.modulation.mixin.minecraft.BlockDisplayInvoker;
-import com.evandev.modulation.mixin.minecraft.DisplayInvoker;
+import com.evandev.modulation.mixin.minecraft.accessor.BlockDisplayInvoker;
+import com.evandev.modulation.mixin.minecraft.accessor.DisplayAccessor;
 import com.evandev.modulation.registry.ModRegistry;
-import com.mojang.math.Transformation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -40,8 +39,8 @@ public class PostPlacementManager {
             pending.ticksLeft--;
 
             if (pending.ticksLeft == 8) {
-                ((DisplayInvoker) pending.display).invokeSetInterpolationDuration(8);
-                ((DisplayInvoker) pending.display).invokeSetInterpolationDelay(0);
+                pending.display.getEntityData().set(DisplayAccessor.getInterpolationDurationId(), 8);
+                pending.display.getEntityData().set(DisplayAccessor.getInterpolationDelayId(), 0);
 
                 float targetSx = 1f, targetSy = 1f, targetSz = 1f;
                 float targetTx = 0f, targetTy = 0f, targetTz = 0f;
@@ -64,9 +63,11 @@ public class PostPlacementManager {
                     }
                 }
 
-                ((DisplayInvoker) pending.display).invokeSetTransformation(new Transformation(
-                        new Vector3f(targetTx, targetTy, targetTz), new Quaternionf(), new Vector3f(targetSx, targetSy, targetSz), new Quaternionf()
-                ));
+                Quaternionf defaultRotation = new Quaternionf();
+                pending.display.getEntityData().set(DisplayAccessor.getTranslationId(), new Vector3f(targetTx, targetTy, targetTz));
+                pending.display.getEntityData().set(DisplayAccessor.getScaleId(), new Vector3f(targetSx, targetSy, targetSz));
+                pending.display.getEntityData().set(DisplayAccessor.getLeftRotationId(), defaultRotation);
+                pending.display.getEntityData().set(DisplayAccessor.getRightRotationId(), defaultRotation);
             }
 
             if (pending.ticksLeft <= 0) {
@@ -132,9 +133,11 @@ public class PostPlacementManager {
                 }
             }
 
-            ((DisplayInvoker) display).invokeSetTransformation(new Transformation(
-                    new Vector3f(tx, ty, tz), new Quaternionf(), new Vector3f(sx, sy, sz), new Quaternionf()
-            ));
+            Quaternionf defaultRotation = new Quaternionf();
+            display.getEntityData().set(DisplayAccessor.getTranslationId(), new Vector3f(tx, ty, tz));
+            display.getEntityData().set(DisplayAccessor.getScaleId(), new Vector3f(sx, sy, sz));
+            display.getEntityData().set(DisplayAccessor.getLeftRotationId(), defaultRotation);
+            display.getEntityData().set(DisplayAccessor.getRightRotationId(), defaultRotation);
 
             level.addFreshEntity(display);
             pendingPosts.add(new PendingPost(pos, clickedFace, level, display, player, 9));

@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(GameRenderer.class)
 public class GameRendererMixin {
 
-    @Inject(method = "pick", at = @At("TAIL"))
+    @Inject(method = "pick(F)V", at = @At("TAIL"))
     private void onPick(float partialTicks, CallbackInfo ci) {
         Minecraft mc = Minecraft.getInstance();
         Entity entity = mc.getCameraEntity();

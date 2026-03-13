@@ -92,7 +92,7 @@ public class CastPostBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public void playerWillDestroy(Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
+    public @NotNull BlockState playerWillDestroy(Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
         if (!level.isClientSide && player.isCreative()) {
             DoubleBlockHalf half = state.getValue(HALF);
             if (half == DoubleBlockHalf.UPPER) {
@@ -104,7 +104,7 @@ public class CastPostBlock extends Block implements SimpleWaterloggedBlock {
                 }
             }
         }
-        super.playerWillDestroy(level, pos, state, player);
+        return super.playerWillDestroy(level, pos, state, player);
     }
 
     @Override

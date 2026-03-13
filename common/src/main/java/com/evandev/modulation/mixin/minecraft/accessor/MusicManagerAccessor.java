@@ -1,4 +1,4 @@
-package com.evandev.modulation.mixin.minecraft;
+package com.evandev.modulation.mixin.minecraft.accessor;
 
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.sounds.MusicManager;

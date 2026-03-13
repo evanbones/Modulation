@@ -3,7 +3,8 @@ package com.evandev.modulation.client;
 import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.client.compat.FiguraClientHandler;
 import com.evandev.modulation.modules.MusicModule;
-import com.evandev.modulation.platform.FabricPlatformHelper;
+import com.evandev.modulation.networking.FiguraClearPayload;
+import com.evandev.modulation.networking.FiguraSyncPayload;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -12,13 +13,12 @@ public class ModulationClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        ClientPlayNetworking.registerGlobalReceiver(FabricPlatformHelper.FIGURA_SYNC, (client, handler, buf, responseSender) -> {
-            String skin = buf.readUtf();
-            client.execute(() -> FiguraClientHandler.loadSkin(skin));
+        ClientPlayNetworking.registerGlobalReceiver(FiguraSyncPayload.TYPE, (payload, context) -> {
+            context.client().execute(() -> FiguraClientHandler.loadSkin(payload.skinName()));
         });
 
-        ClientPlayNetworking.registerGlobalReceiver(FabricPlatformHelper.FIGURA_CLEAR, (client, handler, buf, responseSender) -> {
-            client.execute(FiguraClientHandler::clearSkin);
+        ClientPlayNetworking.registerGlobalReceiver(FiguraClearPayload.TYPE, (payload, context) -> {
+            context.client().execute(FiguraClientHandler::clearSkin);
         });
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {

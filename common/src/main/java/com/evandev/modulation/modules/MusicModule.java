@@ -6,8 +6,8 @@ import com.evandev.modulation.api.IModule;
 import com.evandev.modulation.api.tweaks.BooleanTweak;
 import com.evandev.modulation.api.tweaks.IntTweak;
 import com.evandev.modulation.api.tweaks.StringListTweak;
-import com.evandev.modulation.mixin.minecraft.MusicManagerAccessor;
-import com.evandev.modulation.mixin.minecraft.SoundManagerAccessor;
+import com.evandev.modulation.mixin.minecraft.accessor.MusicManagerAccessor;
+import com.evandev.modulation.mixin.minecraft.accessor.SoundManagerAccessor;
 import com.evandev.modulation.modules.music.CombatSoundInstance;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -165,7 +165,7 @@ public class MusicModule implements IModule {
         int idx = rand.nextInt(soundList.size());
         String soundStr = soundList.get(idx).trim();
 
-        ResourceLocation soundLocation = new ResourceLocation(soundStr);
+        ResourceLocation soundLocation = ResourceLocation.parse(soundStr);
         SoundEvent sound = BuiltInRegistries.SOUND_EVENT.get(soundLocation);
 
         if (sound == null) {
