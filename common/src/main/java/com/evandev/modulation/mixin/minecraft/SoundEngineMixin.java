@@ -2,6 +2,7 @@ package com.evandev.modulation.mixin.minecraft;
 
 import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.MusicModule;
+import com.evandev.modulation.modules.music.MusicClientLogic;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.sounds.SoundEngine;
 import net.minecraft.sounds.SoundSource;
@@ -18,8 +19,9 @@ public class SoundEngineMixin {
         if (sound.getSource() == SoundSource.MUSIC || sound.getSource() == SoundSource.RECORDS) {
             MusicModule module = (MusicModule) ModuleManager.getModule("music");
             if (module != null && module.shouldLoad()) {
-                if (!module.isCombatSound(sound)) {
-                    cir.setReturnValue(cir.getReturnValueF() * module.getVanillaMusicMultiplier());
+                MusicClientLogic logic = MusicClientLogic.getInstance();
+                if (!logic.isCombatSound(sound)) {
+                    cir.setReturnValue(cir.getReturnValueF() * logic.getVanillaMusicMultiplier());
                 }
             }
         }

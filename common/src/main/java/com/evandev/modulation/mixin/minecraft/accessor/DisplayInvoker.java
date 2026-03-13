@@ -1,4 +1,4 @@
-package com.evandev.modulation.mixin.minecraft;
+package com.evandev.modulation.mixin.minecraft.accessor;
 
 import com.mojang.math.Transformation;
 import net.minecraft.world.entity.Display;

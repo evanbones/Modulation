@@ -3,6 +3,7 @@ package com.evandev.modulation.client;
 import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.client.compat.FiguraClientHandler;
 import com.evandev.modulation.modules.MusicModule;
+import com.evandev.modulation.modules.music.MusicClientLogic;
 import com.evandev.modulation.platform.FabricPlatformHelper;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -24,7 +25,7 @@ public class ModulationClient implements ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             MusicModule module = (MusicModule) ModuleManager.getModule("music");
             if (module != null && module.shouldLoad()) {
-                module.onClientTick(client);
+                MusicClientLogic.getInstance().onClientTick(client);
             }
         });
     }

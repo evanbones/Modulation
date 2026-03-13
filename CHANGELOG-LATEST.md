@@ -1,1 +1,3 @@
-- Initial release.
+### Fixed
+
+- Fixed crash on dedicated servers.
