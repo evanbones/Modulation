@@ -3,6 +3,7 @@ package com.evandev.modulation.client;
 import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.client.integration.ClothConfigIntegration;
 import com.evandev.modulation.modules.MusicModule;
+import com.evandev.modulation.modules.music.MusicClientLogic;
 import com.evandev.modulation.platform.Services;
 import net.minecraft.client.Minecraft;
 import net.neoforged.fml.ModContainer;
@@ -23,7 +24,7 @@ public class ModulationClient {
         if (mc.player != null) {
             MusicModule module = (MusicModule) ModuleManager.getModule("music");
             if (module != null && module.shouldLoad()) {
-                module.onClientTick(mc);
+                MusicClientLogic.getInstance().onClientTick(mc);
             }
         }
     }
