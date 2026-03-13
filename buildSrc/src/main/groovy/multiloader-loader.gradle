@@ -43,6 +43,7 @@ publishMods {
         accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
         projectId = "1482883"
         minecraftVersions.add("${minecraft_version}")
+
         optional("cloth-config")
         optional("reconnectible-chains")
         optional("figura")
@@ -52,6 +53,7 @@ publishMods {
         accessToken = providers.environmentVariable("MODRINTH_TOKEN")
         projectId = "ItRzabx0"
         minecraftVersions.add("${minecraft_version}")
+
         optional("cloth-config")
         optional("reconnectible-chains")
         optional("figura")
