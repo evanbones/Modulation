@@ -1,3 +1,3 @@
 ### Fixed
 
-- Fixed crash on dedicated servers.
+- Fixed certain tags not working without Reconnectible Chains.

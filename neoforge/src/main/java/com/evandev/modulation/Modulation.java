@@ -34,27 +34,25 @@ public class Modulation {
 
     public Modulation(IEventBus modEventBus, ModContainer modContainer) {
 
-        if (Services.PLATFORM.isModLoaded("connectiblechains")) {
-            BLOCKS.register("cast_post", () -> {
-                ModRegistry.CAST_POST = new CastPostBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(5.0f, 6.0f).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion());
-                return ModRegistry.CAST_POST;
-            });
+        BLOCKS.register("cast_post", () -> {
+            ModRegistry.CAST_POST = new CastPostBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(5.0f, 6.0f).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion());
+            return ModRegistry.CAST_POST;
+        });
 
-            ITEMS.register("cast_post", () -> {
-                ModRegistry.CAST_POST_ITEM = new BlockItem(ModRegistry.CAST_POST, new Item.Properties());
-                return ModRegistry.CAST_POST_ITEM;
-            });
+        ITEMS.register("cast_post", () -> {
+            ModRegistry.CAST_POST_ITEM = new BlockItem(ModRegistry.CAST_POST, new Item.Properties());
+            return ModRegistry.CAST_POST_ITEM;
+        });
 
-            ITEMS.register("chain_staff", () -> {
-                ModRegistry.CHAIN_STAFF = new ChainStaffItem();
-                return ModRegistry.CHAIN_STAFF;
-            });
+        ITEMS.register("chain_staff", () -> {
+            ModRegistry.CHAIN_STAFF = new ChainStaffItem();
+            return ModRegistry.CHAIN_STAFF;
+        });
 
-            ITEMS.register("zipline_staff", () -> {
-                ModRegistry.ZIPLINE_STAFF = new ZiplineStaffItem();
-                return ModRegistry.ZIPLINE_STAFF;
-            });
-        }
+        ITEMS.register("zipline_staff", () -> {
+            ModRegistry.ZIPLINE_STAFF = new ZiplineStaffItem();
+            return ModRegistry.ZIPLINE_STAFF;
+        });
 
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);

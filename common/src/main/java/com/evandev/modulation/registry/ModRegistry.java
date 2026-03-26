@@ -18,12 +18,10 @@ public class ModRegistry {
     public static Item ZIPLINE_STAFF;
 
     public static void init() {
-        if (Services.PLATFORM.isModLoaded("connectiblechains")) {
-            CAST_POST = new CastPostBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(5.0f, 6.0f).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion());
+        CAST_POST = new CastPostBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(5.0f, 6.0f).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion());
 
-            CAST_POST_ITEM = new BlockItem(CAST_POST, new Item.Properties());
-            CHAIN_STAFF = new ChainStaffItem();
-            ZIPLINE_STAFF = new ZiplineStaffItem();
-        }
+        CAST_POST_ITEM = new BlockItem(CAST_POST, new Item.Properties());
+        CHAIN_STAFF = new ChainStaffItem();
+        ZIPLINE_STAFF = new ZiplineStaffItem();
     }
 }
