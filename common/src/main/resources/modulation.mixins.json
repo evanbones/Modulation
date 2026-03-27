@@ -14,10 +14,7 @@
   "client": [
     "minecraft.ContainerEventHandlerMixin",
     "minecraft.GameRendererMixin",
-    "minecraft.LocalPlayerMixin",
-    "minecraft.accessor.MusicManagerAccessor",
-    "minecraft.SoundEngineMixin",
-    "minecraft.accessor.SoundManagerAccessor"
+    "minecraft.LocalPlayerMixin"
   ],
   "server": [],
   "plugin": "com.evandev.modulation.mixin.ModulationMixinPlugin",
