@@ -7,16 +7,20 @@
   "mixins": [
     "figura.CommandDispatcherMixin",
     "figura.LoadCommandMixin",
+    "minecraft.AnvilMenuMixin",
+    "minecraft.EntityMixin",
     "minecraft.accessor.BlockDisplayInvoker",
-    "minecraft.accessor.DisplayInvoker",
-    "minecraft.EntityMixin"
+    "minecraft.accessor.DisplayInvoker"
   ],
   "client": [
+    "minecraft.AnvilScreenMixin",
     "minecraft.ContainerEventHandlerMixin",
     "minecraft.GameRendererMixin",
     "minecraft.LocalPlayerMixin"
   ],
-  "server": [],
+  "server": [
+    "minecraft.ServerPlayerMixin"
+  ],
   "plugin": "com.evandev.modulation.mixin.ModulationMixinPlugin",
   "injectors": {
     "defaultRequire": 1
