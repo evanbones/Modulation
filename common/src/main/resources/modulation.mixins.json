@@ -9,6 +9,7 @@
     "figura.LoadCommandMixin",
     "minecraft.AnvilMenuMixin",
     "minecraft.EntityMixin",
+    "minecraft.ServerPlayerMixin",
     "minecraft.accessor.BlockDisplayInvoker",
     "minecraft.accessor.DisplayAccessor"
   ],
