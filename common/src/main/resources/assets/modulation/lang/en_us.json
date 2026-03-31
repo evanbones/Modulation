@@ -9,6 +9,9 @@
   "config.modulation.tweak.vanilla.attack_sleeping_villagers.tooltip": "Allows you to directly attack villagers while they are sleeping.",
   "config.modulation.tweak.vanilla.fix_experience_loss": "Fix Dimension Experience Loss (MC-124177)",
   "config.modulation.tweak.vanilla.fix_experience_loss.tooltip": "Fixes a vanilla bug where experience levels disappear when changing dimensions without portals.",
+  "config.modulation.tweak.vanilla.fix_resource_filter_leak": "Fix Resource Filter Leak (MC-271761)",
+  "config.modulation.tweak.vanilla.fix_resource_filter_leak.tooltip": "Properly couples namespace and path checks for resource filters to prevent them from leaking into other namespaces.",
+
   "config.modulation.tweak.vanilla.remove_anvil_limit": "Remove Anvil Limit",
   "config.modulation.tweak.vanilla.remove_anvil_limit.tooltip": "Removes the 'Too Expensive!' 40-level cap on anvils.",
   "config.modulation.tweak.vanilla.no_anvil_enchant_cost": "No Anvil Enchant Cost",

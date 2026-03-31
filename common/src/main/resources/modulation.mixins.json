@@ -10,6 +10,8 @@
     "minecraft.AnvilMenuMixin",
     "minecraft.EntityMixin",
     "minecraft.ServerPlayerMixin",
+    "minecraft.MultiPackResourceManagerMixin",
+    "minecraft.accessor.ResourceFilterSectionAccessor",
     "minecraft.accessor.BlockDisplayInvoker",
     "minecraft.accessor.DisplayAccessor"
   ],
