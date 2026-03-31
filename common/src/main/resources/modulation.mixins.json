@@ -9,8 +9,10 @@
     "figura.LoadCommandMixin",
     "minecraft.AnvilMenuMixin",
     "minecraft.EntityMixin",
+    "minecraft.MultiPackResourceManagerMixin",
     "minecraft.accessor.BlockDisplayInvoker",
-    "minecraft.accessor.DisplayInvoker"
+    "minecraft.accessor.DisplayInvoker",
+    "minecraft.accessor.ResourceFilterSectionAccessor"
   ],
   "client": [
     "minecraft.AnvilScreenMixin",
