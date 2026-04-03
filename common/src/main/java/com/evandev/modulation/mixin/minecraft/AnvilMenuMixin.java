@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(AnvilMenu.class)
+@Mixin(value = AnvilMenu.class, priority = 1500)
 public abstract class AnvilMenuMixin extends ItemCombinerMenu {
 
     @Shadow
@@ -33,7 +33,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
         super(type, containerId, inventory, access);
     }
 
-    @ModifyConstant(method = "createResult", constant = @Constant(intValue = 40))
+    @ModifyConstant(method = "createResult", constant = @Constant(intValue = 40), require = 0)
     private int modulation$removeTooExpensiveLimit(int constant) {
         VanillaModule module = (VanillaModule) ModuleManager.getModule("vanilla");
         if (module != null && module.isRemoveAnvilLimitEnabled()) {
