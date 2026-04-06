@@ -2,6 +2,7 @@ package com.evandev.modulation.mixin.minecraft;
 
 import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.VanillaModule;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.world.entity.player.Inventory;
@@ -13,9 +14,7 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = AnvilMenu.class, priority = 1500)
@@ -32,7 +31,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
         super(type, containerId, inventory, access);
     }
 
-    @ModifyConstant(method = "createResult", constant = @Constant(intValue = 40), require = 0)
+    @ModifyExpressionValue(method = "createResult", at = @At(value = "CONSTANT", args = "intValue=40"), require = 0)
     private int modulation$removeTooExpensiveLimit(int constant) {
         VanillaModule module = (VanillaModule) ModuleManager.getModule("vanilla");
         if (module != null && module.isRemoveAnvilLimitEnabled()) {

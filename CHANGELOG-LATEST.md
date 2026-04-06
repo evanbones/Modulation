@@ -1,3 +1,3 @@
 ### Fixed
 
-- Fixed crash with Apotheosis.
+- Fixed crash with Zenith.
