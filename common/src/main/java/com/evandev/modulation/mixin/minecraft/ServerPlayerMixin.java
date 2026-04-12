@@ -18,7 +18,9 @@ public class ServerPlayerMixin {
         VanillaModule module = (VanillaModule) ModuleManager.getModule("vanilla");
         if (module != null && module.isFixExperienceLossEnabled()) {
             ServerPlayer player = (ServerPlayer) (Object) this;
-            player.connection.send(new ClientboundSetExperiencePacket(player.experienceProgress, player.totalExperience, player.experienceLevel));
+            if (player.connection != null) {
+                player.connection.send(new ClientboundSetExperiencePacket(player.experienceProgress, player.totalExperience, player.experienceLevel));
+            }
         }
     }
 }

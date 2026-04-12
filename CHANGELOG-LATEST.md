@@ -1,3 +1,3 @@
 ### Fixed
 
-- Fixed crash with Zenith.
+- Fixed server kicking players on 1.20.1.
