@@ -12,6 +12,7 @@ public class VanillaModule implements IModule {
     private final BooleanTweak attackSleepingVillagers = new BooleanTweak("attack_sleeping_villagers", true);
     private final BooleanTweak fixExperienceLoss = new BooleanTweak("fix_experience_loss", true);
     private final BooleanTweak fixResourceFilterLeak = new BooleanTweak("fix_resource_filter_leak", true);
+    private final BooleanTweak fixDensityMemoization = new BooleanTweak("fix_density_memoization", true);
 
     private final BooleanTweak removeAnvilLimit = new BooleanTweak("remove_anvil_limit", true);
     private final BooleanTweak noAnvilEnchantCost = new BooleanTweak("no_anvil_enchant_cost", false);
@@ -30,12 +31,18 @@ public class VanillaModule implements IModule {
 
     @Override
     public List<AbstractTweak<?>> getTweaks() {
-        return List.of(fixFocusBug, attackSleepingVillagers, fixExperienceLoss, fixResourceFilterLeak,
-                removeAnvilLimit, noAnvilEnchantCost, noAnvilRepairCost, noAnvilRenameCost);
+        return List.of(
+                fixFocusBug, attackSleepingVillagers, fixExperienceLoss, fixResourceFilterLeak,
+                fixDensityMemoization, removeAnvilLimit, noAnvilEnchantCost, noAnvilRepairCost, noAnvilRenameCost
+        );
     }
 
     @Override
     public void initialize() {
+    }
+
+    public boolean isFixDensityMemoizationEnabled() {
+        return fixDensityMemoization.getValue();
     }
 
     public boolean isFixFocusBugEnabled() {

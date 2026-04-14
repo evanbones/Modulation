@@ -1,3 +1,3 @@
-### Fixed
+### Added
 
-- Fixed server kicking players on 1.20.1.
+- Added a fix for a vanilla performance issue that should speed up Tectonic world generation by ~30%.

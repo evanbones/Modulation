@@ -20,6 +20,8 @@
   "config.modulation.tweak.vanilla.no_anvil_repair_cost.tooltip": "Removes the experience cost when repairing items.",
   "config.modulation.tweak.vanilla.no_anvil_rename_cost": "No Anvil Rename Cost",
   "config.modulation.tweak.vanilla.no_anvil_rename_cost.tooltip": "Removes the experience cost when renaming items.",
+  "config.modulation.tweak.vanilla.fix_density_memoization": "Fix Density Function Memoization",
+  "config.modulation.tweak.vanilla.fix_density_memoization.tooltip": "Fixes an exponential performance bug in Minecraft's world generation math. Highly recommended.",
 
   "config.modulation.module.figura": "Figura Tweaks",
   "config.modulation.tweak.figura.enable_target_selectors": "Improved Figura Load Command",

@@ -12,7 +12,9 @@
     "minecraft.MultiPackResourceManagerMixin",
     "minecraft.accessor.BlockDisplayInvoker",
     "minecraft.accessor.DisplayInvoker",
-    "minecraft.accessor.ResourceFilterSectionAccessor"
+    "minecraft.accessor.ResourceFilterSectionAccessor",
+    "minecraft.perf.DensityFunctionsMapAllMixin",
+    "minecraft.perf.DensityFunctionsMarkerMixin"
   ],
   "client": [
     "minecraft.AnvilScreenMixin",
