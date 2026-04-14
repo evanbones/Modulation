@@ -13,7 +13,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -119,8 +118,7 @@ public class ChainStaffItem extends PickaxeItem {
             if (success) {
                 if (!level.isClientSide) {
                     if (module.isConsumeDurabilityEnabled() && !player.isCreative()) {
-                        EquipmentSlot slot = player.getItemInHand(InteractionHand.MAIN_HAND) == stack ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
-                        stack.hurtAndBreak(1, player, slot);
+                        stack.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(player.getUsedItemHand()));
                     }
                 }
                 level.playSound(null, player.blockPosition(), SoundEvents.EVOKER_CAST_SPELL, SoundSource.PLAYERS, 1.0F, 1.0F);
