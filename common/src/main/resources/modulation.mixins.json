@@ -14,8 +14,7 @@
     "minecraft.accessor.BlockDisplayInvoker",
     "minecraft.accessor.DisplayAccessor",
     "minecraft.accessor.ResourceFilterSectionAccessor",
-    "minecraft.perf.DensityFunctionsMapAllMixin",
-    "minecraft.perf.MarkerMixin"
+    "minecraft.perf.DensityFunctionsMapAllMixin"
   ],
   "client": [
     "minecraft.AnvilScreenMixin",
