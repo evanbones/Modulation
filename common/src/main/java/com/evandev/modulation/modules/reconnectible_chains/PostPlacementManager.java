@@ -41,6 +41,8 @@ public class PostPlacementManager {
 
             if (pending.ticksLeft == 8) {
                 pending.display.getEntityData().set(DisplayAccessor.getInterpolationDurationId(), 8);
+                pending.display.getEntityData().set(DisplayAccessor.getInterpolationDelayId(), -1);
+
                 pending.display.getEntityData().set(DisplayAccessor.getInterpolationDelayId(), 0);
 
                 float targetSx = 1f, targetSy = 1f, targetSz = 1f;
