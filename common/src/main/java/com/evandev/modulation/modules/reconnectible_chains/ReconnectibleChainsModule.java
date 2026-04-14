@@ -13,8 +13,10 @@ import java.util.List;
 
 public class ReconnectibleChainsModule implements IModule {
 
-    private final BooleanTweak enabled = new BooleanTweak("enabled", true);
+    private final BooleanTweak enabled = new BooleanTweak("enabled", false);
     private final IntTweak chargeUpTicks = new IntTweak("charge_up_ticks", 10);
+    private final BooleanTweak consumeDurability = new BooleanTweak("consume_durability", true);
+    private final BooleanTweak consumeChains = new BooleanTweak("consume_chains", true);
 
     @Override
     public String getId() {
@@ -28,7 +30,7 @@ public class ReconnectibleChainsModule implements IModule {
 
     @Override
     public List<AbstractTweak<?>> getTweaks() {
-        return List.of(enabled, chargeUpTicks);
+        return List.of(enabled, chargeUpTicks, consumeDurability, consumeChains);
     }
 
     @Override
@@ -43,12 +45,20 @@ public class ReconnectibleChainsModule implements IModule {
         return chargeUpTicks.getValue();
     }
 
+    public boolean isConsumeDurabilityEnabled() {
+        return consumeDurability.getValue();
+    }
+
+    public boolean isConsumeChainsEnabled() {
+        return consumeChains.getValue();
+    }
+
     public void onServerTick() {
         PostPlacementManager.INSTANCE.tick();
     }
 
-    public void handlePostPlacement(ServerPlayer player, BlockPos pos, Direction clickedFace) {
-        if (!isEnabled()) return;
-        PostPlacementManager.INSTANCE.handlePostPlacement(player, pos, clickedFace);
+    public boolean handlePostPlacement(ServerPlayer player, BlockPos pos, Direction clickedFace) {
+        if (!isEnabled()) return false;
+        return PostPlacementManager.INSTANCE.handlePostPlacement(player, pos, clickedFace);
     }
 }
