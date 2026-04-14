@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-04-13
+
+### Added
+
+- Added a fix for a vanilla performance issue that should speed up Tectonic world generation by ~30%.
+
+## [1.1.4] - 2026-04-12
+
+### Fixed
+
+- Fixed server kicking players on 1.20.1.
+
 ## [1.1.3] - 2026-04-06
 
 ### Fixed
