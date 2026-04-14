@@ -3,3 +3,5 @@ accessWidener v1 named
 accessible class net/minecraft/world/level/levelgen/DensityFunctions$Ap2
 accessible class net/minecraft/world/level/levelgen/DensityFunctions$ShiftedNoise
 accessible class net/minecraft/world/level/levelgen/DensityFunctions$RangeChoice
+accessible class net/minecraft/world/level/levelgen/DensityFunctions$Marker
+accessible class net/minecraft/world/level/levelgen/DensityFunctions$Marker$Type

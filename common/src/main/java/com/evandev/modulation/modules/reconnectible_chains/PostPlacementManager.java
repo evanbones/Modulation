@@ -3,6 +3,7 @@ package com.evandev.modulation.modules.reconnectible_chains;
 import com.evandev.connectiblechains.CommonClass;
 import com.evandev.connectiblechains.entity.ChainKnotEntity;
 import com.evandev.connectiblechains.entity.Chainable;
+import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.blocks.CastPostBlock;
 import com.evandev.modulation.mixin.minecraft.accessor.BlockDisplayInvoker;
 import com.evandev.modulation.mixin.minecraft.accessor.DisplayInvoker;
@@ -78,13 +79,17 @@ public class PostPlacementManager {
         });
     }
 
-    public void handlePostPlacement(ServerPlayer player, BlockPos pos, Direction clickedFace) {
+    public boolean hasFirstPost(UUID uuid) {
+        return firstPostMap.containsKey(uuid);
+    }
+
+    public boolean handlePostPlacement(ServerPlayer player, BlockPos pos, Direction clickedFace) {
         ServerLevel level = player.serverLevel();
 
         BlockPos extensionPos = pos.relative(clickedFace);
         if (level.isOutsideBuildHeight(pos) || level.isOutsideBuildHeight(extensionPos) ||
                 !level.getBlockState(pos).canBeReplaced() || !level.getBlockState(extensionPos).canBeReplaced()) {
-            return;
+            return false;
         }
 
         boolean waterlogged = level.getFluidState(pos).getType() == Fluids.WATER;
@@ -139,6 +144,7 @@ public class PostPlacementManager {
             level.addFreshEntity(display);
             pendingPosts.add(new PendingPost(pos, clickedFace, level, display, player, 9));
         }
+        return true;
     }
 
     private void placeFinalBlock(PendingPost pending) {
@@ -186,7 +192,22 @@ public class PostPlacementManager {
                 ChainKnotEntity knot1 = ChainKnotEntity.getOrCreate(level, firstPos, Items.CHAIN, dir1);
                 ChainKnotEntity knot2 = ChainKnotEntity.getOrCreate(level, upperPos, Items.CHAIN, dir2);
 
-                if (!knot1.equals(knot2)) {
+                boolean canAttach = true;
+                ReconnectibleChainsModule module =
+                        (ReconnectibleChainsModule) ModuleManager.getModule("reconnectible_chains");
+
+                if (module != null && module.isConsumeChainsEnabled() && !player.isCreative()) {
+                    canAttach = false;
+                    for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+                        if (player.getInventory().getItem(i).is(Items.CHAIN)) {
+                            player.getInventory().getItem(i).shrink(1);
+                            canAttach = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (canAttach && !knot1.equals(knot2)) {
                     knot1.attachChain(new Chainable.ChainData(knot2, Items.CHAIN), null, true);
                 }
             }

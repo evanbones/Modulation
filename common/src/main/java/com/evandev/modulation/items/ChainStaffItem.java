@@ -1,6 +1,7 @@
 package com.evandev.modulation.items;
 
 import com.evandev.modulation.api.ModuleManager;
+import com.evandev.modulation.modules.reconnectible_chains.PostPlacementManager;
 import com.evandev.modulation.modules.reconnectible_chains.ReconnectibleChainsModule;
 import com.evandev.modulation.registry.ModRegistry;
 import net.minecraft.ChatFormatting;
@@ -12,6 +13,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -71,6 +73,25 @@ public class ChainStaffItem extends PickaxeItem {
         int duration = this.getUseDuration(stack) - timeLeft;
         if (duration < module.getChargeUpTicks()) return;
 
+        boolean isSecondPost = PostPlacementManager.INSTANCE.hasFirstPost(player.getUUID());
+        boolean needsChains = module.isConsumeChainsEnabled() && !player.isCreative() && isSecondPost;
+
+        int chainSlot = -1;
+        if (needsChains) {
+            for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+                if (player.getInventory().getItem(i).is(Items.CHAIN)) {
+                    chainSlot = i;
+                    break;
+                }
+            }
+            if (chainSlot == -1) {
+                if (level.isClientSide) {
+                    player.displayClientMessage(Component.translatable("message.modulation.no_chains").withStyle(ChatFormatting.RED), true);
+                }
+                return;
+            }
+        }
+
         BlockHitResult hit = level.clip(new ClipContext(
                 player.getEyePosition(),
                 player.getEyePosition().add(player.getViewVector(1.0F).scale(500.0)),
@@ -90,11 +111,21 @@ public class ChainStaffItem extends PickaxeItem {
                 placePos = targetPos.relative(clickedFace);
             }
 
+            boolean success = true;
             if (!level.isClientSide) {
-                module.handlePostPlacement((ServerPlayer) player, placePos, clickedFace);
+                success = module.handlePostPlacement((ServerPlayer) player, placePos, clickedFace);
             }
-            level.playSound(null, player.blockPosition(), SoundEvents.EVOKER_CAST_SPELL, SoundSource.PLAYERS, 1.0F, 1.0F);
-            player.getCooldowns().addCooldown(this, 20);
+
+            if (success) {
+                if (!level.isClientSide) {
+                    if (module.isConsumeDurabilityEnabled() && !player.isCreative()) {
+                        EquipmentSlot slot = player.getItemInHand(InteractionHand.MAIN_HAND) == stack ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
+                        stack.hurtAndBreak(1, player, slot);
+                    }
+                }
+                level.playSound(null, player.blockPosition(), SoundEvents.EVOKER_CAST_SPELL, SoundSource.PLAYERS, 1.0F, 1.0F);
+                player.getCooldowns().addCooldown(this, 20);
+            }
         }
     }
 

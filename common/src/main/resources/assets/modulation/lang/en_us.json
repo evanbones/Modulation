@@ -32,7 +32,11 @@
   "config.modulation.tweak.reconnectible_chains.enabled.tooltip": "Enables the Chain Staff logic and post placement.",
   "config.modulation.tweak.reconnectible_chains.charge_up_ticks": "Staff Charge Up Time",
   "config.modulation.tweak.reconnectible_chains.charge_up_ticks.tooltip": "The time (in ticks) required to hold right-click before the staff casts a post (20 ticks = 1 second).",
-
+  "config.modulation.tweak.reconnectible_chains.consume_durability": "Consume Durability",
+  "config.modulation.tweak.reconnectible_chains.consume_durability.tooltip": "Whether the Chain Staff takes durability damage when placing chains.",
+  "config.modulation.tweak.reconnectible_chains.consume_chains": "Consume Chains",
+  "config.modulation.tweak.reconnectible_chains.consume_chains.tooltip": "Whether the Chain Staff requires and consumes Chains from your inventory.",
+  "message.modulation.no_chains": "You don't have any Chains in your inventory!",
   "item.modulation.chain_staff": "Chain Staff",
   "item.modulation.zipline_staff": "Chain Staff",
   "block.modulation.cast_post": "Cast Post",
