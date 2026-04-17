@@ -1,3 +1,3 @@
 ### Fixed
 
-- Fixed mixin crash again.
+- Fixed crash with Inhabitants.
