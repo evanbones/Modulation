@@ -1,17 +1,21 @@
 package com.evandev.modulation;
 
+import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.blocks.CastPostBlock;
 import com.evandev.modulation.client.ModulationClient;
 import com.evandev.modulation.items.ChainStaffItem;
 import com.evandev.modulation.items.ZiplineStaffItem;
+import com.evandev.modulation.modules.reconnectible_chains.ReconnectibleChainsModule;
 import com.evandev.modulation.registry.ModRegistry;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -56,11 +60,23 @@ public class Modulation {
         ITEMS.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::addCreative);
+
         MinecraftForge.EVENT_BUS.addListener(this::onServerTick);
         MinecraftForge.EVENT_BUS.addListener(this::onRegisterCommands);
 
         if (FMLEnvironment.dist.isClient()) {
             ModulationClient.register(ModLoadingContext.get().getActiveContainer());
+        }
+    }
+
+    private void addCreative(BuildCreativeModeTabContentsEvent event) {
+        if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
+            ReconnectibleChainsModule module = (ReconnectibleChainsModule) ModuleManager.getModule("reconnectible_chains");
+            if (module != null && module.isEnabled()) {
+                event.accept(ModRegistry.CHAIN_STAFF);
+                event.accept(ModRegistry.ZIPLINE_STAFF);
+            }
         }
     }
 

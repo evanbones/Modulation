@@ -1,12 +1,16 @@
 package com.evandev.modulation;
 
+import com.evandev.modulation.api.ModuleManager;
+import com.evandev.modulation.modules.reconnectible_chains.ReconnectibleChainsModule;
 import com.evandev.modulation.registry.ModRegistry;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTabs;
 
 public class Modulation implements ModInitializer {
 
@@ -20,6 +24,14 @@ public class Modulation implements ModInitializer {
         Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(Constants.MOD_ID, "zipline_staff"), ModRegistry.ZIPLINE_STAFF);
 
         CommonClass.init();
+
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(entries -> {
+            ReconnectibleChainsModule module = (ReconnectibleChainsModule) ModuleManager.getModule("reconnectible_chains");
+            if (module != null && module.isEnabled()) {
+                entries.accept(ModRegistry.CHAIN_STAFF);
+                entries.accept(ModRegistry.ZIPLINE_STAFF);
+            }
+        });
 
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             CommonClass.registerCommands(dispatcher);
