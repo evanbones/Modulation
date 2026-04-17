@@ -21,7 +21,7 @@ public class DensityFunctionsMapAllMixin {
     private void modulation$checkCacheBeforeRecursion(DensityFunction.Visitor visitor, CallbackInfoReturnable<DensityFunction> cir) {
         VanillaModule module = (VanillaModule) ModuleManager.getModule("vanilla");
         if (module != null && module.isFixDensityMemoizationEnabled()) {
-            DensityFunction self = (DensityFunction) (Object) this;
+            DensityFunction self = (DensityFunction) this;
             DensityFunction cached = MapAllCache.get(visitor, self);
             if (cached != null) {
                 cir.setReturnValue(cached);
@@ -35,7 +35,7 @@ public class DensityFunctionsMapAllMixin {
     private void modulation$saveToCacheAfterRecursion(DensityFunction.Visitor visitor, CallbackInfoReturnable<DensityFunction> cir) {
         VanillaModule module = (VanillaModule) ModuleManager.getModule("vanilla");
         if (module != null && module.isFixDensityMemoizationEnabled()) {
-            DensityFunction self = (DensityFunction) (Object) this;
+            DensityFunction self = (DensityFunction) this;
             MapAllCache.put(visitor, self, cir.getReturnValue());
             MapAllCache.pop();
         }
