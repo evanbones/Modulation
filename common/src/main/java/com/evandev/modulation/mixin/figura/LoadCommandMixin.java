@@ -1,5 +1,6 @@
 package com.evandev.modulation.mixin.figura;
 
+import com.evandev.modulation.client.ClientCommandHelper;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
@@ -13,6 +14,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.zip.ZipFile;
 
 @Mixin(targets = "org.figuramc.figura.commands.LoadCommand")
@@ -62,7 +64,7 @@ public class LoadCommandMixin {
             return SharedSuggestionProvider.suggest(availableSkins, builder);
         };
 
-        java.util.function.Function<String, RequiredArgumentBuilder<FiguraClientCommandSource, String>> createSkinArg = (targetStr) -> {
+        Function<String, RequiredArgumentBuilder<FiguraClientCommandSource, String>> createSkinArg = (targetStr) -> {
             RequiredArgumentBuilder<FiguraClientCommandSource, String> skin = RequiredArgumentBuilder.argument("skin", StringArgumentType.greedyString());
             skin.suggests(skinSuggestions);
             skin.executes(context -> {
@@ -70,7 +72,7 @@ public class LoadCommandMixin {
                 String skinName = StringArgumentType.getString(context, "skin");
 
                 if (finalTarget.contains(" ")) finalTarget = "\"" + finalTarget + "\"";
-                com.evandev.modulation.client.ClientCommandHelper.forward("modulation_figura load " + finalTarget + " " + skinName);
+                ClientCommandHelper.forward("figura load " + finalTarget + " " + skinName);
                 return 1;
             });
             return skin;

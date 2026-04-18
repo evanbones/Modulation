@@ -54,7 +54,7 @@ dependencies {
     modImplementation "me.shedaniel.cloth:cloth-config-forge:${cloth_config_version}"
 
     // Figura
-    modCompileOnly "maven.modrinth:figura:${figura_version_forge}"
+    modImplementation "maven.modrinth:figura:${figura_version_forge}"
 
     // Reconnectible Chains
     modImplementation "maven.modrinth:reconnectible-chains:${reconnectible_chains_version}-forge"

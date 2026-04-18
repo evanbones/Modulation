@@ -1,5 +1,7 @@
 package com.evandev.modulation.mixin.figura;
 
+import com.evandev.modulation.client.ClientCommandHelper;
+import com.evandev.modulation.platform.Services;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -34,8 +36,8 @@ public class CommandDispatcherMixin {
                             })
                             .executes(context -> {
                                 String targets = StringArgumentType.getString(context, "targets");
-                                if (com.evandev.modulation.platform.Services.PLATFORM.isPhysicalClient()) {
-                                    com.evandev.modulation.client.ClientCommandHelper.forward("modulation_figura clear " + targets);
+                                if (Services.PLATFORM.isPhysicalClient()) {
+                                    ClientCommandHelper.forward("modulation_figura clear " + targets);
                                 }
                                 return 1;
                             })
