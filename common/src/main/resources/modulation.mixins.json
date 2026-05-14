@@ -12,6 +12,7 @@
     "minecraft.MultiPackResourceManagerMixin",
     "minecraft.accessor.BlockDisplayInvoker",
     "minecraft.accessor.DisplayInvoker",
+    "minecraft.accessor.MapColorAccessor",
     "minecraft.accessor.ResourceFilterSectionAccessor",
     "minecraft.perf.DensityFunctionsMapAllMixin"
   ],

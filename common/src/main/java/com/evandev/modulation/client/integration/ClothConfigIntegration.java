@@ -1,5 +1,6 @@
 package com.evandev.modulation.client.integration;
 
+import com.evandev.modulation.Constants;
 import com.evandev.modulation.api.AbstractTweak;
 import com.evandev.modulation.api.IModule;
 import com.evandev.modulation.api.ModuleManager;
@@ -92,9 +93,18 @@ public class ClothConfigIntegration {
             for (AbstractTweak<?> tweak : module.getTweaks()) {
                 String translationKey = "config.modulation.tweak." + module.getId() + "." + tweak.getId();
 
-                TweakBuilder tweakBuilder = BUILDERS.get(tweak.getClass());
+                TweakBuilder tweakBuilder = null;
+                for (Map.Entry<Class<?>, TweakBuilder> entry : BUILDERS.entrySet()) {
+                    if (entry.getKey().isAssignableFrom(tweak.getClass())) {
+                        tweakBuilder = entry.getValue();
+                        break;
+                    }
+                }
+
                 if (tweakBuilder != null) {
                     category.addEntry(tweakBuilder.build(tweak, translationKey, entryBuilder));
+                } else {
+                    Constants.LOG.warn("No Cloth Config builder found for tweak: {}", tweak.getId());
                 }
             }
         }
