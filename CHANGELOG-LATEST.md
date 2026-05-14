@@ -1,3 +1,3 @@
-### Fixed
+### Added
 
-- Fixed crash with Inhabitants.
+- Added config option for nicer map colors.
