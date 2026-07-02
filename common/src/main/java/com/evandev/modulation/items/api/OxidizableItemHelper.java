@@ -84,10 +84,7 @@ public final class OxidizableItemHelper {
         ResourceLocation loc = BuiltInRegistries.BLOCK.getKey(block);
         if (loc.getPath().startsWith("waxed_")) {
             String baseName = loc.getPath().substring("waxed_".length());
-            ResourceLocation baseLoc = ResourceLocation.fromNamespaceAndPath(loc.getNamespace(), baseName);
-            if (BuiltInRegistries.BLOCK.containsKey(baseLoc)) {
-                return Optional.of(BuiltInRegistries.BLOCK.get(baseLoc));
-            }
+            return findBlockByPath(loc.getNamespace(), baseName);
         }
         return Optional.empty();
     }
@@ -108,10 +105,27 @@ public final class OxidizableItemHelper {
         for (String prefix : prefixes) {
             if (path.startsWith(prefix)) {
                 String baseName = path.substring(prefix.length());
-                ResourceLocation baseLoc = ResourceLocation.fromNamespaceAndPath(loc.getNamespace(), baseName);
-                if (BuiltInRegistries.BLOCK.containsKey(baseLoc)) {
-                    return Optional.of(BuiltInRegistries.BLOCK.get(baseLoc));
-                }
+                return findBlockByPath(loc.getNamespace(), baseName);
+            }
+        }
+
+        return Optional.empty();
+    }
+
+    private static Optional<Block> findBlockByPath(String originalNamespace, String baseName) {
+        ResourceLocation exactLoc = ResourceLocation.fromNamespaceAndPath(originalNamespace, baseName);
+        if (BuiltInRegistries.BLOCK.containsKey(exactLoc)) {
+            return Optional.of(BuiltInRegistries.BLOCK.get(exactLoc));
+        }
+
+        ResourceLocation vanillaLoc = ResourceLocation.withDefaultNamespace(baseName);
+        if (BuiltInRegistries.BLOCK.containsKey(vanillaLoc)) {
+            return Optional.of(BuiltInRegistries.BLOCK.get(vanillaLoc));
+        }
+
+        for (ResourceLocation registryKey : BuiltInRegistries.BLOCK.keySet()) {
+            if (registryKey.getPath().equals(baseName)) {
+                return Optional.of(BuiltInRegistries.BLOCK.get(registryKey));
             }
         }
 

@@ -1,4 +1,3 @@
-### Added
+### Fixed
 
-- Improved mod compatibility for tooltips.
-- Added tags for waxed, trapped, and infested items.
+- Improved tooltip matching with mods that use dynamic resources.
