@@ -9,10 +9,14 @@ import it.unimi.dsi.fastutil.objects.Reference2ByteMap;
 import it.unimi.dsi.fastutil.objects.Reference2ByteOpenHashMap;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.InfestedBlock;
 import net.minecraft.world.level.block.TrappedChestBlock;
 import org.jetbrains.annotations.Nullable;
@@ -32,6 +36,12 @@ public abstract class GuiGraphicsMixin {
     private static final ResourceLocation MODULATION$REDSTONE_OVERLAY = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "container/slot_redstone_overlay");
     @Unique
     private static final ResourceLocation MODULATION$INFESTED_OVERLAY = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "container/slot_infested_overlay");
+
+    @Unique
+    private static final TagKey<Item> MODULATION$TAG_INFESTED = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "infested"));
+    @Unique
+    private static final TagKey<Item> MODULATION$TAG_TRAPPED = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "trapped"));
+
     @Unique
     private static final byte MODULATION$OVERLAY_FLAG_INFESTED = 1;
     @Unique
@@ -53,13 +63,20 @@ public abstract class GuiGraphicsMixin {
         }
 
         overlayFlags = 0;
+        ResourceLocation loc = BuiltInRegistries.ITEM.getKey(item);
+        String path = loc.getPath();
+
         if (item instanceof BlockItem blockItem) {
-            if (blockItem.getBlock() instanceof InfestedBlock) {
+            Block block = blockItem.getBlock();
+            if (block instanceof InfestedBlock || path.contains("infested")) {
                 overlayFlags |= MODULATION$OVERLAY_FLAG_INFESTED;
             }
-            if (blockItem.getBlock() instanceof TrappedChestBlock) {
+            if (block instanceof TrappedChestBlock || path.contains("trapped")) {
                 overlayFlags |= MODULATION$OVERLAY_FLAG_REDSTONE;
             }
+        } else {
+            if (path.contains("infested")) overlayFlags |= MODULATION$OVERLAY_FLAG_INFESTED;
+            if (path.contains("trapped")) overlayFlags |= MODULATION$OVERLAY_FLAG_REDSTONE;
         }
 
         MODULATION$OVERLAY_FLAGS_CACHE.put(item, overlayFlags);
@@ -94,11 +111,19 @@ public abstract class GuiGraphicsMixin {
             }
 
             if (drawExtra) {
-                final byte overlayFlags = modulation$getOverlayFlags(stack.getItem());
-                if ((overlayFlags & MODULATION$OVERLAY_FLAG_INFESTED) != 0) {
+                boolean isInfested = stack.is(MODULATION$TAG_INFESTED);
+                boolean isTrapped = stack.is(MODULATION$TAG_TRAPPED);
+
+                if (!isInfested || !isTrapped) {
+                    final byte overlayFlags = modulation$getOverlayFlags(stack.getItem());
+                    if ((overlayFlags & MODULATION$OVERLAY_FLAG_INFESTED) != 0) isInfested = true;
+                    if ((overlayFlags & MODULATION$OVERLAY_FLAG_REDSTONE) != 0) isTrapped = true;
+                }
+
+                if (isInfested) {
                     this.blitSprite(MODULATION$INFESTED_OVERLAY, x - 3, y - 3, 24, 24);
                 }
-                if ((overlayFlags & MODULATION$OVERLAY_FLAG_REDSTONE) != 0) {
+                if (isTrapped) {
                     this.blitSprite(MODULATION$REDSTONE_OVERLAY, x - 3, y - 3, 24, 24);
                 }
             }

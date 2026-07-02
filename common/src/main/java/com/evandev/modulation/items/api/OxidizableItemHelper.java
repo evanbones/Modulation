@@ -2,8 +2,12 @@ package com.evandev.modulation.items.api;
 
 import com.evandev.modulation.items.impl.ItemOxidizationCacheInterface;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.HoneycombItem;
 import net.minecraft.world.item.Item;
@@ -16,6 +20,9 @@ import java.util.Optional;
 public final class OxidizableItemHelper {
     public static final Component WAXED_TOOLTIP = Component.translatable("tooltip.modulation.waxed").withStyle(ChatFormatting.GOLD);
 
+    public static final TagKey<Item> TAG_WAXED = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("modulation", "waxed"));
+    public static final TagKey<Item> TAG_COMMON_WAXED = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "waxed"));
+
     private static final MutableComponent[] WEATHERING_NAMES = new MutableComponent[]{
             Component.translatable("tooltip.modulation.weathering.unaffected").withStyle(ChatFormatting.GRAY),
             Component.translatable("tooltip.modulation.weathering.exposed").withStyle(ChatFormatting.GRAY),
@@ -24,28 +31,40 @@ public final class OxidizableItemHelper {
             Component.translatable("tooltip.modulation.weathering.unknown").withStyle(ChatFormatting.GRAY)
     };
 
-    /**
-     * Call this from a common setup phase or reload listener across your loaders.
-     * Pass in BuiltInRegistries.ITEM to populate the cache.
-     */
     public static void populateCache(Iterable<Item> items) {
         for (Item item : items) {
             if (!(item instanceof ItemOxidizationCacheInterface oxidizationCache)) continue;
 
             oxidizationCache.modulation$clearOxidizationCache();
 
-            if (!(item instanceof BlockItem blockItem)) continue;
+            ResourceLocation itemLoc = BuiltInRegistries.ITEM.getKey(item);
+            boolean isWaxedByName = itemLoc.getPath().contains("waxed");
+
+            if (!(item instanceof BlockItem blockItem)) {
+                if (isWaxedByName) oxidizationCache.modulation$setWaxed(true);
+                continue;
+            }
 
             final Block block = blockItem.getBlock();
             final Optional<Block> baseBlock = getNonWeatheringNonWaxedEquivalent(block);
             baseBlock.ifPresent(base -> oxidizationCache.modulation$setBaseItem(base.asItem()));
 
             final Optional<Block> nonWaxedBlock = getNonWaxedEquivalent(block);
-            if (nonWaxedBlock.orElse(block) instanceof WeatheringCopper weatheringCopper) {
+            Block effectiveBlockForWeathering = nonWaxedBlock.orElse(block);
+
+            if (effectiveBlockForWeathering instanceof WeatheringCopper weatheringCopper) {
                 oxidizationCache.modulation$setWeatherState(weatheringCopper.getAge());
+            } else {
+                String path = itemLoc.getPath();
+                if (path.contains("oxidized_"))
+                    oxidizationCache.modulation$setWeatherState(WeatheringCopper.WeatherState.OXIDIZED);
+                else if (path.contains("weathered_"))
+                    oxidizationCache.modulation$setWeatherState(WeatheringCopper.WeatherState.WEATHERED);
+                else if (path.contains("exposed_"))
+                    oxidizationCache.modulation$setWeatherState(WeatheringCopper.WeatherState.EXPOSED);
             }
 
-            if (nonWaxedBlock.isPresent()) {
+            if (nonWaxedBlock.isPresent() || isWaxedByName) {
                 oxidizationCache.modulation$setWaxed(true);
             }
         }
@@ -59,15 +78,44 @@ public final class OxidizableItemHelper {
     }
 
     public static Optional<Block> getNonWaxedEquivalent(Block block) {
-        final Block nonWaxedBlock = HoneycombItem.WAX_OFF_BY_BLOCK.get().get(block);
-        if (nonWaxedBlock == null) return Optional.empty();
-        return Optional.of(nonWaxedBlock);
+        Block nonWaxedBlock = HoneycombItem.WAX_OFF_BY_BLOCK.get().get(block);
+        if (nonWaxedBlock != null) return Optional.of(nonWaxedBlock);
+
+        ResourceLocation loc = BuiltInRegistries.BLOCK.getKey(block);
+        if (loc.getPath().startsWith("waxed_")) {
+            String baseName = loc.getPath().substring("waxed_".length());
+            ResourceLocation baseLoc = ResourceLocation.fromNamespaceAndPath(loc.getNamespace(), baseName);
+            if (BuiltInRegistries.BLOCK.containsKey(baseLoc)) {
+                return Optional.of(BuiltInRegistries.BLOCK.get(baseLoc));
+            }
+        }
+        return Optional.empty();
     }
 
     public static Optional<Block> getNonWeatheringEquivalent(Block block) {
-        final Block nonWeatheringBlock = WeatheringCopper.getFirst(block);
-        if (nonWeatheringBlock == block) return Optional.empty();
-        return Optional.of(nonWeatheringBlock);
+        Block current = block;
+        Block previous = WeatheringCopper.PREVIOUS_BY_BLOCK.get().get(current);
+        while (previous != null) {
+            current = previous;
+            previous = WeatheringCopper.PREVIOUS_BY_BLOCK.get().get(current);
+        }
+        if (current != block) return Optional.of(current);
+
+        ResourceLocation loc = BuiltInRegistries.BLOCK.getKey(block);
+        String path = loc.getPath();
+        String[] prefixes = {"exposed_", "weathered_", "oxidized_"};
+
+        for (String prefix : prefixes) {
+            if (path.startsWith(prefix)) {
+                String baseName = path.substring(prefix.length());
+                ResourceLocation baseLoc = ResourceLocation.fromNamespaceAndPath(loc.getNamespace(), baseName);
+                if (BuiltInRegistries.BLOCK.containsKey(baseLoc)) {
+                    return Optional.of(BuiltInRegistries.BLOCK.get(baseLoc));
+                }
+            }
+        }
+
+        return Optional.empty();
     }
 
     public static MutableComponent getWeatheringStateName(WeatheringCopper.WeatherState weatherState) {
@@ -79,6 +127,8 @@ public final class OxidizableItemHelper {
     }
 
     public static boolean isWaxed(ItemStack stack) {
+        if (stack.is(TAG_WAXED) || stack.is(TAG_COMMON_WAXED)) return true;
+
         if (stack.getItem() instanceof ItemOxidizationCacheInterface cache) {
             return cache.modulation$waxed();
         }

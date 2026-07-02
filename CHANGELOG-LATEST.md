@@ -1,3 +1,4 @@
 ### Added
 
-- Added config options for waxed, trapped, and infested tooltips.
+- Improved mod compatibility for tooltips.
+- Added tags for waxed, trapped, and infested items.

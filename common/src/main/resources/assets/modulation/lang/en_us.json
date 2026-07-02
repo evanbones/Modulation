@@ -49,10 +49,17 @@
   "item.modulation.zipline_staff": "Chain Staff",
   "block.modulation.cast_post": "Cast Post",
 
+  "tag.item.c.waxed": "Waxed",
+  "tag.item.modulation.waxed": "Waxed",
+  "tag.item.modulation.infested": "Infested",
+  "tag.item.modulation.trapped": "Trapped",
+
   "tooltip.modulation.waxed": "Waxed",
   "tooltip.modulation.weathering.exposed": "Exposed",
   "tooltip.modulation.weathering.weathered": "Weathered",
   "tooltip.modulation.weathering.oxidized": "Oxidized",
+  "tooltip.modulation.weathering.unknown": "Unknown",
+  "tooltip.modulation.weathering.unaffected": "Unaffected",
 
   "tooltip.modulation.placement_mode": "Placement Mode",
   "tooltip.modulation.switch_zipline_mode": "Shift + Right-Click to switch to Zipline mode"
