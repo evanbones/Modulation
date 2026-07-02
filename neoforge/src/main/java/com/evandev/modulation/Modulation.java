@@ -5,10 +5,11 @@ import com.evandev.modulation.client.ModulationClient;
 import com.evandev.modulation.client.compat.FiguraClientHandler;
 import com.evandev.modulation.items.ChainStaffItem;
 import com.evandev.modulation.items.ZiplineStaffItem;
+import com.evandev.modulation.items.api.OxidizableItemHelper;
 import com.evandev.modulation.networking.FiguraClearPayload;
 import com.evandev.modulation.networking.FiguraSyncPayload;
-import com.evandev.modulation.platform.Services;
 import com.evandev.modulation.registry.ModRegistry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.SoundType;
@@ -89,7 +90,10 @@ public class Modulation {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        event.enqueueWork(CommonClass::init);
+        event.enqueueWork(() -> {
+            CommonClass.init();
+            OxidizableItemHelper.populateCache(BuiltInRegistries.ITEM);
+        });
     }
 
     private void onRegisterCommands(RegisterCommandsEvent event) {

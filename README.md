@@ -32,5 +32,7 @@ Textures and ideas for the Reconnectible Chains module are
 from [Nekomaster](https://www.curseforge.com/members/nekomaster1000) and were originally created for use in his
 excellent modpack [Resurvival](https://www.curseforge.com/minecraft/modpacks/resurvival)!
 
+The improved tooltips feature is modified from [The Copperier Age](https://modrinth.com/mod/the-copperier-age).
+
 ---
 [![discord-plural](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/social/discord-plural_vector.svg)](https://discord.com/invite/6twDUSQBc4) [![github-plural](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/social/github-plural_vector.svg)](https://github.com/evanbones/Modulation)

@@ -1,10 +1,12 @@
 package com.evandev.modulation;
 
+import com.evandev.modulation.items.api.OxidizableItemHelper;
 import com.evandev.modulation.networking.FiguraClearPayload;
 import com.evandev.modulation.networking.FiguraSyncPayload;
 import com.evandev.modulation.registry.ModRegistry;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.event.lifecycle.v1.CommonLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.core.Registry;
@@ -26,6 +28,10 @@ public class Modulation implements ModInitializer {
         Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "zipline_staff"), ModRegistry.ZIPLINE_STAFF);
 
         CommonClass.init();
+
+        CommonLifecycleEvents.TAGS_LOADED.register((registries, client) -> {
+            OxidizableItemHelper.populateCache(BuiltInRegistries.ITEM);
+        });
 
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             CommonClass.registerCommands(dispatcher);

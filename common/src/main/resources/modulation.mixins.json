@@ -3,12 +3,15 @@
   "minVersion": "0.8",
   "package": "com.evandev.modulation.mixin",
   "refmap": "${mod_id}.refmap.json",
+  "plugin": "com.evandev.modulation.mixin.ModulationMixinPlugin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "figura.CommandDispatcherMixin",
     "figura.LoadCommandMixin",
     "minecraft.AnvilMenuMixin",
     "minecraft.EntityMixin",
+    "minecraft.ItemMixin",
+    "minecraft.ItemStackMixin",
     "minecraft.MultiPackResourceManagerMixin",
     "minecraft.ServerPlayerMixin",
     "minecraft.accessor.BlockDisplayInvoker",
@@ -18,13 +21,13 @@
     "minecraft.perf.DensityFunctionsMapAllMixin"
   ],
   "client": [
-    "minecraft.AnvilScreenMixin",
-    "minecraft.ContainerEventHandlerMixin",
-    "minecraft.GameRendererMixin",
-    "minecraft.LocalPlayerMixin"
+    "minecraft.client.AnvilScreenMixin",
+    "minecraft.client.ContainerEventHandlerMixin",
+    "minecraft.client.GameRendererMixin",
+    "minecraft.client.GuiGraphicsMixin",
+    "minecraft.client.LocalPlayerMixin"
   ],
   "server": [],
-  "plugin": "com.evandev.modulation.mixin.ModulationMixinPlugin",
   "injectors": {
     "defaultRequire": 1
   }

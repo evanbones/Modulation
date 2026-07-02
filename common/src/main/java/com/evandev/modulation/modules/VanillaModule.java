@@ -29,6 +29,21 @@ public class VanillaModule implements IModule {
             applyNicerMapColors(getValue());
         }
     };
+    private final BooleanTweak waxedItemIconOverlay = new BooleanTweak("waxed_item_icon_overlay", true);
+    private final BooleanTweak extraItemIconOverlays = new BooleanTweak("extra_item_icon_overlays", true);
+    private final BooleanTweak betterCopperTooltips = new BooleanTweak("better_copper_tooltips", true);
+
+    public boolean isWaxedItemIconOverlayEnabled() {
+        return waxedItemIconOverlay.getValue();
+    }
+
+    public boolean isExtraItemIconOverlaysEnabled() {
+        return extraItemIconOverlays.getValue();
+    }
+
+    public boolean isBetterCopperTooltipsEnabled() {
+        return betterCopperTooltips.getValue();
+    }
 
     @Override
     public String getId() {
@@ -45,7 +60,7 @@ public class VanillaModule implements IModule {
         return List.of(
                 fixFocusBug, attackSleepingVillagers, fixExperienceLoss, fixResourceFilterLeak,
                 fixDensityMemoization, removeAnvilLimit, noAnvilEnchantCost, noAnvilRepairCost,
-                noAnvilRenameCost, nicerMapColors
+                noAnvilRenameCost, nicerMapColors, waxedItemIconOverlay, extraItemIconOverlays, betterCopperTooltips
         );
     }
 

@@ -1,3 +1,3 @@
 ### Added
 
-- Added config option for nicer map colors.
+- Added config options for waxed, trapped, and infested tooltips.
