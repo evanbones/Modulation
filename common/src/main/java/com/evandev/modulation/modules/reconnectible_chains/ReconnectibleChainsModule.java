@@ -1,22 +1,22 @@
 package com.evandev.modulation.modules.reconnectible_chains;
 
-import com.evandev.modulation.api.AbstractTweak;
+import com.evandev.modulation.api.AbstractModule;
 import com.evandev.modulation.api.IModule;
 import com.evandev.modulation.api.tweaks.BooleanTweak;
 import com.evandev.modulation.api.tweaks.IntTweak;
 import com.evandev.modulation.platform.Services;
+import com.google.auto.service.AutoService;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 
-import java.util.List;
+@AutoService(IModule.class)
+public class ReconnectibleChainsModule extends AbstractModule {
 
-public class ReconnectibleChainsModule implements IModule {
-
-    private final BooleanTweak enabled = new BooleanTweak("enabled", false);
-    private final IntTweak chargeUpTicks = new IntTweak("charge_up_ticks", 10);
-    private final BooleanTweak consumeDurability = new BooleanTweak("consume_durability", true);
-    private final BooleanTweak consumeChains = new BooleanTweak("consume_chains", true);
+    private final BooleanTweak enabled = tweak(new BooleanTweak("enabled", false));
+    private final IntTweak chargeUpTicks = tweak(new IntTweak("charge_up_ticks", 10));
+    private final BooleanTweak consumeDurability = tweak(new BooleanTweak("consume_durability", true));
+    private final BooleanTweak consumeChains = tweak(new BooleanTweak("consume_chains", true));
 
     @Override
     public String getId() {
@@ -26,11 +26,6 @@ public class ReconnectibleChainsModule implements IModule {
     @Override
     public boolean shouldLoad() {
         return Services.PLATFORM.isModLoaded("connectiblechains");
-    }
-
-    @Override
-    public List<AbstractTweak<?>> getTweaks() {
-        return List.of(enabled, chargeUpTicks, consumeDurability, consumeChains);
     }
 
     @Override

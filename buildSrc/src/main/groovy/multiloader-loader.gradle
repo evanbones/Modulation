@@ -44,7 +44,7 @@ publishMods {
         projectId = "1482883"
         minecraftVersions.add("${minecraft_version}")
 
-        optional("cloth-config")
+        requires("yacl")
         optional("reconnectible-chains")
         optional("figura")
     }
@@ -54,7 +54,7 @@ publishMods {
         projectId = "ItRzabx0"
         minecraftVersions.add("${minecraft_version}")
 
-        optional("cloth-config")
+        requires("yacl")
         optional("reconnectible-chains")
         optional("figura")
     }

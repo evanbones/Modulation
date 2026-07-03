@@ -19,14 +19,23 @@ neoForge {
 
 
 dependencies {
-    compileOnly "me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}"
+    // YACL
+    compileOnly "maven.modrinth:yacl:${yacl_version}-neoforge"
+
+    // Figura
     compileOnly "maven.modrinth:figura:${figura_version_neoforge}"
+
+    // Reconnectible Chains
     compileOnly "maven.modrinth:reconnectible-chains:${reconnectible_chains_version}-neoforge"
+    compileOnly "maven.modrinth:cloth-config:${cloth_config_version}+neoforge"
 
     compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
     compileOnly group: 'org.ow2.asm', name: 'asm-tree', version: '9.6'
     compileOnly group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.3.5'
     annotationProcessor group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.3.5'
+
+    compileOnly 'com.google.auto.service:auto-service-annotations:1.1.1'
+    annotationProcessor 'com.google.auto.service:auto-service:1.1.1'
 }
 
 configurations {

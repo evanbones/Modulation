@@ -19,7 +19,7 @@ public class ModulationMixinPlugin implements IMixinConfigPlugin {
 
             if (dotIndex != -1) {
                 String subPackage = remainder.substring(0, dotIndex);
-                if (!subPackage.equals("minecraft")) {
+                if (!subPackage.equals("vanilla")) {
                     return isModLoaded(subPackage);
                 }
             }

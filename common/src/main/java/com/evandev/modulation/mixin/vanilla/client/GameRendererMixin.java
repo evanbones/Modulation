@@ -1,4 +1,4 @@
-package com.evandev.modulation.mixin.minecraft.client;
+package com.evandev.modulation.mixin.vanilla.client;
 
 import com.evandev.modulation.registry.ModRegistry;
 import net.minecraft.client.Minecraft;

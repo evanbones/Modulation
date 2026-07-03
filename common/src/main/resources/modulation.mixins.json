@@ -8,24 +8,26 @@
   "mixins": [
     "figura.CommandDispatcherMixin",
     "figura.LoadCommandMixin",
-    "minecraft.AnvilMenuMixin",
-    "minecraft.EntityMixin",
-    "minecraft.ItemMixin",
-    "minecraft.ItemStackMixin",
-    "minecraft.MultiPackResourceManagerMixin",
-    "minecraft.ServerPlayerMixin",
-    "minecraft.accessor.BlockDisplayInvoker",
-    "minecraft.accessor.DisplayAccessor",
-    "minecraft.accessor.MapColorAccessor",
-    "minecraft.accessor.ResourceFilterSectionAccessor",
-    "minecraft.perf.DensityFunctionsMapAllMixin"
+    "vanilla.AnvilMenuMixin",
+    "vanilla.CampfireBlockMixin",
+    "vanilla.EntityMixin",
+    "vanilla.FireBlockMixin",
+    "vanilla.ItemMixin",
+    "vanilla.ItemStackMixin",
+    "vanilla.MultiPackResourceManagerMixin",
+    "vanilla.ServerPlayerMixin",
+    "vanilla.accessor.BlockDisplayInvoker",
+    "vanilla.accessor.DisplayAccessor",
+    "vanilla.accessor.MapColorAccessor",
+    "vanilla.accessor.ResourceFilterSectionAccessor",
+    "vanilla.perf.DensityFunctionsMapAllMixin"
   ],
   "client": [
-    "minecraft.client.AnvilScreenMixin",
-    "minecraft.client.ContainerEventHandlerMixin",
-    "minecraft.client.GameRendererMixin",
-    "minecraft.client.GuiGraphicsMixin",
-    "minecraft.client.LocalPlayerMixin"
+    "vanilla.client.AnvilScreenMixin",
+    "vanilla.client.ContainerEventHandlerMixin",
+    "vanilla.client.GameRendererMixin",
+    "vanilla.client.GuiGraphicsMixin",
+    "vanilla.client.LocalPlayerMixin"
   ],
   "server": [],
   "injectors": {

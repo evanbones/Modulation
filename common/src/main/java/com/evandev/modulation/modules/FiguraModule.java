@@ -1,9 +1,10 @@
 package com.evandev.modulation.modules;
 
-import com.evandev.modulation.api.AbstractTweak;
+import com.evandev.modulation.api.AbstractModule;
 import com.evandev.modulation.api.IModule;
 import com.evandev.modulation.api.tweaks.BooleanTweak;
 import com.evandev.modulation.platform.Services;
+import com.google.auto.service.AutoService;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
@@ -20,7 +21,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.zip.ZipFile;
 
-public class FiguraModule implements IModule {
+@AutoService(IModule.class)
+public class FiguraModule extends AbstractModule {
 
     private static final SuggestionProvider<CommandSourceStack> SKIN_SUGGESTIONS = (context, builder) -> {
         List<String> availableSkins = new ArrayList<>();
@@ -68,7 +70,7 @@ public class FiguraModule implements IModule {
         return SharedSuggestionProvider.suggest(availableSkins, builder);
     };
 
-    private final BooleanTweak enableTargetSelectors = new BooleanTweak("enable_target_selectors", true);
+    private final BooleanTweak enableTargetSelectors = tweak(new BooleanTweak("enable_target_selectors", true));
 
     @Override
     public String getId() {
@@ -78,11 +80,6 @@ public class FiguraModule implements IModule {
     @Override
     public boolean shouldLoad() {
         return Services.PLATFORM.isModLoaded("figura");
-    }
-
-    @Override
-    public List<AbstractTweak<?>> getTweaks() {
-        return List.of(enableTargetSelectors);
     }
 
     @Override

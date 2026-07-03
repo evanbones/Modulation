@@ -1,4 +1,4 @@
-package com.evandev.modulation.mixin.minecraft;
+package com.evandev.modulation.mixin.vanilla;
 
 import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.items.impl.ItemOxidizationCacheInterface;
@@ -20,8 +20,10 @@ public class ItemMixin implements ItemOxidizationCacheInterface {
     @Unique
     @Nullable
     private WeatheringCopper.WeatherState modulation$weatherState = null;
+
     @Unique
     private boolean modulation$waxed = false;
+
     @Unique
     @Nullable
     private Item modulation$baseItem = null;

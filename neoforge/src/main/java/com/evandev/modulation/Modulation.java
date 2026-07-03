@@ -1,7 +1,7 @@
 package com.evandev.modulation;
 
 import com.evandev.modulation.blocks.CastPostBlock;
-import com.evandev.modulation.client.ModulationClient;
+import com.evandev.modulation.client.ClientConfigSetup;
 import com.evandev.modulation.client.compat.FiguraClientHandler;
 import com.evandev.modulation.items.ChainStaffItem;
 import com.evandev.modulation.items.ZiplineStaffItem;
@@ -65,7 +65,7 @@ public class Modulation {
         NeoForge.EVENT_BUS.addListener(this::onRegisterCommands);
 
         if (FMLEnvironment.dist.isClient()) {
-            ModulationClient.register(modContainer);
+            ClientConfigSetup.register(modContainer);
         }
     }
 

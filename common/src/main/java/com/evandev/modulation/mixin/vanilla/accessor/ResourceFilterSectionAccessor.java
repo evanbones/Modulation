@@ -1,4 +1,4 @@
-package com.evandev.modulation.mixin.minecraft.accessor;
+package com.evandev.modulation.mixin.vanilla.accessor;
 
 import net.minecraft.server.packs.resources.ResourceFilterSection;
 import net.minecraft.util.ResourceLocationPattern;

@@ -1,37 +1,48 @@
 package com.evandev.modulation.modules;
 
-import com.evandev.modulation.api.AbstractTweak;
+import com.evandev.modulation.api.AbstractModule;
 import com.evandev.modulation.api.IModule;
 import com.evandev.modulation.api.tweaks.BooleanTweak;
-import com.evandev.modulation.mixin.minecraft.accessor.MapColorAccessor;
+import com.evandev.modulation.mixin.vanilla.accessor.MapColorAccessor;
+import com.google.auto.service.AutoService;
 import net.minecraft.world.level.material.MapColor;
 
 import java.util.IdentityHashMap;
-import java.util.List;
 import java.util.Map;
 
-public class VanillaModule implements IModule {
+@AutoService(IModule.class)
+public class VanillaModule extends AbstractModule {
 
     private static Map<MapColor, Integer> VANILLA_COLORS = null;
     private static Map<MapColor, Integer> NICER_COLORS = null;
-    private final BooleanTweak fixFocusBug = new BooleanTweak("fix_focus_bug", true);
-    private final BooleanTweak attackSleepingVillagers = new BooleanTweak("attack_sleeping_villagers", true);
-    private final BooleanTweak fixExperienceLoss = new BooleanTweak("fix_experience_loss", true);
-    private final BooleanTweak fixResourceFilterLeak = new BooleanTweak("fix_resource_filter_leak", true);
-    private final BooleanTweak fixDensityMemoization = new BooleanTweak("fix_density_memoization", true);
-    private final BooleanTweak removeAnvilLimit = new BooleanTweak("remove_anvil_limit", true);
-    private final BooleanTweak noAnvilEnchantCost = new BooleanTweak("no_anvil_enchant_cost", false);
-    private final BooleanTweak noAnvilRepairCost = new BooleanTweak("no_anvil_repair_cost", false);
-    private final BooleanTweak noAnvilRenameCost = new BooleanTweak("no_anvil_rename_cost", false);
-    private final BooleanTweak nicerMapColors = new BooleanTweak("nicer_map_colors", true) {
+    private final BooleanTweak fixFocusBug = tweak(new BooleanTweak("fix_focus_bug", true));
+    private final BooleanTweak attackSleepingVillagers = tweak(new BooleanTweak("attack_sleeping_villagers", true));
+    private final BooleanTweak fixExperienceLoss = tweak(new BooleanTweak("fix_experience_loss", true));
+    private final BooleanTweak fixResourceFilterLeak = tweak(new BooleanTweak("fix_resource_filter_leak", true));
+    private final BooleanTweak fixDensityMemoization = tweak(new BooleanTweak("fix_density_memoization", true));
+    private final BooleanTweak removeAnvilLimit = tweak(new BooleanTweak("remove_anvil_limit", true));
+    private final BooleanTweak noAnvilEnchantCost = tweak(new BooleanTweak("no_anvil_enchant_cost", false));
+    private final BooleanTweak noAnvilRepairCost = tweak(new BooleanTweak("no_anvil_repair_cost", false));
+    private final BooleanTweak noAnvilRenameCost = tweak(new BooleanTweak("no_anvil_rename_cost", false));
+    private final BooleanTweak nicerMapColors = tweak(new BooleanTweak("nicer_map_colors", true) {
         @Override
         public void onApply() {
             applyNicerMapColors(getValue());
         }
-    };
-    private final BooleanTweak waxedItemIconOverlay = new BooleanTweak("waxed_item_icon_overlay", true);
-    private final BooleanTweak extraItemIconOverlays = new BooleanTweak("extra_item_icon_overlays", true);
-    private final BooleanTweak betterCopperTooltips = new BooleanTweak("better_copper_tooltips", true);
+    });
+    private final BooleanTweak waxedItemIconOverlay = tweak(new BooleanTweak("waxed_item_icon_overlay", true));
+    private final BooleanTweak extraItemIconOverlays = tweak(new BooleanTweak("extra_item_icon_overlays", true));
+    private final BooleanTweak betterCopperTooltips = tweak(new BooleanTweak("better_copper_tooltips", true));
+    private final BooleanTweak flammableCobwebs = tweak(new BooleanTweak("flammable_cobwebs", true));
+    private final BooleanTweak campfiresPlaceUnlit = tweak(new BooleanTweak("campfires_place_unlit", true));
+
+    public boolean isFlammableCobwebsEnabled() {
+        return flammableCobwebs.getValue();
+    }
+
+    public boolean isCampfiresPlaceUnlitEnabled() {
+        return campfiresPlaceUnlit.getValue();
+    }
 
     public boolean isWaxedItemIconOverlayEnabled() {
         return waxedItemIconOverlay.getValue();
@@ -53,15 +64,6 @@ public class VanillaModule implements IModule {
     @Override
     public boolean shouldLoad() {
         return true;
-    }
-
-    @Override
-    public List<AbstractTweak<?>> getTweaks() {
-        return List.of(
-                fixFocusBug, attackSleepingVillagers, fixExperienceLoss, fixResourceFilterLeak,
-                fixDensityMemoization, removeAnvilLimit, noAnvilEnchantCost, noAnvilRepairCost,
-                noAnvilRenameCost, nicerMapColors, waxedItemIconOverlay, extraItemIconOverlays, betterCopperTooltips
-        );
     }
 
     @Override

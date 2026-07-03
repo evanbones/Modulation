@@ -1,4 +1,4 @@
-package com.evandev.modulation.mixin.minecraft.accessor;
+package com.evandev.modulation.mixin.vanilla.accessor;
 
 import net.minecraft.world.level.material.MapColor;
 import org.spongepowered.asm.mixin.Mixin;

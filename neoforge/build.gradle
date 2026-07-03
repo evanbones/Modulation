@@ -41,15 +41,19 @@ dependencies {
     // EMI
     runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
 
-    // Cloth Config
-    implementation "me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}"
+    // YACL
+    implementation "maven.modrinth:yacl:${yacl_version}-neoforge"
 
     // Figura
     compileOnly "maven.modrinth:figura:${figura_version_neoforge}"
 
     // Reconnectible Chains
-    implementation "maven.modrinth:reconnectible-chains:${reconnectible_chains_version}-neoforge"
-    runtimeOnly "maven.modrinth:ziplines-rezipped:${ziplines_version}-neoforge"
+    compileOnly "maven.modrinth:reconnectible-chains:${reconnectible_chains_version}-neoforge"
+    // runtimeOnly "maven.modrinth:ziplines-rezipped:${ziplines_version}-neoforge"
+    compileOnly "maven.modrinth:cloth-config:${cloth_config_version}+neoforge"
+
+    compileOnly 'com.google.auto.service:auto-service-annotations:1.1.1'
+    annotationProcessor 'com.google.auto.service:auto-service:1.1.1'
 }
 
 publishMods {

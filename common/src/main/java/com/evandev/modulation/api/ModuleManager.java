@@ -11,10 +11,8 @@ public class ModuleManager {
     private static final Map<String, IModule> MODULES = new LinkedHashMap<>();
 
     public static void loadModules() {
-        ServiceLoader<IModule> loader = ServiceLoader.load(IModule.class);
-        for (IModule module : loader) {
+        for (IModule module : ServiceLoader.load(IModule.class)) {
             register(module);
-            Constants.LOG.info("Loaded Modulation module: {}", module.getId());
         }
     }
 
@@ -22,6 +20,7 @@ public class ModuleManager {
         if (module.shouldLoad()) {
             MODULES.put(module.getId(), module);
             module.initialize();
+            Constants.LOG.info("Loaded Modulation module: {}", module.getId());
         }
     }
 

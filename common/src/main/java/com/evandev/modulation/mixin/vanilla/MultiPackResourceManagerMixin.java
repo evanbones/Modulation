@@ -1,7 +1,7 @@
-package com.evandev.modulation.mixin.minecraft;
+package com.evandev.modulation.mixin.vanilla;
 
 import com.evandev.modulation.api.ModuleManager;
-import com.evandev.modulation.mixin.minecraft.accessor.ResourceFilterSectionAccessor;
+import com.evandev.modulation.mixin.vanilla.accessor.ResourceFilterSectionAccessor;
 import com.evandev.modulation.modules.VanillaModule;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -12,6 +12,7 @@ import net.minecraft.server.packs.resources.FallbackResourceManager;
 import net.minecraft.server.packs.resources.MultiPackResourceManager;
 import net.minecraft.server.packs.resources.ResourceFilterSection;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.function.Predicate;
@@ -35,6 +36,7 @@ public class MultiPackResourceManagerMixin {
         original.call(instance, packId, modulation$getFixedPredicate(originalPredicate, filterSection));
     }
 
+    @Unique
     private Predicate<ResourceLocation> modulation$getFixedPredicate(Predicate<ResourceLocation> originalPredicate, ResourceFilterSection filterSection) {
         VanillaModule module = (VanillaModule) ModuleManager.getModule("vanilla");
 
