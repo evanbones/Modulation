@@ -1,9 +1,11 @@
 package com.evandev.modulation.mixin.vanilla;
 
 import com.evandev.modulation.api.ModuleManager;
+import com.evandev.modulation.items.api.ItemTooltipHelper;
 import com.evandev.modulation.items.api.OxidizableItemHelper;
 import com.evandev.modulation.items.impl.ItemOxidizationCacheInterface;
 import com.evandev.modulation.modules.VanillaModule;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -27,20 +29,29 @@ public class ItemStackMixin {
         final ItemStack stack = ItemStack.class.cast(this);
 
         VanillaModule module = (VanillaModule) ModuleManager.getModule("vanilla");
-        if (module == null || !module.isBetterCopperTooltipsEnabled()) return;
-
-        if (!(stack.getItem() instanceof ItemOxidizationCacheInterface oxidizationCache)) return;
+        if (module == null) return;
 
         List<Component> tooltip = cir.getReturnValue();
         int insertIndex = Math.min(1, tooltip.size());
 
-        if (oxidizationCache.modulation$waxed()) {
-            tooltip.add(insertIndex, OxidizableItemHelper.WAXED_TOOLTIP);
+        if (module.isBetterCopperTooltipsEnabled() && stack.getItem() instanceof ItemOxidizationCacheInterface oxidizationCache) {
+            if (ItemTooltipHelper.isWaxed(stack)) {
+                tooltip.add(insertIndex, OxidizableItemHelper.WAXED_TOOLTIP);
+            }
+
+            final WeatheringCopper.WeatherState weatherState = oxidizationCache.modulation$weatherState();
+            if (weatherState != null) {
+                modulation$addWeatherStateTooltip(tooltip, insertIndex, weatherState);
+            }
         }
 
-        final WeatheringCopper.WeatherState weatherState = oxidizationCache.modulation$weatherState();
-        if (weatherState != null) {
-            modulation$addWeatherStateTooltip(tooltip, insertIndex, weatherState);
+        if (module.isExtraItemIconOverlaysEnabled()) {
+            if (ItemTooltipHelper.isInfested(stack)) {
+                tooltip.add(insertIndex, Component.translatable("tag.item.modulation.infested").withStyle(ChatFormatting.GRAY));
+            }
+            if (ItemTooltipHelper.isTrapped(stack)) {
+                tooltip.add(insertIndex, Component.translatable("tag.item.modulation.trapped").withStyle(ChatFormatting.GRAY));
+            }
         }
     }
 
