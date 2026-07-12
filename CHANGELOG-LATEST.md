@@ -1,3 +1,3 @@
-### Added
+### Fixed
 
-- Added blacklist tags for tooltip features.
+- Fixed concurrency issue with Fancy Tab Sections.

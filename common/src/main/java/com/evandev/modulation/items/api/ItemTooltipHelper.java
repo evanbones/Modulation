@@ -31,7 +31,7 @@ public final class ItemTooltipHelper {
         OVERLAY_FLAGS_CACHE.defaultReturnValue(OVERLAY_FLAGS_NOT_CACHED);
     }
 
-    private static byte getOverlayFlags(Item item) {
+    private static synchronized byte getOverlayFlags(Item item) {
         byte overlayFlags = OVERLAY_FLAGS_CACHE.getByte(item);
         if (overlayFlags != OVERLAY_FLAGS_NOT_CACHED) {
             return overlayFlags;
