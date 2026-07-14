@@ -1,3 +1,3 @@
 ### Added
 
-- Added config option for nicer map colors.
+- Added a vanilla tweak to control+drag to move items to the inventory crafting grid.

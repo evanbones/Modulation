@@ -29,6 +29,7 @@ public class VanillaModule implements IModule {
             applyNicerMapColors(getValue());
         }
     };
+    private final BooleanTweak ctrlDragToCraftingGrid = new BooleanTweak("ctrl_drag_to_crafting_grid", true);
 
     @Override
     public String getId() {
@@ -45,7 +46,7 @@ public class VanillaModule implements IModule {
         return List.of(
                 fixFocusBug, attackSleepingVillagers, fixExperienceLoss, fixResourceFilterLeak,
                 fixDensityMemoization, removeAnvilLimit, noAnvilEnchantCost, noAnvilRepairCost,
-                noAnvilRenameCost, nicerMapColors
+                noAnvilRenameCost, nicerMapColors, ctrlDragToCraftingGrid
         );
     }
 
@@ -87,6 +88,10 @@ public class VanillaModule implements IModule {
 
     public boolean isNoAnvilRenameCostEnabled() {
         return noAnvilRenameCost.getValue();
+    }
+
+    public boolean isCtrlDragToCraftingGridEnabled() {
+        return ctrlDragToCraftingGrid.getValue();
     }
 
     private void applyNicerMapColors(boolean nicer) {

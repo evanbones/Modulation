@@ -17,6 +17,7 @@
     "minecraft.perf.DensityFunctionsMapAllMixin"
   ],
   "client": [
+    "minecraft.client.AbstractContainerScreenMixin",
     "minecraft.AnvilScreenMixin",
     "minecraft.ContainerEventHandlerMixin",
     "minecraft.GameRendererMixin",

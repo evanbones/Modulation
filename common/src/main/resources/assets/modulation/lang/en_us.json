@@ -24,6 +24,8 @@
   "config.modulation.tweak.vanilla.fix_density_memoization.tooltip": "Fixes an exponential performance bug in Minecraft's world generation math. Highly recommended.",
   "config.modulation.tweak.vanilla.nicer_map_colors": "Nicer Map Colors",
   "config.modulation.tweak.vanilla.nicer_map_colors.tooltip": "Replaces standard map colors with softer, more aesthetically pleasing palettes.",
+  "config.modulation.tweak.vanilla.ctrl_drag_to_crafting_grid": "Ctrl+Click/Drag to Crafting Grid",
+  "config.modulation.tweak.vanilla.ctrl_drag_to_crafting_grid.tooltip": "Allows holding Control and clicking or dragging over items in your inventory to move them directly to the crafting grid.",
 
   "config.modulation.module.figura": "Figura Tweaks",
   "config.modulation.tweak.figura.enable_target_selectors": "Improved Figura Load Command",
