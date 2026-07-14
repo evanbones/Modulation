@@ -1,3 +1,3 @@
-### Fixed
+### Added
 
-- Fixed concurrency issue with Fancy Tab Sections.
+- Added a vanilla tweak to control+drag to move items to the inventory crafting grid.

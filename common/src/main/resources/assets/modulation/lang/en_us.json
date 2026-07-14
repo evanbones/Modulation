@@ -30,6 +30,8 @@
   "config.modulation.tweak.vanilla.extra_item_icon_overlays.tooltip": "Displays redstone/silverfish icons on trapped chests and infested blocks.",
   "config.modulation.tweak.vanilla.better_copper_tooltips": "Better Copper Tooltips",
   "config.modulation.tweak.vanilla.better_copper_tooltips.tooltip": "Improves formatting and consistency of copper tooltips.",
+  "config.modulation.tweak.vanilla.ctrl_drag_to_crafting_grid": "Ctrl+Click/Drag to Crafting Grid",
+  "config.modulation.tweak.vanilla.ctrl_drag_to_crafting_grid.tooltip": "Allows holding Control and clicking or dragging over items in your inventory to move them directly to the crafting grid.",
 
   "config.modulation.module.figura": "Figura Tweaks",
   "config.modulation.tweak.figura.enable_target_selectors": "Improved Figura Load Command",

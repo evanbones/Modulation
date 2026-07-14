@@ -23,6 +23,7 @@
     "vanilla.perf.DensityFunctionsMapAllMixin"
   ],
   "client": [
+    "vanilla.client.AbstractContainerScreenMixin",
     "vanilla.client.AnvilScreenMixin",
     "vanilla.client.ContainerEventHandlerMixin",
     "vanilla.client.GameRendererMixin",

@@ -35,6 +35,11 @@ public class VanillaModule extends AbstractModule {
     private final BooleanTweak betterCopperTooltips = tweak(new BooleanTweak("better_copper_tooltips", true));
     private final BooleanTweak flammableCobwebs = tweak(new BooleanTweak("flammable_cobwebs", true));
     private final BooleanTweak campfiresPlaceUnlit = tweak(new BooleanTweak("campfires_place_unlit", true));
+    private final BooleanTweak ctrlDragToCraftingGrid = tweak(new BooleanTweak("ctrl_drag_to_crafting_grid", true));
+
+    public boolean isCtrlDragToCraftingGridEnabled() {
+        return ctrlDragToCraftingGrid.getValue();
+    }
 
     public boolean isFlammableCobwebsEnabled() {
         return flammableCobwebs.getValue();
