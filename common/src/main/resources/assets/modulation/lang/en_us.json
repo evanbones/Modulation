@@ -32,6 +32,8 @@
   "config.modulation.tweak.vanilla.better_copper_tooltips.tooltip": "Improves formatting and consistency of copper tooltips.",
   "config.modulation.tweak.vanilla.ctrl_drag_to_crafting_grid": "Ctrl+Click/Drag to Crafting Grid",
   "config.modulation.tweak.vanilla.ctrl_drag_to_crafting_grid.tooltip": "Allows holding Control and clicking or dragging over items in your inventory to move them directly to the crafting grid.",
+  "config.modulation.tweak.vanilla.chat_message_duration": "Chat Message Duration",
+  "config.modulation.tweak.vanilla.chat_message_duration.tooltip": "How long (in ticks) chat messages remain visible on screen before fading out. Vanilla default is 200.",
 
   "config.modulation.module.figura": "Figura Tweaks",
   "config.modulation.tweak.figura.enable_target_selectors": "Improved Figura Load Command",

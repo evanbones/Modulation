@@ -25,6 +25,7 @@
   "client": [
     "vanilla.client.AbstractContainerScreenMixin",
     "vanilla.client.AnvilScreenMixin",
+    "vanilla.client.ChatComponentMixin",
     "vanilla.client.ContainerEventHandlerMixin",
     "vanilla.client.GameRendererMixin",
     "vanilla.client.GuiGraphicsMixin",

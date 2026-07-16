@@ -3,6 +3,7 @@ package com.evandev.modulation.modules;
 import com.evandev.modulation.api.AbstractModule;
 import com.evandev.modulation.api.IModule;
 import com.evandev.modulation.api.tweaks.BooleanTweak;
+import com.evandev.modulation.api.tweaks.IntTweak;
 import com.evandev.modulation.mixin.vanilla.accessor.MapColorAccessor;
 import com.google.auto.service.AutoService;
 import net.minecraft.world.level.material.MapColor;
@@ -36,9 +37,14 @@ public class VanillaModule extends AbstractModule {
     private final BooleanTweak flammableCobwebs = tweak(new BooleanTweak("flammable_cobwebs", true));
     private final BooleanTweak campfiresPlaceUnlit = tweak(new BooleanTweak("campfires_place_unlit", true));
     private final BooleanTweak ctrlDragToCraftingGrid = tweak(new BooleanTweak("ctrl_drag_to_crafting_grid", true));
+    private final IntTweak chatMessageDuration = tweak(new IntTweak("chat_message_duration", 200));
 
     public boolean isCtrlDragToCraftingGridEnabled() {
         return ctrlDragToCraftingGrid.getValue();
+    }
+
+    public int getChatMessageDuration() {
+        return chatMessageDuration.getValue();
     }
 
     public boolean isFlammableCobwebsEnabled() {
