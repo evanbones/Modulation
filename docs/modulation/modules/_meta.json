@@ -1,10 +1,4 @@
 {
-  "vanilla_bugfixes.mdx": "Vanilla Bugfixes",
-  "vanilla_anvil.mdx": "Vanilla Anvil",
-  "vanilla_visual.mdx": "Vanilla Visual",
-  "vanilla_gameplay.mdx": "Vanilla Gameplay",
-  "vanilla_gui.mdx": "Vanilla GUI",
-  "vanilla_walls.mdx": "Vanilla Walls",
   "figura.mdx": "Figura Module",
   "reconnectible_chains.mdx": "Reconnectible Chains Module"
 }
