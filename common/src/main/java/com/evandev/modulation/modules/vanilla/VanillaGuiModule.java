@@ -1,0 +1,31 @@
+package com.evandev.modulation.modules.vanilla;
+
+import com.evandev.modulation.api.AbstractModule;
+import com.evandev.modulation.api.IModule;
+import com.evandev.modulation.api.tweaks.BooleanTweak;
+import com.evandev.modulation.api.tweaks.IntTweak;
+import com.google.auto.service.AutoService;
+
+@AutoService(IModule.class)
+public class VanillaGuiModule extends AbstractModule {
+
+    private final BooleanTweak ctrlDragToCraftingGrid = tweak(new BooleanTweak("ctrl_drag_to_crafting_grid", true));
+    private final IntTweak chatMessageDuration = tweak(new IntTweak("chat_message_duration", 200));
+    private final BooleanTweak disableCreativeInventory = tweak(new BooleanTweak("disable_creative_inventory", false));
+
+    public VanillaGuiModule() {
+        super("vanilla_gui");
+    }
+
+    public boolean isCtrlDragToCraftingGridEnabled() {
+        return ctrlDragToCraftingGrid.getValue();
+    }
+
+    public int getChatMessageDuration() {
+        return chatMessageDuration.getValue();
+    }
+
+    public boolean isDisableCreativeInventoryEnabled() {
+        return disableCreativeInventory.getValue();
+    }
+}

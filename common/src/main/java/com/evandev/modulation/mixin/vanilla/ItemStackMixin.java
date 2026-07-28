@@ -4,7 +4,7 @@ import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.items.api.ItemTooltipHelper;
 import com.evandev.modulation.items.api.OxidizableItemHelper;
 import com.evandev.modulation.items.impl.ItemOxidizationCacheInterface;
-import com.evandev.modulation.modules.VanillaModule;
+import com.evandev.modulation.modules.vanilla.VanillaVisualModule;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -28,7 +28,7 @@ public class ItemStackMixin {
     public void modulation$addWeatheringAndWaxedTooltips(Item.TooltipContext context, @Nullable Player player, TooltipFlag flag, CallbackInfoReturnable<List<Component>> cir) {
         final ItemStack stack = ItemStack.class.cast(this);
 
-        VanillaModule module = (VanillaModule) ModuleManager.getModule("vanilla");
+        VanillaVisualModule module = ModuleManager.getModule("vanilla_visual", VanillaVisualModule.class);
         if (module == null) return;
 
         List<Component> tooltip = cir.getReturnValue();

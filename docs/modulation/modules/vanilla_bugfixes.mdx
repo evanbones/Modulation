@@ -1,0 +1,13 @@
+---
+title: Vanilla Bugfixes
+hide_meta: true
+---
+
+This module focuses on fixing bugs in the base game.
+
+**Features:**
+* **Fix Focus Bug (MC-259387)**: Fixes an annoying bug where buttons and sliders retain focus in GUIs.
+* **Attack Sleeping Villagers (MC-148559)**: Ever tried to smack a villager who stole your bed, only to find out they're apparently unkillable? This tweak allows you to attack villagers while they are sleeping by modifying their hit radius.
+* **Fix Dimension Experience Loss (MC-124177)**: Fixes a vanilla bug where experience levels disappear when changing dimensions without portals (e.g. when teleporting between worlds).
+* **Fix Resource Filter Leak (MC-271761)**: Properly couples namespace and path checks for resource filters in `pack.mcmeta` to prevent them from leaking into other namespaces.
+* **Fix Density Function Memoization (MC-268145)**: Fixes an exponential performance bug in Minecraft's world generation math. Most notably, this causes a major worldgen slowdown with mods like Tectonic.

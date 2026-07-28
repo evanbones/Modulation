@@ -87,7 +87,7 @@ public class ModulationConfigScreen {
                     continue;
                 }
 
-                TweakOption factory = OPTIONS.get(tweak.getClass());
+                TweakOption factory = findFactory(tweak.getClass());
                 if (factory == null) {
                     Constants.LOG.warn("No YACL controller registered for tweak type: {}", tweak.getClass());
                     continue;
@@ -100,6 +100,14 @@ public class ModulationConfigScreen {
         }
 
         return builder.build().generateScreen(parent);
+    }
+
+    private static TweakOption findFactory(Class<?> tweakClass) {
+        for (Class<?> c = tweakClass; c != null; c = c.getSuperclass()) {
+            TweakOption factory = OPTIONS.get(c);
+            if (factory != null) return factory;
+        }
+        return null;
     }
 
     private static ListOption<String> buildListOption(StringListTweak tweak, Component title, String tooltipKey) {

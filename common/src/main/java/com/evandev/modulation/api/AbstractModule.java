@@ -8,7 +8,26 @@ import java.util.List;
  * Base class for modules that registers each tweak at the point it's declared.
  */
 public abstract class AbstractModule implements IModule {
+    private final String id;
     private final List<AbstractTweak<?>> tweaks = new ArrayList<>();
+
+    protected AbstractModule(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public boolean shouldLoad() {
+        return true;
+    }
+
+    @Override
+    public void initialize() {
+    }
 
     protected <T extends AbstractTweak<?>> T tweak(T tweak) {
         tweaks.add(tweak);

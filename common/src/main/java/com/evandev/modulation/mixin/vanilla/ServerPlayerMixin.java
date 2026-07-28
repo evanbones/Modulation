@@ -1,7 +1,7 @@
 package com.evandev.modulation.mixin.vanilla;
 
 import com.evandev.modulation.api.ModuleManager;
-import com.evandev.modulation.modules.VanillaModule;
+import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import net.minecraft.network.protocol.game.ClientboundSetExperiencePacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -15,8 +15,7 @@ public class ServerPlayerMixin {
 
     @Inject(method = "setServerLevel", at = @At("RETURN"))
     private void modulation$onSetServerLevel(ServerLevel level, CallbackInfo ci) {
-        VanillaModule module = (VanillaModule) ModuleManager.getModule("vanilla");
-        if (module != null && module.isFixExperienceLossEnabled()) {
+        if (ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isFixExperienceLossEnabled)) {
             ServerPlayer player = (ServerPlayer) (Object) this;
 
             if (player.connection != null) {

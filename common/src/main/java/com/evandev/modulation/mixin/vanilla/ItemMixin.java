@@ -2,7 +2,7 @@ package com.evandev.modulation.mixin.vanilla;
 
 import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.items.impl.ItemOxidizationCacheInterface;
-import com.evandev.modulation.modules.VanillaModule;
+import com.evandev.modulation.modules.vanilla.VanillaVisualModule;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -30,8 +30,7 @@ public class ItemMixin implements ItemOxidizationCacheInterface {
 
     @Inject(method = "getName", at = @At("HEAD"), cancellable = true)
     public void modulation$getNonWeatheringNonWaxedName(ItemStack stack, CallbackInfoReturnable<Component> cir) {
-        VanillaModule module = (VanillaModule) ModuleManager.getModule("vanilla");
-        if (module == null || !module.isBetterCopperTooltipsEnabled()) return;
+        if (!ModuleManager.isEnabled("vanilla_visual", VanillaVisualModule.class, VanillaVisualModule::isBetterCopperTooltipsEnabled)) return;
         final Item baseItem = this.modulation$baseItem();
         if (baseItem == null || baseItem == (Object) this) return;
         cir.setReturnValue(baseItem.getName(stack.transmuteCopy(baseItem)));

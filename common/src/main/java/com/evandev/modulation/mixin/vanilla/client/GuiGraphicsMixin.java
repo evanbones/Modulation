@@ -3,7 +3,7 @@ package com.evandev.modulation.mixin.vanilla.client;
 import com.evandev.modulation.Constants;
 import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.items.api.ItemTooltipHelper;
-import com.evandev.modulation.modules.VanillaModule;
+import com.evandev.modulation.modules.vanilla.VanillaVisualModule;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -40,7 +40,7 @@ public abstract class GuiGraphicsMixin {
     private void modulation$blitOverlays(Font font, ItemStack stack, int x, int y, @Nullable String text, CallbackInfo ci) {
         if (stack.isEmpty()) return;
 
-        VanillaModule module = (VanillaModule) ModuleManager.getModule("vanilla");
+        VanillaVisualModule module = ModuleManager.getModule("vanilla_visual", VanillaVisualModule.class);
         if (module == null) return;
 
         boolean drawWaxed = module.isWaxedItemIconOverlayEnabled() && ItemTooltipHelper.isWaxed(stack);

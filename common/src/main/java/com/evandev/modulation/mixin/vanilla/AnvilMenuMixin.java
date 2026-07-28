@@ -1,7 +1,7 @@
 package com.evandev.modulation.mixin.vanilla;
 
 import com.evandev.modulation.api.ModuleManager;
-import com.evandev.modulation.modules.VanillaModule;
+import com.evandev.modulation.modules.vanilla.VanillaAnvilModule;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -34,8 +34,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
 
     @ModifyExpressionValue(method = "createResult", at = @At(value = "CONSTANT", args = "intValue=40"), require = 0)
     private int modulation$removeTooExpensiveLimit(int constant) {
-        VanillaModule module = (VanillaModule) ModuleManager.getModule("vanilla");
-        if (module != null && module.isRemoveAnvilLimitEnabled()) {
+        if (ModuleManager.isEnabled("vanilla_anvil", VanillaAnvilModule.class, VanillaAnvilModule::isRemoveAnvilLimitEnabled)) {
             return Integer.MAX_VALUE;
         }
         return constant;
@@ -43,7 +42,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
 
     @WrapOperation(method = "createResult", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/inventory/DataSlot;set(I)V"))
     private void modulation$modifyIndependentAnvilCosts(DataSlot instance, int originalCost, Operation<Void> original) {
-        VanillaModule module = (VanillaModule) ModuleManager.getModule("vanilla");
+        VanillaAnvilModule module = ModuleManager.getModule("vanilla_anvil", VanillaAnvilModule.class);
         if (module == null) {
             original.call(instance, originalCost);
             return;

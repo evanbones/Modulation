@@ -18,18 +18,13 @@ public class ReconnectibleChainsModule extends AbstractModule {
     private final BooleanTweak consumeDurability = tweak(new BooleanTweak("consume_durability", true));
     private final BooleanTweak consumeChains = tweak(new BooleanTweak("consume_chains", true));
 
-    @Override
-    public String getId() {
-        return "reconnectible_chains";
+    public ReconnectibleChainsModule() {
+        super("reconnectible_chains");
     }
 
     @Override
     public boolean shouldLoad() {
         return Services.PLATFORM.isModLoaded("connectiblechains");
-    }
-
-    @Override
-    public void initialize() {
     }
 
     public boolean isEnabled() {

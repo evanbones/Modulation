@@ -72,18 +72,13 @@ public class FiguraModule extends AbstractModule {
 
     private final BooleanTweak enableTargetSelectors = tweak(new BooleanTweak("enable_target_selectors", true));
 
-    @Override
-    public String getId() {
-        return "figura";
+    public FiguraModule() {
+        super("figura");
     }
 
     @Override
     public boolean shouldLoad() {
         return Services.PLATFORM.isModLoaded("figura");
-    }
-
-    @Override
-    public void initialize() {
     }
 
     @Override

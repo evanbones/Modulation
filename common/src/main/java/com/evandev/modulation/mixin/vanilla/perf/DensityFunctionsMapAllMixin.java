@@ -1,7 +1,7 @@
 package com.evandev.modulation.mixin.vanilla.perf;
 
 import com.evandev.modulation.api.ModuleManager;
-import com.evandev.modulation.modules.VanillaModule;
+import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import com.evandev.modulation.perf.MapAllCache;
 import net.minecraft.world.level.levelgen.DensityFunction;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,8 +19,7 @@ public class DensityFunctionsMapAllMixin {
 
     @Inject(method = "mapAll", at = @At("HEAD"), cancellable = true)
     private void modulation$checkCacheBeforeRecursion(DensityFunction.Visitor visitor, CallbackInfoReturnable<DensityFunction> cir) {
-        VanillaModule module = (VanillaModule) ModuleManager.getModule("vanilla");
-        if (module != null && module.isFixDensityMemoizationEnabled()) {
+        if (ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isFixDensityMemoizationEnabled)) {
             DensityFunction self = (DensityFunction) this;
             DensityFunction cached = MapAllCache.get(visitor, self);
             if (cached != null) {
@@ -33,8 +32,7 @@ public class DensityFunctionsMapAllMixin {
 
     @Inject(method = "mapAll", at = @At("RETURN"))
     private void modulation$saveToCacheAfterRecursion(DensityFunction.Visitor visitor, CallbackInfoReturnable<DensityFunction> cir) {
-        VanillaModule module = (VanillaModule) ModuleManager.getModule("vanilla");
-        if (module != null && module.isFixDensityMemoizationEnabled()) {
+        if (ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isFixDensityMemoizationEnabled)) {
             DensityFunction self = (DensityFunction) this;
             MapAllCache.put(visitor, self, cir.getReturnValue());
             MapAllCache.pop();

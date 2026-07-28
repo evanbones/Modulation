@@ -1,7 +1,7 @@
 package com.evandev.modulation.mixin.vanilla.client;
 
 import com.evandev.modulation.api.ModuleManager;
-import com.evandev.modulation.modules.VanillaModule;
+import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.components.events.ContainerEventHandler;
@@ -22,8 +22,7 @@ public interface ContainerEventHandlerMixin extends ContainerEventHandler {
             if (listener.mouseClicked(mouseX, mouseY, button)) {
                 this.setFocused(listener);
 
-                VanillaModule module = (VanillaModule) ModuleManager.getModule("vanilla");
-                if (module != null && module.isFixFocusBugEnabled()) {
+                if (ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isFixFocusBugEnabled)) {
                     if (this.getFocused() instanceof AbstractButton) {
                         this.setFocused(null);
                     }
@@ -44,8 +43,7 @@ public interface ContainerEventHandlerMixin extends ContainerEventHandler {
      */
     @Overwrite
     default boolean mouseReleased(double mouseX, double mouseY, int button) {
-        VanillaModule module = (VanillaModule) ModuleManager.getModule("vanilla");
-        if (module != null && module.isFixFocusBugEnabled()) {
+        if (ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isFixFocusBugEnabled)) {
             if (this.getFocused() instanceof AbstractSliderButton) {
                 this.setFocused(null);
             }

@@ -198,10 +198,8 @@ public class PostPlacementManager {
                 ChainKnotEntity knot2 = ChainKnotEntity.getOrCreate(level, upperPos, Items.CHAIN, dir2);
 
                 boolean canAttach = true;
-                ReconnectibleChainsModule module =
-                        (ReconnectibleChainsModule) ModuleManager.getModule("reconnectible_chains");
 
-                if (module != null && module.isConsumeChainsEnabled() && !player.isCreative()) {
+                if (ModuleManager.isEnabled("reconnectible_chains", ReconnectibleChainsModule.class, ReconnectibleChainsModule::isConsumeChainsEnabled) && !player.isCreative()) {
                     canAttach = false;
                     for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
                         if (player.getInventory().getItem(i).is(Items.CHAIN)) {

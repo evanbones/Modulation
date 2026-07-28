@@ -28,7 +28,7 @@ public class CommonClass {
     }
 
     public static void onServerTick() {
-        ReconnectibleChainsModule module = (ReconnectibleChainsModule) ModuleManager.getModule("reconnectible_chains");
+        ReconnectibleChainsModule module = ModuleManager.getModule("reconnectible_chains", ReconnectibleChainsModule.class);
         if (module != null) {
             module.onServerTick();
         }

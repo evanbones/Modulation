@@ -1,9 +1,8 @@
-package com.evandev.modulation.modules;
+package com.evandev.modulation.modules.vanilla;
 
 import com.evandev.modulation.api.AbstractModule;
 import com.evandev.modulation.api.IModule;
 import com.evandev.modulation.api.tweaks.BooleanTweak;
-import com.evandev.modulation.api.tweaks.IntTweak;
 import com.evandev.modulation.mixin.vanilla.accessor.MapColorAccessor;
 import com.google.auto.service.AutoService;
 import net.minecraft.world.level.material.MapColor;
@@ -12,19 +11,11 @@ import java.util.IdentityHashMap;
 import java.util.Map;
 
 @AutoService(IModule.class)
-public class VanillaModule extends AbstractModule {
+public class VanillaVisualModule extends AbstractModule {
 
     private static Map<MapColor, Integer> VANILLA_COLORS = null;
     private static Map<MapColor, Integer> NICER_COLORS = null;
-    private final BooleanTweak fixFocusBug = tweak(new BooleanTweak("fix_focus_bug", true));
-    private final BooleanTweak attackSleepingVillagers = tweak(new BooleanTweak("attack_sleeping_villagers", true));
-    private final BooleanTweak fixExperienceLoss = tweak(new BooleanTweak("fix_experience_loss", true));
-    private final BooleanTweak fixResourceFilterLeak = tweak(new BooleanTweak("fix_resource_filter_leak", true));
-    private final BooleanTweak fixDensityMemoization = tweak(new BooleanTweak("fix_density_memoization", true));
-    private final BooleanTweak removeAnvilLimit = tweak(new BooleanTweak("remove_anvil_limit", true));
-    private final BooleanTweak noAnvilEnchantCost = tweak(new BooleanTweak("no_anvil_enchant_cost", false));
-    private final BooleanTweak noAnvilRepairCost = tweak(new BooleanTweak("no_anvil_repair_cost", false));
-    private final BooleanTweak noAnvilRenameCost = tweak(new BooleanTweak("no_anvil_rename_cost", false));
+
     private final BooleanTweak nicerMapColors = tweak(new BooleanTweak("nicer_map_colors", true) {
         @Override
         public void onApply() {
@@ -34,25 +25,9 @@ public class VanillaModule extends AbstractModule {
     private final BooleanTweak waxedItemIconOverlay = tweak(new BooleanTweak("waxed_item_icon_overlay", true));
     private final BooleanTweak extraItemIconOverlays = tweak(new BooleanTweak("extra_item_icon_overlays", true));
     private final BooleanTweak betterCopperTooltips = tweak(new BooleanTweak("better_copper_tooltips", true));
-    private final BooleanTweak flammableCobwebs = tweak(new BooleanTweak("flammable_cobwebs", true));
-    private final BooleanTweak campfiresPlaceUnlit = tweak(new BooleanTweak("campfires_place_unlit", true));
-    private final BooleanTweak ctrlDragToCraftingGrid = tweak(new BooleanTweak("ctrl_drag_to_crafting_grid", true));
-    private final IntTweak chatMessageDuration = tweak(new IntTweak("chat_message_duration", 200));
 
-    public boolean isCtrlDragToCraftingGridEnabled() {
-        return ctrlDragToCraftingGrid.getValue();
-    }
-
-    public int getChatMessageDuration() {
-        return chatMessageDuration.getValue();
-    }
-
-    public boolean isFlammableCobwebsEnabled() {
-        return flammableCobwebs.getValue();
-    }
-
-    public boolean isCampfiresPlaceUnlitEnabled() {
-        return campfiresPlaceUnlit.getValue();
+    public VanillaVisualModule() {
+        super("vanilla_visual");
     }
 
     public boolean isWaxedItemIconOverlayEnabled() {
@@ -65,56 +40,6 @@ public class VanillaModule extends AbstractModule {
 
     public boolean isBetterCopperTooltipsEnabled() {
         return betterCopperTooltips.getValue();
-    }
-
-    @Override
-    public String getId() {
-        return "vanilla";
-    }
-
-    @Override
-    public boolean shouldLoad() {
-        return true;
-    }
-
-    @Override
-    public void initialize() {
-    }
-
-    public boolean isFixDensityMemoizationEnabled() {
-        return fixDensityMemoization.getValue();
-    }
-
-    public boolean isFixFocusBugEnabled() {
-        return fixFocusBug.getValue();
-    }
-
-    public boolean isAttackSleepingVillagersEnabled() {
-        return attackSleepingVillagers.getValue();
-    }
-
-    public boolean isFixExperienceLossEnabled() {
-        return fixExperienceLoss.getValue();
-    }
-
-    public boolean isFixResourceFilterLeakEnabled() {
-        return fixResourceFilterLeak.getValue();
-    }
-
-    public boolean isRemoveAnvilLimitEnabled() {
-        return removeAnvilLimit.getValue();
-    }
-
-    public boolean isNoAnvilEnchantCostEnabled() {
-        return noAnvilEnchantCost.getValue();
-    }
-
-    public boolean isNoAnvilRepairCostEnabled() {
-        return noAnvilRepairCost.getValue();
-    }
-
-    public boolean isNoAnvilRenameCostEnabled() {
-        return noAnvilRenameCost.getValue();
     }
 
     private void applyNicerMapColors(boolean nicer) {

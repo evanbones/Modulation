@@ -34,5 +34,12 @@ excellent modpack [Resurvival](https://www.curseforge.com/minecraft/modpacks/res
 
 The improved tooltips feature is modified from [The Copperier Age](https://modrinth.com/mod/the-copperier-age).
 
+The Vanilla Walls module's wall/fence/pane connection logic is ported
+from [BetterWalls](https://modrinth.com/mod/betterwalls)
+by Lemonnik6484 and JX_Snack, licensed under AGPL-3.0-only.
+
+The creative inventory removal is modified from [Raspberry Core](https://modrinth.com/mod/raspberry-core), used under
+its MIT license.
+
 ---
 [![discord-plural](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/social/discord-plural_vector.svg)](https://discord.com/invite/6twDUSQBc4) [![github-plural](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/social/github-plural_vector.svg)](https://github.com/evanbones/Modulation)

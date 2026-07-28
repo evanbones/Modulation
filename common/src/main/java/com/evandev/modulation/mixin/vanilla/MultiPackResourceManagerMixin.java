@@ -2,7 +2,7 @@ package com.evandev.modulation.mixin.vanilla;
 
 import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.mixin.vanilla.accessor.ResourceFilterSectionAccessor;
-import com.evandev.modulation.modules.VanillaModule;
+import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -38,9 +38,7 @@ public class MultiPackResourceManagerMixin {
 
     @Unique
     private Predicate<ResourceLocation> modulation$getFixedPredicate(Predicate<ResourceLocation> originalPredicate, ResourceFilterSection filterSection) {
-        VanillaModule module = (VanillaModule) ModuleManager.getModule("vanilla");
-
-        if (module != null && module.isFixResourceFilterLeakEnabled() && filterSection != null) {
+        if (ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isFixResourceFilterLeakEnabled) && filterSection != null) {
             return location -> ((ResourceFilterSectionAccessor) filterSection).getBlockList().stream().anyMatch(pattern ->
                     pattern.namespacePredicate().test(location.getNamespace()) && pattern.pathPredicate().test(location.getPath())
             );

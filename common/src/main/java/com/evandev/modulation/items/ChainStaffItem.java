@@ -68,7 +68,7 @@ public class ChainStaffItem extends PickaxeItem {
     public void releaseUsing(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity entityLiving, int timeLeft) {
         if (!(entityLiving instanceof Player player)) return;
 
-        ReconnectibleChainsModule module = (ReconnectibleChainsModule) ModuleManager.getModule("reconnectible_chains");
+        ReconnectibleChainsModule module = ModuleManager.getModule("reconnectible_chains", ReconnectibleChainsModule.class);
         if (module == null || !module.isEnabled()) return;
 
         int duration = this.getUseDuration(stack, player) - timeLeft;
