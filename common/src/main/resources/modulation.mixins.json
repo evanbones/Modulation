@@ -26,7 +26,6 @@
     "vanilla.perf.DensityFunctionsMapAllMixin"
   ],
   "client": [
-    "inventorio.InventorioScreenMixin",
     "vanilla.client.AbstractContainerScreenMixin",
     "vanilla.client.AnvilScreenMixin",
     "vanilla.client.ChatComponentMixin",
