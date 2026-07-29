@@ -29,6 +29,9 @@ dependencies {
     compileOnly "maven.modrinth:reconnectible-chains:${reconnectible_chains_version}-neoforge"
     compileOnly "maven.modrinth:cloth-config:${cloth_config_version}+neoforge"
 
+    // Vanilla Backport
+    compileOnly "maven.modrinth:vanillabackport:rUSWdBok"
+
     compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
     compileOnly group: 'org.ow2.asm', name: 'asm-tree', version: '9.6'
     compileOnly group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.5.0'

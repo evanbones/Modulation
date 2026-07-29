@@ -87,5 +87,23 @@
   "tooltip.modulation.weathering.unaffected": "Unaffected",
 
   "tooltip.modulation.placement_mode": "Placement Mode",
-  "tooltip.modulation.switch_zipline_mode": "Shift + Right-Click to switch to Zipline mode"
+  "tooltip.modulation.switch_zipline_mode": "Shift + Right-Click to switch to Zipline mode",
+
+  "config.modulation.module.passable_foliage": "Passable Foliage",
+  "config.modulation.tweak.passable_foliage.enable_passable_foliage": "Enable Passable Foliage",
+  "config.modulation.tweak.passable_foliage.enable_passable_foliage.tooltip": "Enables passable leaves.",
+  "config.modulation.tweak.passable_foliage.enable_pale_oak_leaves": "Pale Oak Leaves Particles",
+  "config.modulation.tweak.passable_foliage.enable_pale_oak_leaves.tooltip": "Spawns flung leaf particles when moving through Pale Oak leaves. Requires Vanilla Backport mod.",
+  "config.modulation.tweak.passable_foliage.enable_tinted_leaves": "Tinted Leaves Particles",
+  "config.modulation.tweak.passable_foliage.enable_tinted_leaves.tooltip": "Spawns flung leaf particles when moving through Tinted leaves (Oak, Birch, Jungle, etc.). Requires Vanilla Backport mod.",
+  "config.modulation.tweak.passable_foliage.enable_tinted_needles": "Tinted Needles Particles",
+  "config.modulation.tweak.passable_foliage.enable_tinted_needles.tooltip": "Spawns flung needle particles when moving through Spruce leaves. Requires Vanilla Backport mod.",
+  "config.modulation.tweak.passable_foliage.enable_cherry_leaves": "Cherry Leaves Particles",
+  "config.modulation.tweak.passable_foliage.enable_cherry_leaves.tooltip": "Spawns flung leaf particles when moving through Cherry leaves.",
+  "config.modulation.tweak.passable_foliage.base_drag": "Base Drag",
+  "config.modulation.tweak.passable_foliage.base_drag.tooltip": "Base movement drag applied to entities inside leaves.",
+  "config.modulation.tweak.passable_foliage.max_drag": "Max Drag",
+  "config.modulation.tweak.passable_foliage.max_drag.tooltip": "Maximum movement drag applied to entities inside leaves.",
+  "config.modulation.tweak.passable_foliage.enable_leaf_sounds": "Leaf Rustle Sounds",
+  "config.modulation.tweak.passable_foliage.enable_leaf_sounds.tooltip": "Plays rustling and breaking sound effects when moving through leaves."
 }

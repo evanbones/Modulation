@@ -52,6 +52,11 @@ dependencies {
     // runtimeOnly "maven.modrinth:ziplines-rezipped:${ziplines_version}-neoforge"
     compileOnly "maven.modrinth:cloth-config:${cloth_config_version}+neoforge"
 
+    // Vanilla Backport
+    compileOnly "maven.modrinth:vanillabackport:rUSWdBok"
+    runtimeOnly "maven.modrinth:vanillabackport:rUSWdBok"
+    runtimeOnly "maven.modrinth:platform:v7P0nBi2"
+
     compileOnly 'com.google.auto.service:auto-service-annotations:1.1.1'
     annotationProcessor 'com.google.auto.service:auto-service:1.1.1'
 }

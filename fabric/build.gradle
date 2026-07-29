@@ -29,6 +29,9 @@ dependencies {
     // modRuntimeOnly "maven.modrinth:ziplines-rezipped:${ziplines_version}-fabric"
     modCompileOnly "maven.modrinth:cloth-config:${cloth_config_version}+fabric"
 
+    // Vanilla Backport
+    modCompileOnly "maven.modrinth:vanillabackport:ayvoY8lx"
+
     compileOnly 'com.google.auto.service:auto-service-annotations:1.1.1'
     annotationProcessor 'com.google.auto.service:auto-service:1.1.1'
 

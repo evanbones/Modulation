@@ -28,19 +28,17 @@ public class ModulationMixinPlugin implements IMixinConfigPlugin {
     }
 
     private boolean isModLoaded(String modId) {
-        try {
-            Class<?> fabricLoaderClass = Class.forName("net.fabricmc.loader.api.FabricLoader");
-            Object instance = fabricLoaderClass.getMethod("getInstance").invoke(null);
-            return (boolean) fabricLoaderClass.getMethod("isModLoaded", String.class).invoke(instance, modId);
-        } catch (Exception e) {
-            try {
-                Class<?> modlistClass = Class.forName("net.minecraftforge.fml.ModList");
-                Object instance = modlistClass.getMethod("get").invoke(null);
-                return (boolean) modlistClass.getMethod("isLoaded", String.class).invoke(instance, modId);
-            } catch (Exception e2) {
-                return false;
-            }
-        }
+        return switch (modId) {
+            case "vanillabackport" -> isClassPresent("com.blackgear.vanillabackport.core.VanillaBackport");
+            case "figura" -> isClassPresent("net.figura.Figura");
+            case "connectiblechains" -> isClassPresent("com.evandev.connectiblechains.command.ConnectChainCommand");
+            default -> true;
+        };
+    }
+
+    private boolean isClassPresent(String className) {
+        String path = className.replace('.', '/') + ".class";
+        return this.getClass().getClassLoader().getResource(path) != null;
     }
 
     @Override

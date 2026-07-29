@@ -23,7 +23,9 @@
     "vanilla.accessor.DisplayAccessor",
     "vanilla.accessor.MapColorAccessor",
     "vanilla.accessor.ResourceFilterSectionAccessor",
-    "vanilla.perf.DensityFunctionsMapAllMixin"
+    "vanilla.perf.DensityFunctionsMapAllMixin",
+    "vanilla.softleaves.EntityLeafDragMixin",
+    "vanilla.softleaves.LeavesBlockMixin"
   ],
   "client": [
     "vanilla.client.AbstractContainerScreenMixin",
@@ -33,7 +35,13 @@
     "vanilla.client.GameRendererMixin",
     "vanilla.client.GuiGraphicsMixin",
     "vanilla.client.InventoryScreenMixin",
-    "vanilla.client.LocalPlayerMixin"
+    "vanilla.client.LocalPlayerMixin",
+    "vanilla.softleaves.client.CherryParticleMixin",
+    "vanilla.softleaves.client.CherryProviderMixin",
+    "vanilla.softleaves.client.ParticleAccessor",
+    "vanillabackport.client.FallingLeavesParticleMixin",
+    "vanillabackport.client.PaleOakProviderMixin",
+    "vanillabackport.client.TintedLeavesProviderMixin"
   ],
   "server": [],
   "injectors": {
