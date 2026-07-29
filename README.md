@@ -41,5 +41,8 @@ by Lemonnik6484 and JX_Snack, licensed under AGPL-3.0-only.
 The creative inventory removal is modified from [Raspberry Core](https://modrinth.com/mod/raspberry-core), used under
 its MIT license.
 
+The passable foliage is modified from [Soft Leaves](https://modrinth.com/mod/soft-leaves), used under
+its MIT license.
+
 ---
 [![discord-plural](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/social/discord-plural_vector.svg)](https://discord.com/invite/6twDUSQBc4) [![github-plural](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/social/github-plural_vector.svg)](https://github.com/evanbones/Modulation)
