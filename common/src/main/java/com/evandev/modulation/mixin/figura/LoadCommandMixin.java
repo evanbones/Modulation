@@ -72,7 +72,7 @@ public class LoadCommandMixin {
                 String skinName = StringArgumentType.getString(context, "skin");
 
                 if (finalTarget.contains(" ")) finalTarget = "\"" + finalTarget + "\"";
-                ClientCommandHelper.forward("figura load " + finalTarget + " " + skinName);
+                ClientCommandHelper.forward("modulation_figura load " + finalTarget + " " + skinName);
                 return 1;
             });
             return skin;
