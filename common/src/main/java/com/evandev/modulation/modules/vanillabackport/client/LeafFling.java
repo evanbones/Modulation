@@ -1,6 +1,6 @@
 package com.evandev.modulation.modules.vanillabackport.client;
 
-import com.evandev.modulation.mixin.vanilla.softleaves.client.ParticleAccessor;
+import com.evandev.modulation.mixin.vanilla.passablefoliage.client.ParticleAccessor;
 import net.minecraft.client.particle.Particle;
 
 public final class LeafFling {

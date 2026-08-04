@@ -1,4 +1,4 @@
-package com.evandev.modulation.mixin.vanilla.softleaves.client;
+package com.evandev.modulation.mixin.vanilla.passablefoliage.client;
 
 import com.evandev.modulation.modules.vanillabackport.client.LeafFlingAccess;
 import net.minecraft.client.particle.CherryParticle;

@@ -1,4 +1,4 @@
-package com.evandev.modulation.mixin.vanilla.softleaves.client;
+package com.evandev.modulation.mixin.vanilla.passablefoliage.client;
 
 import net.minecraft.client.particle.Particle;
 import org.spongepowered.asm.mixin.Mixin;

@@ -1,16 +1,17 @@
-package com.evandev.modulation.mixin.vanilla.softleaves;
+package com.evandev.modulation.mixin.vanilla.passablefoliage;
 
 import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.PassableFoliageModule;
 import com.evandev.modulation.modules.vanillabackport.EntityLeafDrag;
 import com.evandev.modulation.modules.vanillabackport.LeafParticles;
+import com.evandev.modulation.registry.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -74,8 +75,8 @@ public abstract class EntityLeafDragMixin implements EntityLeafDrag {
         this.modulation$lastLeafDragTick = self.tickCount;
 
         boolean diving = self.isShiftKeyDown() && movement.y < 0.0 && !self.onGround();
-        boolean buried = level.getBlockState(self.blockPosition()).getBlock() instanceof LeavesBlock
-                && level.getBlockState(BlockPos.containing(self.getEyePosition())).getBlock() instanceof LeavesBlock;
+        boolean buried = level.getBlockState(self.blockPosition()).is(ModTags.PASSABLE_LEAVES)
+                && level.getBlockState(BlockPos.containing(self.getEyePosition())).is(ModTags.PASSABLE_LEAVES);
 
         double drag = module.getBaseDrag() + MODULATION$DRAG_PER_SPEED * speed;
         if (buried) {

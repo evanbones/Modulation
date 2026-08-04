@@ -1,7 +1,7 @@
 package com.evandev.modulation.mixin.vanillabackport.client;
 
 import com.blackgear.vanillabackport.client.level.particles.FallingLeavesParticle;
-import com.evandev.modulation.mixin.vanilla.softleaves.client.ParticleAccessor;
+import com.evandev.modulation.mixin.vanilla.passablefoliage.client.ParticleAccessor;
 import com.evandev.modulation.modules.vanillabackport.client.LeafFlingAccess;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
