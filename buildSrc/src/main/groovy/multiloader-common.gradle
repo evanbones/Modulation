@@ -26,6 +26,22 @@ repositories {
     exclusiveContent {
         forRepositories(
                 maven {
+                    name = "caffeinemcRepositoryReleases"
+                    url = "https://maven.caffeinemc.net/releases"
+                },
+                maven {
+                    name = "caffeinemcRepositorySnapshots"
+                    url = "https://maven.caffeinemc.net/snapshots"
+                }
+        )
+        filter {
+            includeGroup("net.caffeinemc")
+        }
+    }
+
+    exclusiveContent {
+        forRepositories(
+                maven {
                     name = 'ParchmentMC'
                     url = 'https://maven.parchmentmc.org/'
                 },

@@ -30,7 +30,8 @@ dependencies {
     modCompileOnly "maven.modrinth:cloth-config:${cloth_config_version}+fabric"
 
     // Sodium
-    compileOnly "maven.modrinth:sodium:${sodium_version}-fabric"
+    implementation "net.caffeinemc:sodium-fabric:${sodium_version}"
+    implementation "net.caffeinemc:sodium-fabric-api:${sodium_version}"
 
     // Vanilla Backport
     modCompileOnly "maven.modrinth:vanillabackport:ayvoY8lx"
