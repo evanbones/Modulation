@@ -5,13 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.2] - 2026-08-04
+
+### Removed
+
+- Removed block grid module.
+
 ## [2.2.1] - 2026-08-04
 
 ### Added
 
 - Added a config option to toggle the custom Creative delete button.
-- Added Amendments and Supplementaries compatibility for hanging pots/banners under slabs.
-  - Additional modded blocks can be added to the `hangs_from_ceiling` tag.
 
 ### Fixed
 
@@ -21,13 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Added a Block Grid & Surface Offsets module:
-  - Sub-block grid snapping (1/16th grid) and surface offset alignment for decorations, redstone components, and
-    hanging entities.
-  - Support for placing blocks (lanterns, torches, flower pots, redstone wire, repeaters, comparators, etc.) on top of
-    slabs and stairs.
-  - Item tags (`modulation:mounts_on_facing`, `modulation:sits_on_slabs`) for controlling surface offset behaviors.
-  - The sub-block offset concept originates from Wayfarer Core by Tazer, the implementation is Modulation's own.
+- Added a Block Grid & Surface Offsets module.
 - Added a Clear Inventory / Destroy Item button to the survival inventory screen when Creative inventory is disabled.
 
 ### Changed

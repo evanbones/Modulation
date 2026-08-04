@@ -1,9 +1,6 @@
 package com.evandev.modulation.platform.services;
 
-import com.evandev.modulation.networking.ChunkOffsetsPayload;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.ChunkPos;
 
 import java.nio.file.Path;
 
@@ -67,15 +64,5 @@ public interface IPlatformHelper {
      * @param player The target player whose avatar should be cleared.
      */
     void sendFiguraClearPacket(ServerPlayer player);
-
-    /**
-     * Sends block offsets payload to tracking players.
-     */
-    void sendBlockOffsetsToTracking(ServerLevel level, ChunkPos pos, ChunkOffsetsPayload payload);
-
-    /**
-     * Sends block offsets payload to a specific player.
-     */
-    void sendBlockOffsetsToPlayer(ServerPlayer player, ChunkOffsetsPayload payload);
 }
 

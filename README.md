@@ -24,22 +24,6 @@ Walk seamlessly through foliage with customizable movement mechanics and visual 
 
 ---
 
-### Block Grid & Surface Offsets
-
-Precision placement and sub-block surface snapping for decorations and redstone components!
-
-* Place blocks like lanterns, torches, flower pots, redstone wire, repeaters, and comparators on top of slabs and stairs snapped to 1/16th sub-block grid offsets.
-* Signs click-snap to exact 1/16th grid offsets on surfaces.
-* Item frames and paintings snap to sub-block surface edge offsets.
-* Offset redstone components conduct signals properly and blocks survive on partial support surfaces.
-* Toggle individual offset features (slab offsets, sign offsets, hanging entity offsets, particle offsets, block entity offsets, etc.) in the config menu.
-
-![Block Grid Showcase](https://raw.githubusercontent.com/evanbones/Modulation/refs/heads/1.21.1/images/block_grid.png)
-
-_I was at house eating dorito when phone ring: block grid is kil_
-
----
-
 ### Walls & Connections
 
 Enhanced fence, wall, and pane connecting logic ported from *BetterWalls*!
@@ -151,7 +135,6 @@ If you are thinking about using the code or assets from Modulation, please note 
 * The Vanilla Walls module's wall/fence/pane connection logic is ported from [BetterWalls](https://modrinth.com/mod/betterwalls) by Lemonnik6484 and JX_Snack, licensed under AGPL-3.0-only.
 * The creative inventory removal is modified from [Raspberry Core](https://modrinth.com/mod/raspberry-core), used under its MIT license.
 * The passable foliage feature is modified from [Soft Leaves](https://modrinth.com/mod/soft-leaves), used under its MIT license.
-* The Block Grid module's sub-block offset concept originates from Wayfarer Core by Tazer. The implementation in Modulation was rewritten from scratch.
 
 ---
 [![discord-plural](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/social/discord-plural_vector.svg)](https://discord.com/invite/6twDUSQBc4) [![github-plural](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/social/github-plural_vector.svg)](https://github.com/evanbones/Modulation)
