@@ -15,6 +15,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Support for placing blocks (lanterns, torches, flower pots, redstone wire, repeaters, comparators, etc.) on top of
     slabs and stairs.
   - Item tags (`modulation:mounts_on_facing`, `modulation:sits_on_slabs`) for controlling surface offset behaviors.
+  - The sub-block offset concept originates from Wayfarer Core by Tazer, the implementation is Modulation's own.
+
+### Changed
+
+- The Passable Foliage module now uses a tag for passable leaves (`modulation:passable_leaves`).
+
+### Fixed
+
+- Fixed third-person camera acting strange when passing through foliage.
 
 ## [2.1.0] - 2026-07-29
 

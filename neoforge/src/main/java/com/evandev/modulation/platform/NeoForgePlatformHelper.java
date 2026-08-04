@@ -1,6 +1,6 @@
 package com.evandev.modulation.platform;
 
-import com.evandev.modulation.networking.BlockOffsetsPayload;
+import com.evandev.modulation.networking.ChunkOffsetsPayload;
 import com.evandev.modulation.networking.FiguraClearPayload;
 import com.evandev.modulation.networking.FiguraSyncPayload;
 import com.evandev.modulation.platform.services.IPlatformHelper;
@@ -53,12 +53,12 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     }
 
     @Override
-    public void sendBlockOffsetsToTracking(ServerLevel level, ChunkPos pos, BlockOffsetsPayload payload) {
+    public void sendBlockOffsetsToTracking(ServerLevel level, ChunkPos pos, ChunkOffsetsPayload payload) {
         PacketDistributor.sendToPlayersTrackingChunk(level, pos, payload);
     }
 
     @Override
-    public void sendBlockOffsetsToPlayer(ServerPlayer player, BlockOffsetsPayload payload) {
+    public void sendBlockOffsetsToPlayer(ServerPlayer player, ChunkOffsetsPayload payload) {
         PacketDistributor.sendToPlayer(player, payload);
     }
 }

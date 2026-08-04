@@ -4,7 +4,7 @@
   "package": "com.evandev.modulation.mixin",
   "refmap": "${mod_id}.refmap.json",
   "plugin": "com.evandev.modulation.mixin.ModulationMixinPlugin",
-  "compatibilityLevel": "JAVA_17",
+  "compatibilityLevel": "JAVA_18",
   "mixins": [
     "figura.CommandDispatcherMixin",
     "figura.LoadCommandMixin",
@@ -28,20 +28,18 @@
     "vanilla.passablefoliage.LeavesBlockMixin",
     "blockgrid.LevelChunkMixin",
     "blockgrid.ChunkSerializerMixin",
-    "blockgrid.SlabOffsetMixin",
-    "blockgrid.OffsetClipMixin",
-    "blockgrid.SignOffsetMixin",
-    "blockgrid.OffsetPlacementFitMixin",
-    "blockgrid.SignPlacementOffsetMixin",
-    "blockgrid.ItemFrameSurfaceMixin",
-    "blockgrid.PaintingSurfaceMixin",
-    "blockgrid.HangingEntitySurfaceMixin",
+    "blockgrid.BlockStateOffsetMixin",
+    "blockgrid.OffsetRaycastMixin",
+    "blockgrid.SignBlockEntityOffsetMixin",
+    "blockgrid.PlacementClearanceMixin",
+    "blockgrid.SignPlacementMixin",
+    "blockgrid.ItemFrameOffsetMixin",
+    "blockgrid.PaintingOffsetMixin",
+    "blockgrid.HangingEntityPlacementMixin",
     "blockgrid.ChunkMapMixin",
-    "blockgrid.StandingSignShapeMixin",
-    "blockgrid.WallSignShapeMixin"
+    "blockgrid.StandingSignModelShapeMixin",
+    "blockgrid.WallSignModelShapeMixin"
   ],
-
-
   "client": [
     "vanilla.client.AbstractContainerScreenMixin",
     "vanilla.client.AnvilScreenMixin",
@@ -57,14 +55,11 @@
     "vanillabackport.client.FallingLeavesParticleMixin",
     "vanillabackport.client.PaleOakProviderMixin",
     "vanillabackport.client.TintedLeavesProviderMixin",
-    "blockgrid.AnimateTickOffsetMixin",
-    "blockgrid.ParticleOffsetMixin",
-    "blockgrid.BlockEntityOffsetMixin",
+    "blockgrid.AmbientParticleOffsetMixin",
+    "blockgrid.ParticleSpawnOffsetMixin",
+    "blockgrid.BlockEntityRenderOffsetMixin",
     "sodium.SodiumBlockOffsetMixin"
   ],
-
-
-
   "server": [],
   "injectors": {
     "defaultRequire": 1

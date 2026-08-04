@@ -1,9 +1,9 @@
 package com.evandev.modulation.modules.blockgrid.storage;
 
-import com.evandev.modulation.modules.blockgrid.BlockOffsets;
+import com.evandev.modulation.modules.blockgrid.ChunkOffsetMap;
 
 public interface ChunkOffsetHolder {
-    BlockOffsets modulation$getBlockOffsets();
+    ChunkOffsetMap modulation$getBlockOffsets();
 
-    void modulation$setBlockOffsets(BlockOffsets offsets);
+    void modulation$setBlockOffsets(ChunkOffsetMap offsets);
 }

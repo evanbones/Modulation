@@ -1,8 +1,8 @@
 package com.evandev.modulation;
 
 import com.evandev.modulation.items.api.OxidizableItemHelper;
-import com.evandev.modulation.modules.blockgrid.SlabOffsets;
-import com.evandev.modulation.networking.BlockOffsetsPayload;
+import com.evandev.modulation.modules.blockgrid.SupportOffsets;
+import com.evandev.modulation.networking.ChunkOffsetsPayload;
 import com.evandev.modulation.networking.FiguraClearPayload;
 import com.evandev.modulation.networking.FiguraSyncPayload;
 import com.evandev.modulation.registry.ModRegistry;
@@ -23,7 +23,7 @@ public class Modulation implements ModInitializer {
 
         PayloadTypeRegistry.playS2C().register(FiguraSyncPayload.TYPE, FiguraSyncPayload.CODEC);
         PayloadTypeRegistry.playS2C().register(FiguraClearPayload.TYPE, FiguraClearPayload.CODEC);
-        PayloadTypeRegistry.playS2C().register(BlockOffsetsPayload.TYPE, BlockOffsetsPayload.CODEC);
+        PayloadTypeRegistry.playS2C().register(ChunkOffsetsPayload.TYPE, ChunkOffsetsPayload.CODEC);
 
 
         Registry.register(BuiltInRegistries.BLOCK, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "cast_post"), ModRegistry.CAST_POST);
@@ -35,7 +35,7 @@ public class Modulation implements ModInitializer {
 
         CommonLifecycleEvents.TAGS_LOADED.register((registries, client) -> {
             OxidizableItemHelper.populateCache(BuiltInRegistries.ITEM);
-            SlabOffsets.onTagsUpdated();
+            SupportOffsets.onTagsUpdated();
         });
 
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {

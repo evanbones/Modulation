@@ -1,6 +1,6 @@
 package com.evandev.modulation.platform.services;
 
-import com.evandev.modulation.networking.BlockOffsetsPayload;
+import com.evandev.modulation.networking.ChunkOffsetsPayload;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.ChunkPos;
@@ -71,11 +71,11 @@ public interface IPlatformHelper {
     /**
      * Sends block offsets payload to tracking players.
      */
-    void sendBlockOffsetsToTracking(ServerLevel level, ChunkPos pos, BlockOffsetsPayload payload);
+    void sendBlockOffsetsToTracking(ServerLevel level, ChunkPos pos, ChunkOffsetsPayload payload);
 
     /**
      * Sends block offsets payload to a specific player.
      */
-    void sendBlockOffsetsToPlayer(ServerPlayer player, BlockOffsetsPayload payload);
+    void sendBlockOffsetsToPlayer(ServerPlayer player, ChunkOffsetsPayload payload);
 }
 

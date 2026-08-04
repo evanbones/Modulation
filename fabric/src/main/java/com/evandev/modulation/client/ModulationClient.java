@@ -1,8 +1,8 @@
 package com.evandev.modulation.client;
 
 import com.evandev.modulation.client.compat.FiguraClientHandler;
-import com.evandev.modulation.modules.blockgrid.ClientBlockOffsets;
-import com.evandev.modulation.networking.BlockOffsetsPayload;
+import com.evandev.modulation.modules.blockgrid.ClientOffsetCache;
+import com.evandev.modulation.networking.ChunkOffsetsPayload;
 import com.evandev.modulation.networking.FiguraClearPayload;
 import com.evandev.modulation.networking.FiguraSyncPayload;
 import net.fabricmc.api.ClientModInitializer;
@@ -20,9 +20,9 @@ public class ModulationClient implements ClientModInitializer {
             context.client().execute(FiguraClientHandler::clearSkin);
         });
 
-        ClientBlockOffsets.init();
-        ClientPlayNetworking.registerGlobalReceiver(BlockOffsetsPayload.TYPE, (payload, context) -> {
-            context.client().execute(() -> ClientBlockOffsets.apply(payload.chunk(), payload.entries()));
+        ClientOffsetCache.install();
+        ClientPlayNetworking.registerGlobalReceiver(ChunkOffsetsPayload.TYPE, (payload, context) -> {
+            context.client().execute(() -> ClientOffsetCache.receive(payload.chunk(), payload.entries()));
         });
     }
 }

@@ -6,9 +6,9 @@ import com.evandev.modulation.client.compat.FiguraClientHandler;
 import com.evandev.modulation.items.ChainStaffItem;
 import com.evandev.modulation.items.ZiplineStaffItem;
 import com.evandev.modulation.items.api.OxidizableItemHelper;
-import com.evandev.modulation.modules.blockgrid.ClientBlockOffsets;
-import com.evandev.modulation.modules.blockgrid.SlabOffsets;
-import com.evandev.modulation.networking.BlockOffsetsPayload;
+import com.evandev.modulation.modules.blockgrid.ClientOffsetCache;
+import com.evandev.modulation.modules.blockgrid.SupportOffsets;
+import com.evandev.modulation.networking.ChunkOffsetsPayload;
 import com.evandev.modulation.networking.FiguraClearPayload;
 import com.evandev.modulation.networking.FiguraSyncPayload;
 import com.evandev.modulation.registry.ModRegistry;
@@ -90,9 +90,9 @@ public class Modulation {
         );
 
         registrar.playToClient(
-                BlockOffsetsPayload.TYPE,
-                BlockOffsetsPayload.CODEC,
-                (payload, context) -> context.enqueueWork(() -> ClientBlockOffsets.apply(payload.chunk(), payload.entries()))
+                ChunkOffsetsPayload.TYPE,
+                ChunkOffsetsPayload.CODEC,
+                (payload, context) -> context.enqueueWork(() -> ClientOffsetCache.receive(payload.chunk(), payload.entries()))
         );
     }
 
@@ -102,7 +102,7 @@ public class Modulation {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            ClientBlockOffsets.init();
+            ClientOffsetCache.install();
             CommonClass.init();
             OxidizableItemHelper.populateCache(BuiltInRegistries.ITEM);
         });
@@ -114,6 +114,6 @@ public class Modulation {
     }
 
     private void onTagsUpdated(TagsUpdatedEvent event) {
-        SlabOffsets.onTagsUpdated();
+        SupportOffsets.onTagsUpdated();
     }
 }
