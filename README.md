@@ -20,7 +20,7 @@ Walk seamlessly through foliage with customizable movement mechanics and visual 
 * Enable or disable passable behavior per leaf type (Pale Oak, Tinted Leaves, Tinted Needles, Cherry Leaves, etc.).
 * Dynamic leaf rustling sound effects and leaf/cherry petal particles as entities pass through leaves (with optional *Vanilla Backport* integration).
 
-![Passable Foliage Showcase](images/passable_foliage.png)
+![Passable Foliage Showcase](https://raw.githubusercontent.com/evanbones/Modulation/refs/heads/1.21.1/images/passable_foliage.png)
 
 ---
 
@@ -34,7 +34,7 @@ Precision placement and sub-block surface snapping for decorations and redstone 
 * Offset redstone components conduct signals properly and blocks survive on partial support surfaces.
 * Toggle individual offset features (slab offsets, sign offsets, hanging entity offsets, particle offsets, block entity offsets, etc.) in the config menu.
 
-![Block Grid Showcase](images/block_grid.png)
+![Block Grid Showcase](https://raw.githubusercontent.com/evanbones/Modulation/refs/heads/1.21.1/images/block_grid.png)
 
 _I was at house eating dorito when phone ring: block grid is kil_
 
@@ -49,7 +49,7 @@ Enhanced fence, wall, and pane connecting logic ported from *BetterWalls*!
 * Iron bars and glass panes extend connections to wooden fences.
 * Customize or disable each connection rule individually in the configuration.
 
-![Vanilla Walls Showcase](images/vanilla_walls.png)
+![Vanilla Walls Showcase](https://raw.githubusercontent.com/evanbones/Modulation/refs/heads/1.21.1/images/vanilla_walls.png)
 
 ---
 
@@ -62,7 +62,7 @@ Clear visual indicators and info tooltips for items in your inventory!
 * Enhanced copper item tooltips showing oxidation state (Oxidized, Weathered, Exposed, Waxed) and waxing status.
 * Palette adjustments for softer, prettier map colors.
 
-![Tooltips & Visual Overlays Showcase](images/tooltips_overlays.png)
+![Tooltips & Visual Overlays Showcase](https://raw.githubusercontent.com/evanbones/Modulation/refs/heads/1.21.1/images/tooltips_overlays.png)
 
 ---
 
