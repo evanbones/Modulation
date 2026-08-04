@@ -9,9 +9,9 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
-import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -26,6 +26,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(InventoryScreen.class)
 public abstract class InventoryScreenMixin extends Screen {
+    @Unique
+    private static final WidgetSprites modulation$CLEAR_BUTTON_SPRITES = new WidgetSprites(
+            ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "clear_button"),
+            ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "clear_button_highlighted")
+    );
+
     @Unique
     private ImageButton modulation$clearButton;
 
@@ -104,7 +110,7 @@ public abstract class InventoryScreenMixin extends Screen {
         Minecraft mc = Minecraft.getInstance();
         if (mc.gameMode == null || !mc.gameMode.hasInfiniteItems()) return;
         VanillaGuiModule module = ModuleManager.getModule("vanilla_gui", VanillaGuiModule.class);
-        if (module == null || !module.isDisableCreativeInventoryEnabled()) return;
+        if (module == null || !module.isDisableCreativeInventoryEnabled() || !module.isCreativeDeletionButtonEnabled()) return;
 
         if (this.modulation$clearButton != null && this.modulation$clearButton.isHovered()) {
             guiGraphics.renderTooltip(this.font, Component.translatable("inventory.binSlot"), mouseX, mouseY);
@@ -118,7 +124,7 @@ public abstract class InventoryScreenMixin extends Screen {
         if (!mc.gameMode.hasInfiniteItems()) return;
 
         VanillaGuiModule module = ModuleManager.getModule("vanilla_gui", VanillaGuiModule.class);
-        if (module == null || !module.isDisableCreativeInventoryEnabled()) return;
+        if (module == null || !module.isDisableCreativeInventoryEnabled() || !module.isCreativeDeletionButtonEnabled()) return;
 
         InventoryScreen screen = (InventoryScreen) (Object) this;
         AbstractContainerScreenAccessor accessor = (AbstractContainerScreenAccessor) screen;
@@ -132,7 +138,7 @@ public abstract class InventoryScreenMixin extends Screen {
                 initialY,
                 28,
                 29,
-                RecipeBookComponent.RECIPE_BUTTON_SPRITES,
+                modulation$CLEAR_BUTTON_SPRITES,
                 button -> {
                     if (mc.gameMode == null || mc.player == null) return;
                     boolean isShiftPressed = Screen.hasShiftDown();

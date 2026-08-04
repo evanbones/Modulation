@@ -38,6 +38,7 @@ public final class SupportOffsets {
     private static Function<BlockPos, Vec3> renderLookup;
     private static Set<Block> sitters = new ReferenceOpenHashSet<>();
     private static Set<Block> facingMounted = new ReferenceOpenHashSet<>();
+    private static Set<Block> hangers = new ReferenceOpenHashSet<>();
 
     private SupportOffsets() {
     }
@@ -45,6 +46,7 @@ public final class SupportOffsets {
     public static void onTagsUpdated() {
         Set<Block> tagged = new ReferenceOpenHashSet<>();
         Set<Block> mounted = new ReferenceOpenHashSet<>();
+        Set<Block> ceilingHangers = new ReferenceOpenHashSet<>();
         for (Block block : BuiltInRegistries.BLOCK) {
             BlockState state = block.defaultBlockState();
             if (state.is(ModTags.SITS_ON_SLABS)) {
@@ -53,9 +55,13 @@ public final class SupportOffsets {
             if (state.is(ModTags.MOUNTS_ON_FACING)) {
                 mounted.add(block);
             }
+            if (state.is(ModTags.HANGS_FROM_CEILING)) {
+                ceilingHangers.add(block);
+            }
         }
         sitters = tagged;
         facingMounted = mounted;
+        hangers = ceilingHangers;
     }
 
     public static void setRenderLookup(Function<BlockPos, Vec3> lookup) {
@@ -68,6 +74,10 @@ public final class SupportOffsets {
 
     public static boolean isFacingMounted(BlockState state) {
         return state.is(ModTags.MOUNTS_ON_FACING) || cached(facingMounted, state);
+    }
+
+    public static boolean isHanger(BlockState state) {
+        return state.is(ModTags.HANGS_FROM_CEILING) || cached(hangers, state);
     }
 
     public static boolean mayOffset(BlockState state) {
@@ -215,7 +225,7 @@ public final class SupportOffsets {
         return renderLookup == null ? null : renderLookup.apply(pos);
     }
 
-    private static Direction anchorOf(BlockState state) {
+    public static Direction anchorOf(BlockState state) {
         return isSitter(state) ? anchorDirection(state) : null;
     }
 
@@ -271,6 +281,9 @@ public final class SupportOffsets {
     }
 
     private static Direction anchorDirection(BlockState state) {
+        if (isHanger(state)) {
+            return Direction.UP;
+        }
         boolean wallMounted = state.getBlock() instanceof WallSignBlock
                 || state.getBlock() instanceof WallTorchBlock
                 || isFacingMounted(state);
@@ -291,6 +304,10 @@ public final class SupportOffsets {
             return Direction.UP;
         }
         if (state.hasProperty(BlockStateProperties.ATTACHED) && state.getValue(BlockStateProperties.ATTACHED)) {
+            return Direction.UP;
+        }
+        String className = state.getBlock().getClass().getSimpleName();
+        if (className.contains("Ceiling") || className.contains("Hanging")) {
             return Direction.UP;
         }
         return Direction.DOWN;

@@ -1,18 +1,9 @@
 ### Added
 
-- Added a Block Grid & Surface Offsets module:
-    - Sub-block grid snapping (1/16th grid) and surface offset alignment for decorations, redstone components, and
-      hanging entities.
-    - Support for placing blocks (lanterns, torches, flower pots, redstone wire, repeaters, comparators, etc.) on top of
-      slabs and stairs.
-    - Item tags (`modulation:mounts_on_facing`, `modulation:sits_on_slabs`) for controlling surface offset behaviors.
-    - The sub-block offset concept originates from Wayfarer Core by Tazer, the implementation is Modulation's own.
-- Added a Clear Inventory / Destroy Item button to the survival inventory screen when Creative inventory is disabled.
-
-### Changed
-
-- The Passable Foliage module now uses a tag for passable leaves (`modulation:passable_leaves`).
+- Added a config option to toggle the custom Creative delete button.
+- Added Amendments and Supplementaries compatibility for hanging pots/banners under slabs.
+  - Additional modded blocks can be added to the `hangs_from_ceiling` tag.
 
 ### Fixed
 
-- Fixed third-person camera acting strange when passing through foliage.
+- Fixed Creative delete button incompatibility with Not Enough Recipe Book (NERB).

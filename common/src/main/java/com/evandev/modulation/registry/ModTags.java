@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.Block;
 public class ModTags {
     public static final TagKey<Block> SITS_ON_SLABS = blockTag("sits_on_slabs");
     public static final TagKey<Block> MOUNTS_ON_FACING = blockTag("mounts_on_facing");
+    public static final TagKey<Block> HANGS_FROM_CEILING = blockTag("hangs_from_ceiling");
     public static final TagKey<Block> PASSABLE_LEAVES = blockTag("passable_leaves");
 
     private static TagKey<Block> blockTag(String name) {

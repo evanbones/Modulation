@@ -4,6 +4,7 @@ import com.evandev.modulation.modules.blockgrid.ServerOffsetSync;
 import com.evandev.modulation.modules.blockgrid.SupportOffsets;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -25,9 +26,12 @@ public class BlockStateOffsetMixin {
     private boolean modulation$surviveOnPartialSurface(boolean original, LevelReader level, BlockPos pos) {
         BlockState self = modulation$self();
         if (SupportOffsets.isSitter(self)) {
-            BlockState below = level.getBlockState(pos.below());
-            if (SupportOffsets.isSitter(below) || SupportOffsets.isFacingMounted(below)) {
-                return false;
+            Direction anchor = SupportOffsets.anchorOf(self);
+            if (anchor != null) {
+                BlockState supporting = level.getBlockState(pos.relative(anchor));
+                if (SupportOffsets.isSitter(supporting) || SupportOffsets.isFacingMounted(supporting)) {
+                    return false;
+                }
             }
         }
         return original || SupportOffsets.hasPartialSupport(self, level, pos);
