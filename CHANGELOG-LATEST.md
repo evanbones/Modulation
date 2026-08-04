@@ -7,6 +7,7 @@
       slabs and stairs.
     - Item tags (`modulation:mounts_on_facing`, `modulation:sits_on_slabs`) for controlling surface offset behaviors.
     - The sub-block offset concept originates from Wayfarer Core by Tazer, the implementation is Modulation's own.
+- Added a Clear Inventory / Destroy Item button to the survival inventory screen when Creative inventory is disabled.
 
 ### Changed
 

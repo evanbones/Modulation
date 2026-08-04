@@ -12,6 +12,8 @@ public class VanillaGuiModule extends AbstractModule {
     private final BooleanTweak ctrlDragToCraftingGrid = tweak(new BooleanTweak("ctrl_drag_to_crafting_grid", true));
     private final IntTweak chatMessageDuration = tweak(new IntTweak("chat_message_duration", 200));
     private final BooleanTweak disableCreativeInventory = tweak(new BooleanTweak("disable_creative_inventory", false));
+    private final IntTweak clearButtonX = tweak(new IntTweak("clear_button_x", 148));
+    private final IntTweak clearButtonY = tweak(new IntTweak("clear_button_y", 162));
 
     public VanillaGuiModule() {
         super("vanilla_gui");
@@ -27,5 +29,13 @@ public class VanillaGuiModule extends AbstractModule {
 
     public boolean isDisableCreativeInventoryEnabled() {
         return disableCreativeInventory.getValue();
+    }
+
+    public int getClearButtonX() {
+        return clearButtonX.getValue();
+    }
+
+    public int getClearButtonY() {
+        return clearButtonY.getValue();
     }
 }

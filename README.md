@@ -104,7 +104,7 @@ May need configuring to work with Allurement. Won't work with Easy Anvils.
 User interface and control QoL improvements:
 
 * Hold Control while clicking or dragging items in your inventory to transfer them straight into the crafting grid. Works best when pairsed with [Mouse Tweaks](https://modrinth.com/mod/mouse-tweaks).
-* Option to remove/disable the Creative inventory tab.
+* Option to remove/disable the Creative inventory tab, adding a clear/destroy item button to the survival inventory in Creative mode (with configurable X/Y offsets).
 * Customize how long chat messages stay on screen before fading.
 
 ---

@@ -55,6 +55,10 @@
   "config.modulation.tweak.vanilla_gui.chat_message_duration.tooltip": "How long (in ticks) chat messages remain visible on screen before fading out. Vanilla default is 200.",
   "config.modulation.tweak.vanilla_gui.disable_creative_inventory": "Disable Creative Inventory",
   "config.modulation.tweak.vanilla_gui.disable_creative_inventory.tooltip": "Stops the game from showing the Creative menu.",
+  "config.modulation.tweak.vanilla_gui.clear_button_x": "Clear Button X Offset",
+  "config.modulation.tweak.vanilla_gui.clear_button_x.tooltip": "Horizontal position of the inventory clear button relative to the inventory window.",
+  "config.modulation.tweak.vanilla_gui.clear_button_y": "Clear Button Y Offset",
+  "config.modulation.tweak.vanilla_gui.clear_button_y.tooltip": "Vertical position of the inventory clear button relative to the inventory window.",
 
   "config.modulation.module.figura": "Figura",
   "config.modulation.tweak.figura.enable_target_selectors": "Improved Figura Load Command",
