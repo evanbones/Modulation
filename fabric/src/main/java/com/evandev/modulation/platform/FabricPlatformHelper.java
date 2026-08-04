@@ -1,12 +1,16 @@
 package com.evandev.modulation.platform;
 
+import com.evandev.modulation.networking.BlockOffsetsPayload;
 import com.evandev.modulation.networking.FiguraClearPayload;
 import com.evandev.modulation.networking.FiguraSyncPayload;
 import com.evandev.modulation.platform.services.IPlatformHelper;
 import net.fabricmc.api.EnvType;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.ChunkPos;
 
 import java.nio.file.Path;
 
@@ -45,5 +49,15 @@ public class FabricPlatformHelper implements IPlatformHelper {
     @Override
     public void sendFiguraClearPacket(ServerPlayer player) {
         ServerPlayNetworking.send(player, new FiguraClearPayload());
+    }
+
+    @Override
+    public void sendBlockOffsetsToTracking(ServerLevel level, ChunkPos pos, BlockOffsetsPayload payload) {
+        PlayerLookup.tracking(level, pos).forEach(player -> ServerPlayNetworking.send(player, payload));
+    }
+
+    @Override
+    public void sendBlockOffsetsToPlayer(ServerPlayer player, BlockOffsetsPayload payload) {
+        ServerPlayNetworking.send(player, payload);
     }
 }

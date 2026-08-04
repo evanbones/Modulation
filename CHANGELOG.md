@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2026-08-04
+
+### Added
+
+- Added a Block Grid & Surface Offsets module:
+  - Sub-block grid snapping (1/16th grid) and surface offset alignment for decorations, redstone components, and
+    hanging entities.
+  - Support for placing blocks (lanterns, torches, flower pots, redstone wire, repeaters, comparators, etc.) on top of
+    slabs and stairs.
+  - Item tags (`modulation:mounts_on_facing`, `modulation:sits_on_slabs`) for controlling surface offset behaviors.
+
 ## [2.1.0] - 2026-07-29
 
 ### Added

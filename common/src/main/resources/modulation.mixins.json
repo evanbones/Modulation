@@ -25,8 +25,23 @@
     "vanilla.accessor.ResourceFilterSectionAccessor",
     "vanilla.perf.DensityFunctionsMapAllMixin",
     "vanilla.softleaves.EntityLeafDragMixin",
-    "vanilla.softleaves.LeavesBlockMixin"
+    "vanilla.softleaves.LeavesBlockMixin",
+    "blockgrid.LevelChunkMixin",
+    "blockgrid.ChunkSerializerMixin",
+    "blockgrid.SlabOffsetMixin",
+    "blockgrid.OffsetClipMixin",
+    "blockgrid.SignOffsetMixin",
+    "blockgrid.OffsetPlacementFitMixin",
+    "blockgrid.SignPlacementOffsetMixin",
+    "blockgrid.ItemFrameSurfaceMixin",
+    "blockgrid.PaintingSurfaceMixin",
+    "blockgrid.HangingEntitySurfaceMixin",
+    "blockgrid.ChunkMapMixin",
+    "blockgrid.StandingSignShapeMixin",
+    "blockgrid.WallSignShapeMixin"
   ],
+
+
   "client": [
     "vanilla.client.AbstractContainerScreenMixin",
     "vanilla.client.AnvilScreenMixin",
@@ -41,8 +56,15 @@
     "vanilla.softleaves.client.ParticleAccessor",
     "vanillabackport.client.FallingLeavesParticleMixin",
     "vanillabackport.client.PaleOakProviderMixin",
-    "vanillabackport.client.TintedLeavesProviderMixin"
+    "vanillabackport.client.TintedLeavesProviderMixin",
+    "blockgrid.AnimateTickOffsetMixin",
+    "blockgrid.ParticleOffsetMixin",
+    "blockgrid.BlockEntityOffsetMixin",
+    "sodium.SodiumBlockOffsetMixin"
   ],
+
+
+
   "server": [],
   "injectors": {
     "defaultRequire": 1

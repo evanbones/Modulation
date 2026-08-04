@@ -29,6 +29,9 @@ dependencies {
     // modRuntimeOnly "maven.modrinth:ziplines-rezipped:${ziplines_version}-fabric"
     modCompileOnly "maven.modrinth:cloth-config:${cloth_config_version}+fabric"
 
+    // Sodium
+    compileOnly "maven.modrinth:sodium:${sodium_version}-fabric"
+
     // Vanilla Backport
     modCompileOnly "maven.modrinth:vanillabackport:ayvoY8lx"
 

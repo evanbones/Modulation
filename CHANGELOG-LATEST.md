@@ -1,7 +1,8 @@
 ### Added
 
-- Added a setting (with optional Vanilla Backport integration) for passable foliage.
-
-### Removed
-
-- Removed Inventorio compat (wasn't working anyway).
+- Added a Block Grid & Surface Offsets module:
+    - Sub-block grid snapping (1/16th grid) and surface offset alignment for decorations, redstone components, and
+      hanging entities.
+    - Support for placing blocks (lanterns, torches, flower pots, redstone wire, repeaters, comparators, etc.) on top of
+      slabs and stairs.
+    - Item tags (`modulation:mounts_on_facing`, `modulation:sits_on_slabs`) for controlling surface offset behaviors.

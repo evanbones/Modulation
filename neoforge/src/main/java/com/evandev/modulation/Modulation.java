@@ -6,6 +6,9 @@ import com.evandev.modulation.client.compat.FiguraClientHandler;
 import com.evandev.modulation.items.ChainStaffItem;
 import com.evandev.modulation.items.ZiplineStaffItem;
 import com.evandev.modulation.items.api.OxidizableItemHelper;
+import com.evandev.modulation.modules.blockgrid.ClientBlockOffsets;
+import com.evandev.modulation.modules.blockgrid.SlabOffsets;
+import com.evandev.modulation.networking.BlockOffsetsPayload;
 import com.evandev.modulation.networking.FiguraClearPayload;
 import com.evandev.modulation.networking.FiguraSyncPayload;
 import com.evandev.modulation.registry.ModRegistry;
@@ -22,6 +25,7 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.neoforged.neoforge.event.TagsUpdatedEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
@@ -63,6 +67,7 @@ public class Modulation {
 
         NeoForge.EVENT_BUS.addListener(this::onServerTick);
         NeoForge.EVENT_BUS.addListener(this::onRegisterCommands);
+        NeoForge.EVENT_BUS.addListener(this::onTagsUpdated);
 
         if (FMLEnvironment.dist.isClient()) {
             ClientConfigSetup.register(modContainer);
@@ -83,6 +88,12 @@ public class Modulation {
                 FiguraClearPayload.CODEC,
                 (payload, context) -> context.enqueueWork(FiguraClientHandler::clearSkin)
         );
+
+        registrar.playToClient(
+                BlockOffsetsPayload.TYPE,
+                BlockOffsetsPayload.CODEC,
+                (payload, context) -> context.enqueueWork(() -> ClientBlockOffsets.apply(payload.chunk(), payload.entries()))
+        );
     }
 
     private void onServerTick(ServerTickEvent.Post event) {
@@ -91,12 +102,18 @@ public class Modulation {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
+            ClientBlockOffsets.init();
             CommonClass.init();
             OxidizableItemHelper.populateCache(BuiltInRegistries.ITEM);
         });
     }
 
+
     private void onRegisterCommands(RegisterCommandsEvent event) {
         CommonClass.registerCommands(event.getDispatcher());
+    }
+
+    private void onTagsUpdated(TagsUpdatedEvent event) {
+        SlabOffsets.onTagsUpdated();
     }
 }

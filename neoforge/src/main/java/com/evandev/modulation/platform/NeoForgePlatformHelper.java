@@ -1,9 +1,12 @@
 package com.evandev.modulation.platform;
 
+import com.evandev.modulation.networking.BlockOffsetsPayload;
 import com.evandev.modulation.networking.FiguraClearPayload;
 import com.evandev.modulation.networking.FiguraSyncPayload;
 import com.evandev.modulation.platform.services.IPlatformHelper;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.ChunkPos;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLLoader;
@@ -47,5 +50,15 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     @Override
     public void sendFiguraClearPacket(ServerPlayer player) {
         PacketDistributor.sendToPlayer(player, new FiguraClearPayload());
+    }
+
+    @Override
+    public void sendBlockOffsetsToTracking(ServerLevel level, ChunkPos pos, BlockOffsetsPayload payload) {
+        PacketDistributor.sendToPlayersTrackingChunk(level, pos, payload);
+    }
+
+    @Override
+    public void sendBlockOffsetsToPlayer(ServerPlayer player, BlockOffsetsPayload payload) {
+        PacketDistributor.sendToPlayer(player, payload);
     }
 }

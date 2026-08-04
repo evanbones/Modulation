@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:wall_signs",
+    "minecraft:wall_torch",
+    "minecraft:soul_wall_torch",
+    "minecraft:redstone_wall_torch",
+    "minecraft:ladder",
+    { "id": "nomansland:shelf_mushroom", "required": false }
+  ]
+}

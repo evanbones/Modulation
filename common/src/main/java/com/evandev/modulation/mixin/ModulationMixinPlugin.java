@@ -32,6 +32,7 @@ public class ModulationMixinPlugin implements IMixinConfigPlugin {
             case "vanillabackport" -> isClassPresent("com.blackgear.vanillabackport.core.VanillaBackport");
             case "figura" -> isClassPresent("net.figura.Figura");
             case "connectiblechains" -> isClassPresent("com.evandev.connectiblechains.command.ConnectChainCommand");
+            case "sodium" -> isClassPresent("net.caffeinemc.mods.sodium.client.render.chunk.compile.pipeline.BlockRenderer");
             default -> true;
         };
     }

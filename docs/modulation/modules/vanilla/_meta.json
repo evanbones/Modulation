@@ -1,9 +1,6 @@
 {
   "vanilla_bugfixes.mdx": "Vanilla Bugfixes",
-  "vanilla_anvil.mdx": "Vanilla Anvil",
   "vanilla_visual.mdx": "Vanilla Visual",
   "vanilla_gameplay.mdx": "Vanilla Gameplay",
-  "vanilla_gui.mdx": "Vanilla GUI",
-  "vanilla_walls.mdx": "Vanilla Walls",
-  "vanilla_passable_foliage.mdx": "Passable Foliage"
+  "vanilla_gui.mdx": "Vanilla GUI"
 }
