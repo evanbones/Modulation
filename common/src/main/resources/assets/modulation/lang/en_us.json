@@ -13,6 +13,10 @@
   "config.modulation.tweak.vanilla_bugfixes.fix_resource_filter_leak.tooltip": "Properly couples namespace and path checks for resource filters to prevent them from leaking into other namespaces.",
   "config.modulation.tweak.vanilla_bugfixes.fix_density_memoization": "Fix Density Function Memoization",
   "config.modulation.tweak.vanilla_bugfixes.fix_density_memoization.tooltip": "Fixes an exponential performance bug in Minecraft's world generation math. Highly recommended.",
+  "config.modulation.tweak.vanilla_bugfixes.fix_horizon_line": "Fix Horizon Line",
+  "config.modulation.tweak.vanilla_bugfixes.fix_horizon_line.tooltip": "Removes the twilight ring drawn over the sky at sunrise and sunset, which renders in front of distance fog and leaves a hard line along the horizon.",
+  "config.modulation.tweak.vanilla_bugfixes.fix_cave_sky": "Fix Cave Sky Rendering",
+  "config.modulation.tweak.vanilla_bugfixes.fix_cave_sky.tooltip": "Stops the sky and clouds from rendering behind culled chunks when the camera is deep underground, such as in ancient cities and large open caverns.",
 
   "config.modulation.module.vanilla_anvil": "Anvil Tweaks",
   "config.modulation.tweak.vanilla_anvil.remove_anvil_limit": "Remove Anvil Limit",

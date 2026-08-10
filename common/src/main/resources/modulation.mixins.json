@@ -36,6 +36,7 @@
     "vanilla.client.GameRendererMixin",
     "vanilla.client.GuiGraphicsMixin",
     "vanilla.client.InventoryScreenMixin",
+    "vanilla.client.LevelRendererSkyMixin",
     "vanilla.client.LocalPlayerMixin",
     "vanilla.passablefoliage.client.CherryParticleMixin",
     "vanilla.passablefoliage.client.CherryProviderMixin",
