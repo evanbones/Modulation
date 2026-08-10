@@ -11,3 +11,5 @@ This module focuses on fixing bugs in the base game.
 * **Fix Dimension Experience Loss (MC-124177)**: Fixes a vanilla bug where experience levels disappear when changing dimensions without portals (e.g. when teleporting between worlds).
 * **Fix Resource Filter Leak (MC-271761)**: Properly couples namespace and path checks for resource filters in `pack.mcmeta` to prevent them from leaking into other namespaces.
 * **Fix Density Function Memoization (MC-268145)**: Fixes an exponential performance bug in Minecraft's world generation math. Most notably, this causes a major worldgen slowdown with mods like Tectonic.
+* **Fix Horizon Line**: Removes the twilight ring drawn over the sky at sunrise and sunset, which renders in front of distance fog and leaves a hard line along the horizon.
+* **Fix Cave Sky Rendering**: Stops the sky and clouds from rendering behind culled chunks when the camera is deep underground, such as in ancient cities and large open caverns. Most noticeable with mods that modify fog, like No Man's Land.
