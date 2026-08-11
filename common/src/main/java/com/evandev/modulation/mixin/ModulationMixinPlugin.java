@@ -33,6 +33,7 @@ public class ModulationMixinPlugin implements IMixinConfigPlugin {
             case "figura" -> isClassPresent("net.figura.Figura");
             case "connectiblechains" -> isClassPresent("com.evandev.connectiblechains.command.ConnectChainCommand");
             case "sodium" -> isClassPresent("net.caffeinemc.mods.sodium.client.render.chunk.compile.pipeline.BlockRenderer");
+            case "polytone" -> isClassPresent("net.mehvahdjukaar.polytone.Polytone");
             default -> true;
         };
     }

@@ -28,6 +28,9 @@
     "vanilla.perf.DensityFunctionsMapAllMixin"
   ],
   "client": [
+    "polytone.client.EffectInstanceMixin",
+    "polytone.client.EffectProgramMixin",
+    "polytone.client.FogRendererMixin",
     "vanilla.accessor.AbstractContainerScreenAccessor",
     "vanilla.client.AbstractContainerScreenMixin",
     "vanilla.client.AnvilScreenMixin",
