@@ -8,7 +8,6 @@
   "mixins": [
     "figura.CommandDispatcherMixin",
     "figura.LoadCommandMixin",
-    "vanilla.AnvilMenuMixin",
     "vanilla.CampfireBlockMixin",
     "vanilla.EntityMixin",
     "vanilla.FenceBlockMixin",
@@ -33,7 +32,6 @@
     "polytone.client.FogRendererMixin",
     "vanilla.accessor.AbstractContainerScreenAccessor",
     "vanilla.client.AbstractContainerScreenMixin",
-    "vanilla.client.AnvilScreenMixin",
     "vanilla.client.ChatComponentMixin",
     "vanilla.client.ContainerEventHandlerMixin",
     "vanilla.client.GameRendererMixin",

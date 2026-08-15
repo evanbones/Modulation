@@ -18,16 +18,6 @@
   "config.modulation.tweak.vanilla_bugfixes.fix_cave_sky": "Fix Cave Sky Rendering",
   "config.modulation.tweak.vanilla_bugfixes.fix_cave_sky.tooltip": "Stops the sky and clouds from rendering behind culled chunks when the camera is deep underground, such as in ancient cities and large open caverns.",
 
-  "config.modulation.module.vanilla_anvil": "Anvil Tweaks",
-  "config.modulation.tweak.vanilla_anvil.remove_anvil_limit": "Remove Anvil Limit",
-  "config.modulation.tweak.vanilla_anvil.remove_anvil_limit.tooltip": "Removes the 'Too Expensive!' 40-level cap on anvils.",
-  "config.modulation.tweak.vanilla_anvil.no_anvil_enchant_cost": "No Anvil Enchant Cost",
-  "config.modulation.tweak.vanilla_anvil.no_anvil_enchant_cost.tooltip": "Removes the experience cost when combining enchantments.",
-  "config.modulation.tweak.vanilla_anvil.no_anvil_repair_cost": "No Anvil Repair Cost",
-  "config.modulation.tweak.vanilla_anvil.no_anvil_repair_cost.tooltip": "Removes the experience cost when repairing items.",
-  "config.modulation.tweak.vanilla_anvil.no_anvil_rename_cost": "No Anvil Rename Cost",
-  "config.modulation.tweak.vanilla_anvil.no_anvil_rename_cost.tooltip": "Removes the experience cost when renaming items.",
-
   "config.modulation.module.vanilla_visual": "Vanilla Visual Tweaks",
   "config.modulation.tweak.vanilla_visual.nicer_map_colors": "Nicer Map Colors",
   "config.modulation.tweak.vanilla_visual.nicer_map_colors.tooltip": "Replaces standard map colors with softer, more aesthetically pleasing palettes.",

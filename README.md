@@ -70,19 +70,6 @@ Upgrade your avatar management experience with [Figura](https://modrinth.com/mod
 
 ---
 
-### Anvil Tweaks
-
-Options to customize anvil mechanics:
-
-* Removes the annoying "Too Expensive!" 40-level limit on anvils.
-* Configure zero experience costs for combining enchantments.
-* Configure zero experience costs for repairing items or combining damaged tools.
-* Configure zero experience costs for renaming items.
-
-May need configuring to work with Allurement. Won't work with Easy Anvils.
-
----
-
 ### GUI & Controls
 
 User interface and control QoL improvements:
