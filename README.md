@@ -93,7 +93,6 @@ Small gameplay tweaks that make survival feel more natural. Inspired by Forgery/
 
 Fixes for several bugs and performance issues in base Minecraft:
 
-* Fixes an exponential density function memoization bug in worldgen math (MC-268145), giving around a ~30% world generation speed boost when using terrain mods like Tectonic!
 * Prevents buttons and sliders from keeping keyboard focus after being clicked (MC-259387).
 * Lets you hit villagers who are sleeping in beds (MC-148559).
 * Prevents experience levels from disappearing when traveling between dimensions without portals (MC-124177).

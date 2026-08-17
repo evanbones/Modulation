@@ -23,8 +23,7 @@
     "vanilla.accessor.MapColorAccessor",
     "vanilla.accessor.ResourceFilterSectionAccessor",
     "vanilla.passablefoliage.EntityLeafDragMixin",
-    "vanilla.passablefoliage.LeavesBlockMixin",
-    "vanilla.perf.DensityFunctionsMapAllMixin"
+    "vanilla.passablefoliage.LeavesBlockMixin"
   ],
   "client": [
     "polytone.client.EffectInstanceMixin",

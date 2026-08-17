@@ -10,6 +10,7 @@ import com.google.auto.service.AutoService;
 public class PassableFoliageModule extends AbstractModule {
 
     private final BooleanTweak enablePassableFoliage = tweak(new BooleanTweak("enable_passable_foliage", false));
+    private final BooleanTweak enableScaffoldingMode = tweak(new BooleanTweak("enable_scaffolding_mode", false));
     private final BooleanTweak enablePaleOakLeaves = tweak(new BooleanTweak("enable_pale_oak_leaves", true));
     private final BooleanTweak enableTintedLeaves = tweak(new BooleanTweak("enable_tinted_leaves", true));
     private final BooleanTweak enableTintedNeedles = tweak(new BooleanTweak("enable_tinted_needles", true));
@@ -24,6 +25,10 @@ public class PassableFoliageModule extends AbstractModule {
 
     public boolean isPassableFoliageEnabled() {
         return enablePassableFoliage.getValue();
+    }
+
+    public boolean isScaffoldingModeEnabled() {
+        return enableScaffoldingMode.getValue();
     }
 
     public boolean isPaleOakLeavesEnabled() {

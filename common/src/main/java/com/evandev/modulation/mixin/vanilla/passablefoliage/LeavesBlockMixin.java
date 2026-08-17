@@ -33,6 +33,9 @@ public abstract class LeavesBlockMixin {
         if (state.is(ModTags.PASSABLE_LEAVES)) {
             PassableFoliageModule module = ModuleManager.getModule("passable_foliage", PassableFoliageModule.class);
             if (module != null && module.isPassableFoliageEnabled()) {
+                if (module.isScaffoldingModeEnabled() && context.isAbove(Shapes.block(), pos, true) && !context.isDescending()) {
+                    return;
+                }
                 if (!(context instanceof EntityCollisionContext entityContext && entityContext.getEntity() == null)) {
                     cir.setReturnValue(Shapes.empty());
                 }
@@ -50,6 +53,9 @@ public abstract class LeavesBlockMixin {
         if (state.is(ModTags.PASSABLE_LEAVES)) {
             PassableFoliageModule module = ModuleManager.getModule("passable_foliage", PassableFoliageModule.class);
             if (module != null && module.isPassableFoliageEnabled()) {
+                if (module.isScaffoldingModeEnabled() && context.isAbove(Shapes.block(), pos, true) && !context.isDescending()) {
+                    return;
+                }
                 cir.setReturnValue(Shapes.empty());
             }
         }

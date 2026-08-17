@@ -12,7 +12,6 @@ public class VanillaBugfixesModule extends AbstractModule {
     private final BooleanTweak attackSleepingVillagers = tweak(new BooleanTweak("attack_sleeping_villagers", true));
     private final BooleanTweak fixExperienceLoss = tweak(new BooleanTweak("fix_experience_loss", true));
     private final BooleanTweak fixResourceFilterLeak = tweak(new BooleanTweak("fix_resource_filter_leak", true));
-    private final BooleanTweak fixDensityMemoization = tweak(new BooleanTweak("fix_density_memoization", true));
     private final BooleanTweak fixHorizonLine = tweak(new BooleanTweak("fix_horizon_line", true));
     private final BooleanTweak fixCaveSky = tweak(new BooleanTweak("fix_cave_sky", true));
 
@@ -34,10 +33,6 @@ public class VanillaBugfixesModule extends AbstractModule {
 
     public boolean isFixResourceFilterLeakEnabled() {
         return fixResourceFilterLeak.getValue();
-    }
-
-    public boolean isFixDensityMemoizationEnabled() {
-        return fixDensityMemoization.getValue();
     }
 
     public boolean isFixHorizonLineEnabled() {
