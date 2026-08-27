@@ -14,6 +14,9 @@ public class VanillaBugfixesModule extends AbstractModule {
     private final BooleanTweak fixResourceFilterLeak = tweak(new BooleanTweak("fix_resource_filter_leak", true));
     private final BooleanTweak fixHorizonLine = tweak(new BooleanTweak("fix_horizon_line", true));
     private final BooleanTweak fixCaveSky = tweak(new BooleanTweak("fix_cave_sky", true));
+    private final BooleanTweak betterPauseFreezing = tweak(new BooleanTweak("better_pause_freezing", true));
+    private final BooleanTweak coloredCrackParticles = tweak(new BooleanTweak("colored_crack_particles", true));
+    private final BooleanTweak ghastCharging = tweak(new BooleanTweak("ghast_charging", true));
 
     public VanillaBugfixesModule() {
         super("vanilla_bugfixes");
@@ -41,5 +44,17 @@ public class VanillaBugfixesModule extends AbstractModule {
 
     public boolean isFixCaveSkyEnabled() {
         return fixCaveSky.getValue();
+    }
+
+    public boolean isBetterPauseFreezingEnabled() {
+        return betterPauseFreezing.getValue();
+    }
+
+    public boolean isColoredCrackParticlesEnabled() {
+        return coloredCrackParticles.getValue();
+    }
+
+    public boolean isGhastChargingEnabled() {
+        return ghastCharging.getValue();
     }
 }

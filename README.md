@@ -45,6 +45,7 @@ Clear visual indicators and info tooltips for items in your inventory!
 * Visual icon overlays on Trapped Chests (redstone indicator) and Infested Blocks (silverfish indicator), fully customizable via item tags (`modulation:infested`, `modulation:trapped`, and blacklist tags).
 * Enhanced copper item tooltips showing oxidation state (Oxidized, Weathered, Exposed, Waxed) and waxing status.
 * Palette adjustments for softer, prettier map colors.
+* Adjusts sign text colors for higher contrast and legibility.
 
 ![Tooltips & Visual Overlays Showcase](https://raw.githubusercontent.com/evanbones/Modulation/refs/heads/1.21.1/images/tooltips_overlays.png)
 
@@ -74,9 +75,11 @@ Upgrade your avatar management experience with [Figura](https://modrinth.com/mod
 
 User interface and control QoL improvements:
 
-* Hold Control while clicking or dragging items in your inventory to transfer them straight into the crafting grid. Works best when pairsed with [Mouse Tweaks](https://modrinth.com/mod/mouse-tweaks).
+* Hold Control while clicking or dragging items in your inventory to transfer them straight into the crafting grid. Works best when paired with [Mouse Tweaks](https://modrinth.com/mod/mouse-tweaks).
 * Option to remove/disable the Creative inventory tab, adding a clear/destroy item button to the survival inventory in Creative mode (with configurable X/Y offsets).
 * Customize how long chat messages stay on screen before fading.
+* Markdown formatting support in chat messages (`**bold**`, `*italic*`, `~~strikethrough~~`, and `~underline~`).
+* Cursor Feedback: the mouse cursor changes shape over buttons, sliders, text fields, scroll bars, disabled widgets, and clickable text links.
 
 ---
 
@@ -86,6 +89,21 @@ Small gameplay tweaks that make survival feel more natural. Inspired by Forgery/
 
 * Cobwebs can catch fire and burn away like other flammable blocks.
 * Campfires place down unlit by default and must be ignited using flint & steel.
+* Campfires can set entities on fire when stood upon.
+* Disables hidden single-block lava pockets in the Nether.
+* Ender Pearls play the Enderman teleport sound when breaking on impact.
+* Spawn eggs create cracking particle effects and play crack sounds when used.
+* Loyalty tridents return when falling into the void instead of being destroyed.
+* Breaking or punching cactus with bare hands damages the player.
+* Creepers explode and chain react upon taking explosion damage.
+* Furnace minecarts accept all furnace fuels (planks, blaze rods, lava buckets, etc.).
+* Infinity bows do not require having an arrow in inventory to fire.
+* Tridents can accept the Sharpness enchantment on anvils (mutually exclusive with Impaling).
+* Bedrock-style Impaling enchantment deals bonus damage to any entity in water or rain.
+* Water in cauldrons placed in the Nether evaporates into steam.
+* Weapons with Fire Aspect can ignite blocks, campfires, TNT, and entities like flint & steel.
+* Prevents opening chests, barrels, and shulker boxes while actively targeted by hostile monsters.
+* Options to disable in-world axe stripping (logs/wood) and copper scraping (wax/oxidation).
 
 ---
 
@@ -97,6 +115,9 @@ Fixes for several bugs and performance issues in base Minecraft:
 * Lets you hit villagers who are sleeping in beds (MC-148559).
 * Prevents experience levels from disappearing when traveling between dimensions without portals (MC-124177).
 * Fixes `pack.mcmeta` datapack filters leaking across different namespaces (MC-271761).
+* Pauses animated textures (water, lava, fire, portals) when the game is paused in singleplayer.
+* Item break and crack particles inherit item dye/color tints.
+* Restores the classic swelling/charging animation when Ghasts prepare to shoot fireballs.
 
 ---
 
@@ -121,6 +142,7 @@ If you are thinking about using the code or assets from Modulation, please note 
 * The Vanilla Walls module's wall/fence/pane connection logic is ported from [BetterWalls](https://modrinth.com/mod/betterwalls) by Lemonnik6484 and JX_Snack, licensed under AGPL-3.0-only.
 * The creative inventory removal is modified from [Raspberry Core](https://modrinth.com/mod/raspberry-core), used under its MIT license.
 * The passable foliage feature is modified from [Soft Leaves](https://modrinth.com/mod/soft-leaves), used under its MIT license.
+* Contains code from [Fabrication](https://github.com/unascribed/Fabrication), used under its MIT license.
 
 ---
 [![discord-plural](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/social/discord-plural_vector.svg)](https://discord.com/invite/6twDUSQBc4) [![github-plural](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/social/github-plural_vector.svg)](https://github.com/evanbones/Modulation)

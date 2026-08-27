@@ -1,7 +1,9 @@
 package com.evandev.modulation.mixin.vanilla.client;
 
 import com.evandev.modulation.api.ModuleManager;
+import com.evandev.modulation.client.cursor.CursorFeedbackManager;
 import com.evandev.modulation.modules.vanilla.VanillaGuiModule;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.player.LocalPlayer;
@@ -39,6 +41,14 @@ public abstract class AbstractContainerScreenMixin<T extends AbstractContainerMe
 
     protected AbstractContainerScreenMixin(Component title) {
         super(title);
+    }
+
+    @Inject(method = "render", at = @At("TAIL"))
+    private void modulation$updateCursor(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
+        Screen screen = this;
+        if (screen == this.minecraft.screen) {
+            CursorFeedbackManager.update(screen, mouseX, mouseY);
+        }
     }
 
     @Inject(method = "slotClicked", at = @At("HEAD"), cancellable = true)

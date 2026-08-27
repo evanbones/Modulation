@@ -22,6 +22,9 @@ dependencies {
     // YACL
     compileOnly "maven.modrinth:yacl:${yacl_version}-neoforge"
 
+    // EMI
+    compileOnly "dev.emi:emi-neoforge:${emi_version}"
+
     // Figura
     compileOnly "maven.modrinth:figura:${figura_version_neoforge}"
 

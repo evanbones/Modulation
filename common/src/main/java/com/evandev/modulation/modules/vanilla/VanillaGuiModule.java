@@ -15,6 +15,8 @@ public class VanillaGuiModule extends AbstractModule {
     private final BooleanTweak creativeDeletionButton = tweak(new BooleanTweak("creative_deletion_button", true));
     private final IntTweak clearButtonX = tweak(new IntTweak("clear_button_x", 148));
     private final IntTweak clearButtonY = tweak(new IntTweak("clear_button_y", 162));
+    private final BooleanTweak chatMarkdown = tweak(new BooleanTweak("chat_markdown", true));
+    private final BooleanTweak cursorFeedback = tweak(new BooleanTweak("cursor_feedback", true));
 
     public VanillaGuiModule() {
         super("vanilla_gui");
@@ -42,5 +44,13 @@ public class VanillaGuiModule extends AbstractModule {
 
     public int getClearButtonY() {
         return clearButtonY.getValue();
+    }
+
+    public boolean isChatMarkdownEnabled() {
+        return chatMarkdown.getValue();
+    }
+
+    public boolean isCursorFeedbackEnabled() {
+        return cursorFeedback.getValue();
     }
 }

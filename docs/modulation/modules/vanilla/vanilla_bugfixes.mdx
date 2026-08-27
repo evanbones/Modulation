@@ -12,3 +12,6 @@ This module focuses on fixing bugs in the base game.
 * **Fix Resource Filter Leak (MC-271761)**: Properly couples namespace and path checks for resource filters in `pack.mcmeta` to prevent them from leaking into other namespaces.
 * **Fix Horizon Line**: Removes the twilight ring drawn over the sky at sunrise and sunset, which renders in front of distance fog and leaves a hard line along the horizon.
 * **Fix Cave Sky Rendering**: Stops the sky and clouds from rendering behind culled chunks when the camera is deep underground, such as in ancient cities and large open caverns. Most noticeable with mods that modify fog, like No Man's Land.
+* **Better Pause Freezing**: Freezes animated textures (water, lava, fire, portals) when the game is paused in singleplayer.
+* **Colored Crack Particles**: Makes item crack and breaking particles honor item coloration, such as dyed leather armor.
+* **Ghast Charging Animation**: Restores the classic ghast charging/swelling animation when preparing to shoot a fireball.

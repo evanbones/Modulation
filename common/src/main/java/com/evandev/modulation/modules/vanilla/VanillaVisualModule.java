@@ -25,6 +25,7 @@ public class VanillaVisualModule extends AbstractModule {
     private final BooleanTweak waxedItemIconOverlay = tweak(new BooleanTweak("waxed_item_icon_overlay", true));
     private final BooleanTweak extraItemIconOverlays = tweak(new BooleanTweak("extra_item_icon_overlays", true));
     private final BooleanTweak betterCopperTooltips = tweak(new BooleanTweak("better_copper_tooltips", true));
+    private final BooleanTweak legibleSigns = tweak(new BooleanTweak("legible_signs", true));
 
     public VanillaVisualModule() {
         super("vanilla_visual");
@@ -40,6 +41,10 @@ public class VanillaVisualModule extends AbstractModule {
 
     public boolean isBetterCopperTooltipsEnabled() {
         return betterCopperTooltips.getValue();
+    }
+
+    public boolean isLegibleSignsEnabled() {
+        return legibleSigns.getValue();
     }
 
     private void applyNicerMapColors(boolean nicer) {
