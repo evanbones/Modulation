@@ -2,7 +2,8 @@
 
 - Added a tweak to disable farmland creation.
 - Added a tweak to disable path creation.
-- Added a tweak to disable ender pearl damage.
+- Added a tweak to disable Ender Pearl damage when thrown.
+- Added a tweak to place Farmer's Delight stoves unlit.
 
 ### Fixed
 

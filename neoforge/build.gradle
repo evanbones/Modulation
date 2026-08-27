@@ -63,6 +63,10 @@ dependencies {
     runtimeOnly "maven.modrinth:vanillabackport:rUSWdBok"
     runtimeOnly "maven.modrinth:platform:v7P0nBi2"
 
+    // Farmer's Delight
+    compileOnly "maven.modrinth:farmers-delight:${farmersdelight_version_neoforge}"
+    runtimeOnly "maven.modrinth:farmers-delight:${farmersdelight_version_neoforge}"
+
     compileOnly 'com.google.auto.service:auto-service-annotations:1.1.1'
     annotationProcessor 'com.google.auto.service:auto-service:1.1.1'
 }

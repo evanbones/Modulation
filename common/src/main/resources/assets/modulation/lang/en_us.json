@@ -110,6 +110,10 @@
   "config.modulation.tweak.figura.enable_target_selectors": "Improved Figura Load Command",
   "config.modulation.tweak.figura.enable_target_selectors.tooltip": "Modifies the /figura load command with target selection and autocomplete (@a, @s, ...)",
 
+  "config.modulation.module.farmers_delight": "Farmer's Delight Tweaks",
+  "config.modulation.tweak.farmers_delight.stoves_place_unlit": "Stoves Place Unlit",
+  "config.modulation.tweak.farmers_delight.stoves_place_unlit.tooltip": "Farmer's Delight stoves are placed unlit instead of already burning.",
+
   "config.modulation.module.reconnectible_chains": "Reconnectible Chains",
   "config.modulation.tweak.reconnectible_chains.enabled": "Enable Module",
   "config.modulation.tweak.reconnectible_chains.enabled.tooltip": "Enables the Chain Staff logic and post placement.",

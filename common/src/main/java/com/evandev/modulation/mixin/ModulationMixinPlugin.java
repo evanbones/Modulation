@@ -35,6 +35,7 @@ public class ModulationMixinPlugin implements IMixinConfigPlugin {
             case "emi" -> isClassPresent("dev.emi.emi.api.EmiApi");
             case "sodium" -> isClassPresent("net.caffeinemc.mods.sodium.client.render.chunk.compile.pipeline.BlockRenderer");
             case "polytone" -> isClassPresent("net.mehvahdjukaar.polytone.Polytone");
+            case "farmersdelight" -> isClassPresent("vectorwing.farmersdelight.common.block.AbstractStoveBlock");
             default -> true;
         };
     }

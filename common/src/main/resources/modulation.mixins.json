@@ -6,6 +6,7 @@
   "plugin": "com.evandev.modulation.mixin.ModulationMixinPlugin",
   "compatibilityLevel": "JAVA_18",
   "mixins": [
+    "farmersdelight.AbstractStoveBlockMixin",
     "figura.CommandDispatcherMixin",
     "figura.LoadCommandMixin",
     "vanilla.AnvilMenuMixin",

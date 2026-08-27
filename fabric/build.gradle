@@ -37,6 +37,9 @@ dependencies {
     // Vanilla Backport
     modCompileOnly "maven.modrinth:vanillabackport:ayvoY8lx"
 
+    // Farmer's Delight
+    modCompileOnly "maven.modrinth:farmers-delight-refabricated:${farmersdelight_version_fabric}"
+
     compileOnly 'com.google.auto.service:auto-service-annotations:1.1.1'
     annotationProcessor 'com.google.auto.service:auto-service:1.1.1'
 
