@@ -27,6 +27,9 @@ public class VanillaGameplayModule extends AbstractModule {
     private final BooleanTweak netherCauldron = tweak(new BooleanTweak("nether_cauldron", false));
     private final BooleanTweak fireAspectIsFlintAndSteel = tweak(new BooleanTweak("fire_aspect_is_flint_and_steel", false));
     private final BooleanTweak noChestWhenTargeted = tweak(new BooleanTweak("no_chest_when_targeted", false));
+    private final BooleanTweak disablePathCreation = tweak(new BooleanTweak("disable_path_creation", false));
+    private final BooleanTweak disableFarmlandCreation = tweak(new BooleanTweak("disable_farmland_creation", false));
+    private final BooleanTweak disableEnderPearlDamage = tweak(new BooleanTweak("disable_ender_pearl_damage", false));
 
     public VanillaGameplayModule() {
         super("vanilla_gameplay");
@@ -106,5 +109,17 @@ public class VanillaGameplayModule extends AbstractModule {
 
     public boolean isNoChestWhenTargetedEnabled() {
         return noChestWhenTargeted.getValue();
+    }
+
+    public boolean isDisablePathCreationEnabled() {
+        return disablePathCreation.getValue();
+    }
+
+    public boolean isDisableFarmlandCreationEnabled() {
+        return disableFarmlandCreation.getValue();
+    }
+
+    public boolean isDisableEnderPearlDamageEnabled() {
+        return disableEnderPearlDamage.getValue();
     }
 }

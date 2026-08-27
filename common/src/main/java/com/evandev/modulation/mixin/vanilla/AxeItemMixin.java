@@ -3,6 +3,7 @@ package com.evandev.modulation.mixin.vanilla;
 import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.mixin.vanilla.accessor.AxeItemAccessor;
 import com.evandev.modulation.modules.vanilla.VanillaGameplayModule;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.HoneycombItem;
@@ -15,8 +16,25 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Optional;
+
 @Mixin(AxeItem.class)
 public class AxeItemMixin {
+
+    @Unique
+    private static boolean modulation$isStrippable(BlockState state) {
+        return AxeItemAccessor.modulation$getStrippables().containsKey(state.getBlock())
+                || state.is(BlockTags.LOGS)
+                || state.is(BlockTags.LOGS_THAT_BURN);
+    }
+
+    @Unique
+    private static boolean modulation$isCopperScrapable(BlockState state) {
+        if (WeatheringCopper.getPrevious(state).isPresent()) {
+            return true;
+        }
+        return HoneycombItem.WAX_OFF_BY_BLOCK.get().containsKey(state.getBlock());
+    }
 
     @Inject(method = "useOn", at = @At("HEAD"), cancellable = true)
     private void modulation$handleAxeUseOn(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
@@ -36,16 +54,10 @@ public class AxeItemMixin {
         }
     }
 
-    @Unique
-    private static boolean modulation$isStrippable(BlockState state) {
-        return AxeItemAccessor.modulation$getStrippables().containsKey(state.getBlock());
-    }
-
-    @Unique
-    private static boolean modulation$isCopperScrapable(BlockState state) {
-        if (WeatheringCopper.getPrevious(state).isPresent()) {
-            return true;
+    @Inject(method = "getStripped", at = @At("HEAD"), cancellable = true)
+    private void modulation$disableStripping(BlockState unstrippedState, CallbackInfoReturnable<Optional<BlockState>> cir) {
+        if (ModuleManager.isEnabled("vanilla_gameplay", VanillaGameplayModule.class, VanillaGameplayModule::isDisableAxeStrippingEnabled)) {
+            cir.setReturnValue(Optional.empty());
         }
-        return HoneycombItem.WAX_OFF_BY_BLOCK.get().containsKey(state.getBlock());
     }
 }

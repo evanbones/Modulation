@@ -73,6 +73,12 @@
   "config.modulation.tweak.vanilla_gameplay.fire_aspect_is_flint_and_steel.tooltip": "Allows weapons with Fire Aspect to ignite blocks, campfires, TNT, and entities like flint and steel.",
   "config.modulation.tweak.vanilla_gameplay.no_chest_when_targeted": "Cannot Open Chest When Targeted",
   "config.modulation.tweak.vanilla_gameplay.no_chest_when_targeted.tooltip": "Prevents opening chests, barrels, and shulker boxes while being targeted by hostile monsters.",
+  "config.modulation.tweak.vanilla_gameplay.disable_path_creation": "Disable Path Creation",
+  "config.modulation.tweak.vanilla_gameplay.disable_path_creation.tooltip": "Disables in-world creation of dirt paths using a shovel.",
+  "config.modulation.tweak.vanilla_gameplay.disable_farmland_creation": "Disable Farmland Creation",
+  "config.modulation.tweak.vanilla_gameplay.disable_farmland_creation.tooltip": "Disables in-world tilling of dirt and grass into farmland using a hoe.",
+  "config.modulation.tweak.vanilla_gameplay.disable_ender_pearl_damage": "Disable Ender Pearl Damage",
+  "config.modulation.tweak.vanilla_gameplay.disable_ender_pearl_damage.tooltip": "Removes fall damage taken when teleporting with an Ender Pearl.",
 
   "config.modulation.module.vanilla_walls": "Wall Connections",
   "config.modulation.tweak.vanilla_walls.walls_connect_to_fences": "Walls Connect to Fences",

@@ -92,6 +92,7 @@ Small gameplay tweaks that make survival feel more natural. Inspired by Forgery/
 * Campfires can set entities on fire when stood upon.
 * Disables hidden single-block lava pockets in the Nether.
 * Ender Pearls play the Enderman teleport sound when breaking on impact.
+* Option to disable fall damage taken when teleporting with Ender Pearls.
 * Spawn eggs create cracking particle effects and play crack sounds when used.
 * Loyalty tridents return when falling into the void instead of being destroyed.
 * Breaking or punching cactus with bare hands damages the player.
@@ -103,7 +104,7 @@ Small gameplay tweaks that make survival feel more natural. Inspired by Forgery/
 * Water in cauldrons placed in the Nether evaporates into steam.
 * Weapons with Fire Aspect can ignite blocks, campfires, TNT, and entities like flint & steel.
 * Prevents opening chests, barrels, and shulker boxes while actively targeted by hostile monsters.
-* Options to disable in-world axe stripping (logs/wood) and copper scraping (wax/oxidation).
+* Options to disable in-world axe stripping (logs/wood, including modded logs), copper scraping (wax/oxidation), dirt path creation (shovels), and farmland tilling (hoes).
 
 ---
 
