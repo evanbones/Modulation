@@ -30,6 +30,8 @@ public class VanillaGameplayModule extends AbstractModule {
     private final BooleanTweak disablePathCreation = tweak(new BooleanTweak("disable_path_creation", false));
     private final BooleanTweak disableFarmlandCreation = tweak(new BooleanTweak("disable_farmland_creation", false));
     private final BooleanTweak disableEnderPearlDamage = tweak(new BooleanTweak("disable_ender_pearl_damage", false));
+    private final BooleanTweak dispenserShearsPumpkins = tweak(new BooleanTweak("dispenser_shears_pumpkins", false));
+    private final BooleanTweak waterBottlesOnConcrete = tweak(new BooleanTweak("water_bottles_on_concrete", false));
 
     public VanillaGameplayModule() {
         super("vanilla_gameplay");
@@ -121,5 +123,13 @@ public class VanillaGameplayModule extends AbstractModule {
 
     public boolean isDisableEnderPearlDamageEnabled() {
         return disableEnderPearlDamage.getValue();
+    }
+
+    public boolean isDispenserShearsPumpkinsEnabled() {
+        return dispenserShearsPumpkins.getValue();
+    }
+
+    public boolean isWaterBottlesOnConcreteEnabled() {
+        return waterBottlesOnConcrete.getValue();
     }
 }

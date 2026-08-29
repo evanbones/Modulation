@@ -17,6 +17,7 @@ public class VanillaBugfixesModule extends AbstractModule {
     private final BooleanTweak betterPauseFreezing = tweak(new BooleanTweak("better_pause_freezing", true));
     private final BooleanTweak coloredCrackParticles = tweak(new BooleanTweak("colored_crack_particles", true));
     private final BooleanTweak ghastCharging = tweak(new BooleanTweak("ghast_charging", true));
+    private final BooleanTweak fixMobsCrossingRails = tweak(new BooleanTweak("fix_mobs_crossing_rails", false));
 
     public VanillaBugfixesModule() {
         super("vanilla_bugfixes");
@@ -56,5 +57,9 @@ public class VanillaBugfixesModule extends AbstractModule {
 
     public boolean isGhastChargingEnabled() {
         return ghastCharging.getValue();
+    }
+
+    public boolean isFixMobsCrossingRailsEnabled() {
+        return fixMobsCrossingRails.getValue();
     }
 }

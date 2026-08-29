@@ -21,6 +21,8 @@
   "config.modulation.tweak.vanilla_bugfixes.colored_crack_particles.tooltip": "Makes item crack/breaking particles honor item coloration, such as dyed leather armor.",
   "config.modulation.tweak.vanilla_bugfixes.ghast_charging": "Ghast Charging Animation",
   "config.modulation.tweak.vanilla_bugfixes.ghast_charging.tooltip": "Brings back the classic ghast charging/swelling animation when preparing to shoot a fireball.",
+  "config.modulation.tweak.vanilla_bugfixes.fix_mobs_crossing_rails": "Allow Mobs to Cross Rails (MC-33359)",
+  "config.modulation.tweak.vanilla_bugfixes.fix_mobs_crossing_rails.tooltip": "Fixes an issue where mobs refuse to pathfind across minecart rails by treating them as unpassable.",
 
   "config.modulation.module.vanilla_visual": "Vanilla Visual Tweaks",
   "config.modulation.tweak.vanilla_visual.nicer_map_colors": "Nicer Map Colors",
@@ -33,6 +35,10 @@
   "config.modulation.tweak.vanilla_visual.better_copper_tooltips.tooltip": "Improves formatting and consistency of copper tooltips.",
   "config.modulation.tweak.vanilla_visual.legible_signs": "Legible Signs",
   "config.modulation.tweak.vanilla_visual.legible_signs.tooltip": "Adjusts non-glowing sign text colors to improve legibility and contrast against wood.",
+  "config.modulation.tweak.vanilla_visual.less_annoying_fire": "Less Annoying Fire",
+  "config.modulation.tweak.vanilla_visual.less_annoying_fire.tooltip": "Lowers the on-fire screen overlay and hides it entirely when you have Fire Resistance or are immune to fire.",
+  "config.modulation.tweak.vanilla_visual.pixel_consistent_block_drops": "Pixel Consistent Block Drops",
+  "config.modulation.tweak.vanilla_visual.pixel_consistent_block_drops.tooltip": "Draws 3D dropped block items with consistent pixel scale (sampling an 8x8 portion of the texture), emulating Survival Test block drop rendering.",
 
   "config.modulation.module.vanilla_gameplay": "Vanilla Gameplay Tweaks",
   "config.modulation.tweak.vanilla_gameplay.flammable_cobwebs": "Flammable Cobwebs",
@@ -79,6 +85,10 @@
   "config.modulation.tweak.vanilla_gameplay.disable_farmland_creation.tooltip": "Disables in-world tilling of dirt and grass into farmland using a hoe.",
   "config.modulation.tweak.vanilla_gameplay.disable_ender_pearl_damage": "Disable Ender Pearl Damage",
   "config.modulation.tweak.vanilla_gameplay.disable_ender_pearl_damage.tooltip": "Removes fall damage taken when teleporting with an Ender Pearl.",
+  "config.modulation.tweak.vanilla_gameplay.dispenser_shears_pumpkins": "Dispenser Shears Pumpkins",
+  "config.modulation.tweak.vanilla_gameplay.dispenser_shears_pumpkins.tooltip": "Dispensers equipped with shears can carve pumpkins into carved pumpkins and drop pumpkin seeds.",
+  "config.modulation.tweak.vanilla_gameplay.water_bottles_on_concrete": "Water Bottles On Concrete Powder",
+  "config.modulation.tweak.vanilla_gameplay.water_bottles_on_concrete.tooltip": "Using or dispensing water bottles on Concrete Powder turns it into the corresponding Concrete block, similar to making Mud from Dirt.",
 
   "config.modulation.module.vanilla_walls": "Wall Connections",
   "config.modulation.tweak.vanilla_walls.walls_connect_to_fences": "Walls Connect to Fences",

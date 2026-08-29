@@ -26,6 +26,8 @@ public class VanillaVisualModule extends AbstractModule {
     private final BooleanTweak extraItemIconOverlays = tweak(new BooleanTweak("extra_item_icon_overlays", true));
     private final BooleanTweak betterCopperTooltips = tweak(new BooleanTweak("better_copper_tooltips", true));
     private final BooleanTweak legibleSigns = tweak(new BooleanTweak("legible_signs", true));
+    private final BooleanTweak lessAnnoyingFire = tweak(new BooleanTweak("less_annoying_fire", false));
+    private final BooleanTweak pixelConsistentBlockDrops = tweak(new BooleanTweak("pixel_consistent_block_drops", false));
 
     public VanillaVisualModule() {
         super("vanilla_visual");
@@ -45,6 +47,14 @@ public class VanillaVisualModule extends AbstractModule {
 
     public boolean isLegibleSignsEnabled() {
         return legibleSigns.getValue();
+    }
+
+    public boolean isLessAnnoyingFireEnabled() {
+        return lessAnnoyingFire.getValue();
+    }
+
+    public boolean isPixelConsistentBlockDropsEnabled() {
+        return pixelConsistentBlockDrops.getValue();
     }
 
     private void applyNicerMapColors(boolean nicer) {
