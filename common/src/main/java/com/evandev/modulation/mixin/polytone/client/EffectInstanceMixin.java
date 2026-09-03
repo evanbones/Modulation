@@ -22,17 +22,23 @@ public abstract class EffectInstanceMixin {
     @Unique
     private static final String modulation$FOG_UNIFORM = "ModulationFogRange";
 
+    @Unique
+    private static final String modulation$SKY_UNIFORM = "ModulationSkyVisibility";
+
+    @Unique
+    private boolean modulation$locationsResolved;
+
+    @Unique
+    private int modulation$fogLocation;
+
+    @Unique
+    private int modulation$skyLocation;
+
     @Shadow
     public abstract String getName();
 
     @Shadow
     public abstract int getId();
-
-    @Unique
-    private boolean modulation$fogLocationResolved;
-
-    @Unique
-    private int modulation$fogLocation;
 
     @Inject(method = "apply", at = @At("TAIL"))
     private void modulation$uploadFogRange(CallbackInfo ci) {
@@ -41,20 +47,28 @@ public abstract class EffectInstanceMixin {
             return;
         }
 
-        if (!this.modulation$fogLocationResolved) {
+        if (!this.modulation$locationsResolved) {
             this.modulation$fogLocation = Uniform.glGetUniformLocation(this.getId(), modulation$FOG_UNIFORM);
-            this.modulation$fogLocationResolved = true;
+            this.modulation$skyLocation = Uniform.glGetUniformLocation(this.getId(), modulation$SKY_UNIFORM);
+            this.modulation$locationsResolved = true;
         }
 
-        if (this.modulation$fogLocation < 0) {
+        if (this.modulation$fogLocation < 0 && this.modulation$skyLocation < 0) {
             return;
         }
 
-        if (!ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isFixHorizonLineEnabled)) {
-            GL20.glUniform2f(this.modulation$fogLocation, -1.0F, -1.0F);
-            return;
+        boolean enabled = ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isFixHorizonLineEnabled);
+
+        if (this.modulation$fogLocation >= 0) {
+            if (enabled) {
+                GL20.glUniform2f(this.modulation$fogLocation, HorizonFogState.getStart(), HorizonFogState.getEnd());
+            } else {
+                GL20.glUniform2f(this.modulation$fogLocation, -1.0F, -1.0F);
+            }
         }
 
-        GL20.glUniform2f(this.modulation$fogLocation, HorizonFogState.getStart(), HorizonFogState.getEnd());
+        if (this.modulation$skyLocation >= 0) {
+            GL20.glUniform1f(this.modulation$skyLocation, enabled ? HorizonFogState.getSkyVisibility() : 0.0F);
+        }
     }
 }

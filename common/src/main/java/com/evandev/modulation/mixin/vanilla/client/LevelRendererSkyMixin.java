@@ -1,6 +1,7 @@
 package com.evandev.modulation.mixin.vanilla.client;
 
 import com.evandev.modulation.api.ModuleManager;
+import com.evandev.modulation.client.SkyExposure;
 import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -9,10 +10,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.SectionPos;
-import net.minecraft.world.level.LightLayer;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.material.FogType;
 import org.joml.Matrix4f;
 import org.spongepowered.asm.mixin.Mixin;
@@ -58,15 +55,6 @@ public abstract class LevelRendererSkyMixin {
     }
 
     @Unique
-    private static final int modulation$SAMPLE_RADIUS = 32;
-
-    @Unique
-    private static final int modulation$SAMPLE_STEP = 16;
-
-    @Unique
-    private static final int modulation$DEPTH_MARGIN = 8;
-
-    @Unique
     private boolean modulation$shouldHideSky(Camera camera) {
         if (!ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isFixCaveSkyEnabled)) {
             return false;
@@ -85,30 +73,6 @@ public abstract class LevelRendererSkyMixin {
             return false;
         }
 
-        BlockPos pos = camera.getBlockPosition();
-        if (clientLevel.getBrightness(LightLayer.SKY, pos) > 0) {
-            return false;
-        }
-
-        int lowest = modulation$lowestNearbySurface(clientLevel, pos);
-        return lowest != Integer.MAX_VALUE && pos.getY() < lowest - modulation$DEPTH_MARGIN;
-    }
-
-    @Unique
-    private int modulation$lowestNearbySurface(ClientLevel clientLevel, BlockPos pos) {
-        int lowest = Integer.MAX_VALUE;
-
-        for (int dx = -modulation$SAMPLE_RADIUS; dx <= modulation$SAMPLE_RADIUS; dx += modulation$SAMPLE_STEP) {
-            for (int dz = -modulation$SAMPLE_RADIUS; dz <= modulation$SAMPLE_RADIUS; dz += modulation$SAMPLE_STEP) {
-                int x = pos.getX() + dx;
-                int z = pos.getZ() + dz;
-                if (!clientLevel.hasChunk(SectionPos.blockToSectionCoord(x), SectionPos.blockToSectionCoord(z))) {
-                    continue;
-                }
-                lowest = Math.min(lowest, clientLevel.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z));
-            }
-        }
-
-        return lowest;
+        return SkyExposure.isEnclosed(clientLevel, camera.getBlockPosition());
     }
 }
