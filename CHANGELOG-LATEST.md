@@ -1,4 +1,4 @@
-### Fixed
+### Added
 
-- Actually fixed the Sunbathing Godrays rays shining through caves this time.
-- The sky underground now fades out instead of snapping.
+- Added Extended Clouds module: renders the cloud layer far past its vanilla radius, with a configurable distance
+  multiplier. Ported from the Extended Clouds mod.

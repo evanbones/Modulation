@@ -1,6 +1,9 @@
 package com.evandev.modulation.mixin.vanilla.client;
 
+import com.evandev.modulation.api.ModuleManager;
+import com.evandev.modulation.modules.vanilla.ExtendedCloudsModule;
 import com.evandev.modulation.registry.ModRegistry;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.world.entity.Entity;
@@ -27,5 +30,14 @@ public class GameRendererMixin {
                 mc.crosshairPickEntity = null;
             }
         }
+    }
+
+    @ModifyReturnValue(method = "getDepthFar", at = @At("RETURN"))
+    private float modulation$extendDepthFar(float original) {
+        ExtendedCloudsModule module = ModuleManager.getModule("extended_clouds", ExtendedCloudsModule.class);
+        if (module == null || !module.isExtendFrustumEnabled()) {
+            return original;
+        }
+        return (float) (original * module.getCloudDistanceMultiplier());
     }
 }

@@ -72,6 +72,7 @@
     "vanilla.client.GuiGraphicsMixin",
     "vanilla.client.InventoryScreenMixin",
     "vanilla.client.ItemEntityRendererMixin",
+    "vanilla.client.LevelRendererCloudsMixin",
     "vanilla.client.LevelRendererSkyMixin",
     "vanilla.client.LocalPlayerMixin",
     "vanilla.client.MinecraftCursorMixin",

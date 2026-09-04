@@ -1,0 +1,16 @@
+---
+title: Extended Clouds
+hide_meta: true
+---
+
+This module pushes the vanilla cloud layer far past its fixed radius so clouds stay visible out to the horizon instead of vanishing a few hundred blocks away. Ported from [Extended Clouds](https://github.com/seymourimadeit/extended-clouds), used under its MIT license.
+
+**Features:**
+* **Extended Clouds**: Scales the cloud mesh with your render distance instead of the hardcoded vanilla radius (similar to 1.21.6). Disabled by default.
+* **Cloud Distance Multiplier**: How far clouds render relative to your render distance. Defaults to `4.0`.
+* **Extend Frustum**: Pushes the camera far plane out by the same multiplier so distant clouds are not clipped away. Enabled by default. Disable it if you notice depth-buffer artifacts such as z-fighting on distant terrain.
+* **Async Cloud Meshing**: Builds the enlarged cloud mesh on a background thread so rebuilds do not stall the render thread. Clouds may lag one cloud cell behind while rebuilding. Enabled by default.
+
+**Notes:**
+* Fancy and Fast clouds are both extended. Fast clouds keep their 32-unit quad tiling and simply cover more ground.
+* Unlike the original mod, this port should still work with other mods that touch cloud rendering.

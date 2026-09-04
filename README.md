@@ -108,6 +108,16 @@ Small gameplay tweaks that make survival feel more natural. Inspired by Forgery/
 
 ---
 
+### Extended Clouds
+
+Push the cloud layer out to the horizon instead of the vanilla fixed radius. Ported from [Extended Clouds](https://github.com/seymourimadeit/extended-clouds)!
+
+* Scales the cloud distance with your render distance using a configurable distance multiplier.
+* Extends the camera far plane so distant clouds are not clipped away.
+* Builds the enlarged cloud mesh on a background thread to keep rebuilds off the render thread.
+
+---
+
 ### Bug & Performance Fixes
 
 Fixes for several bugs and performance issues in base Minecraft:
@@ -143,6 +153,7 @@ If you are thinking about using the code or assets from Modulation, please note 
 * The Vanilla Walls module's wall/fence/pane connection logic is ported from [BetterWalls](https://modrinth.com/mod/betterwalls) by Lemonnik6484 and JX_Snack, licensed under AGPL-3.0-only.
 * The creative inventory removal is modified from [Raspberry Core](https://modrinth.com/mod/raspberry-core), used under its MIT license.
 * The passable foliage feature is modified from [Soft Leaves](https://modrinth.com/mod/soft-leaves), used under its MIT license.
+* The extended clouds feature is ported from [Extended Clouds](https://github.com/seymourimadeit/extended-clouds), used under its MIT license.
 * Contains code from [Fabrication](https://github.com/unascribed/Fabrication), used under its MIT license.
 
 ---
