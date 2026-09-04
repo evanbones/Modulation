@@ -26,6 +26,9 @@ public abstract class EffectInstanceMixin {
     private static final String modulation$SKY_UNIFORM = "ModulationSkyVisibility";
 
     @Unique
+    private static final String modulation$HIDDEN_UNIFORM = "ModulationSkyHidden";
+
+    @Unique
     private boolean modulation$locationsResolved;
 
     @Unique
@@ -33,6 +36,9 @@ public abstract class EffectInstanceMixin {
 
     @Unique
     private int modulation$skyLocation;
+
+    @Unique
+    private int modulation$hiddenLocation;
 
     @Shadow
     public abstract String getName();
@@ -50,10 +56,11 @@ public abstract class EffectInstanceMixin {
         if (!this.modulation$locationsResolved) {
             this.modulation$fogLocation = Uniform.glGetUniformLocation(this.getId(), modulation$FOG_UNIFORM);
             this.modulation$skyLocation = Uniform.glGetUniformLocation(this.getId(), modulation$SKY_UNIFORM);
+            this.modulation$hiddenLocation = Uniform.glGetUniformLocation(this.getId(), modulation$HIDDEN_UNIFORM);
             this.modulation$locationsResolved = true;
         }
 
-        if (this.modulation$fogLocation < 0 && this.modulation$skyLocation < 0) {
+        if (this.modulation$fogLocation < 0 && this.modulation$skyLocation < 0 && this.modulation$hiddenLocation < 0) {
             return;
         }
 
@@ -69,6 +76,10 @@ public abstract class EffectInstanceMixin {
 
         if (this.modulation$skyLocation >= 0) {
             GL20.glUniform1f(this.modulation$skyLocation, enabled ? HorizonFogState.getSkyVisibility() : 0.0F);
+        }
+
+        if (this.modulation$hiddenLocation >= 0) {
+            GL20.glUniform1f(this.modulation$hiddenLocation, HorizonFogState.getSkyHidden());
         }
     }
 }

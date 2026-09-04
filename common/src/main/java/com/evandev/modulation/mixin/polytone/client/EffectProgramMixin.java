@@ -32,6 +32,7 @@ public abstract class EffectProgramMixin {
             
             uniform vec2 ModulationFogRange;
             uniform float ModulationSkyVisibility;
+            uniform float ModulationSkyHidden;
             float modulation_skyness(float d);
             """;
 
@@ -39,11 +40,15 @@ public abstract class EffectProgramMixin {
     private static final String modulation$HELPER_DEFINITION = """
             
             float modulation_skyness(float d) {
+                float visible = 1.0 - clamp(ModulationSkyHidden, 0.0, 1.0);
+                if (visible <= 0.0) {
+                    return 0.0;
+                }
                 float raw = step(0.999999, d);
                 float fogStart = ModulationFogRange.x;
                 float fogEnd = ModulationFogRange.y;
                 if (ModulationSkyVisibility <= 0.0 || fogEnd <= fogStart || fogEnd <= 0.0) {
-                    return raw;
+                    return visible * raw;
                 }
                 float a = PolyProjMat[2][2];
                 float b = PolyProjMat[3][2];
@@ -52,7 +57,7 @@ public abstract class EffectProgramMixin {
                 float tx = ndc.x / PolyProjMat[0][0];
                 float ty = ndc.y / PolyProjMat[1][1];
                 float dist = viewZ * sqrt(1.0 + tx * tx + ty * ty);
-                return max(raw, ModulationSkyVisibility * smoothstep(fogStart, fogEnd, dist));
+                return visible * max(raw, ModulationSkyVisibility * smoothstep(fogStart, fogEnd, dist));
             }
             """;
 

@@ -1,4 +1,4 @@
 ### Fixed
 
-- Fixed the Sunbathing Godrays rays shining through caves with Horizon Fix enabled.
-- Improvements to the cave sky fix.
+- Actually fixed the Sunbathing Godrays rays shining through caves this time.
+- The sky underground now fades out instead of snapping.
