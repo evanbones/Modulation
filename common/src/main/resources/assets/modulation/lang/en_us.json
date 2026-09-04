@@ -115,6 +115,8 @@
   "config.modulation.tweak.vanilla_gui.chat_markdown.tooltip": "Adds bold (**text**), italic (*text*), strikethrough (~~text~~), and underline (~text~) formatting to chat messages.",
   "config.modulation.tweak.vanilla_gui.cursor_feedback": "Cursor Feedback",
   "config.modulation.tweak.vanilla_gui.cursor_feedback.tooltip": "Changes the mouse cursor shape when hovering buttons, sliders, text fields, scroll bars, disabled widgets, and clickable text links.",
+  "config.modulation.tweak.vanilla_gui.slot_highlight_behind_item": "Slot Highlight Behind Item",
+  "config.modulation.tweak.vanilla_gui.slot_highlight_behind_item.tooltip": "Draws the slot hover highlight underneath the item instead of on top of it, keeping the item readable.",
 
   "config.modulation.module.figura": "Figura",
   "config.modulation.tweak.figura.enable_target_selectors": "Improved Figura Load Command",

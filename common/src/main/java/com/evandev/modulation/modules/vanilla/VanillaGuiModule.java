@@ -17,6 +17,7 @@ public class VanillaGuiModule extends AbstractModule {
     private final IntTweak clearButtonY = tweak(new IntTweak("clear_button_y", 162));
     private final BooleanTweak chatMarkdown = tweak(new BooleanTweak("chat_markdown", true));
     private final BooleanTweak cursorFeedback = tweak(new BooleanTweak("cursor_feedback", true));
+    private final BooleanTweak slotHighlightBehindItem = tweak(new BooleanTweak("slot_highlight_behind_item", true));
 
     public VanillaGuiModule() {
         super("vanilla_gui");
@@ -52,5 +53,9 @@ public class VanillaGuiModule extends AbstractModule {
 
     public boolean isCursorFeedbackEnabled() {
         return cursorFeedback.getValue();
+    }
+
+    public boolean isSlotHighlightBehindItemEnabled() {
+        return slotHighlightBehindItem.getValue();
     }
 }

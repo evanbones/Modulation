@@ -2,7 +2,11 @@ package com.evandev.modulation.mixin.vanilla.client;
 
 import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.client.cursor.CursorFeedbackManager;
+import com.evandev.modulation.client.render.SlotHighlightRenderer;
 import com.evandev.modulation.modules.vanilla.VanillaGuiModule;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -41,6 +45,20 @@ public abstract class AbstractContainerScreenMixin<T extends AbstractContainerMe
 
     protected AbstractContainerScreenMixin(Component title) {
         super(title);
+    }
+
+    @Shadow
+    protected abstract boolean isHovering(Slot slot, double mouseX, double mouseY);
+
+    @WrapOperation(
+            method = "render",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/inventory/AbstractContainerScreen;renderSlot(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/world/inventory/Slot;)V"))
+    private void modulation$renderSlotHighlightBack(AbstractContainerScreen<T> instance, GuiGraphics guiGraphics, Slot slot, Operation<Void> original,
+                                                    @Local(argsOnly = true, ordinal = 0) int mouseX, @Local(argsOnly = true, ordinal = 1) int mouseY) {
+        if (SlotHighlightRenderer.isEnabled() && slot.isHighlightable() && this.isHovering(slot, mouseX, mouseY)) {
+            SlotHighlightRenderer.renderBack(guiGraphics, slot);
+        }
+        original.call(instance, guiGraphics, slot);
     }
 
     @Inject(method = "render", at = @At("TAIL"))

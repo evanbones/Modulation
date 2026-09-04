@@ -80,6 +80,7 @@ User interface and control QoL improvements:
 * Customize how long chat messages stay on screen before fading.
 * Markdown formatting support in chat messages (`**bold**`, `*italic*`, `~~strikethrough~~`, and `~underline~`).
 * Cursor Feedback: the mouse cursor changes shape over buttons, sliders, text fields, scroll bars, disabled widgets, and clickable text links.
+* Slot hover highlights render mostly behind the item instead of washing over it, as in 1.21.2+. Uses the vanilla sprite paths, so resource packs made for 1.21.2+ should work as expected.
 
 ---
 
