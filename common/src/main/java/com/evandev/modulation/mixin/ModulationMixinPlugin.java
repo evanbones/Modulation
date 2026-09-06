@@ -36,6 +36,7 @@ public class ModulationMixinPlugin implements IMixinConfigPlugin {
             case "sodium" -> isClassPresent("net.caffeinemc.mods.sodium.client.render.chunk.compile.pipeline.BlockRenderer");
             case "polytone" -> isClassPresent("net.mehvahdjukaar.polytone.Polytone");
             case "farmersdelight" -> isClassPresent("vectorwing.farmersdelight.common.block.AbstractStoveBlock");
+            case "dyedflames" -> isClassPresent("fuzs.dyedflames.DyedFlames");
             default -> true;
         };
     }

@@ -1,7 +1,9 @@
 package com.evandev.modulation.mixin.vanilla;
 
 import com.evandev.modulation.api.ModuleManager;
+import com.evandev.modulation.compat.dyedflames.DyedFlamesCompat;
 import com.evandev.modulation.modules.vanilla.VanillaGameplayModule;
+import com.evandev.modulation.platform.Services;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -33,6 +35,9 @@ public class CampfireBlockMixin {
             entity.setRemainingFireTicks(entity.getRemainingFireTicks() + 1);
             if (entity.getRemainingFireTicks() == 0) {
                 entity.igniteForSeconds(8.0F);
+            }
+            if (Services.PLATFORM.isModLoaded("dyedflames")) {
+                DyedFlamesCompat.onCampfireInside(entity, state);
             }
         }
     }

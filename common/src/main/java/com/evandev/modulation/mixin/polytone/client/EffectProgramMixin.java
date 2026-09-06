@@ -22,7 +22,7 @@ public abstract class EffectProgramMixin {
     private static final String modulation$SUNBATHING_PREFIX = "sunbathing:";
 
     @Unique
-    private static final Pattern modulation$SKY_TEST = Pattern.compile("step\\(\\s*0\\.9{4,}\\s*,\\s*depth\\s*\\)");
+    private static final Pattern modulation$SKY_TEST = Pattern.compile("(?<!-\\s{0,8})step\\(\\s*0\\.9{4,}\\s*,\\s*depth\\s*\\)");
 
     @Unique
     private static final Pattern modulation$VERSION_LINE = Pattern.compile("^\\s*#version[^\\r\\n]*", Pattern.MULTILINE);
@@ -52,12 +52,9 @@ public abstract class EffectProgramMixin {
                 }
                 float a = PolyProjMat[2][2];
                 float b = PolyProjMat[3][2];
-                float viewZ = b / ((d * 2.0 - 1.0) + a);
-                vec2 ndc = texCoord * 2.0 - 1.0;
-                float tx = ndc.x / PolyProjMat[0][0];
-                float ty = ndc.y / PolyProjMat[1][1];
-                float dist = viewZ * sqrt(1.0 + tx * tx + ty * ty);
-                return visible * max(raw, ModulationSkyVisibility * smoothstep(fogStart, fogEnd, dist));
+                float dist = b / ((d * 2.0 - 1.0) + a);
+                float fogged = clamp((dist - fogStart) / (fogEnd - fogStart), 0.0, 1.0);
+                return visible * max(raw, ModulationSkyVisibility * fogged);
             }
             """;
 

@@ -40,6 +40,10 @@ dependencies {
     // Farmer's Delight
     modCompileOnly "maven.modrinth:farmers-delight-refabricated:${farmersdelight_version_fabric}"
 
+    // Dyed Flames
+    compileOnly "maven.modrinth:dyed-flames:${dyed_flames_version}"
+    compileOnly "maven.modrinth:puzzles-lib:${puzzles_lib_version}"
+
     compileOnly 'com.google.auto.service:auto-service-annotations:1.1.1'
     annotationProcessor 'com.google.auto.service:auto-service:1.1.1'
 
