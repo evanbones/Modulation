@@ -34,6 +34,9 @@ dependencies {
     modCompileOnly "net.caffeinemc:sodium-fabric:${sodium_version}"
     modCompileOnly "net.caffeinemc:sodium-fabric-api:${sodium_version}"
 
+    // Trinkets
+    modCompileOnly "maven.modrinth:trinkets:${trinkets_version}"
+
     // Vanilla Backport
     modCompileOnly "maven.modrinth:vanillabackport:ayvoY8lx"
 

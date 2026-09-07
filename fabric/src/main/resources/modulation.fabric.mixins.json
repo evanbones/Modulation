@@ -8,7 +8,8 @@
     "minecraft.bugfix.RangedBowAttackGoalMixin"
   ],
   "client": [
-    "minecraft.gui.client.AbstractContainerScreenHighlightMixin"
+    "minecraft.gui.client.AbstractContainerScreenHighlightMixin",
+    "minecraft.gui.client.AbstractContainerScreenTrinketsMixin"
   ],
   "server": [],
   "injectors": {
