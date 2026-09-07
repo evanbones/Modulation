@@ -78,6 +78,15 @@ Public License v3.0 or later (LGPL-3.0-or-later), not the MIT license above:
 - common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/WallClimberNavigationMixin.java
 - common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/ZombieVillagerMixin.java
 
+The following files are ported from Path under Fence Gates
+(https://github.com/Steveplays28/pathunderfencegates) by Steveplays28, and are licensed
+under the GNU Lesser General Public License v3.0 or later (LGPL-3.0-or-later), not the
+MIT license above:
+
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/DirtPathBlockMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/ShovelItemMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/WallTorchBlockMixin.java
+
 Debugify-derived injections also appear in the following files, which are otherwise
 covered by the MIT license above. Those injections are LGPL-3.0-or-later:
 

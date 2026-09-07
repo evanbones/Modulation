@@ -51,6 +51,7 @@ public class VanillaBugfixesModule extends AbstractModule {
     private final BooleanTweak fixCreeperIgniterDurability = tweak(new BooleanTweak("fix_creeper_igniter_durability", true), BLOCKS_ITEMS);
     private final BooleanTweak fixPistonMovedCactus = tweak(new BooleanTweak("fix_piston_moved_cactus", true), BLOCKS_ITEMS, "debugify");
     private final BooleanTweak fixCampfireSmokePosition = tweak(new BooleanTweak("fix_campfire_smoke_position", true), BLOCKS_ITEMS, "neoforge");
+    private final BooleanTweak fixPathUnderBlocks = tweak(new BooleanTweak("fix_path_under_blocks", true), BLOCKS_ITEMS, "pathunderfencegates");
 
     private final BooleanTweak fixUnsavedChunks = tweak(new BooleanTweak("fix_unsaved_chunks", true), WORLD, "chunksavingfix", "debugify", "moonrise");
     private final BooleanTweak fixPistonReloadUpdates = tweak(new BooleanTweak("fix_piston_reload_updates", true), WORLD, "debugify");
@@ -76,6 +77,7 @@ public class VanillaBugfixesModule extends AbstractModule {
     private final BooleanTweak fixRaidHornSound = tweak(new BooleanTweak("fix_raid_horn_sound", true), SOUND);
     private final BooleanTweak fixRawCopperSounds = tweak(new BooleanTweak("fix_raw_copper_sounds", true), SOUND, "debugify");
     private final BooleanTweak fixEatingSound = tweak(new BooleanTweak("fix_eating_sound", true), SOUND);
+    private final BooleanTweak fixShieldSounds = tweak(new BooleanTweak("fix_shield_sounds", true), SOUND);
 
     private final BooleanTweak fixFocusBug = tweak(new BooleanTweak("fix_focus_bug", true), INTERFACE);
     private final BooleanTweak fixBadOmenTooltip = tweak(new BooleanTweak("fix_bad_omen_tooltip", true), INTERFACE);
@@ -346,5 +348,13 @@ public class VanillaBugfixesModule extends AbstractModule {
 
     public boolean isFixEatingSoundEnabled() {
         return fixEatingSound.getValue();
+    }
+
+    public boolean isFixShieldSoundsEnabled() {
+        return fixShieldSounds.getValue();
+    }
+
+    public boolean isFixPathUnderBlocksEnabled() {
+        return fixPathUnderBlocks.getValue();
     }
 }

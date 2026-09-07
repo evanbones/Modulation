@@ -8,6 +8,8 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.moulberry.mixinconstraints.annotations.IfModAbsent;
 import net.minecraft.core.Holder;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
@@ -18,6 +20,7 @@ import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -68,5 +71,19 @@ public abstract class LivingEntityMixin {
     )
     private SoundSource modulation$finalEatingSoundSource(SoundSource source) {
         return VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixEatingSoundEnabled) ? SoundSource.PLAYERS : source;
+    }
+
+    @WrapOperation(
+            method = "handleEntityEvent",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;playSound(Lnet/minecraft/sounds/SoundEvent;FF)V")
+    )
+    private void modulation$audibleShieldSounds(LivingEntity self, SoundEvent sound, float volume, float pitch, Operation<Void> original) {
+        boolean shieldSound = sound == SoundEvents.SHIELD_BLOCK || sound == SoundEvents.SHIELD_BREAK;
+        if (shieldSound && self instanceof Player && self.level().isClientSide && !self.isSilent()
+                && VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixShieldSoundsEnabled)) {
+            self.level().playLocalSound(self.getX(), self.getY(), self.getZ(), sound, self.getSoundSource(), volume, pitch, false);
+            return;
+        }
+        original.call(self, sound, volume, pitch);
     }
 }

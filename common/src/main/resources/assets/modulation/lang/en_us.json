@@ -7,6 +7,7 @@
   "config.modulation.mod.chunksavingfix": "Chunk Saving Fix",
   "config.modulation.mod.moonrise": "Moonrise",
   "config.modulation.mod.flwr-8187": "flwr-8187",
+  "config.modulation.mod.pathunderfencegates": "Path under Fence Gates",
 
   "config.modulation.module.vanilla_bugfixes": "Bugfixes",
   "config.modulation.group.vanilla_bugfixes.entities": "Entities & Mobs",
@@ -142,6 +143,10 @@
   "config.modulation.tweak.vanilla_bugfixes.fix_raw_copper_sounds.tooltip": "Gives the Block of Raw Copper copper sounds instead of stone sounds. Takes effect after a restart.",
   "config.modulation.tweak.vanilla_bugfixes.fix_eating_sound": "Fix Final Eating Sound (MC-202637)",
   "config.modulation.tweak.vanilla_bugfixes.fix_eating_sound.tooltip": "Moves the last clip of the eating sound onto the Players sound slider, so it stops playing when that slider is at zero.",
+  "config.modulation.tweak.vanilla_bugfixes.fix_shield_sounds": "Fix Shield Sounds (MC-255756)",
+  "config.modulation.tweak.vanilla_bugfixes.fix_shield_sounds.tooltip": "Plays the shield block and shield break sounds for everyone nearby, not just the player holding the shield.",
+  "config.modulation.tweak.vanilla_bugfixes.fix_path_under_blocks": "Dirt Paths Under Blocks (MC-84731)",
+  "config.modulation.tweak.vanilla_bugfixes.fix_path_under_blocks.tooltip": "Lets dirt paths survive and be made under blocks that do not have a full bottom face, such as fence gates, trapdoors, top slabs, glass panes, wall signs and bells, and lets wall torches attach to dirt path blocks.",
 
   "config.modulation.module.vanilla_visual": "Vanilla Visual Tweaks",
   "config.modulation.tweak.vanilla_visual.nicer_map_colors": "Nicer Map Colors",

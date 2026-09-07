@@ -131,6 +131,8 @@ Fixes for several bugs and performance issues in base Minecraft:
 * Item break and crack particles inherit item dye/color tints.
 * Restores the classic swelling/charging animation when Ghasts prepare to shoot fireballs.
 * Saves partially generated chunks that vanilla discards when a world unloads (MC-224729).
+* Plays the shield block and shield break sounds for everyone nearby instead of only the shield holder (MC-255756).
+* Lets dirt paths survive under fence gates, trapdoors, top slabs, panes, wall signs and bells, and lets wall torches attach to them (MC-84731).
 * Ports 51 other Debugify fixes from newer versions that aren't otherwise available on NeoForge 1.21.
 
 ---
@@ -159,6 +161,7 @@ If you are thinking about using the code or assets from Modulation, please note 
 * The extended clouds feature is ported from [Extended Clouds](https://github.com/seymourimadeit/extended-clouds), used under its MIT license.
 * Contains code from [Fabrication](https://github.com/unascribed/Fabrication), used under its MIT license.
 * The Debugify Fixes are ported from [Debugify](https://github.com/isXander/Debugify) by isXander and the Debugify contributors, licensed under LGPL-3.0-or-later.
+* The MC-84731 fix is ported from [Path under Fence Gates](https://modrinth.com/mod/pathunderfencegates) by Steveplays28, licensed under LGPL-3.0-or-later.
 
 ---
 [![discord-plural](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/social/discord-plural_vector.svg)](https://discord.com/invite/6twDUSQBc4) [![github-plural](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/social/github-plural_vector.svg)](https://github.com/evanbones/Modulation)
