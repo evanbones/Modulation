@@ -130,6 +130,8 @@ Fixes for several bugs and performance issues in base Minecraft:
 * Pauses animated textures (water, lava, fire, portals) when the game is paused in singleplayer.
 * Item break and crack particles inherit item dye/color tints.
 * Restores the classic swelling/charging animation when Ghasts prepare to shoot fireballs.
+* Saves partially generated chunks that vanilla discards when a world unloads (MC-224729).
+* Ports 51 other Debugify fixes from newer versions that aren't otherwise available on NeoForge 1.21.
 
 ---
 
@@ -156,6 +158,7 @@ If you are thinking about using the code or assets from Modulation, please note 
 * The passable foliage feature is modified from [Soft Leaves](https://modrinth.com/mod/soft-leaves), used under its MIT license.
 * The extended clouds feature is ported from [Extended Clouds](https://github.com/seymourimadeit/extended-clouds), used under its MIT license.
 * Contains code from [Fabrication](https://github.com/unascribed/Fabrication), used under its MIT license.
+* The Debugify Fixes are ported from [Debugify](https://github.com/isXander/Debugify) by isXander and the Debugify contributors, licensed under LGPL-3.0-or-later.
 
 ---
 [![discord-plural](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/social/discord-plural_vector.svg)](https://discord.com/invite/6twDUSQBc4) [![github-plural](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/social/github-plural_vector.svg)](https://github.com/evanbones/Modulation)

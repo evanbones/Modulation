@@ -34,6 +34,12 @@ public abstract class AbstractModule implements IModule {
         return tweak;
     }
 
+    protected <T extends AbstractTweak<?>> T tweak(T tweak, String group, String... conflicts) {
+        tweak.setGroup(group);
+        tweak.setConflicts(conflicts);
+        return tweak(tweak);
+    }
+
     @Override
     public List<AbstractTweak<?>> getTweaks() {
         return Collections.unmodifiableList(tweaks);

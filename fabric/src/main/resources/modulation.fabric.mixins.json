@@ -2,14 +2,15 @@
   "required": true,
   "minVersion": "0.8",
   "package": "com.evandev.modulation.mixin",
+  "plugin": "com.moulberry.mixinconstraints.ConstraintsMixinPlugin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "minecraft.bugfix.RangedBowAttackGoalMixin"
   ],
   "client": [
-    "vanilla.client.AbstractContainerScreenHighlightMixin"
+    "minecraft.gui.client.AbstractContainerScreenHighlightMixin"
   ],
-  "server": [
-  ],
+  "server": [],
   "injectors": {
     "defaultRequire": 1
   }

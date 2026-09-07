@@ -1,7 +1,7 @@
 package com.evandev.modulation.client.render;
 
 import com.evandev.modulation.api.ModuleManager;
-import com.evandev.modulation.mixin.vanilla.accessor.MinecraftAccessor;
+import com.evandev.modulation.mixin.minecraft.accessor.MinecraftAccessor;
 import com.evandev.modulation.modules.vanilla.VanillaVisualModule;
 import com.mojang.blaze3d.platform.NativeImage;
 import com.mojang.blaze3d.platform.TextureUtil;

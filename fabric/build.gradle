@@ -47,6 +47,9 @@ dependencies {
     compileOnly 'com.google.auto.service:auto-service-annotations:1.1.1'
     annotationProcessor 'com.google.auto.service:auto-service:1.1.1'
 
+    implementation "com.moulberry:mixinconstraints:${mixinconstraints_version}"
+    include "com.moulberry:mixinconstraints:${mixinconstraints_version}"
+
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 }

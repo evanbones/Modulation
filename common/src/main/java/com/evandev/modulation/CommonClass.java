@@ -2,7 +2,7 @@ package com.evandev.modulation;
 
 import com.evandev.modulation.api.IModule;
 import com.evandev.modulation.api.ModuleManager;
-import com.evandev.modulation.config.DynamicModConfig;
+import com.evandev.modulation.config.ModConfig;
 import com.evandev.modulation.modules.reconnectible_chains.ReconnectibleChainsModule;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.commands.CommandSourceStack;
@@ -20,11 +20,8 @@ public class CommonClass {
     }
 
     public static void init() {
-        // Register Modules
         ModuleManager.loadModules();
-
-        // Load Config
-        DynamicModConfig.load();
+        ModConfig.load();
     }
 
     public static void onServerTick() {

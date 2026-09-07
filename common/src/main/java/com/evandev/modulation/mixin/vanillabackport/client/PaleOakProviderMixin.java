@@ -4,6 +4,7 @@ import com.blackgear.vanillabackport.client.level.particles.FallingLeavesParticl
 import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.PassableFoliageModule;
 import com.evandev.modulation.modules.vanillabackport.client.LeafFling;
+import com.moulberry.mixinconstraints.annotations.IfModLoaded;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -12,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+@IfModLoaded("vanillabackport")
 @Mixin(FallingLeavesParticle.PaleOakProvider.class)
 public abstract class PaleOakProviderMixin {
 

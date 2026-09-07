@@ -3,6 +3,7 @@ package com.evandev.modulation.mixin.polytone.client;
 import com.evandev.modulation.Constants;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.shaders.EffectProgram;
+import com.moulberry.mixinconstraints.annotations.IfModLoaded;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,6 +16,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@IfModLoaded("polytone")
 @Mixin(EffectProgram.class)
 public abstract class EffectProgramMixin {
 

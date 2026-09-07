@@ -3,6 +3,7 @@ package com.evandev.modulation.mixin.polytone.client;
 import com.evandev.modulation.client.HorizonFogState;
 import com.evandev.modulation.client.SkyExposure;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.moulberry.mixinconstraints.annotations.IfModLoaded;
 import net.minecraft.client.Camera;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.world.effect.MobEffects;
@@ -15,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@IfModLoaded("polytone")
 @Mixin(FogRenderer.class)
 public abstract class FogRendererMixin {
 

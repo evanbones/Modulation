@@ -4,6 +4,7 @@ import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.client.HorizonFogState;
 import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import com.mojang.blaze3d.shaders.Uniform;
+import com.moulberry.mixinconstraints.annotations.IfModLoaded;
 import net.minecraft.client.renderer.EffectInstance;
 import org.lwjgl.opengl.GL20;
 import org.spongepowered.asm.mixin.Mixin;
@@ -13,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@IfModLoaded("polytone")
 @Mixin(EffectInstance.class)
 public abstract class EffectInstanceMixin {
 

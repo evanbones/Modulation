@@ -1,10 +1,13 @@
 package com.evandev.modulation.mixin.figura;
 
+import com.evandev.modulation.client.ClientCommandHelper;
+import com.evandev.modulation.platform.Services;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import com.mojang.brigadier.tree.CommandNode;
+import com.moulberry.mixinconstraints.annotations.IfModLoaded;
 import net.minecraft.commands.SharedSuggestionProvider;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@IfModLoaded("figura")
 @Mixin(value = CommandDispatcher.class, remap = false)
 public class CommandDispatcherMixin {
 
@@ -34,8 +38,8 @@ public class CommandDispatcherMixin {
                             })
                             .executes(context -> {
                                 String targets = StringArgumentType.getString(context, "targets");
-                                if (com.evandev.modulation.platform.Services.PLATFORM.isPhysicalClient()) {
-                                    com.evandev.modulation.client.ClientCommandHelper.forward("modulation_figura clear " + targets);
+                                if (Services.PLATFORM.isPhysicalClient()) {
+                                    ClientCommandHelper.forward("modulation_figura clear " + targets);
                                 }
                                 return 1;
                             })

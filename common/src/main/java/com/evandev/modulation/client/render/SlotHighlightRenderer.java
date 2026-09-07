@@ -23,6 +23,10 @@ public final class SlotHighlightRenderer {
         blit(guiGraphics, BACK_SPRITE, slot.x, slot.y);
     }
 
+    public static void renderBack(GuiGraphics guiGraphics, int x, int y) {
+        blit(guiGraphics, BACK_SPRITE, x, y);
+    }
+
     public static void renderFront(GuiGraphics guiGraphics, int x, int y) {
         guiGraphics.pose().pushPose();
         guiGraphics.pose().translate(0.0F, 0.0F, FRONT_BLIT_OFFSET);

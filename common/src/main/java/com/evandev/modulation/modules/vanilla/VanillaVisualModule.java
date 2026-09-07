@@ -3,7 +3,7 @@ package com.evandev.modulation.modules.vanilla;
 import com.evandev.modulation.api.AbstractModule;
 import com.evandev.modulation.api.IModule;
 import com.evandev.modulation.api.tweaks.BooleanTweak;
-import com.evandev.modulation.mixin.vanilla.accessor.MapColorAccessor;
+import com.evandev.modulation.mixin.minecraft.accessor.MapColorAccessor;
 import com.google.auto.service.AutoService;
 import net.minecraft.world.level.material.MapColor;
 

@@ -5,7 +5,7 @@ import com.evandev.modulation.api.AbstractTweak;
 import com.evandev.modulation.api.IModule;
 import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.api.tweaks.*;
-import com.evandev.modulation.config.DynamicModConfig;
+import com.evandev.modulation.config.ModConfig;
 import dev.isxander.yacl3.api.*;
 import dev.isxander.yacl3.api.controller.DoubleFieldControllerBuilder;
 import dev.isxander.yacl3.api.controller.IntegerFieldControllerBuilder;
@@ -15,8 +15,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ModulationConfigScreen {
 
@@ -31,7 +30,7 @@ public class ModulationConfigScreen {
                         tweak.setValue(value);
                         tweak.onApply();
                     })
-                    .controller(TickBoxControllerBuilder::create), tooltipKey).build();
+                    .controller(TickBoxControllerBuilder::create), t, tooltipKey).build();
         });
 
         OPTIONS.put(IntTweak.class, (t, title, tooltipKey) -> {
@@ -42,7 +41,7 @@ public class ModulationConfigScreen {
                         tweak.setValue(value);
                         tweak.onApply();
                     })
-                    .controller(IntegerFieldControllerBuilder::create), tooltipKey).build();
+                    .controller(IntegerFieldControllerBuilder::create), t, tooltipKey).build();
         });
 
         OPTIONS.put(DoubleTweak.class, (t, title, tooltipKey) -> {
@@ -53,7 +52,7 @@ public class ModulationConfigScreen {
                         tweak.setValue(value);
                         tweak.onApply();
                     })
-                    .controller(DoubleFieldControllerBuilder::create), tooltipKey).build();
+                    .controller(DoubleFieldControllerBuilder::create), t, tooltipKey).build();
         });
 
         OPTIONS.put(StringTweak.class, (t, title, tooltipKey) -> {
@@ -64,18 +63,19 @@ public class ModulationConfigScreen {
                         tweak.setValue(value);
                         tweak.onApply();
                     })
-                    .controller(StringControllerBuilder::create), tooltipKey).build();
+                    .controller(StringControllerBuilder::create), t, tooltipKey).build();
         });
     }
 
     public static Screen createScreen(Screen parent) {
         YetAnotherConfigLib.Builder builder = YetAnotherConfigLib.createBuilder()
                 .title(Component.translatable("config.modulation.title"))
-                .save(DynamicModConfig::save);
+                .save(ModConfig::save);
 
         for (IModule module : ModuleManager.getModules()) {
             ConfigCategory.Builder category = ConfigCategory.createBuilder()
                     .name(Component.translatable("config.modulation.module." + module.getId()));
+            Map<String, OptionGroup.Builder> groups = new LinkedHashMap<>();
 
             for (AbstractTweak<?> tweak : module.getTweaks()) {
                 String titleKey = "config.modulation.tweak." + module.getId() + "." + tweak.getId();
@@ -83,7 +83,7 @@ public class ModulationConfigScreen {
                 Component title = Component.translatableWithFallback(titleKey, humanize(tweak.getId()));
 
                 if (tweak instanceof StringListTweak listTweak) {
-                    category.option(buildListOption(listTweak, title, tooltipKey));
+                    addOption(category, groups, module, tweak, buildListOption(listTweak, title, tooltipKey));
                     continue;
                 }
 
@@ -93,13 +93,34 @@ public class ModulationConfigScreen {
                     continue;
                 }
 
-                category.option(factory.build(tweak, title, tooltipKey));
+                addOption(category, groups, module, tweak, factory.build(tweak, title, tooltipKey));
+            }
+
+            for (OptionGroup.Builder group : groups.values()) {
+                category.group(group.build());
             }
 
             builder.category(category.build());
         }
 
         return builder.build().generateScreen(parent);
+    }
+
+    private static void addOption(ConfigCategory.Builder category, Map<String, OptionGroup.Builder> groups, IModule module, AbstractTweak<?> tweak, Option<?> option) {
+        if (tweak.getGroup() == null) {
+            category.option(option);
+            return;
+        }
+        groups.computeIfAbsent(tweak.getGroup(), id -> {
+            String nameKey = "config.modulation.group." + module.getId() + "." + id;
+            String descriptionKey = nameKey + ".tooltip";
+            OptionGroup.Builder group = OptionGroup.createBuilder()
+                    .name(Component.translatableWithFallback(nameKey, humanize(id)));
+            if (Language.getInstance().has(descriptionKey)) {
+                group.description(OptionDescription.of(Component.translatable(descriptionKey)));
+            }
+            return group;
+        }).option(option);
     }
 
     private static TweakOption findFactory(Class<?> tweakClass) {
@@ -126,9 +147,24 @@ public class ModulationConfigScreen {
         return option.build();
     }
 
-    private static Option.Builder<?> applyTooltip(Option.Builder<?> builder, String tooltipKey) {
+    private static Option.Builder<?> applyTooltip(Option.Builder<?> builder, AbstractTweak<?> tweak, String tooltipKey) {
+        List<Component> lines = new ArrayList<>();
         if (Language.getInstance().has(tooltipKey)) {
-            builder.description(OptionDescription.of(Component.translatable(tooltipKey)));
+            lines.add(Component.translatable(tooltipKey));
+        }
+
+        String blockingMod = tweak.getBlockingMod();
+        if (blockingMod != null) {
+            builder.available(false);
+            if (!lines.isEmpty()) {
+                lines.add(Component.empty());
+            }
+            Component modName = Component.translatableWithFallback("config.modulation.mod." + blockingMod, blockingMod);
+            lines.add(Component.translatable("config.modulation.unavailable", modName));
+        }
+
+        if (!lines.isEmpty()) {
+            builder.description(OptionDescription.of(lines.toArray(new Component[0])));
         }
         return builder;
     }

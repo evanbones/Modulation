@@ -29,9 +29,67 @@ by Lemonnik6484 and JX_Snack, and are licensed under the GNU Affero General Publ
 License v3.0 only (AGPL-3.0-only), not the MIT license above:
 
 - common/src/main/java/com/evandev/modulation/modules/vanilla/VanillaWallsModule.java
-- common/src/main/java/com/evandev/modulation/mixin/vanilla/WallBlockMixin.java
-- common/src/main/java/com/evandev/modulation/mixin/vanilla/FenceBlockMixin.java
-- common/src/main/java/com/evandev/modulation/mixin/vanilla/IronBarsBlockMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/walls/WallBlockMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/walls/FenceBlockMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/walls/IronBarsBlockMixin.java
+
+The following files are ported from Debugify (https://github.com/isXander/Debugify) by
+isXander and the Debugify contributors, and are licensed under the GNU Lesser General
+Public License v3.0 or later (LGPL-3.0-or-later), not the MIT license above:
+
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/AnimalMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/ArmorStandMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/BlocksMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/BreakDoorGoalMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/CactusBlockMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/CatSpawnerMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/ChunkAccessMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/ChunkMapMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/CreeperMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/DragonLandingPhaseMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/EndIslandDensityFunctionMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/EnderDragonMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/EnderManMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/ExperienceOrbMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/FileUtilMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/FireworkRocketEntityMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/FishingHookMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/FishingRodItemMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/FlowerPotBlockMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/FoxMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/ItemFrameMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/LocateCommandMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/MinecartCommandBlockMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/MobEffectMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/MobMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/PlayerListMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/PufferfishMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/RaidMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/RangedBowAttackGoalMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/RconConsoleSourceMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/RespawnAnchorBlockMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/ServerGamePacketListenerImplMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/SettingsMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/ShulkerBulletMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/StriderMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/StructureTemplatePaletteMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/SwellGoalMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/TreeFeatureMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/WallClimberNavigationMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/ZombieVillagerMixin.java
+
+Debugify-derived injections also appear in the following files, which are otherwise
+covered by the MIT license above. Those injections are LGPL-3.0-or-later and are
+marked with @IfModAbsent("debugify"):
+
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/CampfireBlockMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/ChestBlockMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/EntityMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/LivingEntityMixin.java
+- common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/ServerPlayerMixin.java
+
+The full text of that license is in LICENSE-DEBUGIFY at the root of this
+repository, and is also available at https://www.gnu.org/licenses/lgpl-3.0.txt
 
                     GNU AFFERO GENERAL PUBLIC LICENSE
                        Version 3, 19 November 2007

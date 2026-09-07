@@ -1,14 +1,16 @@
 package com.evandev.modulation.mixin.vanillabackport.client;
 
 import com.blackgear.vanillabackport.client.level.particles.FallingLeavesParticle;
-import com.evandev.modulation.mixin.vanilla.passablefoliage.client.ParticleAccessor;
+import com.evandev.modulation.mixin.minecraft.foliage.client.ParticleAccessor;
 import com.evandev.modulation.modules.vanillabackport.client.LeafFlingAccess;
+import com.moulberry.mixinconstraints.annotations.IfModLoaded;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@IfModLoaded("vanillabackport")
 @Mixin(FallingLeavesParticle.class)
 public abstract class FallingLeavesParticleMixin implements LeafFlingAccess {
 

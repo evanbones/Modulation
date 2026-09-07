@@ -71,6 +71,14 @@ dependencies {
     compileOnly "maven.modrinth:dyed-flames:${dyed_flames_version}"
     compileOnly "maven.modrinth:puzzles-lib:${puzzles_lib_version}"
 
+    implementation "com.moulberry:mixinconstraints:${mixinconstraints_version}"
+    jarJar(implementation("com.moulberry:mixinconstraints")) {
+        version {
+            strictly "[${mixinconstraints_version},)"
+            prefer "${mixinconstraints_version}"
+        }
+    }
+
     compileOnly 'com.google.auto.service:auto-service-annotations:1.1.1'
     annotationProcessor 'com.google.auto.service:auto-service:1.1.1'
 }

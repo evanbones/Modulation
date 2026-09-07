@@ -16,3 +16,60 @@ This module focuses on fixing bugs in the base game.
 * **Colored Crack Particles**: Makes item crack and breaking particles honor item coloration, such as dyed leather armor.
 * **Ghast Charging Animation**: Restores the classic ghast charging/swelling animation when preparing to shoot a fireball.
 * **Allow Mobs to Cross Rails (MC-33359)**: Fixes an issue where mobs refuse to pathfind across minecart rails by treating them as unpassable.
+* **Fix Unsaved Chunks (MC-224729)**: Vanilla only writes chunks that have been accessible since their last save, so partially generated chunks around the edge of the loaded area are silently thrown away when a world is unloaded. This tweak saves those chunks too, which prevents terrain from regenerating differently and avoids corrupted structures. Automatically disabled when Chunk Saving Fix or Moonrise is installed, since those already handle it.
+
+Fixes ported from [Debugify](https://github.com/isXander/Debugify) by isXander, which has no 1.21.1 NeoForge release. They are spread across the config screen's sub-sections alongside the rest of the bug fixes, and are all disabled
+automatically if Debugify itself is installed. Seven of them (MC-134110, MC-147659, MC-201374, MC-268617,
+MC-271899, MC-7569 and MC-94054) are also disabled on NeoForge, which already patches those bugs itself:
+
+* **Fix Spectator Firework Boost (MC-119754)**: Stops a firework rocket from continuing to boost you along after you switch into spectator mode mid-flight.
+* **Fix Item Frame Load Sound (MC-123450)**: Item frames play their add-item sound every time they are read back from disk, so loading a chunk full of item frames fires a burst of clicks. This only plays the sound on a genuine item change.
+* **Fix Spectator Item Use (MC-129909)**: Releases the item you are using when you switch into spectator mode, so food and drinks no longer finish being consumed afterwards.
+* **Fix Spectator Freezing (MC-215530)**: Clears the powder snow freezing effect immediately when you switch into spectator mode instead of leaving the icy overlay on screen.
+* **Fix Mirrored Double Chests (MC-134110)**: Flips the left/right half of double chests when a structure is placed mirrored, so mirrored builds no longer split their double chests into two single ones.
+* **Fix Dying Pufferfish Sting (MC-155509)**: Stops a pufferfish that is already dead from still stinging and poisoning players it touches.
+* **Fix Lightning Item Drops (MC-206922)**: Items dropped by a mob killed by lightning are instantly destroyed by the same bolt. This gives fresh item entities a short window of immunity.
+* **Fix Experience Orbs in Lava (MC-226961)**: Makes experience orbs float on flowing lava based on their eye level instead of treating any lava block as a full block.
+* **Fix Enderman Teleport Spam (MC-227008)**: Stops endermen riding a boat or minecart from constantly trying to teleport away in daylight.
+* **Fix Zombie Door Particles (MC-263999)**: Restores the block breaking particles when a zombie breaks down a door. Vanilla removes the door before reading its block state, so the particle event is sent for air.
+* **Fix Creeper Igniter Durability (MC-264285)**: Stops unbreakable flint and steel from being consumed entirely when used to ignite a creeper.
+* **Fix Wild Wolf Breeding (MC-93018)**: Stops untamed wolves from showing breeding hearts when fed, since they cannot actually breed until they are tamed.
+* **Fix Piston Reload Updates (MC-89146)**: Keeps chunk block entities in insertion order so pistons do not lose a pending update when their chunk is reloaded.
+* **Fix Fishing Rod Kill Credit (MC-100991)**: Credits the player with the kill when an entity is killed by being reeled in with a fishing rod.
+* **Fix Strafing Mob Aim (MC-121706)**: Makes skeletons and illusioners keep looking up and down at their target while strafing, instead of only tracking them horizontally.
+* **Fix Command Minecart Cooldown (MC-121903)**: Saves the execution cooldown of command block minecarts to NBT so they do not fire again immediately after a reload.
+* **Fix Empty Command Minecart Message (MC-131562)**: Stops an empty "Command set: " message being sent when you press Done in a command block minecart with no command, matching normal command blocks.
+* **Fix Armor Stand Break Particles (MC-132878)**: Spawns breaking particles when an armor stand is destroyed by an explosion, lava or fire, not just when it is punched.
+* **Fix Death Screen Item Use (MC-133218)**: Stops the item you were using from continuing to be used on the death screen when the keepInventory gamerule is on.
+* **Fix Riptide and Depth Strider (MC-136249)**: Stops Depth Strider boots from weakening a Riptide trident launch.
+* **Fix Fishing Bobber Sound (MC-139041)**: Moves fishing bobber cast and retrieve sounds onto the Players sound slider instead of Friendly Creatures.
+* **Fix Witch Hut Cats (MC-147659)**: Positions the cat before its variant is chosen so witch huts spawn black cats instead of a variant picked from the world origin's biome.
+* **Fix Fox Loot Gamerule (MC-153010)**: Makes the doMobLoot gamerule apply to the item a fox is carrying, which vanilla drops regardless.
+* **Fix Expired Ban Login (MC-158900)**: Clears expired temporary bans before the login check, avoiding a "bad packet id 26" disconnect on the first login after a ban runs out.
+* **Fix End Island Rings (MC-159283)**: Fixes an integer overflow that makes End terrain repeat in rings around the world center instead of thinning out. Only affects generation extremely far from spawn.
+* **Fix Piston Moved Cactus (MC-160095)**: Checks the block a piston is actually moving rather than the moving-piston block itself, so partial blocks no longer break cacti when pushed past them.
+* **Fix Bad Omen Tooltip (MC-170462)**: Shows Bad Omen as a harmful effect in potion tooltips instead of a neutral one.
+* **Fix Glowing Tooltip (MC-84661)**: Shows Glowing as a harmful effect in potion tooltips instead of a neutral one.
+* **Fix Respawn Anchor Stat (MC-176806)**: Increments the glowstone "used" statistic and scoreboard criterion when charging a respawn anchor.
+* **Fix Locate Distance (MC-177381)**: Stops /locate reporting a nonsense distance when the structure is more than 46,340 blocks away, which overflows vanilla's distance math.
+* **Fix Creeper Defusing (MC-179072)**: Makes a creeper stop swelling when its target switches to Creative or Spectator mode, instead of continuing to prime.
+* **Fix Group AI on Target Death (MC-183990)**: Clears a mob's target once that target dies, so pack AI for wolves, piglins and similar mobs does not get stuck.
+* **Fix Crystals Healing Dying Dragon (MC-187100)**: Stops end crystals beaming health into the ender dragon while it is playing its death animation.
+* **Fix Cured Villager Jockey (MC-200418)**: Dismounts a cured baby zombie villager from its chicken, instead of leaving a baby villager riding it forever.
+* **Fix Campfire Smoke Position (MC-201374)**: Passes the correct position when checking whether a block blocks campfire smoke, so hay bales and similar blocks are detected properly.
+* **Fix Shulker Bullet Bubbles (MC-221257)**: Makes shulker bullets leave bubble particles when travelling through water, like other projectiles.
+* **Fix Shulker Bullet Impact (MC-227337)**: Plays the hit sound and spawns explosion particles when a shulker bullet strikes an entity, not only when it hits a block.
+* **Fix Flower Pot Stat (MC-231743)**: Increments the "used" statistic for the plant when you put it into a flower pot.
+* **Fix Peaceful Strider Saddles (MC-232869)**: Stops adult striders spawning already saddled on Peaceful, where the zombified piglin rider is never created.
+* **Fix Raid Horn Sound (MC-245394)**: Moves the raid horn onto the Hostile Creatures sound slider instead of Friendly Creatures.
+* **Fix Missing server.properties Warning (MC-264979)**: Stops a NoSuchFileException being logged on a fresh server installation that has no server.properties yet.
+* **Fix Reload Command Suggestions (MC-267125)**: Resends the command tree after /reload so suggestions for datapack-driven content update without rejoining.
+* **Fix Structure Save Path (MC-268617)**: Widens the reserved Windows filename check so structure blocks can save in game directories with names like "com.example", which affects some Flatpak and launcher setups.
+* **Fix Structure Palette Threading (MC-271899)**: Makes the structure template block cache thread safe, avoiding rare corruption and crashes when structures generate on several threads at once.
+* **Fix Slow Falling Particles (MC-30391)**: Stops chickens, blazes and the wither kicking up landing particles, since they fall too slowly to take fall damage.
+* **Fix RCON Newlines (MC-7569)**: Keeps line breaks in RCON command output instead of collapsing every response onto a single line.
+* **Fix Dragon Landing in Void (MC-88371)**: Stops the ender dragon flying down into the void when the exit portal has been destroyed.
+* **Fix Cave Spider Spinning (MC-94054)**: Stops cave spiders spinning in place while walking, caused by their small hitbox overshooting path nodes.
+* **Fix 2x2 Sapling Growth (MC-8187)**: Lets 2x2 jungle and spruce saplings grow when there is a block directly north or west of the formation, which vanilla wrongly treats as blocking.
+* **Fix Raw Copper Block Sounds (MC-223153)**: Gives the Block of Raw Copper copper sounds instead of stone sounds. Takes effect after a restart.
+* **Fix Final Eating Sound (MC-202637)**: Moves the last clip of the eating sound onto the Players sound slider, so it stops playing when that slider is at zero.

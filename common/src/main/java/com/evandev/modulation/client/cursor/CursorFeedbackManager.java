@@ -1,10 +1,10 @@
 package com.evandev.modulation.client.cursor;
 
 import com.evandev.modulation.api.ModuleManager;
-import com.evandev.modulation.mixin.vanilla.accessor.AbstractContainerScreenAccessor;
-import com.evandev.modulation.mixin.vanilla.accessor.AbstractSelectionListAccessor;
-import com.evandev.modulation.mixin.vanilla.accessor.CreativeModeInventoryScreenAccessor;
-import com.evandev.modulation.mixin.vanilla.accessor.DeathScreenAccessor;
+import com.evandev.modulation.mixin.minecraft.accessor.AbstractContainerScreenAccessor;
+import com.evandev.modulation.mixin.minecraft.accessor.AbstractSelectionListAccessor;
+import com.evandev.modulation.mixin.minecraft.accessor.CreativeModeInventoryScreenAccessor;
+import com.evandev.modulation.mixin.minecraft.accessor.DeathScreenAccessor;
 import com.evandev.modulation.modules.vanilla.VanillaGuiModule;
 import com.evandev.modulation.platform.Services;
 import net.minecraft.client.Minecraft;
@@ -28,6 +28,7 @@ public final class CursorFeedbackManager {
 
     private static final long[] HANDLES = new long[Shape.values().length];
     private static Shape current = Shape.DEFAULT;
+
     private CursorFeedbackManager() {
     }
 

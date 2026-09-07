@@ -2,6 +2,7 @@ package com.evandev.modulation.mixin.farmersdelight;
 
 import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.farmersdelight.FarmersDelightModule;
+import com.moulberry.mixinconstraints.annotations.IfModLoaded;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
@@ -10,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import vectorwing.farmersdelight.common.block.AbstractStoveBlock;
 
+@IfModLoaded("farmersdelight")
 @Mixin(AbstractStoveBlock.class)
 public class AbstractStoveBlockMixin {
 
