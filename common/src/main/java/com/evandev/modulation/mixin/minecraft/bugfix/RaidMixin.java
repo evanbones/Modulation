@@ -1,14 +1,12 @@
 package com.evandev.modulation.mixin.minecraft.bugfix;
 
 import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
-import com.moulberry.mixinconstraints.annotations.IfModAbsent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.raid.Raid;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@IfModAbsent("debugify")
 @Mixin(Raid.class)
 public class RaidMixin {
 

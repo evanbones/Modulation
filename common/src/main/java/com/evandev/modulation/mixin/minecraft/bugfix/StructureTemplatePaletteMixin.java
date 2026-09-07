@@ -13,7 +13,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import java.util.List;
 import java.util.Map;
 
-@IfModAbsent("debugify")
 @IfModAbsent("neoforge")
 @Mixin(StructureTemplate.Palette.class)
 public class StructureTemplatePaletteMixin {

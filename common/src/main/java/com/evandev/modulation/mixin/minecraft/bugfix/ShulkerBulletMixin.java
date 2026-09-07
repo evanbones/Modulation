@@ -1,7 +1,6 @@
 package com.evandev.modulation.mixin.minecraft.bugfix;
 
 import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
-import com.moulberry.mixinconstraints.annotations.IfModAbsent;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -13,7 +12,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@IfModAbsent("debugify")
 @Mixin(ShulkerBullet.class)
 public class ShulkerBulletMixin {
 

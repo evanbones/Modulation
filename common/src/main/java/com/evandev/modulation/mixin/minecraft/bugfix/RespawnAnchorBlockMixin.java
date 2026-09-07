@@ -1,7 +1,6 @@
 package com.evandev.modulation.mixin.minecraft.bugfix;
 
 import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
-import com.moulberry.mixinconstraints.annotations.IfModAbsent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -17,7 +16,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@IfModAbsent("debugify")
 @Mixin(RespawnAnchorBlock.class)
 public class RespawnAnchorBlockMixin {
 

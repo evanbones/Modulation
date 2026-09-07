@@ -36,7 +36,6 @@ public abstract class ChestBlockMixin {
         }
     }
 
-    @IfModAbsent("debugify")
     @IfModAbsent("neoforge")
     @WrapMethod(method = "mirror")
     private BlockState modulation$fixMirroredDoubleChests(BlockState state, Mirror mirror, Operation<BlockState> original) {

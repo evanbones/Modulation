@@ -26,7 +26,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(CampfireBlock.class)
 public class CampfireBlockMixin {
 
-    @IfModAbsent("debugify")
     @IfModAbsent("neoforge")
     @WrapOperation(
             method = "isSmokeyPos",
@@ -37,7 +36,6 @@ public class CampfireBlockMixin {
         return original.call(level, pos);
     }
 
-    @IfModAbsent("debugify")
     @IfModAbsent("neoforge")
     @ModifyArg(
             method = "isSmokeyPos",

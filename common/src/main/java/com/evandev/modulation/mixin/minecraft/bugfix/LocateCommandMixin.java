@@ -3,11 +3,9 @@ package com.evandev.modulation.mixin.minecraft.bugfix;
 import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.moulberry.mixinconstraints.annotations.IfModAbsent;
 import net.minecraft.server.commands.LocateCommand;
 import org.spongepowered.asm.mixin.Mixin;
 
-@IfModAbsent("debugify")
 @Mixin(LocateCommand.class)
 public class LocateCommandMixin {
 

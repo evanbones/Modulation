@@ -79,8 +79,7 @@ Public License v3.0 or later (LGPL-3.0-or-later), not the MIT license above:
 - common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/ZombieVillagerMixin.java
 
 Debugify-derived injections also appear in the following files, which are otherwise
-covered by the MIT license above. Those injections are LGPL-3.0-or-later and are
-marked with @IfModAbsent("debugify"):
+covered by the MIT license above. Those injections are LGPL-3.0-or-later:
 
 - common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/CampfireBlockMixin.java
 - common/src/main/java/com/evandev/modulation/mixin/minecraft/bugfix/ChestBlockMixin.java

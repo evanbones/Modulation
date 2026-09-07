@@ -41,7 +41,6 @@ public class ServerPlayerMixin {
         }
     }
 
-    @IfModAbsent("debugify")
     @Inject(method = "die", at = @At("RETURN"))
     private void modulation$stopUsingItemOnDeath(DamageSource source, CallbackInfo ci) {
         if (VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixDeathScreenItemUseEnabled)) {

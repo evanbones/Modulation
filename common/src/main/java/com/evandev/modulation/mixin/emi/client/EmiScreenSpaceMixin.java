@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @IfModLoaded("emi")
-@Mixin(value = EmiScreenManager.ScreenSpace.class, remap = false)
+@Mixin(value = EmiScreenManager.ScreenSpace.class, priority = 1100, remap = false)
 public class EmiScreenSpaceMixin {
 
     @Unique

@@ -51,7 +51,6 @@ public abstract class LivingEntityMixin {
         return isAir;
     }
 
-    @IfModAbsent("debugify")
     @WrapOperation(
             method = "travel",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;getAttributeValue(Lnet/minecraft/core/Holder;)D")
@@ -63,7 +62,6 @@ public abstract class LivingEntityMixin {
         return original.call(self, attribute);
     }
 
-    @IfModAbsent("debugify")
     @ModifyArg(
             method = "eat(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/food/FoodProperties;)Lnet/minecraft/world/item/ItemStack;",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/player/Player;DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V")

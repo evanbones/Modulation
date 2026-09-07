@@ -25,39 +25,39 @@ public class VanillaBugfixesModule extends AbstractModule {
     private final BooleanTweak fixMobsCrossingRails = tweak(new BooleanTweak("fix_mobs_crossing_rails", false), ENTITIES);
     private final BooleanTweak fixDyingPufferfishSting = tweak(new BooleanTweak("fix_dying_pufferfish_sting", true), ENTITIES, "debugify");
     private final BooleanTweak fixLightningItemDrops = tweak(new BooleanTweak("fix_lightning_item_drops", true), ENTITIES, "debugify");
-    private final BooleanTweak fixExperienceOrbLava = tweak(new BooleanTweak("fix_experience_orb_lava", true), ENTITIES, "debugify");
-    private final BooleanTweak fixEndermanTeleportSpam = tweak(new BooleanTweak("fix_enderman_teleport_spam", true), ENTITIES, "debugify");
+    private final BooleanTweak fixExperienceOrbLava = tweak(new BooleanTweak("fix_experience_orb_lava", true), ENTITIES);
+    private final BooleanTweak fixEndermanTeleportSpam = tweak(new BooleanTweak("fix_enderman_teleport_spam", true), ENTITIES);
     private final BooleanTweak fixWildWolfBreeding = tweak(new BooleanTweak("fix_wild_wolf_breeding", true), ENTITIES, "debugify");
     private final BooleanTweak fixStrafingMobAim = tweak(new BooleanTweak("fix_strafing_mob_aim", true), ENTITIES, "debugify");
-    private final BooleanTweak fixWitchHutCats = tweak(new BooleanTweak("fix_witch_hut_cats", true), ENTITIES, "debugify", "neoforge");
-    private final BooleanTweak fixFoxMobLootGamerule = tweak(new BooleanTweak("fix_fox_mob_loot_gamerule", true), ENTITIES, "debugify");
+    private final BooleanTweak fixWitchHutCats = tweak(new BooleanTweak("fix_witch_hut_cats", true), ENTITIES, "neoforge");
+    private final BooleanTweak fixFoxMobLootGamerule = tweak(new BooleanTweak("fix_fox_mob_loot_gamerule", true), ENTITIES);
     private final BooleanTweak fixCreeperDefusing = tweak(new BooleanTweak("fix_creeper_defusing", true), ENTITIES, "debugify");
     private final BooleanTweak fixGroupAiTargetDeath = tweak(new BooleanTweak("fix_group_ai_target_death", true), ENTITIES, "debugify");
-    private final BooleanTweak fixCrystalsHealingDyingDragon = tweak(new BooleanTweak("fix_crystals_healing_dying_dragon", true), ENTITIES, "debugify");
+    private final BooleanTweak fixCrystalsHealingDyingDragon = tweak(new BooleanTweak("fix_crystals_healing_dying_dragon", true), ENTITIES);
     private final BooleanTweak fixCuredVillagerJockey = tweak(new BooleanTweak("fix_cured_villager_jockey", true), ENTITIES, "debugify");
     private final BooleanTweak fixPeacefulStriderSaddles = tweak(new BooleanTweak("fix_peaceful_strider_saddles", true), ENTITIES, "debugify");
     private final BooleanTweak fixDragonLandingInVoid = tweak(new BooleanTweak("fix_dragon_landing_in_void", true), ENTITIES, "debugify");
-    private final BooleanTweak fixCaveSpiderSpinning = tweak(new BooleanTweak("fix_cave_spider_spinning", true), ENTITIES, "debugify", "neoforge");
+    private final BooleanTweak fixCaveSpiderSpinning = tweak(new BooleanTweak("fix_cave_spider_spinning", true), ENTITIES, "neoforge");
 
     private final BooleanTweak fixExperienceLoss = tweak(new BooleanTweak("fix_experience_loss", true), PLAYER);
     private final BooleanTweak fixSpectatorFireworkBoost = tweak(new BooleanTweak("fix_spectator_firework_boost", true), PLAYER, "debugify");
     private final BooleanTweak fixSpectatorItemUse = tweak(new BooleanTweak("fix_spectator_item_use", true), PLAYER, "debugify");
     private final BooleanTweak fixSpectatorFreezing = tweak(new BooleanTweak("fix_spectator_freezing", true), PLAYER, "debugify");
     private final BooleanTweak fixFishingRodKillCredit = tweak(new BooleanTweak("fix_fishing_rod_kill_credit", true), PLAYER, "debugify");
-    private final BooleanTweak fixDeathScreenItemUse = tweak(new BooleanTweak("fix_death_screen_item_use", true), PLAYER, "debugify");
-    private final BooleanTweak fixRiptideDepthStrider = tweak(new BooleanTweak("fix_riptide_depth_strider", true), PLAYER, "debugify");
+    private final BooleanTweak fixDeathScreenItemUse = tweak(new BooleanTweak("fix_death_screen_item_use", true), PLAYER);
+    private final BooleanTweak fixRiptideDepthStrider = tweak(new BooleanTweak("fix_riptide_depth_strider", true), PLAYER);
 
-    private final BooleanTweak fixMirroredDoubleChests = tweak(new BooleanTweak("fix_mirrored_double_chests", true), BLOCKS_ITEMS, "debugify", "neoforge");
-    private final BooleanTweak fixCreeperIgniterDurability = tweak(new BooleanTweak("fix_creeper_igniter_durability", true), BLOCKS_ITEMS, "debugify");
+    private final BooleanTweak fixMirroredDoubleChests = tweak(new BooleanTweak("fix_mirrored_double_chests", true), BLOCKS_ITEMS, "neoforge");
+    private final BooleanTweak fixCreeperIgniterDurability = tweak(new BooleanTweak("fix_creeper_igniter_durability", true), BLOCKS_ITEMS);
     private final BooleanTweak fixPistonMovedCactus = tweak(new BooleanTweak("fix_piston_moved_cactus", true), BLOCKS_ITEMS, "debugify");
-    private final BooleanTweak fixCampfireSmokePosition = tweak(new BooleanTweak("fix_campfire_smoke_position", true), BLOCKS_ITEMS, "debugify", "neoforge");
+    private final BooleanTweak fixCampfireSmokePosition = tweak(new BooleanTweak("fix_campfire_smoke_position", true), BLOCKS_ITEMS, "neoforge");
 
     private final BooleanTweak fixUnsavedChunks = tweak(new BooleanTweak("fix_unsaved_chunks", true), WORLD, "chunksavingfix", "debugify", "moonrise");
     private final BooleanTweak fixPistonReloadUpdates = tweak(new BooleanTweak("fix_piston_reload_updates", true), WORLD, "debugify");
     private final BooleanTweak fixCommandMinecartCooldown = tweak(new BooleanTweak("fix_command_minecart_cooldown", true), WORLD, "debugify");
-    private final BooleanTweak fixEndIslandRings = tweak(new BooleanTweak("fix_end_island_rings", true), WORLD, "debugify");
-    private final BooleanTweak fixStructureSavePath = tweak(new BooleanTweak("fix_structure_save_path", true), WORLD, "debugify", "neoforge");
-    private final BooleanTweak fixStructurePaletteThreading = tweak(new BooleanTweak("fix_structure_palette_threading", true), WORLD, "debugify", "neoforge");
+    private final BooleanTweak fixEndIslandRings = tweak(new BooleanTweak("fix_end_island_rings", true), WORLD);
+    private final BooleanTweak fixStructureSavePath = tweak(new BooleanTweak("fix_structure_save_path", true), WORLD, "neoforge");
+    private final BooleanTweak fixStructurePaletteThreading = tweak(new BooleanTweak("fix_structure_palette_threading", true), WORLD, "neoforge");
     private final BooleanTweak fixTwoByTwoSaplings = tweak(new BooleanTweak("fix_two_by_two_saplings", true), WORLD, "debugify", "flwr-8187");
 
     private final BooleanTweak fixHorizonLine = tweak(new BooleanTweak("fix_horizon_line", true), RENDERING);
@@ -65,31 +65,31 @@ public class VanillaBugfixesModule extends AbstractModule {
     private final BooleanTweak betterPauseFreezing = tweak(new BooleanTweak("better_pause_freezing", true), RENDERING);
     private final BooleanTweak coloredCrackParticles = tweak(new BooleanTweak("colored_crack_particles", true), RENDERING);
     private final BooleanTweak ghastCharging = tweak(new BooleanTweak("ghast_charging", true), RENDERING);
-    private final BooleanTweak fixZombieDoorParticles = tweak(new BooleanTweak("fix_zombie_door_particles", true), RENDERING, "debugify");
+    private final BooleanTweak fixZombieDoorParticles = tweak(new BooleanTweak("fix_zombie_door_particles", true), RENDERING);
     private final BooleanTweak fixArmorStandBreakParticles = tweak(new BooleanTweak("fix_armor_stand_break_particles", true), RENDERING, "debugify");
-    private final BooleanTweak fixShulkerBulletBubbles = tweak(new BooleanTweak("fix_shulker_bullet_bubbles", true), RENDERING, "debugify");
-    private final BooleanTweak fixShulkerBulletImpact = tweak(new BooleanTweak("fix_shulker_bullet_impact", true), RENDERING, "debugify");
+    private final BooleanTweak fixShulkerBulletBubbles = tweak(new BooleanTweak("fix_shulker_bullet_bubbles", true), RENDERING);
+    private final BooleanTweak fixShulkerBulletImpact = tweak(new BooleanTweak("fix_shulker_bullet_impact", true), RENDERING);
     private final BooleanTweak fixSlowFallingParticles = tweak(new BooleanTweak("fix_slow_falling_particles", true), RENDERING, "debugify");
 
-    private final BooleanTweak fixItemFrameLoadSound = tweak(new BooleanTweak("fix_item_frame_load_sound", true), SOUND, "debugify");
-    private final BooleanTweak fixFishingBobberSound = tweak(new BooleanTweak("fix_fishing_bobber_sound", true), SOUND, "debugify");
-    private final BooleanTweak fixRaidHornSound = tweak(new BooleanTweak("fix_raid_horn_sound", true), SOUND, "debugify");
+    private final BooleanTweak fixItemFrameLoadSound = tweak(new BooleanTweak("fix_item_frame_load_sound", true), SOUND);
+    private final BooleanTweak fixFishingBobberSound = tweak(new BooleanTweak("fix_fishing_bobber_sound", true), SOUND);
+    private final BooleanTweak fixRaidHornSound = tweak(new BooleanTweak("fix_raid_horn_sound", true), SOUND);
     private final BooleanTweak fixRawCopperSounds = tweak(new BooleanTweak("fix_raw_copper_sounds", true), SOUND, "debugify");
-    private final BooleanTweak fixEatingSound = tweak(new BooleanTweak("fix_eating_sound", true), SOUND, "debugify");
+    private final BooleanTweak fixEatingSound = tweak(new BooleanTweak("fix_eating_sound", true), SOUND);
 
     private final BooleanTweak fixFocusBug = tweak(new BooleanTweak("fix_focus_bug", true), INTERFACE);
-    private final BooleanTweak fixBadOmenTooltip = tweak(new BooleanTweak("fix_bad_omen_tooltip", true), INTERFACE, "debugify");
-    private final BooleanTweak fixGlowingTooltip = tweak(new BooleanTweak("fix_glowing_tooltip", true), INTERFACE, "debugify");
+    private final BooleanTweak fixBadOmenTooltip = tweak(new BooleanTweak("fix_bad_omen_tooltip", true), INTERFACE);
+    private final BooleanTweak fixGlowingTooltip = tweak(new BooleanTweak("fix_glowing_tooltip", true), INTERFACE);
 
-    private final BooleanTweak fixEmptyCommandMinecartMessage = tweak(new BooleanTweak("fix_empty_command_minecart_message", true), COMMANDS, "debugify");
-    private final BooleanTweak fixRespawnAnchorStat = tweak(new BooleanTweak("fix_respawn_anchor_stat", true), COMMANDS, "debugify");
-    private final BooleanTweak fixLocateDistance = tweak(new BooleanTweak("fix_locate_distance", true), COMMANDS, "debugify");
+    private final BooleanTweak fixEmptyCommandMinecartMessage = tweak(new BooleanTweak("fix_empty_command_minecart_message", true), COMMANDS);
+    private final BooleanTweak fixRespawnAnchorStat = tweak(new BooleanTweak("fix_respawn_anchor_stat", true), COMMANDS);
+    private final BooleanTweak fixLocateDistance = tweak(new BooleanTweak("fix_locate_distance", true), COMMANDS);
     private final BooleanTweak fixFlowerPotStat = tweak(new BooleanTweak("fix_flower_pot_stat", true), COMMANDS, "debugify");
-    private final BooleanTweak fixReloadCommandSuggestions = tweak(new BooleanTweak("fix_reload_command_suggestions", true), COMMANDS, "debugify");
+    private final BooleanTweak fixReloadCommandSuggestions = tweak(new BooleanTweak("fix_reload_command_suggestions", true), COMMANDS);
 
     private final BooleanTweak fixResourceFilterLeak = tweak(new BooleanTweak("fix_resource_filter_leak", true), SERVER);
-    private final BooleanTweak fixExpiredBanLogin = tweak(new BooleanTweak("fix_expired_ban_login", true), SERVER, "debugify");
-    private final BooleanTweak fixMissingServerProperties = tweak(new BooleanTweak("fix_missing_server_properties", true), SERVER, "debugify");
+    private final BooleanTweak fixExpiredBanLogin = tweak(new BooleanTweak("fix_expired_ban_login", true), SERVER);
+    private final BooleanTweak fixMissingServerProperties = tweak(new BooleanTweak("fix_missing_server_properties", true), SERVER);
     private final BooleanTweak fixRconNewlines = tweak(new BooleanTweak("fix_rcon_newlines", true), SERVER, "debugify", "neoforge");
 
     public VanillaBugfixesModule() {

@@ -18,9 +18,7 @@ This module focuses on fixing bugs in the base game.
 * **Allow Mobs to Cross Rails (MC-33359)**: Fixes an issue where mobs refuse to pathfind across minecart rails by treating them as unpassable.
 * **Fix Unsaved Chunks (MC-224729)**: Vanilla only writes chunks that have been accessible since their last save, so partially generated chunks around the edge of the loaded area are silently thrown away when a world is unloaded. This tweak saves those chunks too, which prevents terrain from regenerating differently and avoids corrupted structures. Automatically disabled when Chunk Saving Fix or Moonrise is installed, since those already handle it.
 
-Fixes ported from [Debugify](https://github.com/isXander/Debugify) by isXander, which has no 1.21.1 NeoForge release. They are spread across the config screen's sub-sections alongside the rest of the bug fixes, and are all disabled
-automatically if Debugify itself is installed. Seven of them (MC-134110, MC-147659, MC-201374, MC-268617,
-MC-271899, MC-7569 and MC-94054) are also disabled on NeoForge, which already patches those bugs itself:
+Fixes ported from [Debugify](https://github.com/isXander/Debugify) by isXander, which has no 1.21.1 NeoForge version. The 23 fixes that Debugify includes on 1.21 are disabled automatically if Debugify itself is installed. Seven fixes (MC-134110, MC-147659, MC-201374, MC-268617, MC-271899, MC-7569 and MC-94054) are also disabled on NeoForge, which already patches those bugs itself:
 
 * **Fix Spectator Firework Boost (MC-119754)**: Stops a firework rocket from continuing to boost you along after you switch into spectator mode mid-flight.
 * **Fix Item Frame Load Sound (MC-123450)**: Item frames play their add-item sound every time they are read back from disk, so loading a chunk full of item frames fires a burst of clicks. This only plays the sound on a genuine item change.
