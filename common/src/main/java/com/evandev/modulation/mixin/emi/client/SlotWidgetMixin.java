@@ -40,9 +40,8 @@ public abstract class SlotWidgetMixin {
     }
 
     @Inject(method = "drawSlotHighlight", at = @At("HEAD"), cancellable = true)
-    private void modulation$renderSlotHighlightFront(GuiGraphics draw, Bounds bounds, CallbackInfo ci) {
+    private void modulation$cancelSlotHighlightFront(GuiGraphics draw, Bounds bounds, CallbackInfo ci) {
         if (!SlotHighlightRenderer.isEnabled()) return;
-        SlotHighlightRenderer.renderFront(draw, modulation$stackX(bounds), modulation$stackY(bounds));
         ci.cancel();
     }
 }

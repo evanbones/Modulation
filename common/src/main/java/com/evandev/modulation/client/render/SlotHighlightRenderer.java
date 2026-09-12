@@ -39,7 +39,11 @@ public final class SlotHighlightRenderer {
     }
 
     public static void renderBack(GuiGraphics guiGraphics, int x, int y) {
-        blit(guiGraphics, BACK_SPRITE, x, y, 0);
+        renderBack(guiGraphics, x, y, 0);
+    }
+
+    public static void renderBack(GuiGraphics guiGraphics, int x, int y, int z) {
+        blit(guiGraphics, BACK_SPRITE, x, y, z);
     }
 
     public static void renderDeferredBack(GuiGraphics guiGraphics, Slot slot) {
@@ -64,7 +68,6 @@ public final class SlotHighlightRenderer {
         guiGraphics.pose().translate(0.0F, 0.0F, z);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
-        RenderSystem.disableDepthTest();
         guiGraphics.blitSprite(sprite, x - 4, y - 4, 24, 24);
         RenderSystem.disableBlend();
         guiGraphics.pose().popPose();

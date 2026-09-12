@@ -97,6 +97,7 @@
   "client": [
     "emi.accessor.EmiScreenManagerAccessor",
     "emi.client.EmiScreenSpaceMixin",
+    "emi.client.ItemEmiStackMixin",
     "emi.client.SlotWidgetMixin",
     "minecraft.accessor.AbstractContainerScreenAccessor",
     "minecraft.accessor.AbstractSelectionListAccessor",
