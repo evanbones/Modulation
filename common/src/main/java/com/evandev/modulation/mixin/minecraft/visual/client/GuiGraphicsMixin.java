@@ -4,6 +4,7 @@ import com.evandev.modulation.Constants;
 import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.items.api.ItemTooltipHelper;
 import com.evandev.modulation.modules.vanilla.VanillaVisualModule;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -49,6 +50,12 @@ public abstract class GuiGraphicsMixin {
         if (drawWaxed || drawExtra) {
             this.pose().pushPose();
             this.pose().translate(0.0F, 0.0F, 200.0F);
+
+            RenderSystem.enableDepthTest();
+            RenderSystem.depthFunc(515);
+            RenderSystem.depthMask(true);
+            RenderSystem.enableBlend();
+            RenderSystem.defaultBlendFunc();
 
             if (drawWaxed) {
                 this.blitSprite(MODULATION$WAXED_OVERLAY, x - 3, y - 3, 24, 24);

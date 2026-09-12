@@ -1,3 +1,3 @@
 ### Fixed
 
-- Various slot highlight fixes, mostly related to EMI/REMI.
+- Fixed depth test for certain items in EMI.
