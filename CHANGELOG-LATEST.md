@@ -1,3 +1,3 @@
 ### Fixed
 
-- Fixed depth test for certain items in EMI.
+- Fixed issue with End island generation.
