@@ -213,6 +213,10 @@
   "config.modulation.tweak.vanilla_gameplay.dispenser_shears_pumpkins.tooltip": "Dispensers equipped with shears can carve pumpkins into carved pumpkins and drop pumpkin seeds.",
   "config.modulation.tweak.vanilla_gameplay.water_bottles_on_concrete": "Water Bottles On Concrete Powder",
   "config.modulation.tweak.vanilla_gameplay.water_bottles_on_concrete.tooltip": "Using or dispensing water bottles on Concrete Powder turns it into the corresponding Concrete block, similar to making Mud from Dirt.",
+  "config.modulation.tweak.vanilla_gameplay.leaves_support_blocks": "Leaves Support Blocks",
+  "config.modulation.tweak.vanilla_gameplay.leaves_support_blocks.tooltip": "Leaves act as a solid surface for placement, so torches, rails, ladders, signs, and other blocks can be attached to them. Works with modded leaves in the #minecraft:leaves tag.",
+  "config.modulation.tweak.vanilla_gameplay.monsters_leave_boats": "Monsters Leave Boats",
+  "config.modulation.tweak.vanilla_gameplay.monsters_leave_boats.tooltip": "Hostile mobs dismount boats when attacked, preventing them from being trapped in boats and cheesed.",
 
   "config.modulation.module.vanilla_walls": "Wall Connections",
   "config.modulation.tweak.vanilla_walls.walls_connect_to_fences": "Walls Connect to Fences",

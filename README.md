@@ -105,6 +105,8 @@ Small gameplay tweaks that make survival feel more natural. Inspired by Forgery/
 * Water in cauldrons placed in the Nether evaporates into steam.
 * Weapons with Fire Aspect can ignite blocks, campfires, TNT, and entities like flint & steel.
 * Prevents opening chests, barrels, and shulker boxes while actively targeted by hostile monsters.
+* Leaves act as a solid surface, so torches, rails, ladders, signs, and other blocks can be placed on and attached to them.
+* Hostile mobs dismount boats when attacked, so they can no longer be trapped in a boat and cheesed.
 * Options to disable in-world axe stripping (logs/wood, including modded logs), copper scraping (wax/oxidation), dirt path creation (shovels), and farmland tilling (hoes).
 
 ---
@@ -158,6 +160,7 @@ If you are thinking about using the code or assets from Modulation, please note 
 * The Vanilla Walls module's wall/fence/pane connection logic is ported from [BetterWalls](https://modrinth.com/mod/betterwalls) by Lemonnik6484 and JX_Snack, licensed under AGPL-3.0-only.
 * The creative inventory removal is modified from [Raspberry Core](https://modrinth.com/mod/raspberry-core), used under its MIT license.
 * The passable foliage feature is modified from [Soft Leaves](https://modrinth.com/mod/soft-leaves), used under its MIT license.
+* The leaves block support feature is ported from [Leaf It To Me](https://modrinth.com/mod/leaf-it-to-me) by DavigJ, used under its MIT license.
 * The extended clouds feature is ported from [Extended Clouds](https://github.com/seymourimadeit/extended-clouds), used under its MIT license.
 * Contains code from [Fabrication](https://github.com/unascribed/Fabrication), used under its MIT license.
 * The Debugify Fixes are ported from [Debugify](https://github.com/isXander/Debugify) by isXander and the Debugify contributors, licensed under LGPL-3.0-or-later.

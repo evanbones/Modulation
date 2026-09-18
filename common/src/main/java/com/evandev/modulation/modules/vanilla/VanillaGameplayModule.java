@@ -32,6 +32,8 @@ public class VanillaGameplayModule extends AbstractModule {
     private final BooleanTweak disableEnderPearlDamage = tweak(new BooleanTweak("disable_ender_pearl_damage", false));
     private final BooleanTweak dispenserShearsPumpkins = tweak(new BooleanTweak("dispenser_shears_pumpkins", false));
     private final BooleanTweak waterBottlesOnConcrete = tweak(new BooleanTweak("water_bottles_on_concrete", false));
+    private final BooleanTweak leavesSupportBlocks = tweak(new BooleanTweak("leaves_support_blocks", false));
+    private final BooleanTweak monstersLeaveBoats = tweak(new BooleanTweak("monsters_leave_boats", false));
 
     public VanillaGameplayModule() {
         super("vanilla_gameplay");
@@ -131,5 +133,13 @@ public class VanillaGameplayModule extends AbstractModule {
 
     public boolean isWaterBottlesOnConcreteEnabled() {
         return waterBottlesOnConcrete.getValue();
+    }
+
+    public boolean isLeavesSupportBlocksEnabled() {
+        return leavesSupportBlocks.getValue();
+    }
+
+    public boolean isMonstersLeaveBoatsEnabled() {
+        return monstersLeaveBoats.getValue();
     }
 }

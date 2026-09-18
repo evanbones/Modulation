@@ -5,7 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.4.4] - 2026-09-17
+## [3.4.6] - 2026-09-18
+
+### Added
+
+- Added a Leaves Support Blocks gameplay tweak.
+    - Leaves act as a solid surface for placement, so torches, rails, ladders, signs, and other blocks can be placed on
+      and attached to them. Applies to any leaves in the `#minecraft:leaves` tag, including modded ones.
+- Added a Monsters Leave Boats gameplay tweak.
+    - Hostile mobs dismount boats when attacked, so they can no longer be trapped in a boat and cheesed.
+
+## [3.4.5] - 2026-09-17
 
 ### Fixed
 
