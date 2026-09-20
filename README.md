@@ -81,6 +81,7 @@ User interface and control QoL improvements:
 * Markdown formatting support in chat messages (`**bold**`, `*italic*`, `~~strikethrough~~`, and `~underline~`).
 * Cursor Feedback: the mouse cursor changes shape over buttons, sliders, text fields, scroll bars, disabled widgets, and clickable text links.
 * Slot hover highlights render mostly behind the item instead of washing over it, as in 1.21.2+. Uses the vanilla sprite paths, so resource packs made for 1.21.2+ should work as expected.
+* Take title screen panoramas in-game with a keybind (F4 by default), saved as `panorama_0.png` - `panorama_5.png` in your screenshots folder at a configurable resolution.
 
 ---
 
@@ -121,6 +122,18 @@ Push the cloud layer out to the horizon instead of the vanilla fixed radius. Por
 
 ---
 
+### Brainier Bees
+
+Rebuilds bee AI on the modern brain system so bees stop getting stuck and lagging your apiary. Ported from [Brainier Bees](https://github.com/dopadream/Brainier-Bees) by dopadream, and turned off automatically if that mod is installed!
+
+* Replaces the vanilla bee goals with brain activities for wandering, flower finding, pollinating, crop growing, and returning home.
+* Bees no longer pile up against ceilings, and they pathfind around ladders instead of hovering into them.
+* Hives that are gone, full, unreachable, or smoked out are temporarily blacklisted, so a bee looks elsewhere instead of retrying the same one forever.
+* Flowers under water are skipped, and a flower the bee cannot path to is abandoned instead of blocking pollination.
+* Configurable wander radius, flower search range, and ladder avoidance.
+
+---
+
 ### Bug & Performance Fixes
 
 Fixes for several bugs and performance issues in base Minecraft:
@@ -135,6 +148,7 @@ Fixes for several bugs and performance issues in base Minecraft:
 * Saves partially generated chunks that vanilla discards when a world unloads (MC-224729).
 * Plays the shield block and shield break sounds for everyone nearby instead of only the shield holder (MC-255756).
 * Lets dirt paths survive under fence gates, trapdoors, top slabs, panes, wall signs and bells, and lets wall torches attach to them (MC-84731).
+* Stops idle Ghasts snapping back to face due south whenever they stop moving.
 * Ports 51 other Debugify fixes from newer versions that aren't otherwise available on NeoForge 1.21.
 
 ---
@@ -149,7 +163,14 @@ Want the full details on each module? Check out our **[Wiki](https://moddedmc.wi
 
 [![Assets license (ARR)](https://img.shields.io/badge/assets%20license-All%20Rights%20Reserved-red.svg?style=flat-square)](https://github.com/evanbones/Modulation/blob/main/LICENSE) [![Code%20license%20(MIT)](https://img.shields.io/badge/code%20license-MIT-green.svg?style=flat-square)](https://github.com/evanbones/Modulation/blob/main/LICENSE)
 
-If you are thinking about using the code or assets from Modulation, please note the mod's licensing. All assets of Modulation are all rights reserved by their respective creators, unless specified otherwise. The source code of the mod is available under the MIT license, with the exception of the Vanilla Walls module which is licensed under AGPL-3.0-only.
+If you are thinking about using the code or assets from Modulation, please note the mod's licensing. All assets of Modulation are all rights reserved by their respective creators, unless specified otherwise. The source code of the mod is available under the MIT license, with the following exceptions for code derived from other projects:
+
+* The **Vanilla Walls** module is licensed under **AGPL-3.0-only**, following [BetterWalls](https://modrinth.com/mod/betterwalls).
+* The **Debugify-derived bugfixes** in the Bugfixes module are licensed under **LGPL-3.0-or-later**, following [Debugify](https://github.com/isXander/Debugify).
+* The **MC-84731 dirt path fix** is licensed under **LGPL-3.0-or-later**, following [Path under Fence Gates](https://modrinth.com/mod/pathunderfencegates).
+* The **Panorama Screenshot** feature is licensed under **LGPL-3.0-or-later**, following [Panorama Screenshot](https://github.com/Fridtjof-DE/PanoramaScreenshot).
+
+Everything else is MIT, matching both Modulation and the projects those features were ported from.
 
 ---
 
@@ -162,6 +183,9 @@ If you are thinking about using the code or assets from Modulation, please note 
 * The passable foliage feature is modified from [Soft Leaves](https://modrinth.com/mod/soft-leaves), used under its MIT license.
 * The leaves block support feature is ported from [Leaf It To Me](https://modrinth.com/mod/leaf-it-to-me) by DavigJ, used under its MIT license.
 * The extended clouds feature is ported from [Extended Clouds](https://github.com/seymourimadeit/extended-clouds), used under its MIT license.
+* The Brainier Bees module is ported from [Brainier Bees](https://github.com/dopadream/Brainier-Bees) by dopadream, used under its MIT license.
+* The Ghast direction fix is ported from [Ghast Direction](https://modrinth.com/mod/ghast-direction) by Roundaround, used under its MIT license.
+* The panorama screenshot feature is ported from [Panorama Screenshot](https://github.com/Fridtjof-DE/PanoramaScreenshot) by Fridtjof Goes, licensed under LGPL-3.0-or-later.
 * Contains code from [Fabrication](https://github.com/unascribed/Fabrication), used under its MIT license.
 * The Debugify Fixes are ported from [Debugify](https://github.com/isXander/Debugify) by isXander and the Debugify contributors, licensed under LGPL-3.0-or-later.
 * The MC-84731 fix is ported from [Path under Fence Gates](https://modrinth.com/mod/pathunderfencegates) by Steveplays28, licensed under LGPL-3.0-or-later.

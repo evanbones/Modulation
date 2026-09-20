@@ -1,0 +1,14 @@
+---
+title: Brainier Bees
+hide_meta: true
+---
+
+This module replaces the vanilla goal-based bee AI with a brain-based one, so bees stop piling up on ceilings, forgetting their hive, or giving up on flowers. Ported from [Brainier Bees](https://github.com/dopadream/Brainier-Bees) by dopadream, used under its MIT license.
+
+The whole module is disabled automatically if Brainier Bees is installed.
+
+**Features:**
+* **Enable Brainier Bees**: Swaps the vanilla bee goals for a brain (the same AI system villagers, piglins and axolotls use) with dedicated tasks for wandering, finding flowers, pollinating, growing crops, locating a hive and flying home. Enabled by default.
+* **Max Wander Radius**: How far in blocks a bee may wander from its hive, and how long it is allowed to spend flying home before it gives that hive up. Defaults to `22`, matching vanilla.
+* **Flower Locate Range**: Radius in blocks that a bee searches for flowers. Defaults to `8` (vanilla is `5`). This is a cubic scan, so larger values cost much more per search.
+* **Bees Avoid Ladders**: Makes bees treat ladders as an obstacle to path around instead of hovering into them and getting stuck.

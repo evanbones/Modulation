@@ -69,6 +69,7 @@ Fixes ported from [Debugify](https://github.com/isXander/Debugify) by isXander, 
 * **Fix Slow Falling Particles (MC-30391)**: Stops chickens, blazes and the wither kicking up landing particles, since they fall too slowly to take fall damage.
 * **Fix RCON Newlines (MC-7569)**: Keeps line breaks in RCON command output instead of collapsing every response onto a single line.
 * **Fix Dragon Landing in Void (MC-88371)**: Stops the ender dragon flying down into the void when the exit portal has been destroyed.
+* **Fix Ghast Direction**: Stops an idle ghast from snapping back to facing due south whenever it stops moving, so it keeps whichever way it drifted in. Ported from [Ghast Direction](https://modrinth.com/mod/ghast-direction) by Roundaround, and disabled automatically if that mod is installed.
 * **Fix Cave Spider Spinning (MC-94054)**: Stops cave spiders spinning in place while walking, caused by their small hitbox overshooting path nodes.
 * **Fix 2x2 Sapling Growth (MC-8187)**: Lets 2x2 jungle and spruce saplings grow when there is a block directly north or west of the formation, which vanilla wrongly treats as blocking.
 * **Fix Raw Copper Block Sounds (MC-223153)**: Gives the Block of Raw Copper copper sounds instead of stone sounds. Takes effect after a restart.

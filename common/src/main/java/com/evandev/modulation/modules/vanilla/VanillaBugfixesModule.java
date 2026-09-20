@@ -38,6 +38,7 @@ public class VanillaBugfixesModule extends AbstractModule {
     private final BooleanTweak fixPeacefulStriderSaddles = tweak(new BooleanTweak("fix_peaceful_strider_saddles", true), ENTITIES, "debugify");
     private final BooleanTweak fixDragonLandingInVoid = tweak(new BooleanTweak("fix_dragon_landing_in_void", true), ENTITIES, "debugify");
     private final BooleanTweak fixCaveSpiderSpinning = tweak(new BooleanTweak("fix_cave_spider_spinning", true), ENTITIES, "neoforge");
+    private final BooleanTweak fixGhastDirection = tweak(new BooleanTweak("fix_ghast_direction", true), ENTITIES, "ghastdirection");
 
     private final BooleanTweak fixExperienceLoss = tweak(new BooleanTweak("fix_experience_loss", true), PLAYER);
     private final BooleanTweak fixSpectatorFireworkBoost = tweak(new BooleanTweak("fix_spectator_firework_boost", true), PLAYER, "debugify");
@@ -356,5 +357,9 @@ public class VanillaBugfixesModule extends AbstractModule {
 
     public boolean isFixPathUnderBlocksEnabled() {
         return fixPathUnderBlocks.getValue();
+    }
+
+    public boolean isFixGhastDirectionEnabled() {
+        return fixGhastDirection.getValue();
     }
 }

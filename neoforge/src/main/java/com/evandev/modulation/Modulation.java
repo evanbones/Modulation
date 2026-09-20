@@ -2,14 +2,19 @@ package com.evandev.modulation;
 
 import com.evandev.modulation.blocks.CastPostBlock;
 import com.evandev.modulation.client.ClientConfigSetup;
+import com.evandev.modulation.client.ModulationClientEvents;
 import com.evandev.modulation.client.compat.FiguraClientHandler;
 import com.evandev.modulation.items.ChainStaffItem;
 import com.evandev.modulation.items.ZiplineStaffItem;
 import com.evandev.modulation.items.api.OxidizableItemHelper;
 import com.evandev.modulation.networking.FiguraClearPayload;
 import com.evandev.modulation.networking.FiguraSyncPayload;
+import com.evandev.modulation.registry.ModMemoryTypes;
 import com.evandev.modulation.registry.ModRegistry;
+import com.evandev.modulation.registry.ModSensorTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.SoundType;
@@ -32,6 +37,8 @@ public class Modulation {
 
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(Constants.MOD_ID);
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(Constants.MOD_ID);
+    public static final DeferredRegister<MemoryModuleType<?>> MEMORY_MODULE_TYPES = DeferredRegister.create(BuiltInRegistries.MEMORY_MODULE_TYPE, Constants.MOD_ID);
+    public static final DeferredRegister<SensorType<?>> SENSOR_TYPES = DeferredRegister.create(BuiltInRegistries.SENSOR_TYPE, Constants.MOD_ID);
 
     public Modulation(IEventBus modEventBus, ModContainer modContainer) {
 
@@ -55,8 +62,13 @@ public class Modulation {
             return ModRegistry.ZIPLINE_STAFF;
         });
 
+        ModMemoryTypes.all().forEach((id, type) -> MEMORY_MODULE_TYPES.register(id, () -> type));
+        ModSensorTypes.all().forEach((id, type) -> SENSOR_TYPES.register(id, () -> type));
+
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);
+        MEMORY_MODULE_TYPES.register(modEventBus);
+        SENSOR_TYPES.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::registerPayloads);
@@ -66,6 +78,7 @@ public class Modulation {
 
         if (FMLEnvironment.dist.isClient()) {
             ClientConfigSetup.register(modContainer);
+            ModulationClientEvents.register(modEventBus);
         }
     }
 

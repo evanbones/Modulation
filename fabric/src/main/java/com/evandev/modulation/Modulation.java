@@ -3,7 +3,9 @@ package com.evandev.modulation;
 import com.evandev.modulation.items.api.OxidizableItemHelper;
 import com.evandev.modulation.networking.FiguraClearPayload;
 import com.evandev.modulation.networking.FiguraSyncPayload;
+import com.evandev.modulation.registry.ModMemoryTypes;
 import com.evandev.modulation.registry.ModRegistry;
+import com.evandev.modulation.registry.ModSensorTypes;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.CommonLifecycleEvents;
@@ -26,6 +28,11 @@ public class Modulation implements ModInitializer {
         Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "cast_post"), ModRegistry.CAST_POST_ITEM);
         Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "chain_staff"), ModRegistry.CHAIN_STAFF);
         Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "zipline_staff"), ModRegistry.ZIPLINE_STAFF);
+
+        ModMemoryTypes.all().forEach((id, type) ->
+                Registry.register(BuiltInRegistries.MEMORY_MODULE_TYPE, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, id), type));
+        ModSensorTypes.all().forEach((id, type) ->
+                Registry.register(BuiltInRegistries.SENSOR_TYPE, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, id), type));
 
         CommonClass.init();
 
