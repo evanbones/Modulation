@@ -1,13 +1,17 @@
 package com.evandev.modulation.mixin.polytone.client;
 
 import com.evandev.modulation.Constants;
-import com.llamalad7.mixinextras.sugar.Local;
+import com.evandev.modulation.client.GlslSnippets;
+import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.mojang.blaze3d.preprocessor.GlslPreprocessor;
 import com.mojang.blaze3d.shaders.EffectProgram;
+import com.mojang.blaze3d.shaders.Program;
 import com.moulberry.mixinconstraints.annotations.IfModLoaded;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -21,7 +25,7 @@ import java.util.regex.Pattern;
 public abstract class EffectProgramMixin {
 
     @Unique
-    private static final String modulation$SUNBATHING_PREFIX = "sunbathing:";
+    private static final String modulation$GODRAYS_SHADER = "sunbathing:godrays";
 
     @Unique
     private static final Pattern modulation$SKY_TEST = Pattern.compile("(?<!-\\s{0,8})step\\(\\s*0\\.9{4,}\\s*,\\s*depth\\s*\\)");
@@ -29,57 +33,38 @@ public abstract class EffectProgramMixin {
     @Unique
     private static final Pattern modulation$VERSION_LINE = Pattern.compile("^\\s*#version[^\\r\\n]*", Pattern.MULTILINE);
 
-    @Unique
-    private static final String modulation$HELPER_DECLARATION = """
-            
-            uniform vec2 ModulationFogRange;
-            uniform float ModulationSkyVisibility;
-            uniform float ModulationSkyHidden;
-            float modulation_skyness(float d);
-            """;
-
-    @Unique
-    private static final String modulation$HELPER_DEFINITION = """
-            
-            float modulation_skyness(float d) {
-                float visible = 1.0 - clamp(ModulationSkyHidden, 0.0, 1.0);
-                if (visible <= 0.0) {
-                    return 0.0;
-                }
-                float raw = step(0.999999, d);
-                float fogStart = ModulationFogRange.x;
-                float fogEnd = ModulationFogRange.y;
-                if (ModulationSkyVisibility <= 0.0 || fogEnd <= fogStart || fogEnd <= 0.0) {
-                    return visible * raw;
-                }
-                float a = PolyProjMat[2][2];
-                float b = PolyProjMat[3][2];
-                float dist = b / ((d * 2.0 - 1.0) + a);
-                float fogged = clamp((dist - fogStart) / (fogEnd - fogStart), 0.0, 1.0);
-                return visible * max(raw, ModulationSkyVisibility * fogged);
-            }
-            """;
-
-    @ModifyVariable(method = "compileShader", at = @At("HEAD"), argsOnly = true)
-    private static InputStream modulation$softenSunbathingSkyMask(InputStream original, @Local(argsOnly = true, ordinal = 0) String name) {
-        if (name == null || !name.startsWith(modulation$SUNBATHING_PREFIX)) {
-            return original;
+    @WrapOperation(
+            method = "compileShader",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lcom/mojang/blaze3d/shaders/EffectProgram;compileShaderInternal(Lcom/mojang/blaze3d/shaders/Program$Type;Ljava/lang/String;Ljava/io/InputStream;Ljava/lang/String;Lcom/mojang/blaze3d/preprocessor/GlslPreprocessor;)I"
+            )
+    )
+    private static int modulation$softenSunbathingSkyMask(Program.Type type, String name, InputStream shaderData, String sourceName, GlslPreprocessor preprocessor, Operation<Integer> original) {
+        if (!modulation$GODRAYS_SHADER.equals(name)
+                || !VanillaBugfixesModule.enabled(VanillaBugfixesModule::isPatchSunbathingGodraysEnabled)) {
+            return original.call(type, name, shaderData, sourceName, preprocessor);
         }
 
-        String source;
+        byte[] source;
         try {
-            source = new String(original.readAllBytes(), StandardCharsets.UTF_8);
+            source = shaderData.readAllBytes();
         } catch (IOException exception) {
-            return original;
+            return original.call(type, name, shaderData, sourceName, preprocessor);
         }
 
-        String patched = modulation$patch(source);
+        String patched = modulation$patch(new String(source, StandardCharsets.UTF_8));
         if (patched == null) {
-            Constants.LOG.info("No sky depth test found in shader {}, leaving it untouched", name);
-            return new ByteArrayInputStream(source.getBytes(StandardCharsets.UTF_8));
+            Constants.LOG.warn("Sunbathing godrays shader has no recognisable sky depth test, leaving {} untouched", name);
+            return original.call(type, name, new ByteArrayInputStream(source), sourceName, preprocessor);
         }
 
-        return new ByteArrayInputStream(patched.getBytes(StandardCharsets.UTF_8));
+        try {
+            return original.call(type, name, new ByteArrayInputStream(patched.getBytes(StandardCharsets.UTF_8)), sourceName, preprocessor);
+        } catch (Exception exception) {
+            Constants.LOG.warn("Patched Sunbathing godrays shader failed to compile, falling back to the original", exception);
+            return original.call(type, name, new ByteArrayInputStream(source), sourceName, preprocessor);
+        }
     }
 
     @Unique
@@ -100,9 +85,15 @@ public abstract class EffectProgramMixin {
             return null;
         }
 
+        String uniforms = GlslSnippets.load("godrays_uniforms.glsl");
+        String skyness = GlslSnippets.load("godrays_skyness.glsl");
+        if (uniforms.isEmpty() || skyness.isEmpty()) {
+            return null;
+        }
+
         return replaced.substring(0, versionLine.end())
-                + modulation$HELPER_DECLARATION
+                + "\n" + uniforms
                 + replaced.substring(versionLine.end())
-                + modulation$HELPER_DEFINITION;
+                + "\n" + skyness;
     }
 }

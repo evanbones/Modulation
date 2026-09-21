@@ -64,6 +64,7 @@ public class VanillaBugfixesModule extends AbstractModule {
 
     private final BooleanTweak fixHorizonLine = tweak(new BooleanTweak("fix_horizon_line", true), RENDERING);
     private final BooleanTweak fixCaveSky = tweak(new BooleanTweak("fix_cave_sky", true), RENDERING);
+    private final BooleanTweak patchSunbathingGodrays = tweak(new BooleanTweak("patch_sunbathing_godrays", true), RENDERING);
     private final BooleanTweak betterPauseFreezing = tweak(new BooleanTweak("better_pause_freezing", true), RENDERING);
     private final BooleanTweak coloredCrackParticles = tweak(new BooleanTweak("colored_crack_particles", true), RENDERING);
     private final BooleanTweak ghastCharging = tweak(new BooleanTweak("ghast_charging", true), RENDERING);
@@ -125,6 +126,10 @@ public class VanillaBugfixesModule extends AbstractModule {
 
     public boolean isFixCaveSkyEnabled() {
         return fixCaveSky.getValue();
+    }
+
+    public boolean isPatchSunbathingGodraysEnabled() {
+        return patchSunbathingGodrays.getValue();
     }
 
     public boolean isBetterPauseFreezingEnabled() {

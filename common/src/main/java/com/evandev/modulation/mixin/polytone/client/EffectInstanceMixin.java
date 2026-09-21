@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class EffectInstanceMixin {
 
     @Unique
-    private static final String modulation$SUNBATHING_PREFIX = "sunbathing:";
+    private static final String modulation$GODRAYS_SHADER = "sunbathing:godrays";
 
     @Unique
     private static final String modulation$FOG_UNIFORM = "ModulationFogRange";
@@ -50,8 +50,7 @@ public abstract class EffectInstanceMixin {
 
     @Inject(method = "apply", at = @At("TAIL"))
     private void modulation$uploadFogRange(CallbackInfo ci) {
-        String name = this.getName();
-        if (name == null || !name.startsWith(modulation$SUNBATHING_PREFIX)) {
+        if (!modulation$GODRAYS_SHADER.equals(this.getName())) {
             return;
         }
 
@@ -66,7 +65,8 @@ public abstract class EffectInstanceMixin {
             return;
         }
 
-        boolean enabled = ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isFixHorizonLineEnabled);
+        boolean patched = ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isPatchSunbathingGodraysEnabled);
+        boolean enabled = patched && ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isFixHorizonLineEnabled);
 
         if (this.modulation$fogLocation >= 0) {
             if (enabled) {
@@ -81,7 +81,7 @@ public abstract class EffectInstanceMixin {
         }
 
         if (this.modulation$hiddenLocation >= 0) {
-            GL20.glUniform1f(this.modulation$hiddenLocation, HorizonFogState.getSkyHidden());
+            GL20.glUniform1f(this.modulation$hiddenLocation, patched ? HorizonFogState.getSkyHidden() : 0.0F);
         }
     }
 }

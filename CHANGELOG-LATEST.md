@@ -18,3 +18,8 @@
     - Idle ghasts keep whichever way they drifted in instead of snapping back to face due south whenever they stop
       moving.
     - Disabled automatically if Ghast Direction is installed.
+- Added a config option to disable Sunbathing Godrays patches.
+
+### Changed
+
+- Sunbathing Godrays patches are now resource-pack driven.
