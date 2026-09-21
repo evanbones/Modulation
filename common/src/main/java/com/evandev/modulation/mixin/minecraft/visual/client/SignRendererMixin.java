@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.visual.client;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaVisualModule;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.util.FastColor;
@@ -16,7 +15,7 @@ public class SignRendererMixin {
 
     @Inject(method = "getDarkColor", at = @At("HEAD"), cancellable = true)
     private static void modulation$modifySignTextColor(SignText sign, CallbackInfoReturnable<Integer> cir) {
-        if (ModuleManager.isEnabled("vanilla_visual", VanillaVisualModule.class, VanillaVisualModule::isLegibleSignsEnabled) && !sign.hasGlowingText()) {
+        if (VanillaVisualModule.LEGIBLE_SIGNS.on() && !sign.hasGlowingText()) {
             DyeColor dc = sign.getColor();
             int res;
             switch (dc) {

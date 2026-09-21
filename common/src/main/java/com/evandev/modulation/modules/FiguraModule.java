@@ -2,6 +2,7 @@ package com.evandev.modulation.modules;
 
 import com.evandev.modulation.api.AbstractModule;
 import com.evandev.modulation.api.IModule;
+import com.evandev.modulation.api.ModuleDef;
 import com.evandev.modulation.api.tweaks.BooleanTweak;
 import com.evandev.modulation.platform.Services;
 import com.google.auto.service.AutoService;
@@ -70,10 +71,12 @@ public class FiguraModule extends AbstractModule {
         return SharedSuggestionProvider.suggest(availableSkins, builder);
     };
 
-    private final BooleanTweak enableTargetSelectors = tweak(new BooleanTweak("enable_target_selectors", true));
+    private static final ModuleDef DEF = ModuleDef.of("figura");
+
+    public static final BooleanTweak ENABLE_TARGET_SELECTORS = DEF.bool("enable_target_selectors", true);
 
     public FiguraModule() {
-        super("figura");
+        super(DEF);
     }
 
     @Override
@@ -83,7 +86,7 @@ public class FiguraModule extends AbstractModule {
 
     @Override
     public void registerCommands(CommandDispatcher<CommandSourceStack> dispatcher) {
-        if (!enableTargetSelectors.getValue()) return;
+        if (!ENABLE_TARGET_SELECTORS.on()) return;
 
         dispatcher.register(Commands.literal("modulation_figura")
                 .then(Commands.literal("load")

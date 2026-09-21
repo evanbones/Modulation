@@ -41,12 +41,12 @@ public abstract class BeeMixin extends Animal {
 
     @Override
     protected Brain.Provider<?> brainProvider() {
-        return BrainierBeesModule.enabled() ? BeeBrain.BRAIN_PROVIDER : Brain.provider(ImmutableList.of(), ImmutableList.of());
+        return BrainierBeesModule.ENABLE_BRAINIER_BEES.on() ? BeeBrain.BRAIN_PROVIDER : Brain.provider(ImmutableList.of(), ImmutableList.of());
     }
 
     @Override
     protected Brain<?> makeBrain(Dynamic<?> dynamic) {
-        if (!BrainierBeesModule.enabled()) {
+        if (!BrainierBeesModule.ENABLE_BRAINIER_BEES.on()) {
             return this.brainProvider().makeBrain(dynamic);
         }
         return BeeBrain.makeBrain(BeeBrain.BRAIN_PROVIDER.makeBrain(dynamic));
@@ -54,7 +54,7 @@ public abstract class BeeMixin extends Animal {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void modulation$adjustPathfindingMalus(EntityType<? extends Bee> entityType, Level level, CallbackInfo ci) {
-        if (BrainierBeesModule.enabled()) {
+        if (BrainierBeesModule.ENABLE_BRAINIER_BEES.on()) {
             this.setPathfindingMalus(PathType.DANGER_FIRE, 8.0F);
             this.setPathfindingMalus(PathType.TRAPDOOR, 8.0F);
             this.setPathfindingMalus(PathType.WATER, -3.0F);
@@ -63,7 +63,7 @@ public abstract class BeeMixin extends Animal {
 
     @Inject(method = "registerGoals", at = @At("RETURN"))
     private void modulation$replaceGoalsWithBrain(CallbackInfo ci) {
-        if (!BrainierBeesModule.enabled()) {
+        if (!BrainierBeesModule.ENABLE_BRAINIER_BEES.on()) {
             return;
         }
         this.modulation$brainAi = true;

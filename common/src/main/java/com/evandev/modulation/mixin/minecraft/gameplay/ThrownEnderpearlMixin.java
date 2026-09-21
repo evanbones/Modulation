@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.gameplay;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaGameplayModule;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -20,7 +19,7 @@ public class ThrownEnderpearlMixin {
 
     @Inject(method = "onHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/ThrownEnderpearl;discard()V"))
     private void modulation$playEnderPearlTeleportSound(HitResult result, CallbackInfo ci) {
-        if (ModuleManager.isEnabled("vanilla_gameplay", VanillaGameplayModule.class, VanillaGameplayModule::isEnderPearlSoundEnabled)) {
+        if (VanillaGameplayModule.ENDER_PEARL_SOUND.on()) {
             ThrownEnderpearl pearl = (ThrownEnderpearl) (Object) this;
             pearl.level().playSound(null, pearl.getX(), pearl.getY(), pearl.getZ(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1.0F, 0.5F);
         }
@@ -31,7 +30,7 @@ public class ThrownEnderpearlMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z")
     )
     private boolean modulation$cancelEnderPearlDamage(Entity entity, DamageSource damageSource, float amount, Operation<Boolean> original) {
-        if (ModuleManager.isEnabled("vanilla_gameplay", VanillaGameplayModule.class, VanillaGameplayModule::isDisableEnderPearlDamageEnabled)) {
+        if (VanillaGameplayModule.DISABLE_ENDER_PEARL_DAMAGE.on()) {
             return false;
         }
         return original.call(entity, damageSource, amount);

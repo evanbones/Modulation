@@ -3,7 +3,6 @@ package com.evandev.modulation.modules.reconnectible_chains;
 import com.evandev.connectiblechains.CommonClass;
 import com.evandev.connectiblechains.entity.ChainKnotEntity;
 import com.evandev.connectiblechains.entity.Chainable;
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.blocks.CastPostBlock;
 import com.evandev.modulation.mixin.minecraft.accessor.BlockDisplayInvoker;
 import com.evandev.modulation.mixin.minecraft.accessor.DisplayAccessor;
@@ -199,7 +198,7 @@ public class PostPlacementManager {
 
                 boolean canAttach = true;
 
-                if (ModuleManager.isEnabled("reconnectible_chains", ReconnectibleChainsModule.class, ReconnectibleChainsModule::isConsumeChainsEnabled) && !player.isCreative()) {
+                if (ReconnectibleChainsModule.CONSUME_CHAINS.on() && !player.isCreative()) {
                     canAttach = false;
                     for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
                         if (player.getInventory().getItem(i).is(Items.CHAIN)) {

@@ -15,7 +15,7 @@ public class SettingsMixin {
 
     @WrapMethod(method = "loadFromFile")
     private static Properties modulation$skipMissingSettingsFile(Path path, Operation<Properties> original) {
-        if (Files.notExists(path) && VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixMissingServerPropertiesEnabled)) {
+        if (Files.notExists(path) && VanillaBugfixesModule.FIX_MISSING_SERVER_PROPERTIES.on()) {
             return new Properties();
         }
         return original.call(path);

@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.bugfix;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.moulberry.mixinconstraints.annotations.IfModAbsent;
@@ -23,7 +22,7 @@ public class ChunkMapMixin {
 
     @Unique
     private static boolean modulation$isUnsavedChunkFixEnabled() {
-        return ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isFixUnsavedChunksEnabled);
+        return VanillaBugfixesModule.FIX_UNSAVED_CHUNKS.on();
     }
 
     @ModifyArg(

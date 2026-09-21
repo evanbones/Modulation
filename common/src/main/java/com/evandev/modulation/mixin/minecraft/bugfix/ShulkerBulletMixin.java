@@ -21,7 +21,7 @@ public class ShulkerBulletMixin {
     )
     private void modulation$shulkerBulletBubbles(CallbackInfo ci) {
         ShulkerBullet bullet = (ShulkerBullet) (Object) this;
-        if (!bullet.isInWater() || !VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixShulkerBulletBubblesEnabled)) {
+        if (!bullet.isInWater() || !VanillaBugfixesModule.FIX_SHULKER_BULLET_BUBBLES.on()) {
             return;
         }
 
@@ -48,7 +48,7 @@ public class ShulkerBulletMixin {
     )
     private void modulation$shulkerBulletImpactEffects(EntityHitResult result, CallbackInfo ci) {
         ShulkerBullet bullet = (ShulkerBullet) (Object) this;
-        if (bullet.level() instanceof ServerLevel serverLevel && VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixShulkerBulletImpactEnabled)) {
+        if (bullet.level() instanceof ServerLevel serverLevel && VanillaBugfixesModule.FIX_SHULKER_BULLET_IMPACT.on()) {
             serverLevel.sendParticles(ParticleTypes.EXPLOSION, bullet.getX(), bullet.getY(), bullet.getZ(), 2, 0.2, 0.2, 0.2, 0.0);
             bullet.playSound(SoundEvents.SHULKER_BULLET_HIT, 1.0F, 1.0F);
         }

@@ -19,14 +19,14 @@ public class MinecartCommandBlockMixin {
 
     @Inject(method = "readAdditionalSaveData", at = @At("RETURN"))
     private void modulation$readCommandCooldown(CompoundTag compound, CallbackInfo ci) {
-        if (compound.contains("LastExecuted") && VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixCommandMinecartCooldownEnabled)) {
+        if (compound.contains("LastExecuted") && VanillaBugfixesModule.FIX_COMMAND_MINECART_COOLDOWN.on()) {
             lastActivated = compound.getInt("LastExecuted");
         }
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("RETURN"))
     private void modulation$writeCommandCooldown(CompoundTag compound, CallbackInfo ci) {
-        if (VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixCommandMinecartCooldownEnabled)) {
+        if (VanillaBugfixesModule.FIX_COMMAND_MINECART_COOLDOWN.on()) {
             compound.putInt("LastExecuted", lastActivated);
         }
     }

@@ -1,7 +1,6 @@
 package com.evandev.modulation.mixin.vanillabackport.client;
 
 import com.blackgear.vanillabackport.client.level.particles.FallingLeavesParticle;
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.PassableFoliageModule;
 import com.evandev.modulation.modules.vanillabackport.client.LeafFling;
 import com.moulberry.mixinconstraints.annotations.IfModLoaded;
@@ -22,8 +21,7 @@ public abstract class PaleOakProviderMixin {
             SimpleParticleType type, ClientLevel level, double x, double y, double z,
             double xSpeed, double ySpeed, double zSpeed, CallbackInfoReturnable<Particle> cir
     ) {
-        PassableFoliageModule module = ModuleManager.getModule("passable_foliage", PassableFoliageModule.class);
-        if (module != null && module.isPassableFoliageEnabled() && module.isPaleOakLeavesEnabled()) {
+        if (PassableFoliageModule.ENABLE_PALE_OAK_LEAVES.on()) {
             LeafFling.apply(cir.getReturnValue(), xSpeed, ySpeed, zSpeed);
         }
     }

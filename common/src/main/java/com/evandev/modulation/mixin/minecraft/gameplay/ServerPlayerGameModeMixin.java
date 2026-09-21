@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.gameplay;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaGameplayModule;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
@@ -38,7 +37,7 @@ public abstract class ServerPlayerGameModeMixin {
 
     @Inject(method = "incrementDestroyProgress", at = @At("HEAD"))
     private void modulation$cactusPunchingHurts(BlockState state, BlockPos pos, int startTick, CallbackInfoReturnable<Float> cir) {
-        if (ModuleManager.isEnabled("vanilla_gameplay", VanillaGameplayModule.class, VanillaGameplayModule::isCactusPunchingHurtsEnabled)) {
+        if (VanillaGameplayModule.CACTUS_PUNCHING_HURTS.on()) {
             if (state.is(Blocks.CACTUS)) {
                 this.player.hurt(this.player.damageSources().cactus(), 1.0F);
             }
@@ -47,7 +46,7 @@ public abstract class ServerPlayerGameModeMixin {
 
     @Inject(method = "useItemOn", at = @At("RETURN"), cancellable = true)
     private void modulation$fireAspectUseOnBlock(ServerPlayer player, Level level, ItemStack stack, InteractionHand hand, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> cir) {
-        if (ModuleManager.isEnabled("vanilla_gameplay", VanillaGameplayModule.class, VanillaGameplayModule::isFireAspectIsFlintAndSteelEnabled)
+        if (VanillaGameplayModule.FIRE_ASPECT_IS_FLINT_AND_STEEL.on()
                 && cir.getReturnValue() == InteractionResult.PASS && !stack.isEmpty()) {
             var fireAspectHolder = player.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(Enchantments.FIRE_ASPECT);
             if (fireAspectHolder.isPresent() && EnchantmentHelper.getItemEnchantmentLevel(fireAspectHolder.get(), stack) > 0) {

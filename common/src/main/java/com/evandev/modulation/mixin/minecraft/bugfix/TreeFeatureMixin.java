@@ -19,7 +19,7 @@ public class TreeFeatureMixin {
     @Unique
     private static int modulation$startOffset(int start, int trunkHeight, TreeConfiguration config) {
         if (start == -1 && config.minimumSize.getSizeAtHeight(trunkHeight, 0) == 1
-                && VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixTwoByTwoSaplingsEnabled)) {
+                && VanillaBugfixesModule.FIX_TWO_BY_TWO_SAPLINGS.on()) {
             return 0;
         }
         return start;

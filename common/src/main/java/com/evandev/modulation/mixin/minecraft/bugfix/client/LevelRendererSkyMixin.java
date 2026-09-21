@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.bugfix.client;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.client.SkyExposure;
 import com.evandev.modulation.mixin.minecraft.accessor.FogRendererAccessor;
 import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
@@ -87,7 +86,7 @@ public abstract class LevelRendererSkyMixin {
             )
     )
     private float[] modulation$skipTwilightRing(float[] original) {
-        if (ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isFixHorizonLineEnabled)) {
+        if (VanillaBugfixesModule.FIX_HORIZON_LINE.on()) {
             return null;
         }
 

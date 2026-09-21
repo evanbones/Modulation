@@ -6,29 +6,20 @@ package com.evandev.modulation.modules.vanilla;
 
 import com.evandev.modulation.api.AbstractModule;
 import com.evandev.modulation.api.IModule;
+import com.evandev.modulation.api.ModuleDef;
 import com.evandev.modulation.api.tweaks.BooleanTweak;
 import com.google.auto.service.AutoService;
 
 @AutoService(IModule.class)
 public class VanillaWallsModule extends AbstractModule {
 
-    private final BooleanTweak wallsConnectToFences = tweak(new BooleanTweak("walls_connect_to_fences", true));
-    private final BooleanTweak fencesConnectToWallsAndBars = tweak(new BooleanTweak("fences_connect_to_walls_and_bars", true));
-    private final BooleanTweak barsConnectToFences = tweak(new BooleanTweak("bars_connect_to_fences", true));
+    private static final ModuleDef DEF = ModuleDef.of("vanilla_walls");
+
+    public static final BooleanTweak WALLS_CONNECT_TO_FENCES = DEF.bool("walls_connect_to_fences", true);
+    public static final BooleanTweak FENCES_CONNECT_TO_WALLS_AND_BARS = DEF.bool("fences_connect_to_walls_and_bars", true);
+    public static final BooleanTweak BARS_CONNECT_TO_FENCES = DEF.bool("bars_connect_to_fences", true);
 
     public VanillaWallsModule() {
-        super("vanilla_walls");
-    }
-
-    public boolean isWallsConnectToFencesEnabled() {
-        return wallsConnectToFences.getValue();
-    }
-
-    public boolean isFencesConnectToWallsAndBarsEnabled() {
-        return fencesConnectToWallsAndBars.getValue();
-    }
-
-    public boolean isBarsConnectToFencesEnabled() {
-        return barsConnectToFences.getValue();
+        super(DEF);
     }
 }

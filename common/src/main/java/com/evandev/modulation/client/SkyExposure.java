@@ -1,6 +1,5 @@
 package com.evandev.modulation.client;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -81,7 +80,7 @@ public final class SkyExposure {
     }
 
     private static boolean shouldHide(ClientLevel level, Camera camera) {
-        if (!ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isFixCaveSkyEnabled)) {
+        if (!VanillaBugfixesModule.FIX_CAVE_SKY.on()) {
             return false;
         }
 

@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.bees;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.mixin.minecraft.accessor.NodeEvaluatorAccessor;
 import com.evandev.modulation.modules.brainierbees.BrainierBeesModule;
 import com.moulberry.mixinconstraints.annotations.IfModAbsent;
@@ -24,7 +23,7 @@ public class FlyNodeEvaluatorMixin {
         if (!(((NodeEvaluatorAccessor) this).modulation$getMob() instanceof Bee)) {
             return;
         }
-        if (!ModuleManager.isEnabled("brainier_bees", BrainierBeesModule.class, BrainierBeesModule::isBeesAvoidLaddersEnabled)) {
+        if (!BrainierBeesModule.BEES_AVOID_LADDERS.on()) {
             return;
         }
         if (context.getBlockState(new BlockPos(x, y, z)).is(Blocks.LADDER)) {

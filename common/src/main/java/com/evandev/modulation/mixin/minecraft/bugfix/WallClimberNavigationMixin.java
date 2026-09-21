@@ -16,6 +16,6 @@ public class WallClimberNavigationMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Mob;getBbWidth()F")
     )
     private float modulation$stopCaveSpiderSpinning(float width) {
-        return VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixCaveSpiderSpinningEnabled) ? Math.max(width, 1.0F) : width;
+        return VanillaBugfixesModule.FIX_CAVE_SPIDER_SPINNING.on() ? Math.max(width, 1.0F) : width;
     }
 }

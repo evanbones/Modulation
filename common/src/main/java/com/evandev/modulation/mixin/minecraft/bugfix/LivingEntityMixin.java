@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.bugfix;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import com.evandev.modulation.modules.vanilla.VanillaGameplayModule;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
@@ -33,7 +32,7 @@ public abstract class LivingEntityMixin {
     @Inject(method = "hurt", at = @At("HEAD"))
     private void modulation$lightCreepersOnExplosion(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if ((Object) this instanceof Creeper creeper && source.is(DamageTypeTags.IS_EXPLOSION)) {
-            if (ModuleManager.isEnabled("vanilla_gameplay", VanillaGameplayModule.class, VanillaGameplayModule::isChainingCreepersEnabled)) {
+            if (VanillaGameplayModule.CHAINING_CREEPERS.on()) {
                 if (creeper.getHealth() < 3.0F && amount >= 3.0F) {
                     return;
                 }
@@ -49,7 +48,7 @@ public abstract class LivingEntityMixin {
     )
     private boolean modulation$noSlowFallingLandingParticles(boolean isAir) {
         if (!isAir && ((Object) this instanceof Chicken || (Object) this instanceof Blaze || (Object) this instanceof WitherBoss)) {
-            return VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixSlowFallingParticlesEnabled);
+            return VanillaBugfixesModule.FIX_SLOW_FALLING_PARTICLES.on();
         }
         return isAir;
     }
@@ -59,7 +58,7 @@ public abstract class LivingEntityMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;getAttributeValue(Lnet/minecraft/core/Holder;)D")
     )
     private double modulation$riptideIgnoresDepthStrider(LivingEntity self, Holder<Attribute> attribute, Operation<Double> original) {
-        if (attribute == Attributes.WATER_MOVEMENT_EFFICIENCY && self.isAutoSpinAttack() && VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixRiptideDepthStriderEnabled)) {
+        if (attribute == Attributes.WATER_MOVEMENT_EFFICIENCY && self.isAutoSpinAttack() && VanillaBugfixesModule.FIX_RIPTIDE_DEPTH_STRIDER.on()) {
             return 0.0;
         }
         return original.call(self, attribute);
@@ -70,7 +69,7 @@ public abstract class LivingEntityMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/player/Player;DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V")
     )
     private SoundSource modulation$finalEatingSoundSource(SoundSource source) {
-        return VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixEatingSoundEnabled) ? SoundSource.PLAYERS : source;
+        return VanillaBugfixesModule.FIX_EATING_SOUND.on() ? SoundSource.PLAYERS : source;
     }
 
     @WrapOperation(
@@ -80,7 +79,7 @@ public abstract class LivingEntityMixin {
     private void modulation$audibleShieldSounds(LivingEntity self, SoundEvent sound, float volume, float pitch, Operation<Void> original) {
         boolean shieldSound = sound == SoundEvents.SHIELD_BLOCK || sound == SoundEvents.SHIELD_BREAK;
         if (shieldSound && self instanceof Player && self.level().isClientSide && !self.isSilent()
-                && VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixShieldSoundsEnabled)) {
+                && VanillaBugfixesModule.FIX_SHIELD_SOUNDS.on()) {
             self.level().playLocalSound(self.getX(), self.getY(), self.getZ(), sound, self.getSoundSource(), volume, pitch, false);
             return;
         }

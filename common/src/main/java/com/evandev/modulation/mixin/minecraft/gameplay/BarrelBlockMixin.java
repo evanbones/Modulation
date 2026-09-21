@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.gameplay;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaGameplayModule;
 import com.evandev.modulation.util.TargetHelper;
 import net.minecraft.core.BlockPos;
@@ -21,7 +20,7 @@ public abstract class BarrelBlockMixin {
 
     @Inject(method = "useWithoutItem", at = @At("HEAD"), cancellable = true)
     private void modulation$noBarrelWhenTargeted(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> cir) {
-        if (ModuleManager.isEnabled("vanilla_gameplay", VanillaGameplayModule.class, VanillaGameplayModule::isNoChestWhenTargetedEnabled)) {
+        if (VanillaGameplayModule.NO_CHEST_WHEN_TARGETED.on()) {
             if (TargetHelper.isPlayerTargeted(level, player)) {
                 if (!level.isClientSide) {
                     player.displayClientMessage(Component.translatable("message.modulation.no_chest_when_targeted"), true);

@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.foliage.client;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.PassableFoliageModule;
 import com.evandev.modulation.modules.vanillabackport.client.LeafFling;
 import net.minecraft.client.particle.Particle;
@@ -20,8 +19,7 @@ public abstract class CherryProviderMixin {
             ParticleOptions options, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, CallbackInfoReturnable<Particle> cir
     ) {
         if (options != null && options.getType() == ParticleTypes.CHERRY_LEAVES) {
-            PassableFoliageModule module = ModuleManager.getModule("passable_foliage", PassableFoliageModule.class);
-            if (module != null && module.isPassableFoliageEnabled() && module.isCherryLeavesEnabled()) {
+            if (PassableFoliageModule.ENABLE_CHERRY_LEAVES.on()) {
                 LeafFling.apply(cir.getReturnValue(), xSpeed, ySpeed, zSpeed);
             }
         }

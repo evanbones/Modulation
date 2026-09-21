@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.bugfix;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.compat.dyedflames.DyedFlamesCompat;
 import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import com.evandev.modulation.modules.vanilla.VanillaGameplayModule;
@@ -43,7 +42,7 @@ public class CampfireBlockMixin {
             index = 1
     )
     private static BlockPos modulation$campfireSmokeCollisionPos(BlockPos pos, @Share("smokePos") LocalRef<BlockPos> smokePos) {
-        if (smokePos.get() != null && VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixCampfireSmokePositionEnabled)) {
+        if (smokePos.get() != null && VanillaBugfixesModule.FIX_CAMPFIRE_SMOKE_POSITION.on()) {
             return smokePos.get();
         }
         return pos;
@@ -51,7 +50,7 @@ public class CampfireBlockMixin {
 
     @Inject(method = "getStateForPlacement", at = @At("RETURN"), cancellable = true)
     private void modulation$placeCampfiresUnlit(BlockPlaceContext context, CallbackInfoReturnable<BlockState> cir) {
-        if (ModuleManager.isEnabled("vanilla_gameplay", VanillaGameplayModule.class, VanillaGameplayModule::isCampfiresPlaceUnlitEnabled)) {
+        if (VanillaGameplayModule.CAMPFIRES_PLACE_UNLIT.on()) {
             BlockState state = cir.getReturnValue();
             if (state != null && state.hasProperty(CampfireBlock.LIT)) {
                 cir.setReturnValue(state.setValue(CampfireBlock.LIT, false));
@@ -61,7 +60,7 @@ public class CampfireBlockMixin {
 
     @Inject(method = "entityInside", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"))
     private void modulation$igniteEntities(BlockState state, Level level, BlockPos pos, Entity entity, CallbackInfo ci) {
-        if (ModuleManager.isEnabled("vanilla_gameplay", VanillaGameplayModule.class, VanillaGameplayModule::isCampfiresIgniteEntitiesEnabled)) {
+        if (VanillaGameplayModule.CAMPFIRES_IGNITE_ENTITIES.on()) {
             entity.setRemainingFireTicks(entity.getRemainingFireTicks() + 1);
             if (entity.getRemainingFireTicks() == 0) {
                 entity.igniteForSeconds(8.0F);

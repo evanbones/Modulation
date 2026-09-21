@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.gameplay;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.mixin.minecraft.accessor.AxeItemAccessor;
 import com.evandev.modulation.modules.vanilla.VanillaGameplayModule;
 import net.minecraft.tags.BlockTags;
@@ -40,14 +39,14 @@ public class AxeItemMixin {
     private void modulation$handleAxeUseOn(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
         BlockState state = context.getLevel().getBlockState(context.getClickedPos());
 
-        if (ModuleManager.isEnabled("vanilla_gameplay", VanillaGameplayModule.class, VanillaGameplayModule::isDisableAxeStrippingEnabled)) {
+        if (VanillaGameplayModule.DISABLE_AXE_STRIPPING.on()) {
             if (modulation$isStrippable(state)) {
                 cir.setReturnValue(InteractionResult.PASS);
                 return;
             }
         }
 
-        if (ModuleManager.isEnabled("vanilla_gameplay", VanillaGameplayModule.class, VanillaGameplayModule::isDisableCopperScrapingEnabled)) {
+        if (VanillaGameplayModule.DISABLE_COPPER_SCRAPING.on()) {
             if (modulation$isCopperScrapable(state)) {
                 cir.setReturnValue(InteractionResult.PASS);
             }
@@ -56,7 +55,7 @@ public class AxeItemMixin {
 
     @Inject(method = "getStripped", at = @At("HEAD"), cancellable = true)
     private void modulation$disableStripping(BlockState unstrippedState, CallbackInfoReturnable<Optional<BlockState>> cir) {
-        if (ModuleManager.isEnabled("vanilla_gameplay", VanillaGameplayModule.class, VanillaGameplayModule::isDisableAxeStrippingEnabled)) {
+        if (VanillaGameplayModule.DISABLE_AXE_STRIPPING.on()) {
             cir.setReturnValue(Optional.empty());
         }
     }

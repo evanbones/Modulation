@@ -1,6 +1,5 @@
 package com.evandev.modulation.client;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaGuiModule;
 import com.evandev.modulation.platform.Services;
 import com.mojang.blaze3d.platform.InputConstants;
@@ -43,14 +42,13 @@ public final class PanoramaScreenshot {
             return;
         }
         while (key.consumeClick()) {
-            VanillaGuiModule module = ModuleManager.getModule("vanilla_gui", VanillaGuiModule.class);
-            if (module == null || !module.isPanoramaScreenshotEnabled()) {
+            if (!VanillaGuiModule.PANORAMA_SCREENSHOT.on()) {
                 continue;
             }
             if (minecraft.player == null || minecraft.level == null || minecraft.screen != null) {
                 continue;
             }
-            int resolution = module.getPanoramaResolution();
+            int resolution = VanillaGuiModule.PANORAMA_RESOLUTION.get();
             Component result = minecraft.grabPanoramixScreenshot(minecraft.gameDirectory, resolution, resolution);
             minecraft.gui.getChat().addMessage(isFailure(result) ? result : successMessage(minecraft.gameDirectory));
         }

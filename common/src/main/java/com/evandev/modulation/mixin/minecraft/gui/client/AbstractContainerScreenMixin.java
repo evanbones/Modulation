@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.gui.client;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.client.cursor.CursorFeedbackManager;
 import com.evandev.modulation.client.render.SlotHighlightRenderer;
 import com.evandev.modulation.modules.vanilla.VanillaGuiModule;
@@ -71,7 +70,7 @@ public abstract class AbstractContainerScreenMixin<T extends AbstractContainerMe
 
     @Inject(method = "slotClicked", at = @At("HEAD"), cancellable = true)
     private void modulation$onSlotClicked(Slot slot, int slotId, int mouseButton, ClickType type, CallbackInfo ci) {
-        if (ModuleManager.isEnabled("vanilla_gui", VanillaGuiModule.class, VanillaGuiModule::isCtrlDragToCraftingGridEnabled)) {
+        if (VanillaGuiModule.CTRL_DRAG_TO_CRAFTING_GRID.on()) {
             if (Screen.hasControlDown() && mouseButton == 0 && type == ClickType.PICKUP) {
                 if (slot != null && slot.container instanceof Inventory && slot.hasItem()) {
                     modulation$processedDragSlots.clear();
@@ -85,7 +84,7 @@ public abstract class AbstractContainerScreenMixin<T extends AbstractContainerMe
 
     @Inject(method = "mouseDragged", at = @At("HEAD"), cancellable = true)
     private void modulation$onMouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY, CallbackInfoReturnable<Boolean> cir) {
-        if (ModuleManager.isEnabled("vanilla_gui", VanillaGuiModule.class, VanillaGuiModule::isCtrlDragToCraftingGridEnabled)) {
+        if (VanillaGuiModule.CTRL_DRAG_TO_CRAFTING_GRID.on()) {
             if (Screen.hasControlDown() && button == 0) {
                 Slot slot = this.hoveredSlot;
                 if (slot != null && slot.container instanceof Inventory && slot.hasItem()) {

@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.gui.client;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaGuiModule;
 import com.evandev.modulation.util.Markdown;
 import net.minecraft.client.gui.components.ChatComponent;
@@ -15,7 +14,7 @@ public class ChatComponentMarkdownMixin {
 
     @ModifyVariable(method = "addMessage(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/MessageSignature;Lnet/minecraft/client/GuiMessageTag;)V", at = @At("HEAD"), argsOnly = true)
     private Component modulation$applyChatMarkdown(Component message) {
-        if (message == null || !ModuleManager.isEnabled("vanilla_gui", VanillaGuiModule.class, VanillaGuiModule::isChatMarkdownEnabled)) {
+        if (message == null || !VanillaGuiModule.CHAT_MARKDOWN.on()) {
             return message;
         }
         if (!(message.getContents() instanceof TranslatableContents translatable) || !"chat.type.text".equals(translatable.getKey())) {

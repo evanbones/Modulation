@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.foliage;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.PassableFoliageModule;
 import com.evandev.modulation.modules.vanillabackport.EntityLeafDrag;
 import com.evandev.modulation.registry.ModTags;
@@ -31,9 +30,8 @@ public abstract class LeavesBlockMixin {
     private void modulation$getCollisionShape(BlockGetter level, BlockPos pos, CollisionContext context, CallbackInfoReturnable<VoxelShape> cir) {
         BlockState state = (BlockState) (Object) this;
         if (state.is(ModTags.PASSABLE_LEAVES)) {
-            PassableFoliageModule module = ModuleManager.getModule("passable_foliage", PassableFoliageModule.class);
-            if (module != null && module.isPassableFoliageEnabled()) {
-                if (module.isScaffoldingModeEnabled() && context.isAbove(Shapes.block(), pos, true) && !context.isDescending()) {
+            if (PassableFoliageModule.ENABLE_PASSABLE_FOLIAGE.on()) {
+                if (PassableFoliageModule.ENABLE_SCAFFOLDING_MODE.on() && context.isAbove(Shapes.block(), pos, true) && !context.isDescending()) {
                     return;
                 }
                 if (!(context instanceof EntityCollisionContext entityContext && entityContext.getEntity() == null)) {
@@ -51,9 +49,8 @@ public abstract class LeavesBlockMixin {
     private void modulation$getVisualShape(BlockGetter level, BlockPos pos, CollisionContext context, CallbackInfoReturnable<VoxelShape> cir) {
         BlockState state = (BlockState) (Object) this;
         if (state.is(ModTags.PASSABLE_LEAVES)) {
-            PassableFoliageModule module = ModuleManager.getModule("passable_foliage", PassableFoliageModule.class);
-            if (module != null && module.isPassableFoliageEnabled()) {
-                if (module.isScaffoldingModeEnabled() && context.isAbove(Shapes.block(), pos, true) && !context.isDescending()) {
+            if (PassableFoliageModule.ENABLE_PASSABLE_FOLIAGE.on()) {
+                if (PassableFoliageModule.ENABLE_SCAFFOLDING_MODE.on() && context.isAbove(Shapes.block(), pos, true) && !context.isDescending()) {
                     return;
                 }
                 cir.setReturnValue(Shapes.empty());
@@ -65,8 +62,7 @@ public abstract class LeavesBlockMixin {
     private void modulation$entityInside(Level level, BlockPos pos, Entity entity, CallbackInfo ci) {
         BlockState state = (BlockState) (Object) this;
         if (state.is(ModTags.PASSABLE_LEAVES)) {
-            PassableFoliageModule module = ModuleManager.getModule("passable_foliage", PassableFoliageModule.class);
-            if (module != null && module.isPassableFoliageEnabled()) {
+            if (PassableFoliageModule.ENABLE_PASSABLE_FOLIAGE.on()) {
                 if (entity instanceof EntityLeafDrag drag) {
                     drag.modulation$applyLeafDrag(state, level, pos);
                 }

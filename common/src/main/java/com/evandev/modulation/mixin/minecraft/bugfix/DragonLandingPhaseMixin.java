@@ -17,7 +17,7 @@ public class DragonLandingPhaseMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;getHeightmapPos(Lnet/minecraft/world/level/levelgen/Heightmap$Types;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/core/BlockPos;")
     )
     private BlockPos modulation$dragonLandsOnPortalHeight(BlockPos pos) {
-        if (pos.getY() == 0 && VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixDragonLandingInVoidEnabled)) {
+        if (pos.getY() == 0 && VanillaBugfixesModule.FIX_DRAGON_LANDING_IN_VOID.on()) {
             return pos.atY(65);
         }
         return pos;

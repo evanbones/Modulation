@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Sunbathing Godrays patches are now resource-pack driven.
+- Backend cleanups.
 
 ## [3.4.6] - 2026-09-18
 

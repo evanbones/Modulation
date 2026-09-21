@@ -15,6 +15,6 @@ public class FishingRodItemMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/player/Player;DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V")
     )
     private SoundSource modulation$fishingBobberSoundSource(SoundSource source) {
-        return VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixFishingBobberSoundEnabled) ? SoundSource.PLAYERS : source;
+        return VanillaBugfixesModule.FIX_FISHING_BOBBER_SOUND.on() ? SoundSource.PLAYERS : source;
     }
 }

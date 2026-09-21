@@ -26,7 +26,7 @@ public class ArmorStandMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/decoration/ArmorStand;brokenByAnything(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;)V", ordinal = 0)
     )
     private void modulation$explosionBreakParticles(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixArmorStandBreakParticlesEnabled)) {
+        if (VanillaBugfixesModule.FIX_ARMOR_STAND_BREAK_PARTICLES.on()) {
             showBreakingParticles();
         }
     }
@@ -36,7 +36,7 @@ public class ArmorStandMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/decoration/ArmorStand;brokenByAnything(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;)V", ordinal = 0)
     )
     private void modulation$fireBreakParticles(ServerLevel level, DamageSource damageSource, float damageAmount, CallbackInfo ci) {
-        if (VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixArmorStandBreakParticlesEnabled)) {
+        if (VanillaBugfixesModule.FIX_ARMOR_STAND_BREAK_PARTICLES.on()) {
             showBreakingParticles();
         }
     }

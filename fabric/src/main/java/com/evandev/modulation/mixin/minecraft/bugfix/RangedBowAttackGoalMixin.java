@@ -24,7 +24,7 @@ public class RangedBowAttackGoalMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/Monster;lookAt(Lnet/minecraft/world/entity/Entity;FF)V", shift = At.Shift.AFTER)
     )
     private void modulation$aimAtTargetWhileStrafing(CallbackInfo ci) {
-        if (VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixStrafingMobAimEnabled)) {
+        if (VanillaBugfixesModule.FIX_STRAFING_MOB_AIM.on()) {
             mob.getLookControl().setLookAt(mob.getTarget(), 30.0F, 30.0F);
         }
     }

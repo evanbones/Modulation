@@ -8,7 +8,7 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StringListTweak extends AbstractTweak<List<String>> {
+public class StringListTweak extends AbstractTweak<List<String>, StringListTweak> {
     public StringListTweak(String id, List<String> defaultValue) {
         super(id, defaultValue);
     }

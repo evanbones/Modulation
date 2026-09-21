@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.gui.client;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaGuiModule;
 import net.minecraft.client.gui.components.ChatComponent;
 import org.spongepowered.asm.mixin.Mixin;
@@ -12,15 +11,11 @@ public class ChatComponentMixin {
 
     @ModifyConstant(method = "getTimeFactor", constant = @Constant(doubleValue = 200.0D))
     private static double modulation$modifyFadeDuration(double duration) {
-        VanillaGuiModule module = ModuleManager.getModule("vanilla_gui", VanillaGuiModule.class);
-        if (module == null) return duration;
-        return module.getChatMessageDuration();
+        return VanillaGuiModule.CHAT_MESSAGE_DURATION.get();
     }
 
     @ModifyConstant(method = "render", constant = @Constant(intValue = 200))
     private int modulation$modifyChatDuration(int duration) {
-        VanillaGuiModule module = ModuleManager.getModule("vanilla_gui", VanillaGuiModule.class);
-        if (module == null) return duration;
-        return module.getChatMessageDuration();
+        return VanillaGuiModule.CHAT_MESSAGE_DURATION.get();
     }
 }

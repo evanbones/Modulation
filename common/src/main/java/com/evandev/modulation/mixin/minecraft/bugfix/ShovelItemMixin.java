@@ -23,7 +23,7 @@ public class ShovelItemMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;isAir()Z")
     )
     private boolean modulation$flattenUnderPartialBlocks(BlockState above, Operation<Boolean> original, @Local(ordinal = 0) Level level, @Local(ordinal = 0) BlockPos pos) {
-        if (VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixPathUnderBlocksEnabled)) {
+        if (VanillaBugfixesModule.FIX_PATH_UNDER_BLOCKS.on()) {
             return !above.isFaceSturdy(level, pos.above(), Direction.DOWN, SupportType.FULL);
         }
         return original.call(above);

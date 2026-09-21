@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.bugfix.client;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHandler;
@@ -46,7 +45,7 @@ public abstract class MouseHandlerMixin {
             )
     )
     private void modulation$afterMouseClicked(long window, int button, int action, int mods, CallbackInfo ci) {
-        if (this.minecraft.screen != null && ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isFixFocusBugEnabled)) {
+        if (this.minecraft.screen != null && VanillaBugfixesModule.FIX_FOCUS_BUG.on()) {
             if (modulation$getFocusedWidget(this.minecraft.screen) instanceof AbstractButton) {
                 this.minecraft.screen.clearFocus();
             }
@@ -63,7 +62,7 @@ public abstract class MouseHandlerMixin {
             )
     )
     private void modulation$afterMouseReleased(long window, int button, int action, int mods, CallbackInfo ci) {
-        if (this.minecraft.screen != null && ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isFixFocusBugEnabled)) {
+        if (this.minecraft.screen != null && VanillaBugfixesModule.FIX_FOCUS_BUG.on()) {
             if (modulation$getFocusedWidget(this.minecraft.screen) instanceof AbstractSliderButton) {
                 this.minecraft.screen.clearFocus();
             }

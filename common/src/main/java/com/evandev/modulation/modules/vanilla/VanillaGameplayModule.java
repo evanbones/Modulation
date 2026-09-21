@@ -2,144 +2,43 @@ package com.evandev.modulation.modules.vanilla;
 
 import com.evandev.modulation.api.AbstractModule;
 import com.evandev.modulation.api.IModule;
+import com.evandev.modulation.api.ModuleDef;
 import com.evandev.modulation.api.tweaks.BooleanTweak;
 import com.google.auto.service.AutoService;
 
 @AutoService(IModule.class)
 public class VanillaGameplayModule extends AbstractModule {
 
-    private final BooleanTweak flammableCobwebs = tweak(new BooleanTweak("flammable_cobwebs", false));
-    private final BooleanTweak campfiresPlaceUnlit = tweak(new BooleanTweak("campfires_place_unlit", false));
-    private final BooleanTweak campfiresIgniteEntities = tweak(new BooleanTweak("campfires_ignite_entities", false));
-    private final BooleanTweak disableAxeStripping = tweak(new BooleanTweak("disable_axe_stripping", false));
-    private final BooleanTweak disableCopperScraping = tweak(new BooleanTweak("disable_copper_scraping", false));
-    private final BooleanTweak noDinnerlava = tweak(new BooleanTweak("no_dinnerlava", false));
-    private final BooleanTweak enderPearlSound = tweak(new BooleanTweak("ender_pearl_sound", false));
-    private final BooleanTweak crackingSpawnEggs = tweak(new BooleanTweak("cracking_spawn_eggs", false));
-    private final BooleanTweak disableAnvilDamage = tweak(new BooleanTweak("disable_anvil_damage", false));
-    private final BooleanTweak tridentsInVoidReturn = tweak(new BooleanTweak("tridents_in_void_return", false));
-    private final BooleanTweak cactusPunchingHurts = tweak(new BooleanTweak("cactus_punching_hurts", false));
-    private final BooleanTweak chainingCreepers = tweak(new BooleanTweak("chaining_creepers", false));
-    private final BooleanTweak furnaceMinecartAnyFuel = tweak(new BooleanTweak("furnace_minecart_any_fuel", false));
-    private final BooleanTweak infibows = tweak(new BooleanTweak("infibows", false));
-    private final BooleanTweak tridentsAcceptSharpness = tweak(new BooleanTweak("tridents_accept_sharpness", false));
-    private final BooleanTweak bedrockImpaling = tweak(new BooleanTweak("bedrock_impaling", false));
-    private final BooleanTweak netherCauldron = tweak(new BooleanTweak("nether_cauldron", false));
-    private final BooleanTweak fireAspectIsFlintAndSteel = tweak(new BooleanTweak("fire_aspect_is_flint_and_steel", false));
-    private final BooleanTweak noChestWhenTargeted = tweak(new BooleanTweak("no_chest_when_targeted", false));
-    private final BooleanTweak disablePathCreation = tweak(new BooleanTweak("disable_path_creation", false));
-    private final BooleanTweak disableFarmlandCreation = tweak(new BooleanTweak("disable_farmland_creation", false));
-    private final BooleanTweak disableEnderPearlDamage = tweak(new BooleanTweak("disable_ender_pearl_damage", false));
-    private final BooleanTweak dispenserShearsPumpkins = tweak(new BooleanTweak("dispenser_shears_pumpkins", false));
-    private final BooleanTweak waterBottlesOnConcrete = tweak(new BooleanTweak("water_bottles_on_concrete", false));
-    private final BooleanTweak leavesSupportBlocks = tweak(new BooleanTweak("leaves_support_blocks", false));
-    private final BooleanTweak monstersLeaveBoats = tweak(new BooleanTweak("monsters_leave_boats", false));
+    private static final ModuleDef DEF = ModuleDef.of("vanilla_gameplay");
+
+    public static final BooleanTweak FLAMMABLE_COBWEBS = DEF.bool("flammable_cobwebs", false);
+    public static final BooleanTweak CAMPFIRES_PLACE_UNLIT = DEF.bool("campfires_place_unlit", false);
+    public static final BooleanTweak CAMPFIRES_IGNITE_ENTITIES = DEF.bool("campfires_ignite_entities", false);
+    public static final BooleanTweak DISABLE_AXE_STRIPPING = DEF.bool("disable_axe_stripping", false);
+    public static final BooleanTweak DISABLE_COPPER_SCRAPING = DEF.bool("disable_copper_scraping", false);
+    public static final BooleanTweak NO_DINNERLAVA = DEF.bool("no_dinnerlava", false);
+    public static final BooleanTweak ENDER_PEARL_SOUND = DEF.bool("ender_pearl_sound", false);
+    public static final BooleanTweak CRACKING_SPAWN_EGGS = DEF.bool("cracking_spawn_eggs", false);
+    public static final BooleanTweak DISABLE_ANVIL_DAMAGE = DEF.bool("disable_anvil_damage", false);
+    public static final BooleanTweak TRIDENTS_IN_VOID_RETURN = DEF.bool("tridents_in_void_return", false);
+    public static final BooleanTweak CACTUS_PUNCHING_HURTS = DEF.bool("cactus_punching_hurts", false);
+    public static final BooleanTweak CHAINING_CREEPERS = DEF.bool("chaining_creepers", false);
+    public static final BooleanTweak FURNACE_MINECART_ANY_FUEL = DEF.bool("furnace_minecart_any_fuel", false);
+    public static final BooleanTweak INFIBOWS = DEF.bool("infibows", false);
+    public static final BooleanTweak TRIDENTS_ACCEPT_SHARPNESS = DEF.bool("tridents_accept_sharpness", false);
+    public static final BooleanTweak BEDROCK_IMPALING = DEF.bool("bedrock_impaling", false);
+    public static final BooleanTweak NETHER_CAULDRON = DEF.bool("nether_cauldron", false);
+    public static final BooleanTweak FIRE_ASPECT_IS_FLINT_AND_STEEL = DEF.bool("fire_aspect_is_flint_and_steel", false);
+    public static final BooleanTweak NO_CHEST_WHEN_TARGETED = DEF.bool("no_chest_when_targeted", false);
+    public static final BooleanTweak DISABLE_PATH_CREATION = DEF.bool("disable_path_creation", false);
+    public static final BooleanTweak DISABLE_FARMLAND_CREATION = DEF.bool("disable_farmland_creation", false);
+    public static final BooleanTweak DISABLE_ENDER_PEARL_DAMAGE = DEF.bool("disable_ender_pearl_damage", false);
+    public static final BooleanTweak DISPENSER_SHEARS_PUMPKINS = DEF.bool("dispenser_shears_pumpkins", false);
+    public static final BooleanTweak WATER_BOTTLES_ON_CONCRETE = DEF.bool("water_bottles_on_concrete", false);
+    public static final BooleanTweak LEAVES_SUPPORT_BLOCKS = DEF.bool("leaves_support_blocks", false);
+    public static final BooleanTweak MONSTERS_LEAVE_BOATS = DEF.bool("monsters_leave_boats", false);
 
     public VanillaGameplayModule() {
-        super("vanilla_gameplay");
-    }
-
-    public boolean isFlammableCobwebsEnabled() {
-        return flammableCobwebs.getValue();
-    }
-
-    public boolean isCampfiresPlaceUnlitEnabled() {
-        return campfiresPlaceUnlit.getValue();
-    }
-
-    public boolean isCampfiresIgniteEntitiesEnabled() {
-        return campfiresIgniteEntities.getValue();
-    }
-
-    public boolean isDisableAxeStrippingEnabled() {
-        return disableAxeStripping.getValue();
-    }
-
-    public boolean isDisableCopperScrapingEnabled() {
-        return disableCopperScraping.getValue();
-    }
-
-    public boolean isNoDinnerlavaEnabled() {
-        return noDinnerlava.getValue();
-    }
-
-    public boolean isEnderPearlSoundEnabled() {
-        return enderPearlSound.getValue();
-    }
-
-    public boolean isCrackingSpawnEggsEnabled() {
-        return crackingSpawnEggs.getValue();
-    }
-
-    public boolean isDisableAnvilDamageEnabled() {
-        return disableAnvilDamage.getValue();
-    }
-
-    public boolean isTridentsInVoidReturnEnabled() {
-        return tridentsInVoidReturn.getValue();
-    }
-
-    public boolean isCactusPunchingHurtsEnabled() {
-        return cactusPunchingHurts.getValue();
-    }
-
-    public boolean isChainingCreepersEnabled() {
-        return chainingCreepers.getValue();
-    }
-
-    public boolean isFurnaceMinecartAnyFuelEnabled() {
-        return furnaceMinecartAnyFuel.getValue();
-    }
-
-    public boolean isInfibowsEnabled() {
-        return infibows.getValue();
-    }
-
-    public boolean isTridentsAcceptSharpnessEnabled() {
-        return tridentsAcceptSharpness.getValue();
-    }
-
-    public boolean isBedrockImpalingEnabled() {
-        return bedrockImpaling.getValue();
-    }
-
-    public boolean isNetherCauldronEnabled() {
-        return netherCauldron.getValue();
-    }
-
-    public boolean isFireAspectIsFlintAndSteelEnabled() {
-        return fireAspectIsFlintAndSteel.getValue();
-    }
-
-    public boolean isNoChestWhenTargetedEnabled() {
-        return noChestWhenTargeted.getValue();
-    }
-
-    public boolean isDisablePathCreationEnabled() {
-        return disablePathCreation.getValue();
-    }
-
-    public boolean isDisableFarmlandCreationEnabled() {
-        return disableFarmlandCreation.getValue();
-    }
-
-    public boolean isDisableEnderPearlDamageEnabled() {
-        return disableEnderPearlDamage.getValue();
-    }
-
-    public boolean isDispenserShearsPumpkinsEnabled() {
-        return dispenserShearsPumpkins.getValue();
-    }
-
-    public boolean isWaterBottlesOnConcreteEnabled() {
-        return waterBottlesOnConcrete.getValue();
-    }
-
-    public boolean isLeavesSupportBlocksEnabled() {
-        return leavesSupportBlocks.getValue();
-    }
-
-    public boolean isMonstersLeaveBoatsEnabled() {
-        return monstersLeaveBoats.getValue();
+        super(DEF);
     }
 }

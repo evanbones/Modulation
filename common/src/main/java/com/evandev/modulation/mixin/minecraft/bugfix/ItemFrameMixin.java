@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.bugfix;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -18,7 +17,7 @@ public class ItemFrameMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/decoration/ItemFrame;playSound(Lnet/minecraft/sounds/SoundEvent;FF)V")
     )
     private void modulation$silentItemFrameLoad(ItemFrame frame, SoundEvent sound, float volume, float pitch, Operation<Void> original, @Local(argsOnly = true, ordinal = 0) boolean updateNeighbours) {
-        if (updateNeighbours || !ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isFixItemFrameLoadSoundEnabled)) {
+        if (updateNeighbours || !VanillaBugfixesModule.FIX_ITEM_FRAME_LOAD_SOUND.on()) {
             original.call(frame, sound, volume, pitch);
         }
     }

@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.gameplay;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaGameplayModule;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
@@ -20,7 +19,7 @@ public abstract class EnchantmentHelperMixin {
 
     @Inject(method = "modifyDamage", at = @At("RETURN"), cancellable = true)
     private static void modulation$bedrockImpaling(ServerLevel level, ItemStack tool, Entity entity, DamageSource damageSource, float damage, CallbackInfoReturnable<Float> cir) {
-        if (ModuleManager.isEnabled("vanilla_gameplay", VanillaGameplayModule.class, VanillaGameplayModule::isBedrockImpalingEnabled)) {
+        if (VanillaGameplayModule.BEDROCK_IMPALING.on()) {
             if (entity.isInWaterOrRain()) {
                 var impalingHolder = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(Enchantments.IMPALING);
                 if (impalingHolder.isPresent()) {

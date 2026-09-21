@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.bugfix;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import com.moulberry.mixinconstraints.annotations.IfModAbsent;
 import net.minecraft.network.protocol.game.ClientboundSetExperiencePacket;
@@ -18,7 +17,7 @@ public class ServerPlayerMixin {
 
     @Inject(method = "setServerLevel", at = @At("RETURN"))
     private void modulation$onSetServerLevel(ServerLevel level, CallbackInfo ci) {
-        if (ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isFixExperienceLossEnabled)) {
+        if (VanillaBugfixesModule.FIX_EXPERIENCE_LOSS.on()) {
             ServerPlayer player = (ServerPlayer) (Object) this;
 
             if (player.connection != null) {
@@ -32,20 +31,19 @@ public class ServerPlayerMixin {
     private void modulation$onBecomeSpectator(CallbackInfoReturnable<Boolean> cir) {
         ServerPlayer player = (ServerPlayer) (Object) this;
 
-        if (ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isFixSpectatorItemUseEnabled)) {
+        if (VanillaBugfixesModule.FIX_SPECTATOR_ITEM_USE.on()) {
             player.releaseUsingItem();
         }
 
-        if (ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isFixSpectatorFreezingEnabled)) {
+        if (VanillaBugfixesModule.FIX_SPECTATOR_FREEZING.on()) {
             player.setTicksFrozen(0);
         }
     }
 
     @Inject(method = "die", at = @At("RETURN"))
     private void modulation$stopUsingItemOnDeath(DamageSource source, CallbackInfo ci) {
-        if (VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixDeathScreenItemUseEnabled)) {
+        if (VanillaBugfixesModule.FIX_DEATH_SCREEN_ITEM_USE.on()) {
             ((ServerPlayer) (Object) this).stopUsingItem();
         }
     }
-
 }

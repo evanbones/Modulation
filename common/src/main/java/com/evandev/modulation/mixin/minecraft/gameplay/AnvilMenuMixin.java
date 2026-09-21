@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.gameplay;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaGameplayModule;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -21,7 +20,7 @@ public class AnvilMenuMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/inventory/ContainerLevelAccess;execute(Ljava/util/function/BiConsumer;)V")
     )
     private void modulation$preventAnvilDamage(ContainerLevelAccess instance, BiConsumer<Level, BlockPos> biConsumer, Operation<Void> original) {
-        if (ModuleManager.isEnabled("vanilla_gameplay", VanillaGameplayModule.class, VanillaGameplayModule::isDisableAnvilDamageEnabled)) {
+        if (VanillaGameplayModule.DISABLE_ANVIL_DAMAGE.on()) {
             instance.execute((level, pos) -> level.levelEvent(1030, pos, 0));
             return;
         }

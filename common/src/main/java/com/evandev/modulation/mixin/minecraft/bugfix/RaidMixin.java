@@ -15,6 +15,6 @@ public class RaidMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/game/ClientboundSoundPacket;<init>(Lnet/minecraft/core/Holder;Lnet/minecraft/sounds/SoundSource;DDDFFJ)V")
     )
     private SoundSource modulation$raidHornSoundSource(SoundSource source) {
-        return VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixRaidHornSoundEnabled) ? SoundSource.HOSTILE : source;
+        return VanillaBugfixesModule.FIX_RAID_HORN_SOUND.on() ? SoundSource.HOSTILE : source;
     }
 }

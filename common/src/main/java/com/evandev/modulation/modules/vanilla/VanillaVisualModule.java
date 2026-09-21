@@ -2,6 +2,7 @@ package com.evandev.modulation.modules.vanilla;
 
 import com.evandev.modulation.api.AbstractModule;
 import com.evandev.modulation.api.IModule;
+import com.evandev.modulation.api.ModuleDef;
 import com.evandev.modulation.api.tweaks.BooleanTweak;
 import com.evandev.modulation.mixin.minecraft.accessor.MapColorAccessor;
 import com.google.auto.service.AutoService;
@@ -16,48 +17,22 @@ public class VanillaVisualModule extends AbstractModule {
     private static Map<MapColor, Integer> VANILLA_COLORS = null;
     private static Map<MapColor, Integer> NICER_COLORS = null;
 
-    private final BooleanTweak nicerMapColors = tweak(new BooleanTweak("nicer_map_colors", true) {
-        @Override
-        public void onApply() {
-            applyNicerMapColors(getValue());
-        }
-    });
-    private final BooleanTweak waxedItemIconOverlay = tweak(new BooleanTweak("waxed_item_icon_overlay", true));
-    private final BooleanTweak extraItemIconOverlays = tweak(new BooleanTweak("extra_item_icon_overlays", true));
-    private final BooleanTweak betterCopperTooltips = tweak(new BooleanTweak("better_copper_tooltips", true));
-    private final BooleanTweak legibleSigns = tweak(new BooleanTweak("legible_signs", true));
-    private final BooleanTweak lessAnnoyingFire = tweak(new BooleanTweak("less_annoying_fire", false));
-    private final BooleanTweak pixelConsistentBlockDrops = tweak(new BooleanTweak("pixel_consistent_block_drops", false));
+    private static final ModuleDef DEF = ModuleDef.of("vanilla_visual");
+
+    public static final BooleanTweak NICER_MAP_COLORS = DEF.bool("nicer_map_colors", true)
+            .onApply(VanillaVisualModule::applyNicerMapColors);
+    public static final BooleanTweak WAXED_ITEM_ICON_OVERLAY = DEF.bool("waxed_item_icon_overlay", true);
+    public static final BooleanTweak EXTRA_ITEM_ICON_OVERLAYS = DEF.bool("extra_item_icon_overlays", true);
+    public static final BooleanTweak BETTER_COPPER_TOOLTIPS = DEF.bool("better_copper_tooltips", true);
+    public static final BooleanTweak LEGIBLE_SIGNS = DEF.bool("legible_signs", true);
+    public static final BooleanTweak LESS_ANNOYING_FIRE = DEF.bool("less_annoying_fire", false);
+    public static final BooleanTweak PIXEL_CONSISTENT_BLOCK_DROPS = DEF.bool("pixel_consistent_block_drops", false);
 
     public VanillaVisualModule() {
-        super("vanilla_visual");
+        super(DEF);
     }
 
-    public boolean isWaxedItemIconOverlayEnabled() {
-        return waxedItemIconOverlay.getValue();
-    }
-
-    public boolean isExtraItemIconOverlaysEnabled() {
-        return extraItemIconOverlays.getValue();
-    }
-
-    public boolean isBetterCopperTooltipsEnabled() {
-        return betterCopperTooltips.getValue();
-    }
-
-    public boolean isLegibleSignsEnabled() {
-        return legibleSigns.getValue();
-    }
-
-    public boolean isLessAnnoyingFireEnabled() {
-        return lessAnnoyingFire.getValue();
-    }
-
-    public boolean isPixelConsistentBlockDropsEnabled() {
-        return pixelConsistentBlockDrops.getValue();
-    }
-
-    private void applyNicerMapColors(boolean nicer) {
+    private static void applyNicerMapColors(boolean nicer) {
         if (NICER_COLORS == null) {
             NICER_COLORS = new IdentityHashMap<>();
             VANILLA_COLORS = new IdentityHashMap<>();

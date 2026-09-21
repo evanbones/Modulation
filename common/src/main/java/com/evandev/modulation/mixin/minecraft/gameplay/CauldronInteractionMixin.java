@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.gameplay;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaGameplayModule;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.cauldron.CauldronInteraction;
@@ -30,7 +29,7 @@ public interface CauldronInteractionMixin {
 
     @Inject(method = "emptyBucket", at = @At("HEAD"), cancellable = true)
     private static void modulation$netherCauldron(Level level, BlockPos pos, Player player, InteractionHand hand, ItemStack filledStack, BlockState state, SoundEvent emptySound, CallbackInfoReturnable<ItemInteractionResult> cir) {
-        if (ModuleManager.isEnabled("vanilla_gameplay", VanillaGameplayModule.class, VanillaGameplayModule::isNetherCauldronEnabled)) {
+        if (VanillaGameplayModule.NETHER_CAULDRON.on()) {
             if (state.is(Blocks.WATER_CAULDRON) && level.dimensionType().ultraWarm()) {
                 if (!level.isClientSide) {
                     Item item = filledStack.getItem();

@@ -2,7 +2,6 @@ package com.evandev.modulation.mixin.vanillabackport.client;
 
 import com.blackgear.vanillabackport.client.level.particles.FallingLeavesParticle;
 import com.blackgear.vanillabackport.client.registries.ModParticles;
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.PassableFoliageModule;
 import com.evandev.modulation.modules.vanillabackport.client.LeafFling;
 import com.moulberry.mixinconstraints.annotations.IfModLoaded;
@@ -23,11 +22,10 @@ public abstract class TintedLeavesProviderMixin {
             ColorParticleOption type, ClientLevel level, double x, double y, double z,
             double xSpeed, double ySpeed, double zSpeed, CallbackInfoReturnable<Particle> cir
     ) {
-        PassableFoliageModule module = ModuleManager.getModule("passable_foliage", PassableFoliageModule.class);
-        if (module != null && module.isPassableFoliageEnabled()) {
-            if (type.getType() == ModParticles.TINTED_LEAVES.get() && module.isTintedLeavesEnabled()) {
+        if (PassableFoliageModule.ENABLE_PASSABLE_FOLIAGE.on()) {
+            if (type.getType() == ModParticles.TINTED_LEAVES.get() && PassableFoliageModule.ENABLE_TINTED_LEAVES.on()) {
                 LeafFling.apply(cir.getReturnValue(), xSpeed, ySpeed, zSpeed);
-            } else if (type.getType() == ModParticles.TINTED_NEEDLES.get() && module.isTintedNeedlesEnabled()) {
+            } else if (type.getType() == ModParticles.TINTED_NEEDLES.get() && PassableFoliageModule.ENABLE_TINTED_NEEDLES.on()) {
                 LeafFling.apply(cir.getReturnValue(), xSpeed, ySpeed, zSpeed);
             }
         }

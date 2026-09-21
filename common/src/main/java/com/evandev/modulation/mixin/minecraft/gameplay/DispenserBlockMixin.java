@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.gameplay;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.mixin.minecraft.accessor.ConcretePowderBlockAccessor;
 import com.evandev.modulation.modules.vanilla.VanillaGameplayModule;
 import net.minecraft.core.BlockPos;
@@ -32,7 +31,7 @@ public class DispenserBlockMixin {
 
     @Inject(method = "getDispenseMethod", at = @At("HEAD"), cancellable = true)
     private void modulation$dispenseWaterBottleOnConcrete(Level level, ItemStack item, CallbackInfoReturnable<DispenseItemBehavior> cir) {
-        if (item.is(Items.POTION) && ModuleManager.isEnabled("vanilla_gameplay", VanillaGameplayModule.class, VanillaGameplayModule::isWaterBottlesOnConcreteEnabled)) {
+        if (item.is(Items.POTION) && VanillaGameplayModule.WATER_BOTTLES_ON_CONCRETE.on()) {
             DispenseItemBehavior originalBehavior = DispenserBlock.DISPENSER_REGISTRY.get(item.getItem());
             cir.setReturnValue(new DefaultDispenseItemBehavior() {
                 @Override

@@ -1,6 +1,5 @@
 package com.evandev.modulation.items;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.reconnectible_chains.PostPlacementManager;
 import com.evandev.modulation.modules.reconnectible_chains.ReconnectibleChainsModule;
 import com.evandev.modulation.registry.ModRegistry;
@@ -68,14 +67,13 @@ public class ChainStaffItem extends PickaxeItem {
     public void releaseUsing(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity entityLiving, int timeLeft) {
         if (!(entityLiving instanceof Player player)) return;
 
-        ReconnectibleChainsModule module = ModuleManager.getModule("reconnectible_chains", ReconnectibleChainsModule.class);
-        if (module == null || !module.isEnabled()) return;
+        if (!ReconnectibleChainsModule.ENABLED.on()) return;
 
         int duration = this.getUseDuration(stack, player) - timeLeft;
-        if (duration < module.getChargeUpTicks()) return;
+        if (duration < ReconnectibleChainsModule.CHARGE_UP_TICKS.get()) return;
 
         boolean isSecondPost = PostPlacementManager.INSTANCE.hasFirstPost(player.getUUID());
-        boolean needsChains = module.isConsumeChainsEnabled() && !player.isCreative() && isSecondPost;
+        boolean needsChains = ReconnectibleChainsModule.CONSUME_CHAINS.on() && !player.isCreative() && isSecondPost;
 
         int chainSlot = -1;
         if (needsChains) {
@@ -114,12 +112,12 @@ public class ChainStaffItem extends PickaxeItem {
 
             boolean success = true;
             if (!level.isClientSide) {
-                success = module.handlePostPlacement((ServerPlayer) player, placePos, clickedFace);
+                success = ReconnectibleChainsModule.handlePostPlacement((ServerPlayer) player, placePos, clickedFace);
             }
 
             if (success) {
                 if (!level.isClientSide) {
-                    if (module.isConsumeDurabilityEnabled() && !player.isCreative()) {
+                    if (ReconnectibleChainsModule.CONSUME_DURABILITY.on() && !player.isCreative()) {
                         EquipmentSlot slot = player.getItemInHand(InteractionHand.MAIN_HAND) == stack ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
                         stack.hurtAndBreak(1, player, slot);
                     }

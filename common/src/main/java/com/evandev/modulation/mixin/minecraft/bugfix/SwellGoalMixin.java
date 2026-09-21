@@ -22,7 +22,7 @@ public class SwellGoalMixin {
     )
     private boolean modulation$defuseCreeperOnGameModeChange(boolean canSeeTarget) {
         if (canSeeTarget && target != null && !target.canBeSeenAsEnemy()) {
-            return !VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixCreeperDefusingEnabled);
+            return !VanillaBugfixesModule.FIX_CREEPER_DEFUSING.on();
         }
         return canSeeTarget;
     }

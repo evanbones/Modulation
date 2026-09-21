@@ -77,7 +77,7 @@ public class ModulationConfigScreen {
                     .name(Component.translatable("config.modulation.module." + module.getId()));
             Map<String, OptionGroup.Builder> groups = new LinkedHashMap<>();
 
-            for (AbstractTweak<?> tweak : module.getTweaks()) {
+            for (AbstractTweak<?, ?> tweak : module.getTweaks()) {
                 String titleKey = "config.modulation.tweak." + module.getId() + "." + tweak.getId();
                 String tooltipKey = titleKey + ".tooltip";
                 Component title = Component.translatableWithFallback(titleKey, humanize(tweak.getId()));
@@ -106,7 +106,7 @@ public class ModulationConfigScreen {
         return builder.build().generateScreen(parent);
     }
 
-    private static void addOption(ConfigCategory.Builder category, Map<String, OptionGroup.Builder> groups, IModule module, AbstractTweak<?> tweak, Option<?> option) {
+    private static void addOption(ConfigCategory.Builder category, Map<String, OptionGroup.Builder> groups, IModule module, AbstractTweak<?, ?> tweak, Option<?> option) {
         if (tweak.getGroup() == null) {
             category.option(option);
             return;
@@ -147,7 +147,7 @@ public class ModulationConfigScreen {
         return option.build();
     }
 
-    private static Option.Builder<?> applyTooltip(Option.Builder<?> builder, AbstractTweak<?> tweak, String tooltipKey) {
+    private static Option.Builder<?> applyTooltip(Option.Builder<?> builder, AbstractTweak<?, ?> tweak, String tooltipKey) {
         List<Component> lines = new ArrayList<>();
         if (Language.getInstance().has(tooltipKey)) {
             lines.add(Component.translatable(tooltipKey));
@@ -182,6 +182,6 @@ public class ModulationConfigScreen {
 
     @FunctionalInterface
     private interface TweakOption {
-        Option<?> build(AbstractTweak<?> tweak, Component title, String tooltipKey);
+        Option<?> build(AbstractTweak<?, ?> tweak, Component title, String tooltipKey);
     }
 }

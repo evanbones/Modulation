@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.bugfix;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.mixin.minecraft.accessor.ThrownTridentAccessor;
 import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import com.evandev.modulation.modules.vanilla.VanillaGameplayModule;
@@ -30,7 +29,7 @@ public class EntityMixin {
     @Inject(method = "getPickRadius", at = @At("HEAD"), cancellable = true)
     private void onGetPickRadius(CallbackInfoReturnable<Float> cir) {
         if ((Object) this instanceof Villager villager && villager.isSleeping()) {
-            if (ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isAttackSleepingVillagersEnabled)) {
+            if (VanillaBugfixesModule.ATTACK_SLEEPING_VILLAGERS.on()) {
                 cir.setReturnValue(0.5F);
             }
         }
@@ -39,7 +38,7 @@ public class EntityMixin {
     @Inject(method = "onBelowWorld", at = @At("HEAD"), cancellable = true)
     private void modulation$tridentsInVoidReturn(CallbackInfo ci) {
         if ((Object) this instanceof ThrownTrident trident) {
-            if (ModuleManager.isEnabled("vanilla_gameplay", VanillaGameplayModule.class, VanillaGameplayModule::isTridentsInVoidReturnEnabled)) {
+            if (VanillaGameplayModule.TRIDENTS_IN_VOID_RETURN.on()) {
                 if (trident.getOwner() != null) {
                     int loyalty = this.entityData.get(ThrownTridentAccessor.modulation$getIdLoyalty());
                     if (loyalty > 0) {
@@ -55,7 +54,7 @@ public class EntityMixin {
     @Inject(method = "thunderHit", at = @At("HEAD"), cancellable = true)
     private void modulation$keepLightningDeathDrops(ServerLevel level, LightningBolt lightning, CallbackInfo ci) {
         if ((Object) this instanceof ItemEntity itemEntity && itemEntity.tickCount <= 8) {
-            if (ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isFixLightningItemDropsEnabled)) {
+            if (VanillaBugfixesModule.FIX_LIGHTNING_ITEM_DROPS.on()) {
                 ci.cancel();
             }
         }

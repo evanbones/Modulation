@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.bugfix.client;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.client.GhastAttackTimeAccess;
 import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -16,7 +15,7 @@ public class GhastRendererMixin {
 
     @Inject(method = "scale(Lnet/minecraft/world/entity/monster/Ghast;Lcom/mojang/blaze3d/vertex/PoseStack;F)V", at = @At("HEAD"), cancellable = true)
     protected void modulation$scaleGhastCharging(Ghast ghast, PoseStack poseStack, float partialTickTime, CallbackInfo ci) {
-        if (!ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isGhastChargingEnabled)) {
+        if (!VanillaBugfixesModule.GHAST_CHARGING.on()) {
             return;
         }
 

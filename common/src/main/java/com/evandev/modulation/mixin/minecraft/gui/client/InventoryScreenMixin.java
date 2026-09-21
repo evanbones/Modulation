@@ -1,7 +1,6 @@
 package com.evandev.modulation.mixin.minecraft.gui.client;
 
 import com.evandev.modulation.Constants;
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.mixin.minecraft.accessor.AbstractContainerScreenAccessor;
 import com.evandev.modulation.modules.vanilla.VanillaGuiModule;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -43,7 +42,7 @@ public abstract class InventoryScreenMixin extends Screen {
             method = "containerTick",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/MultiPlayerGameMode;hasInfiniteItems()Z"))
     private boolean modulation$wrapTick(MultiPlayerGameMode instance, Operation<Boolean> original) {
-        if (ModuleManager.isEnabled("vanilla_gui", VanillaGuiModule.class, VanillaGuiModule::isDisableCreativeInventoryEnabled))
+        if (VanillaGuiModule.DISABLE_CREATIVE_INVENTORY.on())
             return false;
         return original.call(instance);
     }
@@ -52,7 +51,7 @@ public abstract class InventoryScreenMixin extends Screen {
             method = "init",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/MultiPlayerGameMode;hasInfiniteItems()Z"))
     private boolean modulation$wrapInit(MultiPlayerGameMode instance, Operation<Boolean> original) {
-        if (ModuleManager.isEnabled("vanilla_gui", VanillaGuiModule.class, VanillaGuiModule::isDisableCreativeInventoryEnabled))
+        if (VanillaGuiModule.DISABLE_CREATIVE_INVENTORY.on())
             return false;
         return original.call(instance);
     }
@@ -63,8 +62,7 @@ public abstract class InventoryScreenMixin extends Screen {
         if (mc.gameMode == null || mc.player == null) return;
         if (!mc.gameMode.hasInfiniteItems()) return;
 
-        VanillaGuiModule module = ModuleManager.getModule("vanilla_gui", VanillaGuiModule.class);
-        if (module == null || !module.isDisableCreativeInventoryEnabled()) return;
+        if (!VanillaGuiModule.DISABLE_CREATIVE_INVENTORY.on()) return;
 
         ci.cancel();
 
@@ -109,8 +107,7 @@ public abstract class InventoryScreenMixin extends Screen {
     private void modulation$renderClearButtonTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.gameMode == null || !mc.gameMode.hasInfiniteItems()) return;
-        VanillaGuiModule module = ModuleManager.getModule("vanilla_gui", VanillaGuiModule.class);
-        if (module == null || !module.isDisableCreativeInventoryEnabled() || !module.isCreativeDeletionButtonEnabled())
+        if (!VanillaGuiModule.DISABLE_CREATIVE_INVENTORY.on() || !VanillaGuiModule.CREATIVE_DELETION_BUTTON.on())
             return;
 
         if (this.modulation$clearButton != null && this.modulation$clearButton.isHovered()) {
@@ -124,14 +121,13 @@ public abstract class InventoryScreenMixin extends Screen {
         if (mc.gameMode == null || mc.player == null) return;
         if (!mc.gameMode.hasInfiniteItems()) return;
 
-        VanillaGuiModule module = ModuleManager.getModule("vanilla_gui", VanillaGuiModule.class);
-        if (module == null || !module.isDisableCreativeInventoryEnabled() || !module.isCreativeDeletionButtonEnabled())
+        if (!VanillaGuiModule.DISABLE_CREATIVE_INVENTORY.on() || !VanillaGuiModule.CREATIVE_DELETION_BUTTON.on())
             return;
 
         InventoryScreen screen = (InventoryScreen) (Object) this;
         AbstractContainerScreenAccessor accessor = (AbstractContainerScreenAccessor) screen;
-        int initialX = accessor.getLeftPos() + module.getClearButtonX();
-        int initialY = accessor.getTopPos() + module.getClearButtonY();
+        int initialX = accessor.getLeftPos() + VanillaGuiModule.CLEAR_BUTTON_X.get();
+        int initialY = accessor.getTopPos() + VanillaGuiModule.CLEAR_BUTTON_Y.get();
 
         ResourceLocation tabTexture = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "textures/gui/clear_button_tab.png");
 
@@ -159,8 +155,8 @@ public abstract class InventoryScreenMixin extends Screen {
         ) {
             @Override
             public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-                this.setX(accessor.getLeftPos() + module.getClearButtonX());
-                this.setY(accessor.getTopPos() + module.getClearButtonY());
+                this.setX(accessor.getLeftPos() + VanillaGuiModule.CLEAR_BUTTON_X.get());
+                this.setY(accessor.getTopPos() + VanillaGuiModule.CLEAR_BUTTON_Y.get());
 
                 guiGraphics.blit(tabTexture, this.getX(), this.getY(), 0, 0, 28, 29, 28, 29);
 

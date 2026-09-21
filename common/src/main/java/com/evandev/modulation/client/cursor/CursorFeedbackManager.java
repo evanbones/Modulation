@@ -1,6 +1,5 @@
 package com.evandev.modulation.client.cursor;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.mixin.minecraft.accessor.AbstractContainerScreenAccessor;
 import com.evandev.modulation.mixin.minecraft.accessor.AbstractSelectionListAccessor;
 import com.evandev.modulation.mixin.minecraft.accessor.CreativeModeInventoryScreenAccessor;
@@ -34,7 +33,7 @@ public final class CursorFeedbackManager {
 
     public static void update(Screen screen, int mouseX, int mouseY) {
         Minecraft mc = Minecraft.getInstance();
-        if (!ModuleManager.isEnabled("vanilla_gui", VanillaGuiModule.class, VanillaGuiModule::isCursorFeedbackEnabled)
+        if (!VanillaGuiModule.CURSOR_FEEDBACK.on()
                 || screen == null || mc.mouseHandler.isMouseGrabbed()) {
             reset();
             return;

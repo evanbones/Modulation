@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.gameplay;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaGameplayModule;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -34,7 +33,7 @@ public abstract class MinecartFurnaceMixin extends AbstractMinecart {
 
     @Inject(method = "interact", at = @At("HEAD"), cancellable = true)
     private void modulation$acceptAnyFuel(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
-        if (ModuleManager.isEnabled("vanilla_gameplay", VanillaGameplayModule.class, VanillaGameplayModule::isFurnaceMinecartAnyFuelEnabled)) {
+        if (VanillaGameplayModule.FURNACE_MINECART_ANY_FUEL.on()) {
             ItemStack itemstack = player.getItemInHand(hand);
             int burnTime = AbstractFurnaceBlockEntity.getFuel().getOrDefault(itemstack.getItem(), 0);
             if (burnTime > 0) {

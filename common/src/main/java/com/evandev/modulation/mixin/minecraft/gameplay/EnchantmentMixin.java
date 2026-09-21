@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.gameplay;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaGameplayModule;
 import net.minecraft.core.Holder;
 import net.minecraft.world.item.ItemStack;
@@ -18,7 +17,7 @@ public abstract class EnchantmentMixin {
 
     @Inject(method = "areCompatible", at = @At("HEAD"), cancellable = true)
     private static void modulation$sharpnessImpalingIncompatible(Holder<Enchantment> first, Holder<Enchantment> second, CallbackInfoReturnable<Boolean> cir) {
-        if (ModuleManager.isEnabled("vanilla_gameplay", VanillaGameplayModule.class, VanillaGameplayModule::isTridentsAcceptSharpnessEnabled)) {
+        if (VanillaGameplayModule.TRIDENTS_ACCEPT_SHARPNESS.on()) {
             if ((first.is(Enchantments.SHARPNESS) && second.is(Enchantments.IMPALING)) || (first.is(Enchantments.IMPALING) && second.is(Enchantments.SHARPNESS))) {
                 cir.setReturnValue(false);
             }
@@ -27,7 +26,7 @@ public abstract class EnchantmentMixin {
 
     @Inject(method = "canEnchant", at = @At("HEAD"), cancellable = true)
     private void modulation$tridentCanEnchant(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
-        if (ModuleManager.isEnabled("vanilla_gameplay", VanillaGameplayModule.class, VanillaGameplayModule::isTridentsAcceptSharpnessEnabled)) {
+        if (VanillaGameplayModule.TRIDENTS_ACCEPT_SHARPNESS.on()) {
             if (stack.is(Items.TRIDENT)) {
                 Enchantment self = (Enchantment) (Object) this;
                 if (self.effects().has(EnchantmentEffectComponents.DAMAGE)) {
@@ -39,7 +38,7 @@ public abstract class EnchantmentMixin {
 
     @Inject(method = "isSupportedItem", at = @At("HEAD"), cancellable = true)
     private void modulation$tridentIsSupportedItem(ItemStack item, CallbackInfoReturnable<Boolean> cir) {
-        if (ModuleManager.isEnabled("vanilla_gameplay", VanillaGameplayModule.class, VanillaGameplayModule::isTridentsAcceptSharpnessEnabled)) {
+        if (VanillaGameplayModule.TRIDENTS_ACCEPT_SHARPNESS.on()) {
             if (item.is(Items.TRIDENT)) {
                 Enchantment self = (Enchantment) (Object) this;
                 if (self.effects().has(EnchantmentEffectComponents.DAMAGE)) {

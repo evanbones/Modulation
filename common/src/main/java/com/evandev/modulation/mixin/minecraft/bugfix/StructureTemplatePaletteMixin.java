@@ -20,7 +20,7 @@ public class StructureTemplatePaletteMixin {
     @Shadow
     @Final
     @Mutable
-    private Map<Block, List<StructureTemplate.StructureBlockInfo>> cache = VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixStructurePaletteThreadingEnabled)
+    private Map<Block, List<StructureTemplate.StructureBlockInfo>> cache = VanillaBugfixesModule.FIX_STRUCTURE_PALETTE_THREADING.on()
             ? Maps.newConcurrentMap()
             : Maps.newHashMap();
 }

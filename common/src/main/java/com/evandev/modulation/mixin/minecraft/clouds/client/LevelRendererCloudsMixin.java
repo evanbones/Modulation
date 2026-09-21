@@ -1,7 +1,6 @@
 package com.evandev.modulation.mixin.minecraft.clouds.client;
 
 import com.evandev.modulation.Constants;
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.ExtendedCloudsModule;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -109,21 +108,15 @@ public abstract class LevelRendererCloudsMixin {
     @Unique
     private float modulation$previousFogEnd;
 
-    @Unique
-    private static ExtendedCloudsModule modulation$module() {
-        return ModuleManager.getModule("extended_clouds", ExtendedCloudsModule.class);
-    }
-
     @Shadow
     protected abstract MeshData buildClouds(Tesselator tesselator, double x, double y, double z, Vec3 cloudColor);
 
     @Unique
     private int modulation$cloudCells() {
-        ExtendedCloudsModule module = modulation$module();
-        if (module == null || !module.isExtendedCloudsEnabled()) {
+        if (!ExtendedCloudsModule.ENABLE_EXTENDED_CLOUDS.on()) {
             return -1;
         }
-        int cells = (int) (Math.max(this.lastViewDistance, 2) * module.getCloudDistanceMultiplier());
+        int cells = (int) (Math.max(this.lastViewDistance, 2) * ExtendedCloudsModule.CLOUD_DISTANCE_MULTIPLIER.get());
         return Math.max(1, Math.min(MAX_CLOUD_CELLS, cells));
     }
 
@@ -166,8 +159,7 @@ public abstract class LevelRendererCloudsMixin {
     )
     private boolean modulation$buildCloudsAsync(LevelRenderer instance, Operation<Boolean> original) {
         boolean dirty = original.call(instance);
-        ExtendedCloudsModule module = modulation$module();
-        if (module == null || !module.isAsyncCloudMeshingEnabled() || !this.modulation$cloudStateValid) {
+        if (!ExtendedCloudsModule.ASYNC_CLOUD_MESHING.on() || !this.modulation$cloudStateValid) {
             this.modulation$discardPendingMesh();
             return dirty;
         }
@@ -245,8 +237,7 @@ public abstract class LevelRendererCloudsMixin {
             at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;translate(FFF)V")
     )
     private void modulation$offsetStaleClouds(PoseStack poseStack, float x, float y, float z, Operation<Void> original) {
-        ExtendedCloudsModule module = modulation$module();
-        if (module == null || !module.isAsyncCloudMeshingEnabled() || !this.modulation$cloudStateValid) {
+        if (!ExtendedCloudsModule.ASYNC_CLOUD_MESHING.on() || !this.modulation$cloudStateValid) {
             original.call(poseStack, x, y, z);
             return;
         }
@@ -263,9 +254,8 @@ public abstract class LevelRendererCloudsMixin {
     )
     private void modulation$extendCloudFog(PoseStack poseStack, Matrix4f frustumMatrix, Matrix4f projectionMatrix, float partialTick, double camX, double camY, double camZ, CallbackInfo ci) {
         this.modulation$previousFogEnd = RenderSystem.getShaderFogEnd();
-        ExtendedCloudsModule module = modulation$module();
-        if (module != null && module.isExtendedCloudsEnabled()) {
-            RenderSystem.setShaderFogEnd((float) (this.modulation$previousFogEnd * module.getCloudDistanceMultiplier()));
+        if (ExtendedCloudsModule.ENABLE_EXTENDED_CLOUDS.on()) {
+            RenderSystem.setShaderFogEnd((float) (this.modulation$previousFogEnd * ExtendedCloudsModule.CLOUD_DISTANCE_MULTIPLIER.get()));
         }
     }
 

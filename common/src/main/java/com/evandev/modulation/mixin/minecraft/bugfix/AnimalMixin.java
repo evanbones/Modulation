@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.bugfix;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -21,7 +20,7 @@ public class AnimalMixin {
     )
     private void modulation$noWildWolfHearts(Animal animal, Player player, Operation<Void> original) {
         if (animal instanceof Wolf wolf && !wolf.isTame()
-                && ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isFixWildWolfBreedingEnabled)) {
+                && VanillaBugfixesModule.FIX_WILD_WOLF_BREEDING.on()) {
             return;
         }
         original.call(animal, player);

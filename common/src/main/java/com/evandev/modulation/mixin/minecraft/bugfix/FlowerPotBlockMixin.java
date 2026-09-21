@@ -26,7 +26,7 @@ public class FlowerPotBlockMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;awardStat(Lnet/minecraft/resources/ResourceLocation;)V")
     )
     private void modulation$awardPottedPlantStat(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult, CallbackInfoReturnable<ItemInteractionResult> cir) {
-        if (VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixFlowerPotStatEnabled)) {
+        if (VanillaBugfixesModule.FIX_FLOWER_POT_STAT.on()) {
             player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
         }
     }

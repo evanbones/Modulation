@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.polytone.client;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.client.HorizonFogState;
 import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import com.mojang.blaze3d.shaders.Uniform;
@@ -65,8 +64,8 @@ public abstract class EffectInstanceMixin {
             return;
         }
 
-        boolean patched = ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isPatchSunbathingGodraysEnabled);
-        boolean enabled = patched && ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isFixHorizonLineEnabled);
+        boolean patched = VanillaBugfixesModule.PATCH_SUNBATHING_GODRAYS.on();
+        boolean enabled = patched && VanillaBugfixesModule.FIX_HORIZON_LINE.on();
 
         if (this.modulation$fogLocation >= 0) {
             if (enabled) {

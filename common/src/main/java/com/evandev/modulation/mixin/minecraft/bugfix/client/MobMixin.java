@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.bugfix.client;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.client.GhastAttackTimeAccess;
 import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import net.minecraft.world.entity.Mob;
@@ -19,7 +18,7 @@ public class MobMixin implements GhastAttackTimeAccess {
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void modulation$trackGhastAttackTime(CallbackInfo ci) {
-        if (!ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isGhastChargingEnabled)) {
+        if (!VanillaBugfixesModule.GHAST_CHARGING.on()) {
             return;
         }
 

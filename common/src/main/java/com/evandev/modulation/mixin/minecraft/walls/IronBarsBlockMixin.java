@@ -4,7 +4,6 @@
 // to the repository's overall MIT license.
 package com.evandev.modulation.mixin.minecraft.walls;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaWallsModule;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -19,7 +18,7 @@ public class IronBarsBlockMixin {
 
     @ModifyReturnValue(method = "attachsTo", at = @At("RETURN"))
     private boolean modulation$attachsTo(boolean original, @Local(argsOnly = true) BlockState state) {
-        if (!ModuleManager.isEnabled("vanilla_walls", VanillaWallsModule.class, VanillaWallsModule::isBarsConnectToFencesEnabled))
+        if (!VanillaWallsModule.BARS_CONNECT_TO_FENCES.on())
             return original;
         return original
                 || state.is(BlockTags.FENCES)

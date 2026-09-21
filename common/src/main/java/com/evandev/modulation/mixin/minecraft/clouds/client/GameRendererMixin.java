@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.clouds.client;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.ExtendedCloudsModule;
 import com.evandev.modulation.registry.ModRegistry;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
@@ -34,10 +33,9 @@ public class GameRendererMixin {
 
     @ModifyReturnValue(method = "getDepthFar", at = @At("RETURN"))
     private float modulation$extendDepthFar(float original) {
-        ExtendedCloudsModule module = ModuleManager.getModule("extended_clouds", ExtendedCloudsModule.class);
-        if (module == null || !module.isExtendFrustumEnabled()) {
+        if (!ExtendedCloudsModule.EXTEND_FRUSTUM.on()) {
             return original;
         }
-        return (float) (original * module.getCloudDistanceMultiplier());
+        return (float) (original * ExtendedCloudsModule.CLOUD_DISTANCE_MULTIPLIER.get());
     }
 }

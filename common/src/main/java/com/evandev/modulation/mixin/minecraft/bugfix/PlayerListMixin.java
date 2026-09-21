@@ -30,7 +30,7 @@ public abstract class PlayerListMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/server/players/UserBanList;isBanned(Lcom/mojang/authlib/GameProfile;)Z")
     )
     private boolean modulation$dropExpiredBansBeforeCheck(UserBanList bans, GameProfile profile, Operation<Boolean> original) {
-        if (VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixExpiredBanLoginEnabled)) {
+        if (VanillaBugfixesModule.FIX_EXPIRED_BAN_LOGIN.on()) {
             bans.get(profile);
         }
         return original.call(bans, profile);
@@ -38,7 +38,7 @@ public abstract class PlayerListMixin {
 
     @Inject(method = "reloadResources", at = @At("RETURN"))
     private void modulation$resendCommandSuggestions(CallbackInfo ci) {
-        if (VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixReloadCommandSuggestionsEnabled)) {
+        if (VanillaBugfixesModule.FIX_RELOAD_COMMAND_SUGGESTIONS.on()) {
             for (ServerPlayer player : this.players) {
                 this.sendPlayerPermissionLevel(player);
             }

@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.bugfix.client;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -14,7 +13,7 @@ public class TextureManagerMixin {
 
     @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
     private void modulation$betterPauseFreezing(CallbackInfo ci) {
-        if (ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isBetterPauseFreezingEnabled) && Minecraft.getInstance().isPaused()) {
+        if (VanillaBugfixesModule.BETTER_PAUSE_FREEZING.on() && Minecraft.getInstance().isPaused()) {
             ci.cancel();
         }
     }

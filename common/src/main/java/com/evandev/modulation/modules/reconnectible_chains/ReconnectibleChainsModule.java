@@ -2,6 +2,7 @@ package com.evandev.modulation.modules.reconnectible_chains;
 
 import com.evandev.modulation.api.AbstractModule;
 import com.evandev.modulation.api.IModule;
+import com.evandev.modulation.api.ModuleDef;
 import com.evandev.modulation.api.tweaks.BooleanTweak;
 import com.evandev.modulation.api.tweaks.IntTweak;
 import com.evandev.modulation.platform.Services;
@@ -13,13 +14,15 @@ import net.minecraft.server.level.ServerPlayer;
 @AutoService(IModule.class)
 public class ReconnectibleChainsModule extends AbstractModule {
 
-    private final BooleanTweak enabled = tweak(new BooleanTweak("enabled", false));
-    private final IntTweak chargeUpTicks = tweak(new IntTweak("charge_up_ticks", 10));
-    private final BooleanTweak consumeDurability = tweak(new BooleanTweak("consume_durability", true));
-    private final BooleanTweak consumeChains = tweak(new BooleanTweak("consume_chains", true));
+    private static final ModuleDef DEF = ModuleDef.of("reconnectible_chains");
+
+    public static final BooleanTweak ENABLED = DEF.bool("enabled", false);
+    public static final IntTweak CHARGE_UP_TICKS = DEF.integer("charge_up_ticks", 10);
+    public static final BooleanTweak CONSUME_DURABILITY = DEF.bool("consume_durability", true);
+    public static final BooleanTweak CONSUME_CHAINS = DEF.bool("consume_chains", true);
 
     public ReconnectibleChainsModule() {
-        super("reconnectible_chains");
+        super(DEF);
     }
 
     @Override
@@ -27,28 +30,12 @@ public class ReconnectibleChainsModule extends AbstractModule {
         return Services.PLATFORM.isModLoaded("connectiblechains");
     }
 
-    public boolean isEnabled() {
-        return enabled.getValue();
-    }
-
-    public int getChargeUpTicks() {
-        return chargeUpTicks.getValue();
-    }
-
-    public boolean isConsumeDurabilityEnabled() {
-        return consumeDurability.getValue();
-    }
-
-    public boolean isConsumeChainsEnabled() {
-        return consumeChains.getValue();
-    }
-
     public void onServerTick() {
         PostPlacementManager.INSTANCE.tick();
     }
 
-    public boolean handlePostPlacement(ServerPlayer player, BlockPos pos, Direction clickedFace) {
-        if (!isEnabled()) return false;
+    public static boolean handlePostPlacement(ServerPlayer player, BlockPos pos, Direction clickedFace) {
+        if (!ENABLED.on()) return false;
         return PostPlacementManager.INSTANCE.handlePostPlacement(player, pos, clickedFace);
     }
 }

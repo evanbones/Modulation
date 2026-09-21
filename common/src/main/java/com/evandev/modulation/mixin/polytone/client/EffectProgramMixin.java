@@ -42,7 +42,7 @@ public abstract class EffectProgramMixin {
     )
     private static int modulation$softenSunbathingSkyMask(Program.Type type, String name, InputStream shaderData, String sourceName, GlslPreprocessor preprocessor, Operation<Integer> original) {
         if (!modulation$GODRAYS_SHADER.equals(name)
-                || !VanillaBugfixesModule.enabled(VanillaBugfixesModule::isPatchSunbathingGodraysEnabled)) {
+                || !VanillaBugfixesModule.PATCH_SUNBATHING_GODRAYS.on()) {
             return original.call(type, name, shaderData, sourceName, preprocessor);
         }
 

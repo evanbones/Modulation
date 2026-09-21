@@ -18,7 +18,7 @@ public class DirtPathBlockMixin {
 
     @ModifyReturnValue(method = "canSurvive", at = @At("RETURN"))
     private boolean modulation$pathUnderPartialBlocks(boolean original, @Local(argsOnly = true) LevelReader level, @Local(argsOnly = true) BlockPos pos) {
-        if (original || !VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixPathUnderBlocksEnabled)) {
+        if (original || !VanillaBugfixesModule.FIX_PATH_UNDER_BLOCKS.on()) {
             return original;
         }
         BlockPos above = pos.above();

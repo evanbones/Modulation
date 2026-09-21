@@ -3,7 +3,6 @@ package com.evandev.modulation.modules.vanillabackport;
 import com.blackgear.vanillabackport.client.registries.ModParticles;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.PassableFoliageModule;
 import com.evandev.modulation.platform.Services;
 import net.minecraft.core.BlockPos;
@@ -23,30 +22,29 @@ public final class LeafParticles {
     }
 
     public static ParticleOptions resolve(BlockState state, ServerLevel level, BlockPos pos) {
-        PassableFoliageModule module = ModuleManager.getModule("passable_foliage", PassableFoliageModule.class);
-        if (module == null || !module.isPassableFoliageEnabled()) {
+        if (!PassableFoliageModule.ENABLE_PASSABLE_FOLIAGE.on()) {
             return null;
         }
 
-        if (state.is(Blocks.CHERRY_LEAVES) && module.isCherryLeavesEnabled()) {
+        if (state.is(Blocks.CHERRY_LEAVES) && PassableFoliageModule.ENABLE_CHERRY_LEAVES.on()) {
             return ParticleTypes.CHERRY_LEAVES;
         }
 
         if (Services.PLATFORM.isModLoaded("vanillabackport")) {
-            return resolveVanillaBackport(state, level, pos, module);
+            return resolveVanillaBackport(state, level, pos);
         }
 
         return null;
     }
 
-    private static ParticleOptions resolveVanillaBackport(BlockState state, ServerLevel level, BlockPos pos, PassableFoliageModule module) {
-        if (module.isPaleOakLeavesEnabled() && state.is(ModBlocks.PALE_OAK_LEAVES.get())) {
+    private static ParticleOptions resolveVanillaBackport(BlockState state, ServerLevel level, BlockPos pos) {
+        if (PassableFoliageModule.ENABLE_PALE_OAK_LEAVES.on() && state.is(ModBlocks.PALE_OAK_LEAVES.get())) {
             return ModParticles.PALE_OAK_LEAVES.get();
         }
-        if (module.isTintedLeavesEnabled() && state.is(ModBlockTags.SPAWN_FALLING_LEAVES)) {
+        if (PassableFoliageModule.ENABLE_TINTED_LEAVES.on() && state.is(ModBlockTags.SPAWN_FALLING_LEAVES)) {
             return ColorParticleOption.create(ModParticles.TINTED_LEAVES.get(), getLeafColor(state, level, pos));
         }
-        if (module.isTintedNeedlesEnabled() && state.is(ModBlockTags.SPAWN_FALLING_NEEDLES)) {
+        if (PassableFoliageModule.ENABLE_TINTED_NEEDLES.on() && state.is(ModBlockTags.SPAWN_FALLING_NEEDLES)) {
             return ColorParticleOption.create(ModParticles.TINTED_NEEDLES.get(), getLeafColor(state, level, pos));
         }
         return null;

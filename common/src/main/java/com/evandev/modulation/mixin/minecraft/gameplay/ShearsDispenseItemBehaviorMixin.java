@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.gameplay;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaGameplayModule;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -28,7 +27,7 @@ public abstract class ShearsDispenseItemBehaviorMixin extends OptionalDispenseIt
 
     @Inject(method = "execute", at = @At("RETURN"))
     private void modulation$shearPumpkin(BlockSource blockSource, ItemStack item, CallbackInfoReturnable<ItemStack> cir) {
-        if (!this.isSuccess() && ModuleManager.isEnabled("vanilla_gameplay", VanillaGameplayModule.class, VanillaGameplayModule::isDispenserShearsPumpkinsEnabled)) {
+        if (!this.isSuccess() && VanillaGameplayModule.DISPENSER_SHEARS_PUMPKINS.on()) {
             ServerLevel serverLevel = blockSource.level();
             if (!serverLevel.isClientSide()) {
                 Direction facing = blockSource.state().getValue(DispenserBlock.FACING);

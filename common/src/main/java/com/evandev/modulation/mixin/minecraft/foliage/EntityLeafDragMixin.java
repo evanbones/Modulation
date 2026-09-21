@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.foliage;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.PassableFoliageModule;
 import com.evandev.modulation.modules.vanillabackport.EntityLeafDrag;
 import com.evandev.modulation.modules.vanillabackport.LeafParticles;
@@ -53,8 +52,7 @@ public abstract class EntityLeafDragMixin implements EntityLeafDrag {
 
     @Override
     public void modulation$applyLeafDrag(BlockState state, Level level, BlockPos pos) {
-        PassableFoliageModule module = ModuleManager.getModule("passable_foliage", PassableFoliageModule.class);
-        if (module == null || !module.isPassableFoliageEnabled()) {
+        if (!PassableFoliageModule.ENABLE_PASSABLE_FOLIAGE.on()) {
             return;
         }
 
@@ -77,11 +75,11 @@ public abstract class EntityLeafDragMixin implements EntityLeafDrag {
         boolean buried = level.getBlockState(self.blockPosition()).is(ModTags.PASSABLE_LEAVES)
                 && level.getBlockState(BlockPos.containing(self.getEyePosition())).is(ModTags.PASSABLE_LEAVES);
 
-        double drag = module.getBaseDrag() + MODULATION$DRAG_PER_SPEED * speed;
+        double drag = PassableFoliageModule.BASE_DRAG.get() + MODULATION$DRAG_PER_SPEED * speed;
         if (buried) {
             drag *= MODULATION$BURIED_MULTIPLIER;
         }
-        drag = Math.min(buried ? MODULATION$MAX_DRAG_BURIED : module.getMaxDrag(), drag);
+        drag = Math.min(buried ? MODULATION$MAX_DRAG_BURIED : PassableFoliageModule.MAX_DRAG.get(), drag);
         if (diving) {
             drag *= MODULATION$DIVE_DRAG_MULTIPLIER;
         }
@@ -92,7 +90,7 @@ public abstract class EntityLeafDragMixin implements EntityLeafDrag {
         }
 
         if (level instanceof ServerLevel serverLevel && speed > MODULATION$MIN_EFFECT_SPEED) {
-            if (module.isLeafSoundsEnabled()) {
+            if (PassableFoliageModule.ENABLE_LEAF_SOUNDS.on()) {
                 SoundType sound = state.getSoundType();
                 if (entering && speed >= MODULATION$CRASH_SPEED) {
                     float volume = (float) Math.min(1.0, 0.4 + speed * 0.2);

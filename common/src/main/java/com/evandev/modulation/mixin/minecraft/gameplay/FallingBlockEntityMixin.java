@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.gameplay;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaGameplayModule;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -19,7 +18,7 @@ public class FallingBlockEntityMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/tags/TagKey;)Z")
     )
     private boolean modulation$preventFallingAnvilDamage(BlockState instance, TagKey<Block> tag, Operation<Boolean> original) {
-        if (ModuleManager.isEnabled("vanilla_gameplay", VanillaGameplayModule.class, VanillaGameplayModule::isDisableAnvilDamageEnabled)) {
+        if (VanillaGameplayModule.DISABLE_ANVIL_DAMAGE.on()) {
             return false;
         }
         return original.call(instance, tag);

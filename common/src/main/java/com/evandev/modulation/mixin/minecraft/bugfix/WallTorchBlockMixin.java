@@ -21,7 +21,7 @@ public class WallTorchBlockMixin {
             at = @At("RETURN")
     )
     private static boolean modulation$wallTorchesOnDirtPath(boolean original, @Local(argsOnly = true) LevelReader level, @Local(argsOnly = true) BlockPos pos, @Local(argsOnly = true) Direction facing) {
-        if (original || !VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixPathUnderBlocksEnabled)) {
+        if (original || !VanillaBugfixesModule.FIX_PATH_UNDER_BLOCKS.on()) {
             return original;
         }
         return level.getBlockState(pos.relative(facing.getOpposite())).is(Blocks.DIRT_PATH);

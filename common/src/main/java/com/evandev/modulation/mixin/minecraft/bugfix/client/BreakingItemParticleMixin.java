@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.bugfix.client;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.mixin.minecraft.accessor.MinecraftAccessor;
 import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import net.minecraft.client.Minecraft;
@@ -24,7 +23,7 @@ public abstract class BreakingItemParticleMixin extends TextureSheetParticle {
 
     @Inject(method = "<init>(Lnet/minecraft/client/multiplayer/ClientLevel;DDDLnet/minecraft/world/item/ItemStack;)V", at = @At("TAIL"))
     private void modulation$coloredCrackParticles(ClientLevel level, double x, double y, double z, ItemStack stack, CallbackInfo ci) {
-        if (ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isColoredCrackParticlesEnabled)) {
+        if (VanillaBugfixesModule.COLORED_CRACK_PARTICLES.on()) {
             if (stack.getItem() instanceof PotionItem) return;
             ItemColors itemColors = ((MinecraftAccessor) Minecraft.getInstance()).modulation$getItemColors();
             if (itemColors != null) {

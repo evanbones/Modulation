@@ -21,7 +21,7 @@ public class CatSpawnerMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/animal/Cat;finalizeSpawn(Lnet/minecraft/world/level/ServerLevelAccessor;Lnet/minecraft/world/DifficultyInstance;Lnet/minecraft/world/entity/MobSpawnType;Lnet/minecraft/world/entity/SpawnGroupData;)Lnet/minecraft/world/entity/SpawnGroupData;")
     )
     private void modulation$positionCatBeforeSpawn(BlockPos pos, ServerLevel serverLevel, CallbackInfoReturnable<Integer> cir, @Local Cat cat) {
-        if (VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixWitchHutCatsEnabled)) {
+        if (VanillaBugfixesModule.FIX_WITCH_HUT_CATS.on()) {
             cat.moveTo(pos, 0.0F, 0.0F);
         }
     }

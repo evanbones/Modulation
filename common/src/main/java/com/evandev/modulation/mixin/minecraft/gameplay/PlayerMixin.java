@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.gameplay;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaGameplayModule;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvents;
@@ -34,7 +33,7 @@ public abstract class PlayerMixin extends LivingEntity {
     @Inject(method = "getProjectile", at = @At("RETURN"), cancellable = true)
     private void modulation$infinityBowNoArrow(ItemStack shootable, CallbackInfoReturnable<ItemStack> cir) {
         if (cir.getReturnValue().isEmpty() && shootable.getItem() instanceof BowItem) {
-            if (ModuleManager.isEnabled("vanilla_gameplay", VanillaGameplayModule.class, VanillaGameplayModule::isInfibowsEnabled)) {
+            if (VanillaGameplayModule.INFIBOWS.on()) {
                 var infinityHolder = this.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(Enchantments.INFINITY);
                 if (infinityHolder.isPresent() && EnchantmentHelper.getItemEnchantmentLevel(infinityHolder.get(), shootable) > 0) {
                     cir.setReturnValue(new ItemStack(Items.ARROW));
@@ -45,7 +44,7 @@ public abstract class PlayerMixin extends LivingEntity {
 
     @Inject(method = "interactOn", at = @At("RETURN"), cancellable = true)
     private void modulation$fireAspectInteractEntity(Entity entityToInteractOn, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
-        if (ModuleManager.isEnabled("vanilla_gameplay", VanillaGameplayModule.class, VanillaGameplayModule::isFireAspectIsFlintAndSteelEnabled)
+        if (VanillaGameplayModule.FIRE_ASPECT_IS_FLINT_AND_STEEL.on()
                 && cir.getReturnValue() == InteractionResult.PASS) {
             Player self = (Player) (Object) this;
             ItemStack stack = self.getItemInHand(hand);

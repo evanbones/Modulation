@@ -1,6 +1,5 @@
 package com.evandev.modulation.client.render;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.mixin.minecraft.accessor.MinecraftAccessor;
 import com.evandev.modulation.modules.vanilla.VanillaVisualModule;
 import com.mojang.blaze3d.platform.NativeImage;
@@ -90,7 +89,7 @@ public class PixelConsistentDropsRenderer {
             int packedLight,
             int packedOverlay
     ) {
-        if (!ModuleManager.isEnabled("vanilla_visual", VanillaVisualModule.class, VanillaVisualModule::isPixelConsistentBlockDropsEnabled)) {
+        if (!VanillaVisualModule.PIXEL_CONSISTENT_BLOCK_DROPS.on()) {
             return false;
         }
 

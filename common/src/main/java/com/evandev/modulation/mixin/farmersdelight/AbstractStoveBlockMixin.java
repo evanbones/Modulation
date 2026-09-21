@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.farmersdelight;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.farmersdelight.FarmersDelightModule;
 import com.moulberry.mixinconstraints.annotations.IfModLoaded;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -17,7 +16,7 @@ public class AbstractStoveBlockMixin {
 
     @Inject(method = "getStateForPlacement", at = @At("RETURN"), cancellable = true)
     private void modulation$placeStovesUnlit(BlockPlaceContext context, CallbackInfoReturnable<BlockState> cir) {
-        if (ModuleManager.isEnabled("farmers_delight", FarmersDelightModule.class, FarmersDelightModule::isStovesPlaceUnlitEnabled)) {
+        if (FarmersDelightModule.STOVES_PLACE_UNLIT.on()) {
             BlockState state = cir.getReturnValue();
             if (state != null && state.hasProperty(AbstractStoveBlock.LIT)) {
                 cir.setReturnValue(state.setValue(AbstractStoveBlock.LIT, false));

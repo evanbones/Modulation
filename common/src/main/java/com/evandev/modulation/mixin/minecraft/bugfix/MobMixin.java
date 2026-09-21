@@ -25,7 +25,7 @@ public abstract class MobMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;pop()V")
     )
     private void modulation$clearDeadTarget(CallbackInfo ci) {
-        if (target != null && target.isDeadOrDying() && VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixGroupAiTargetDeathEnabled)) {
+        if (target != null && target.isDeadOrDying() && VanillaBugfixesModule.FIX_GROUP_AI_TARGET_DEATH.on()) {
             setTarget(null);
         }
     }

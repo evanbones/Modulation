@@ -21,7 +21,7 @@ public class ZombieVillagerMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/npc/Villager;refreshBrain(Lnet/minecraft/server/level/ServerLevel;)V", shift = At.Shift.AFTER)
     )
     private void modulation$dismountCuredJockey(ServerLevel serverLevel, CallbackInfo ci, @Local Villager villager) {
-        if (villager.isBaby() && villager.getVehicle() instanceof Chicken && VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixCuredVillagerJockeyEnabled)) {
+        if (villager.isBaby() && villager.getVehicle() instanceof Chicken && VanillaBugfixesModule.FIX_CURED_VILLAGER_JOCKEY.on()) {
             villager.removeVehicle();
         }
     }

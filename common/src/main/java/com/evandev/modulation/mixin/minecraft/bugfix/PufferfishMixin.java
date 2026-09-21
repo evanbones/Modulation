@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.bugfix;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.moulberry.mixinconstraints.annotations.IfModAbsent;
@@ -18,7 +17,7 @@ public class PufferfishMixin {
     )
     private boolean modulation$noDyingPufferfishSting(boolean damaged) {
         if (damaged && !((Pufferfish) (Object) this).isAlive()) {
-            return !ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isFixDyingPufferfishStingEnabled);
+            return !VanillaBugfixesModule.FIX_DYING_PUFFERFISH_STING.on();
         }
         return false;
     }

@@ -11,7 +11,7 @@ public class LocateCommandMixin {
 
     @WrapMethod(method = "dist")
     private static float modulation$locateDistanceWithoutOverflow(int x1, int z1, int x2, int z2, Operation<Float> original) {
-        if (VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixLocateDistanceEnabled)) {
+        if (VanillaBugfixesModule.FIX_LOCATE_DISTANCE.on()) {
             return (float) Math.hypot((double) x2 - x1, (double) z2 - z1);
         }
         return original.call(x1, z1, x2, z2);

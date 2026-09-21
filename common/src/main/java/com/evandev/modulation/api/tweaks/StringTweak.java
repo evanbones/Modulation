@@ -3,7 +3,7 @@ package com.evandev.modulation.api.tweaks;
 import com.evandev.modulation.api.AbstractTweak;
 import com.google.gson.JsonObject;
 
-public class StringTweak extends AbstractTweak<String> {
+public class StringTweak extends AbstractTweak<String, StringTweak> {
     public StringTweak(String id, String defaultValue) {
         super(id, defaultValue);
     }

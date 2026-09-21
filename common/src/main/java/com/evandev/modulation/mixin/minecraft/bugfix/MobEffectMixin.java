@@ -18,10 +18,10 @@ public class MobEffectMixin {
         }
 
         Object self = this;
-        if (self == MobEffects.BAD_OMEN.value() && VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixBadOmenTooltipEnabled)) {
+        if (self == MobEffects.BAD_OMEN.value() && VanillaBugfixesModule.FIX_BAD_OMEN_TOOLTIP.on()) {
             return MobEffectCategory.HARMFUL;
         }
-        if (self == MobEffects.GLOWING.value() && VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixGlowingTooltipEnabled)) {
+        if (self == MobEffects.GLOWING.value() && VanillaBugfixesModule.FIX_GLOWING_TOOLTIP.on()) {
             return MobEffectCategory.HARMFUL;
         }
         return category;

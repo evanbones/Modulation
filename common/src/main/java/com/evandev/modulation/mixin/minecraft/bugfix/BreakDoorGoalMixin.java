@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.bugfix;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -30,7 +29,7 @@ public class BreakDoorGoalMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;")
     )
     private BlockState modulation$brokenDoorParticles(Level level, BlockPos pos, Operation<BlockState> original, @Share("doorState") LocalRef<BlockState> doorState) {
-        if (doorState.get() != null && ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isFixZombieDoorParticlesEnabled)) {
+        if (doorState.get() != null && VanillaBugfixesModule.FIX_ZOMBIE_DOOR_PARTICLES.on()) {
             return doorState.get();
         }
         return original.call(level, pos);

@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.visual.client;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaVisualModule;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
@@ -16,7 +15,7 @@ public class ScreenEffectRendererMixin {
 
     @Inject(method = "renderFire", at = @At("HEAD"), cancellable = true)
     private static void modulation$lessAnnoyingFireHead(Minecraft minecraft, PoseStack poseStack, CallbackInfo ci) {
-        if (ModuleManager.isEnabled("vanilla_visual", VanillaVisualModule.class, VanillaVisualModule::isLessAnnoyingFireEnabled)) {
+        if (VanillaVisualModule.LESS_ANNOYING_FIRE.on()) {
             if (minecraft.player != null && (minecraft.player.isInvulnerableTo(minecraft.player.level().damageSources().onFire()) || minecraft.player.hasEffect(MobEffects.FIRE_RESISTANCE))) {
                 ci.cancel();
             } else {
@@ -28,7 +27,7 @@ public class ScreenEffectRendererMixin {
 
     @Inject(method = "renderFire", at = @At("TAIL"))
     private static void modulation$lessAnnoyingFireTail(Minecraft minecraft, PoseStack poseStack, CallbackInfo ci) {
-        if (ModuleManager.isEnabled("vanilla_visual", VanillaVisualModule.class, VanillaVisualModule::isLessAnnoyingFireEnabled)) {
+        if (VanillaVisualModule.LESS_ANNOYING_FIRE.on()) {
             poseStack.popPose();
         }
     }

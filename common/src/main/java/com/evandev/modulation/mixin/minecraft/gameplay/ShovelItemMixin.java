@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.gameplay;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaGameplayModule;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ShovelItem;
@@ -17,7 +16,7 @@ public class ShovelItemMixin {
 
     @Inject(method = "useOn", at = @At("HEAD"), cancellable = true)
     private void modulation$handleShovelUseOn(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
-        if (ModuleManager.isEnabled("vanilla_gameplay", VanillaGameplayModule.class, VanillaGameplayModule::isDisablePathCreationEnabled)) {
+        if (VanillaGameplayModule.DISABLE_PATH_CREATION.on()) {
             BlockState state = context.getLevel().getBlockState(context.getClickedPos());
             if (!(state.getBlock() instanceof CampfireBlock)) {
                 cir.setReturnValue(InteractionResult.PASS);

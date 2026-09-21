@@ -24,7 +24,7 @@ public class RespawnAnchorBlockMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;consume(ILnet/minecraft/world/entity/LivingEntity;)V")
     )
     private void modulation$awardRespawnAnchorStat(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult, CallbackInfoReturnable<ItemInteractionResult> cir) {
-        if (VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixRespawnAnchorStatEnabled)) {
+        if (VanillaBugfixesModule.FIX_RESPAWN_ANCHOR_STAT.on()) {
             player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
         }
     }

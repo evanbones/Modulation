@@ -29,7 +29,7 @@ public class ModConfig {
             for (IModule module : ModuleManager.getModules()) {
                 if (root.has(module.getId())) {
                     JsonObject moduleJson = root.getAsJsonObject(module.getId());
-                    for (AbstractTweak<?> tweak : module.getTweaks()) {
+                    for (AbstractTweak<?, ?> tweak : module.getTweaks()) {
                         try {
                             tweak.readFromJson(moduleJson);
                             tweak.onApply();
@@ -48,7 +48,7 @@ public class ModConfig {
         JsonObject root = new JsonObject();
         for (IModule module : ModuleManager.getModules()) {
             JsonObject moduleJson = new JsonObject();
-            for (AbstractTweak<?> tweak : module.getTweaks()) {
+            for (AbstractTweak<?, ?> tweak : module.getTweaks()) {
                 tweak.writeToJson(moduleJson);
             }
             root.add(module.getId(), moduleJson);

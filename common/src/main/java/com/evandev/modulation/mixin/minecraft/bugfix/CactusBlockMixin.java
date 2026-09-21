@@ -23,7 +23,7 @@ public class CactusBlockMixin {
     )
     private BlockState modulation$cactusSeesMovedBlocks(LevelReader level, BlockPos pos, Operation<BlockState> original) {
         BlockState state = original.call(level, pos);
-        if (state.is(Blocks.MOVING_PISTON) && VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixPistonMovedCactusEnabled)) {
+        if (state.is(Blocks.MOVING_PISTON) && VanillaBugfixesModule.FIX_PISTON_MOVED_CACTUS.on()) {
             if (level.getBlockEntity(pos) instanceof PistonMovingBlockEntity piston) {
                 return piston.getMovedState();
             }

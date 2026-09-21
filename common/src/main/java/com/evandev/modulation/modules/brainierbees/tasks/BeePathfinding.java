@@ -40,7 +40,7 @@ public class BeePathfinding extends Behavior<Bee> {
         LevelChunk chunk = level.getChunkAt(target);
         int surface = chunk.getHeight(Heightmap.Types.WORLD_SURFACE, target.getX(), target.getZ()) + 1;
         BlockPos home = HiveHelper.getHivePos(bee);
-        int wanderRadius = BrainierBeesModule.maxWanderRadius();
+        int wanderRadius = BrainierBeesModule.MAX_WANDER_RADIUS.get();
 
         for (int attempt = 0; attempt < MAX_ATTEMPTS && bee.blockPosition().distManhattan(target) <= 5; attempt++) {
             boolean lowOrEnclosed = level.dimensionType().hasCeiling() || bee.getBlockY() <= surface + 3;

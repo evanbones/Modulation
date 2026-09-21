@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.bugfix;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.mixin.minecraft.accessor.ResourceFilterSectionAccessor;
 import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -38,7 +37,7 @@ public class MultiPackResourceManagerMixin {
 
     @Unique
     private Predicate<ResourceLocation> modulation$getFixedPredicate(Predicate<ResourceLocation> originalPredicate, ResourceFilterSection filterSection) {
-        if (ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isFixResourceFilterLeakEnabled) && filterSection != null) {
+        if (VanillaBugfixesModule.FIX_RESOURCE_FILTER_LEAK.on() && filterSection != null) {
             return location -> ((ResourceFilterSectionAccessor) filterSection).getBlockList().stream().anyMatch(pattern ->
                     pattern.namespacePredicate().test(location.getNamespace()) && pattern.pathPredicate().test(location.getPath())
             );

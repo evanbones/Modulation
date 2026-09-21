@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.visual;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.items.api.ItemTooltipHelper;
 import com.evandev.modulation.items.api.OxidizableItemHelper;
 import com.evandev.modulation.items.impl.ItemOxidizationCacheInterface;
@@ -28,13 +27,10 @@ public class ItemStackMixin {
     public void modulation$addWeatheringAndWaxedTooltips(Item.TooltipContext context, @Nullable Player player, TooltipFlag flag, CallbackInfoReturnable<List<Component>> cir) {
         final ItemStack stack = ItemStack.class.cast(this);
 
-        VanillaVisualModule module = ModuleManager.getModule("vanilla_visual", VanillaVisualModule.class);
-        if (module == null) return;
-
         List<Component> tooltip = cir.getReturnValue();
         int insertIndex = Math.min(1, tooltip.size());
 
-        if (module.isBetterCopperTooltipsEnabled() && stack.getItem() instanceof ItemOxidizationCacheInterface oxidizationCache) {
+        if (VanillaVisualModule.BETTER_COPPER_TOOLTIPS.on() && stack.getItem() instanceof ItemOxidizationCacheInterface oxidizationCache) {
             if (ItemTooltipHelper.isWaxed(stack)) {
                 tooltip.add(insertIndex, OxidizableItemHelper.WAXED_TOOLTIP);
             }
@@ -45,7 +41,7 @@ public class ItemStackMixin {
             }
         }
 
-        if (module.isExtraItemIconOverlaysEnabled()) {
+        if (VanillaVisualModule.EXTRA_ITEM_ICON_OVERLAYS.on()) {
             if (ItemTooltipHelper.isInfested(stack)) {
                 tooltip.add(insertIndex, Component.translatable("tag.item.modulation.infested").withStyle(ChatFormatting.GRAY));
             }

@@ -1,6 +1,5 @@
 package com.evandev.modulation.client.render;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaGuiModule;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
@@ -23,7 +22,7 @@ public final class SlotHighlightRenderer {
     }
 
     public static boolean isEnabled() {
-        return ModuleManager.isEnabled("vanilla_gui", VanillaGuiModule.class, VanillaGuiModule::isSlotHighlightBehindItemEnabled);
+        return VanillaGuiModule.SLOT_HIGHLIGHT_BEHIND_ITEM.on();
     }
 
     public static void deferBackFor(Predicate<Slot> predicate) {

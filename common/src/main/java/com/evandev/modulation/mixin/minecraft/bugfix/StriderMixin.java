@@ -18,7 +18,7 @@ public class StriderMixin {
     )
     private int modulation$noPeacefulStriderSaddles(int roll) {
         if (roll == 0 && ((Strider) (Object) this).level().getDifficulty() == Difficulty.PEACEFUL) {
-            return VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixPeacefulStriderSaddlesEnabled) ? 1 : roll;
+            return VanillaBugfixesModule.FIX_PEACEFUL_STRIDER_SADDLES.on() ? 1 : roll;
         }
         return roll;
     }

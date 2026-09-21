@@ -22,7 +22,7 @@ public class BlocksMixin {
             index = 1
     )
     private static Block modulation$rawCopperBlockSounds(Block block) {
-        if (VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixRawCopperSoundsEnabled)) {
+        if (VanillaBugfixesModule.FIX_RAW_COPPER_SOUNDS.on()) {
             return new Block(BlockBehaviour.Properties.ofFullCopy(block).sound(SoundType.COPPER));
         }
         return block;

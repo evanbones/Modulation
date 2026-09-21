@@ -22,7 +22,7 @@ public class EnderDragonMixin {
 
     @WrapMethod(method = "checkCrystals")
     private void modulation$noCrystalHealingWhileDying(Operation<Void> original) {
-        if (dragonDeathTime > 0 && VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixCrystalsHealingDyingDragonEnabled)) {
+        if (dragonDeathTime > 0 && VanillaBugfixesModule.FIX_CRYSTALS_HEALING_DYING_DRAGON.on()) {
             nearestCrystal = null;
             return;
         }
@@ -31,7 +31,7 @@ public class EnderDragonMixin {
 
     @Inject(method = "tickDeath", at = @At("HEAD"))
     private void modulation$clearCrystalOnDeath(CallbackInfo ci) {
-        if (VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixCrystalsHealingDyingDragonEnabled)) {
+        if (VanillaBugfixesModule.FIX_CRYSTALS_HEALING_DYING_DRAGON.on()) {
             nearestCrystal = null;
         }
     }

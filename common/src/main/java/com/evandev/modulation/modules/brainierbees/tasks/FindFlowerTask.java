@@ -41,7 +41,7 @@ public class FindFlowerTask extends Behavior<Bee> {
     }
 
     private static BlockPos findFlower(Bee bee, ServerLevel level) {
-        int radius = BrainierBeesModule.flowerLocateRange();
+        int radius = BrainierBeesModule.FLOWER_LOCATE_RANGE.get();
         BlockPos origin = bee.blockPosition();
 
         List<BlockPos> candidates = new ArrayList<>();

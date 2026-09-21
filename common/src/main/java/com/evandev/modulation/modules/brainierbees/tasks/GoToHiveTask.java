@@ -66,7 +66,7 @@ public class GoToHiveTask extends Behavior<Bee> {
         int travellingTicks = brain.getMemory(ModMemoryTypes.BEE_TRAVELLING_TICKS).orElse(0) + 1;
         brain.setMemory(ModMemoryTypes.BEE_TRAVELLING_TICKS, travellingTicks);
 
-        if (travellingTicks > TICKS_PER_WANDER_BLOCK * BrainierBeesModule.maxWanderRadius()) {
+        if (travellingTicks > TICKS_PER_WANDER_BLOCK * BrainierBeesModule.MAX_WANDER_RADIUS.get()) {
             HiveHelper.dropAndBlacklistHive(bee);
             return;
         }

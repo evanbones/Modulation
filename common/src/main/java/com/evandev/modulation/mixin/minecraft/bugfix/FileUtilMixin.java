@@ -17,7 +17,7 @@ public class FileUtilMixin {
             index = 0
     )
     private static String modulation$widerReservedFilenamePattern(String regex) {
-        if (!VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixStructureSavePathEnabled)) {
+        if (!VanillaBugfixesModule.FIX_STRUCTURE_SAVE_PATH.on()) {
             return regex;
         }
         return ".*\\.|(?:CON|PRN|AUX|NUL|CLOCK\\$|CONIN\\$|CONOUT\\$|(?:COM|LPT)[\u00b9\u00b2\u00b30-9])(?:\\..*)?";

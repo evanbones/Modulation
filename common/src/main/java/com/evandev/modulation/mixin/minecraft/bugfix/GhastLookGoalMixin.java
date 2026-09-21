@@ -28,7 +28,7 @@ public abstract class GhastLookGoalMixin {
     )
     private void modulation$keepFacingWhileStill(CallbackInfo ci) {
         if (this.ghast.getDeltaMovement().lengthSqr() < 0.01
-                && VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixGhastDirectionEnabled)) {
+                && VanillaBugfixesModule.FIX_GHAST_DIRECTION.on()) {
             ci.cancel();
         }
     }

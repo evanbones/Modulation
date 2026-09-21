@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.visual;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.items.impl.ItemOxidizationCacheInterface;
 import com.evandev.modulation.modules.vanilla.VanillaVisualModule;
 import net.minecraft.network.chat.Component;
@@ -30,7 +29,7 @@ public class ItemMixin implements ItemOxidizationCacheInterface {
 
     @Inject(method = "getName", at = @At("HEAD"), cancellable = true)
     public void modulation$getNonWeatheringNonWaxedName(ItemStack stack, CallbackInfoReturnable<Component> cir) {
-        if (!ModuleManager.isEnabled("vanilla_visual", VanillaVisualModule.class, VanillaVisualModule::isBetterCopperTooltipsEnabled))
+        if (!VanillaVisualModule.BETTER_COPPER_TOOLTIPS.on())
             return;
         final Item baseItem = this.modulation$baseItem();
         if (baseItem == null || baseItem == (Object) this) return;

@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.gameplay;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaGameplayModule;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -44,7 +43,7 @@ public abstract class BlockStateBaseMixin {
 
     @Unique
     private boolean modulation$leavesSupportEnabled() {
-        if (!ModuleManager.isEnabled("vanilla_gameplay", VanillaGameplayModule.class, VanillaGameplayModule::isLeavesSupportBlocksEnabled)) {
+        if (!VanillaGameplayModule.LEAVES_SUPPORT_BLOCKS.on()) {
             return false;
         }
         BlockState state = (BlockState) (Object) this;

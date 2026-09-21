@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.bugfix;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import com.moulberry.mixinconstraints.annotations.IfModAbsent;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
@@ -22,7 +21,7 @@ public class ChunkAccessMixin {
     @Shadow
     @Final
     @Mutable
-    protected Map<BlockPos, BlockEntity> blockEntities = ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isFixPistonReloadUpdatesEnabled)
+    protected Map<BlockPos, BlockEntity> blockEntities = VanillaBugfixesModule.FIX_PISTON_RELOAD_UPDATES.on()
             ? new Object2ObjectLinkedOpenHashMap<>()
             : new Object2ObjectOpenHashMap<>();
 }

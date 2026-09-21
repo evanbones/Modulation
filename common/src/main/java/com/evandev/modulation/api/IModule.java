@@ -6,9 +6,14 @@ import net.minecraft.commands.CommandSourceStack;
 import java.util.List;
 
 public interface IModule {
+    ModuleDef getDef();
+
     String getId();
+
     boolean shouldLoad();
-    List<AbstractTweak<?>> getTweaks();
+
+    List<AbstractTweak<?, ?>> getTweaks();
+
     void initialize();
 
     default void registerCommands(CommandDispatcher<CommandSourceStack> dispatcher) {

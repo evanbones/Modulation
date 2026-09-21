@@ -16,7 +16,7 @@ public class FoxMixin {
     )
     private boolean modulation$foxLootFollowsGamerule(boolean isEmpty) {
         if (!isEmpty && !((Fox) (Object) this).level().getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
-            return VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixFoxMobLootGameruleEnabled);
+            return VanillaBugfixesModule.FIX_FOX_MOB_LOOT_GAMERULE.on();
         }
         return isEmpty;
     }

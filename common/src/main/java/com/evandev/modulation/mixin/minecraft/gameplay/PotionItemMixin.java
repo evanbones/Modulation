@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.gameplay;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.mixin.minecraft.accessor.ConcretePowderBlockAccessor;
 import com.evandev.modulation.modules.vanilla.VanillaGameplayModule;
 import net.minecraft.core.BlockPos;
@@ -35,7 +34,7 @@ public class PotionItemMixin {
 
     @Inject(method = "useOn", at = @At("HEAD"), cancellable = true)
     private void modulation$solidifyConcrete(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
-        if (ModuleManager.isEnabled("vanilla_gameplay", VanillaGameplayModule.class, VanillaGameplayModule::isWaterBottlesOnConcreteEnabled)) {
+        if (VanillaGameplayModule.WATER_BOTTLES_ON_CONCRETE.on()) {
             Level level = context.getLevel();
             BlockPos blockpos = context.getClickedPos();
             Player player = context.getPlayer();

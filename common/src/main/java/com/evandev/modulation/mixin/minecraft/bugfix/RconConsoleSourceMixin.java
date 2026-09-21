@@ -22,7 +22,7 @@ public class RconConsoleSourceMixin {
 
     @Inject(method = "sendSystemMessage", at = @At("RETURN"))
     private void modulation$keepRconNewlines(Component component, CallbackInfo ci) {
-        if (VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixRconNewlinesEnabled)) {
+        if (VanillaBugfixesModule.FIX_RCON_NEWLINES.on()) {
             buffer.append(System.lineSeparator());
         }
     }

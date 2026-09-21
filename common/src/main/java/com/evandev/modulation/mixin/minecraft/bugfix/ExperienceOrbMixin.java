@@ -1,6 +1,5 @@
 package com.evandev.modulation.mixin.minecraft.bugfix;
 
-import com.evandev.modulation.api.ModuleManager;
 import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.tags.FluidTags;
@@ -16,7 +15,7 @@ public class ExperienceOrbMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/material/FluidState;is(Lnet/minecraft/tags/TagKey;)Z")
     )
     private boolean modulation$experienceOrbLavaSurface(boolean inLava) {
-        if (inLava && ModuleManager.isEnabled("vanilla_bugfixes", VanillaBugfixesModule.class, VanillaBugfixesModule::isFixExperienceOrbLavaEnabled)) {
+        if (inLava && VanillaBugfixesModule.FIX_EXPERIENCE_ORB_LAVA.on()) {
             return ((ExperienceOrb) (Object) this).isEyeInFluid(FluidTags.LAVA);
         }
         return inLava;

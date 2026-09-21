@@ -15,7 +15,7 @@ public class EndIslandDensityFunctionMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Mth;sqrt(F)F", ordinal = 0)
     )
     private static float modulation$endIslandRings(float value, Operation<Float> original, SimplexNoise noise, int x, int z) {
-        if (VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixEndIslandRingsEnabled)) {
+        if (VanillaBugfixesModule.FIX_END_ISLAND_RINGS.on()) {
             return (float) Math.sqrt((double) x * (double) x + (double) z * (double) z);
         }
         return original.call(value);

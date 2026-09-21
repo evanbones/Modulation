@@ -20,7 +20,7 @@ public class ServerGamePacketListenerImplMixin {
     )
     private void modulation$noEmptyCommandMinecartMessage(ServerPlayer player, Component message, Operation<Void> original, @Local(argsOnly = true) ServerboundSetCommandMinecartPacket packet) {
         String command = packet.getCommand();
-        if (!command.isEmpty() || !VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixEmptyCommandMinecartMessageEnabled)) {
+        if (!command.isEmpty() || !VanillaBugfixesModule.FIX_EMPTY_COMMAND_MINECART_MESSAGE.on()) {
             original.call(player, message);
         }
     }

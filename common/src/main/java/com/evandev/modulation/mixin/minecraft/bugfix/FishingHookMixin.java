@@ -19,7 +19,7 @@ public class FishingHookMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;setDeltaMovement(Lnet/minecraft/world/phys/Vec3;)V")
     )
     private void modulation$creditFishingRodKills(Entity entity, CallbackInfo ci) {
-        if (entity instanceof LivingEntity living && VanillaBugfixesModule.enabled(VanillaBugfixesModule::isFixFishingRodKillCreditEnabled)) {
+        if (entity instanceof LivingEntity living && VanillaBugfixesModule.FIX_FISHING_ROD_KILL_CREDIT.on()) {
             FishingHook hook = (FishingHook) (Object) this;
             living.getCombatTracker().recordDamage(hook.level().damageSources().thrown(hook, hook.getOwner()), living.getHealth());
         }
