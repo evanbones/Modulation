@@ -41,6 +41,7 @@ dependencies {
     // EMI
     compileOnly "dev.emi:emi-neoforge:${emi_version}"
     runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
+    runtimeOnly "maven.modrinth:reliable-emi:${remi_version}-neoforge"
 
     // YACL
     implementation "maven.modrinth:yacl:${yacl_version}-neoforge"

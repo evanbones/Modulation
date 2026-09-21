@@ -42,31 +42,29 @@ public abstract class GuiGraphicsMixin {
 
         boolean drawWaxed = VanillaVisualModule.WAXED_ITEM_ICON_OVERLAY.on() && ItemTooltipHelper.isWaxed(stack);
         boolean drawExtra = VanillaVisualModule.EXTRA_ITEM_ICON_OVERLAYS.on();
+        boolean drawInfested = drawExtra && ItemTooltipHelper.isInfested(stack);
+        boolean drawTrapped = drawExtra && ItemTooltipHelper.isTrapped(stack);
 
-        if (drawWaxed || drawExtra) {
-            this.pose().pushPose();
-            this.pose().translate(0.0F, 0.0F, 200.0F);
+        if (!drawWaxed && !drawInfested && !drawTrapped) return;
 
-            RenderSystem.enableDepthTest();
-            RenderSystem.depthFunc(515);
-            RenderSystem.depthMask(true);
-            RenderSystem.enableBlend();
-            RenderSystem.defaultBlendFunc();
+        this.pose().pushPose();
+        this.pose().translate(0.0F, 0.0F, 200.0F);
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
 
-            if (drawWaxed) {
-                this.blitSprite(MODULATION$WAXED_OVERLAY, x - 3, y - 3, 24, 24);
-            }
-
-            if (drawExtra) {
-                if (ItemTooltipHelper.isInfested(stack)) {
-                    this.blitSprite(MODULATION$INFESTED_OVERLAY, x - 3, y - 3, 24, 24);
-                }
-                if (ItemTooltipHelper.isTrapped(stack)) {
-                    this.blitSprite(MODULATION$REDSTONE_OVERLAY, x - 3, y - 3, 24, 24);
-                }
-            }
-
-            this.pose().popPose();
+        if (drawWaxed) {
+            this.blitSprite(MODULATION$WAXED_OVERLAY, x - 3, y - 3, 24, 24);
         }
+
+        if (drawInfested) {
+            this.blitSprite(MODULATION$INFESTED_OVERLAY, x - 3, y - 3, 24, 24);
+        }
+
+        if (drawTrapped) {
+            this.blitSprite(MODULATION$REDSTONE_OVERLAY, x - 3, y - 3, 24, 24);
+        }
+
+        RenderSystem.disableBlend();
+        this.pose().popPose();
     }
 }
