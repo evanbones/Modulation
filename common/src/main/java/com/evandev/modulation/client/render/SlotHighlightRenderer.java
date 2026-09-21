@@ -67,8 +67,9 @@ public final class SlotHighlightRenderer {
         guiGraphics.pose().translate(0.0F, 0.0F, z);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
+        RenderSystem.depthMask(false);
         guiGraphics.blitSprite(sprite, x - 4, y - 4, 24, 24);
-        RenderSystem.disableBlend();
+        RenderSystem.depthMask(true);
         guiGraphics.pose().popPose();
     }
 }

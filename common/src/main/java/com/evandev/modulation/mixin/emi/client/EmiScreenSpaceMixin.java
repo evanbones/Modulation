@@ -23,6 +23,6 @@ public class EmiScreenSpaceMixin {
         }
         int highlightX = x + (w - 16) / 2;
         int highlightY = y + (h - 16) / 2;
-        SlotHighlightRenderer.renderBack(context.raw(), highlightX, highlightY, 50);
+        SlotHighlightRenderer.renderBack(context.raw(), highlightX, highlightY, z);
     }
 }
