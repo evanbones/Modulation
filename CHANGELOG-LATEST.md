@@ -1,3 +1,3 @@
-### Fixed
+### Added
 
-- Fixed slot highlight depth issues.
+- Added Smooth Light Transitions tweak (disabled by default), which fades light changes in and out over time.

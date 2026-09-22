@@ -2,6 +2,7 @@ package com.evandev.modulation.client;
 
 import com.evandev.modulation.client.compat.FiguraClientHandler;
 import com.evandev.modulation.client.compat.TrinketsSlotHighlight;
+import com.evandev.modulation.modules.vanilla.smoothlight.LightTransitions;
 import com.evandev.modulation.networking.FiguraClearPayload;
 import com.evandev.modulation.networking.FiguraSyncPayload;
 import net.fabricmc.api.ClientModInitializer;
@@ -20,6 +21,12 @@ public class ModulationClient implements ClientModInitializer {
 
         ClientPlayNetworking.registerGlobalReceiver(FiguraClearPayload.TYPE, (payload, context) -> {
             context.client().execute(FiguraClientHandler::clearSkin);
+        });
+
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if (client.level != null) {
+                LightTransitions.tick(client.level);
+            }
         });
 
         if (PanoramaScreenshot.isAvailable()) {

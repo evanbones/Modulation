@@ -13,3 +13,6 @@ This module contains tweaks that change how items, blocks, and maps look.
 * **Legible Signs**: Adjusts non-glowing sign text colors to improve legibility and contrast against wood.
 * **Less Annoying Fire**: Lowers the on-fire screen overlay and hides it entirely when you have Fire Resistance or are immune to fire.
 * **Pixel Consistent Block Drops**: Draws 3D dropped block items with consistent pixel scale (sampling an 8x8 portion of the texture), emulating Survival Test block drop rendering.
+* **Smooth Light Transitions**: Fades light levels over time instead of changing them instantly, so breaking or placing a light source, and covering or uncovering one, animates the light up or down. Applies to block light only. Purely client-sided.
+  * **Fade Out Only**: Only animates light that is getting darker.
+  * **Fade Speed**: How many light levels are changed per tick while fading. Lower is slower and smoother.

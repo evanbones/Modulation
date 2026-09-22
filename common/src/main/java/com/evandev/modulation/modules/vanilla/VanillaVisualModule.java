@@ -4,6 +4,7 @@ import com.evandev.modulation.api.AbstractModule;
 import com.evandev.modulation.api.IModule;
 import com.evandev.modulation.api.ModuleDef;
 import com.evandev.modulation.api.tweaks.BooleanTweak;
+import com.evandev.modulation.api.tweaks.IntTweak;
 import com.evandev.modulation.mixin.minecraft.accessor.MapColorAccessor;
 import com.google.auto.service.AutoService;
 import net.minecraft.world.level.material.MapColor;
@@ -14,19 +15,23 @@ import java.util.Map;
 @AutoService(IModule.class)
 public class VanillaVisualModule extends AbstractModule {
 
-    private static Map<MapColor, Integer> VANILLA_COLORS = null;
-    private static Map<MapColor, Integer> NICER_COLORS = null;
-
     private static final ModuleDef DEF = ModuleDef.of("vanilla_visual");
-
-    public static final BooleanTweak NICER_MAP_COLORS = DEF.bool("nicer_map_colors", true)
-            .onApply(VanillaVisualModule::applyNicerMapColors);
     public static final BooleanTweak WAXED_ITEM_ICON_OVERLAY = DEF.bool("waxed_item_icon_overlay", true);
     public static final BooleanTweak EXTRA_ITEM_ICON_OVERLAYS = DEF.bool("extra_item_icon_overlays", true);
     public static final BooleanTweak BETTER_COPPER_TOOLTIPS = DEF.bool("better_copper_tooltips", true);
     public static final BooleanTweak LEGIBLE_SIGNS = DEF.bool("legible_signs", true);
     public static final BooleanTweak LESS_ANNOYING_FIRE = DEF.bool("less_annoying_fire", false);
     public static final BooleanTweak PIXEL_CONSISTENT_BLOCK_DROPS = DEF.bool("pixel_consistent_block_drops", false);
+    private static final String SMOOTH_LIGHT_GROUP = "smooth_light";
+    public static final BooleanTweak SMOOTH_LIGHT = DEF.bool("smooth_light", false).group(SMOOTH_LIGHT_GROUP);
+    public static final BooleanTweak SMOOTH_LIGHT_FADE_OUT_ONLY = DEF.bool("smooth_light_fade_out_only", false)
+            .group(SMOOTH_LIGHT_GROUP).requires(SMOOTH_LIGHT);
+    public static final IntTweak SMOOTH_LIGHT_FADE_SPEED = DEF.integer("smooth_light_fade_speed", 2)
+            .range(1, 15).group(SMOOTH_LIGHT_GROUP);
+    private static Map<MapColor, Integer> VANILLA_COLORS = null;
+    private static Map<MapColor, Integer> NICER_COLORS = null;
+    public static final BooleanTweak NICER_MAP_COLORS = DEF.bool("nicer_map_colors", true)
+            .onApply(VanillaVisualModule::applyNicerMapColors);
 
     public VanillaVisualModule() {
         super(DEF);
