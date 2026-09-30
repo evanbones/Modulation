@@ -1,3 +1,3 @@
-### Added
+### Changed
 
-- Added Smooth Light Transitions tweak (disabled by default), which fades light changes in and out over time.
+- Backported render distance fog from 26.4 (replacing the old approach to horizon fading).
