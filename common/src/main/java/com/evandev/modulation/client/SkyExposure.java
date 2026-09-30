@@ -111,7 +111,8 @@ public final class SkyExposure {
             for (int dz = -SAMPLE_RADIUS; dz <= SAMPLE_RADIUS; dz += SAMPLE_STEP) {
                 int x = pos.getX() + dx;
                 int z = pos.getZ() + dz;
-                if (!level.hasChunk(SectionPos.blockToSectionCoord(x), SectionPos.blockToSectionCoord(z))) {
+                if (!level.hasChunk(SectionPos.blockToSectionCoord(x), SectionPos.blockToSectionCoord(z))
+                        || !level.getLightEngine().lightOnInSection(SectionPos.of(sample.set(x, pos.getY(), z)))) {
                     continue;
                 }
 

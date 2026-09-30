@@ -65,7 +65,7 @@ public abstract class EffectInstanceMixin {
         }
 
         boolean patched = VanillaBugfixesModule.PATCH_SUNBATHING_GODRAYS.on();
-        boolean enabled = patched && VanillaBugfixesModule.FIX_HORIZON_LINE.on();
+        boolean enabled = patched && VanillaBugfixesModule.IMPROVED_FOG.on();
 
         if (this.modulation$fogLocation >= 0) {
             if (enabled) {

@@ -1,8 +1,8 @@
 package com.evandev.modulation.mixin.minecraft.bugfix.client;
 
+import com.evandev.modulation.client.ImprovedFog;
 import com.evandev.modulation.client.SkyExposure;
 import com.evandev.modulation.mixin.minecraft.accessor.FogRendererAccessor;
-import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -85,11 +85,7 @@ public abstract class LevelRendererSkyMixin {
                     target = "Lnet/minecraft/client/renderer/DimensionSpecialEffects;getSunriseColor(FF)[F"
             )
     )
-    private float[] modulation$skipTwilightRing(float[] original) {
-        if (VanillaBugfixesModule.FIX_HORIZON_LINE.on()) {
-            return null;
-        }
-
+    private float[] modulation$fadeTwilightRing(float[] original) {
         if (original == null || this.modulation$skyFade <= 0.0F) {
             return original;
         }
@@ -97,6 +93,14 @@ public abstract class LevelRendererSkyMixin {
         float[] faded = original.clone();
         faded[3] *= 1.0F - this.modulation$skyFade;
         return faded;
+    }
+
+    @Inject(
+            method = "renderSky",
+            at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;disableBlend()V", ordinal = 0)
+    )
+    private void modulation$renderSkyOccluder(Matrix4f frustumMatrix, Matrix4f projectionMatrix, float partialTick, Camera camera, boolean isFoggy, Runnable skyFogSetup, CallbackInfo ci) {
+        ImprovedFog.renderSkyOccluder(this.level, camera, frustumMatrix, partialTick);
     }
 
     @WrapOperation(
@@ -115,6 +119,10 @@ public abstract class LevelRendererSkyMixin {
             )
     )
     private void modulation$fadeVoidPlane(VertexBuffer instance, Matrix4f frustumMatrix, Matrix4f projectionMatrix, ShaderInstance shader, Operation<Void> original) {
+        if (ImprovedFog.enabled()) {
+            return;
+        }
+
         if (this.modulation$skyFade <= 0.0F) {
             original.call(instance, frustumMatrix, projectionMatrix, shader);
             return;

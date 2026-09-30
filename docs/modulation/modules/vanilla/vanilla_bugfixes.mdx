@@ -10,7 +10,7 @@ This module focuses on fixing bugs in the base game.
 * **Attack Sleeping Villagers (MC-148559)**: Ever tried to smack a villager who stole your bed, only to find out they're apparently unkillable? This tweak allows you to attack villagers while they are sleeping by modifying their hit radius.
 * **Fix Dimension Experience Loss (MC-124177)**: Fixes a vanilla bug where experience levels disappear when changing dimensions without portals (e.g. when teleporting between worlds).
 * **Fix Resource Filter Leak (MC-271761)**: Properly couples namespace and path checks for resource filters in `pack.mcmeta` to prevent them from leaking into other namespaces.
-* **Fix Horizon Line**: Removes the twilight ring drawn over the sky at sunrise and sunset, which renders in front of distance fog and leaves a hard line along the horizon.
+* **Improved Fog**: Backports the render distance fog from 26.4. Distant terrain fades into the sky and clouds behind it instead of a flat fog color, and the lower half of the sky is covered with fog so the sun, moon, stars and twilight ring no longer show through below the horizon.
 * **Fix Cave Sky Rendering**: Stops the sky and clouds from rendering behind culled chunks when the camera is deep underground, such as in ancient cities and large open caverns. Most noticeable with mods that modify fog, like No Man's Land.
 * **Better Pause Freezing**: Freezes animated textures (water, lava, fire, portals) when the game is paused in singleplayer.
 * **Colored Crack Particles**: Makes item crack and breaking particles honor item coloration, such as dyed leather armor.

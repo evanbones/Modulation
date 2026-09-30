@@ -62,7 +62,7 @@ public class VanillaBugfixesModule extends AbstractModule {
     public static final BooleanTweak FIX_STRUCTURE_PALETTE_THREADING = DEF.bool("fix_structure_palette_threading", true).group(WORLD).conflicts("neoforge");
     public static final BooleanTweak FIX_TWO_BY_TWO_SAPLINGS = DEF.bool("fix_two_by_two_saplings", true).group(WORLD).conflicts("debugify", "flwr-8187");
 
-    public static final BooleanTweak FIX_HORIZON_LINE = DEF.bool("fix_horizon_line", true).group(RENDERING);
+    public static final BooleanTweak IMPROVED_FOG = DEF.bool("improved_fog", true).group(RENDERING);
     public static final BooleanTweak FIX_CAVE_SKY = DEF.bool("fix_cave_sky", true).group(RENDERING);
     public static final BooleanTweak PATCH_SUNBATHING_GODRAYS = DEF.bool("patch_sunbathing_godrays", true).group(RENDERING);
     public static final BooleanTweak BETTER_PAUSE_FREEZING = DEF.bool("better_pause_freezing", true).group(RENDERING);
