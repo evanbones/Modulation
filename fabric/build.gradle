@@ -37,6 +37,9 @@ dependencies {
     // Trinkets
     modCompileOnly "maven.modrinth:trinkets:${trinkets_version}"
 
+    // Better Clouds
+    modCompileOnly "maven.modrinth:better-clouds:IURyim1H"
+
     // Vanilla Backport
     modCompileOnly "maven.modrinth:vanillabackport:ayvoY8lx"
 

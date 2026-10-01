@@ -109,6 +109,7 @@
     "minecraft.walls.WallBlockMixin"
   ],
   "client": [
+    "betterclouds.client.VanillaRenderTargetMixin",
     "emi.accessor.EmiScreenManagerAccessor",
     "emi.client.EmiScreenSpaceMixin",
     "emi.client.ItemEmiStackMixin",

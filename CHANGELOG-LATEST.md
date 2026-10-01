@@ -1,3 +1,3 @@
-### Changed
+### Fixed
 
-- Backported render distance fog from 26.4 (replacing the old approach to horizon fading).
+- Fixed Better Clouds rendering with improved fog.

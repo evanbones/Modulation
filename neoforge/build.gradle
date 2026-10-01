@@ -59,6 +59,9 @@ dependencies {
     compileOnly "net.caffeinemc:sodium-neoforge-mod:${sodium_version}"
     compileOnly "net.caffeinemc:sodium-neoforge-api:${sodium_version}"
 
+    // Better Clouds
+    compileOnly "maven.modrinth:better-clouds:UvRCtZxT"
+
     // Vanilla Backport
     compileOnly "maven.modrinth:vanillabackport:rUSWdBok"
     runtimeOnly "maven.modrinth:vanillabackport:rUSWdBok"
