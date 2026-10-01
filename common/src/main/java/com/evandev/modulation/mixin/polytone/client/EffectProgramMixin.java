@@ -31,6 +31,12 @@ public abstract class EffectProgramMixin {
     private static final Pattern modulation$SKY_TEST = Pattern.compile("(?<!-\\s{0,8})step\\(\\s*0\\.9{4,}\\s*,\\s*depth\\s*\\)");
 
     @Unique
+    private static final Pattern modulation$GEOMETRY_TEST = Pattern.compile("1\\.0\\s*-\\s*step\\(\\s*0\\.9{4,}\\s*,\\s*depth\\s*\\)");
+
+    @Unique
+    private static final Pattern modulation$DEPTH_SAMPLE = Pattern.compile("\\btexture\\(\\s*InDepth\\s*,");
+
+    @Unique
     private static final Pattern modulation$VERSION_LINE = Pattern.compile("^\\s*#version[^\\r\\n]*", Pattern.MULTILINE);
 
     @WrapOperation(
@@ -73,12 +79,17 @@ public abstract class EffectProgramMixin {
             return null;
         }
 
-        Matcher skyTest = modulation$SKY_TEST.matcher(source);
+        Matcher depthSample = modulation$DEPTH_SAMPLE.matcher(source);
+        if (!depthSample.find()) {
+            return null;
+        }
+
+        Matcher skyTest = modulation$SKY_TEST.matcher(depthSample.replaceAll("modulation_sample_depth("));
         if (!skyTest.find()) {
             return null;
         }
 
-        String replaced = skyTest.replaceAll("modulation_skyness(depth)");
+        String replaced = modulation$GEOMETRY_TEST.matcher(skyTest.replaceAll("modulation_skyness(depth)")).replaceAll("1.0 - modulation_sky_coverage(depth)");
 
         Matcher versionLine = modulation$VERSION_LINE.matcher(replaced);
         if (!versionLine.find()) {

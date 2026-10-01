@@ -1,6 +1,7 @@
 package com.evandev.modulation.mixin.polytone.client;
 
 import com.evandev.modulation.client.HorizonFogState;
+import com.evandev.modulation.client.ImprovedFog;
 import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import com.mojang.blaze3d.shaders.Uniform;
 import com.moulberry.mixinconstraints.annotations.IfModLoaded;
@@ -24,6 +25,12 @@ public abstract class EffectInstanceMixin {
     private static final String modulation$FOG_UNIFORM = "ModulationFogRange";
 
     @Unique
+    private static final String modulation$RENDER_FOG_UNIFORM = "ModulationRenderFogRange";
+
+    @Unique
+    private static final String modulation$SHAPE_UNIFORM = "ModulationFogShape";
+
+    @Unique
     private static final String modulation$SKY_UNIFORM = "ModulationSkyVisibility";
 
     @Unique
@@ -34,6 +41,12 @@ public abstract class EffectInstanceMixin {
 
     @Unique
     private int modulation$fogLocation;
+
+    @Unique
+    private int modulation$renderFogLocation;
+
+    @Unique
+    private int modulation$shapeLocation;
 
     @Unique
     private int modulation$skyLocation;
@@ -55,6 +68,8 @@ public abstract class EffectInstanceMixin {
 
         if (!this.modulation$locationsResolved) {
             this.modulation$fogLocation = Uniform.glGetUniformLocation(this.getId(), modulation$FOG_UNIFORM);
+            this.modulation$renderFogLocation = Uniform.glGetUniformLocation(this.getId(), modulation$RENDER_FOG_UNIFORM);
+            this.modulation$shapeLocation = Uniform.glGetUniformLocation(this.getId(), modulation$SHAPE_UNIFORM);
             this.modulation$skyLocation = Uniform.glGetUniformLocation(this.getId(), modulation$SKY_UNIFORM);
             this.modulation$hiddenLocation = Uniform.glGetUniformLocation(this.getId(), modulation$HIDDEN_UNIFORM);
             this.modulation$locationsResolved = true;
@@ -73,6 +88,18 @@ public abstract class EffectInstanceMixin {
             } else {
                 GL20.glUniform2f(this.modulation$fogLocation, -1.0F, -1.0F);
             }
+        }
+
+        if (this.modulation$renderFogLocation >= 0) {
+            if (enabled) {
+                GL20.glUniform2f(this.modulation$renderFogLocation, ImprovedFog.renderFogStart(), ImprovedFog.renderFogEnd());
+            } else {
+                GL20.glUniform2f(this.modulation$renderFogLocation, -1.0F, -1.0F);
+            }
+        }
+
+        if (this.modulation$shapeLocation >= 0) {
+            GL20.glUniform1i(this.modulation$shapeLocation, HorizonFogState.getShape());
         }
 
         if (this.modulation$skyLocation >= 0) {

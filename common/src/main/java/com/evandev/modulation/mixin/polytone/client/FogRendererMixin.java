@@ -23,7 +23,7 @@ public abstract class FogRendererMixin {
     @Inject(method = "setupFog", at = @At("TAIL"))
     private static void modulation$captureTerrainFog(Camera camera, FogRenderer.FogMode fogMode, float farPlaneDistance, boolean shouldCreateFog, float partialTick, CallbackInfo ci) {
         if (fogMode == FogRenderer.FogMode.FOG_TERRAIN) {
-            HorizonFogState.capture(RenderSystem.getShaderFogStart(), RenderSystem.getShaderFogEnd(), modulation$skyVisibility(camera), SkyExposure.skyHideFactor(camera, partialTick));
+            HorizonFogState.capture(RenderSystem.getShaderFogStart(), RenderSystem.getShaderFogEnd(), modulation$skyVisibility(camera), SkyExposure.skyHideFactor(camera, partialTick), RenderSystem.getShaderFogShape().getIndex());
         }
     }
 
