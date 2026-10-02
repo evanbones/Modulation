@@ -24,6 +24,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.material.FogType;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
+import org.joml.Matrix4fStack;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
@@ -140,12 +141,18 @@ public final class ImprovedFog {
         if (minecraft.options.getCloudsType() != CloudStatus.OFF) {
             Vec3 pos = camera.getPosition();
             cloudsTarget.bindWrite(false);
+            Matrix4fStack modelViewStack = RenderSystem.getModelViewStack();
+            modelViewStack.pushMatrix();
+            modelViewStack.mul(frustumMatrix);
+            RenderSystem.applyModelViewMatrix();
             capturingClouds = true;
             try {
                 levelRenderer.renderClouds(new PoseStack(), frustumMatrix, projectionMatrix, partialTick, pos.x, pos.y, pos.z);
                 cloudsCaptured = true;
             } finally {
                 capturingClouds = false;
+                modelViewStack.popMatrix();
+                RenderSystem.applyModelViewMatrix();
             }
         }
 
