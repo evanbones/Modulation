@@ -25,6 +25,9 @@ dependencies {
     // EMI
     compileOnly "dev.emi:emi-neoforge:${emi_version}"
 
+    // JEI
+    compileOnly "mezz.jei:jei-1.21.1-neoforge:${jei_version}"
+
     // Figura
     compileOnly "maven.modrinth:figura:${figura_version_neoforge}"
 

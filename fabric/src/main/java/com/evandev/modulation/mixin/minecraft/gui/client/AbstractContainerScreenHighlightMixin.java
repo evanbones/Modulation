@@ -5,18 +5,23 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.world.inventory.Slot;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(AbstractContainerScreen.class)
 public class AbstractContainerScreenHighlightMixin {
+
+    @Shadow
+    protected Slot hoveredSlot;
 
     @WrapOperation(
             method = "render",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/inventory/AbstractContainerScreen;renderSlotHighlight(Lnet/minecraft/client/gui/GuiGraphics;III)V"))
     private void modulation$renderSlotHighlightFront(GuiGraphics guiGraphics, int x, int y, int blitOffset, Operation<Void> original) {
         if (SlotHighlightRenderer.isEnabled()) {
-            SlotHighlightRenderer.renderFront(guiGraphics, x, y);
+            SlotHighlightRenderer.renderFront(guiGraphics, this.hoveredSlot, x, y);
             return;
         }
         original.call(guiGraphics, x, y, blitOffset);

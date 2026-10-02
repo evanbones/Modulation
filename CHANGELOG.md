@@ -7,9 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.6.1] - 2026-10-01
 
+### Added
+
+- Added JEI support for Slot Highlight Behind Item.
+
 ### Fixed
 
 - Fixed Better Clouds rendering with improved fog.
+- Fixed Slot Highlight Behind Item hiding the slot highlight on focused Trinkets slots.
 
 ## [3.6.0] - 2026-09-30
 

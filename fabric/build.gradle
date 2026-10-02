@@ -14,6 +14,9 @@ dependencies {
     modCompileOnly "dev.emi:emi-fabric:${emi_version}"
     modRuntimeOnly "dev.emi:emi-fabric:${emi_version}"
 
+    // JEI
+    modCompileOnly "mezz.jei:jei-1.21.1-fabric:${jei_version}"
+
     // YACL
     modImplementation "maven.modrinth:yacl:${yacl_version}-fabric"
     implementation "org.quiltmc.parsers:json:0.3.0"

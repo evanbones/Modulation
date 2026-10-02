@@ -43,6 +43,9 @@ dependencies {
     runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
     runtimeOnly "maven.modrinth:reliable-emi:${remi_version}-neoforge"
 
+    // JEI
+    compileOnly "mezz.jei:jei-1.21.1-neoforge:${jei_version}"
+
     // YACL
     implementation "maven.modrinth:yacl:${yacl_version}-neoforge"
 
