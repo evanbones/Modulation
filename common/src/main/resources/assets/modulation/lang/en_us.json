@@ -326,10 +326,10 @@
   "config.modulation.module.extended_clouds": "Extended Clouds",
   "config.modulation.tweak.extended_clouds.enable_extended_clouds": "Enable Extended Clouds",
   "config.modulation.tweak.extended_clouds.enable_extended_clouds.tooltip": "Renders the cloud layer far past its vanilla radius. Ported from Extended Clouds.",
-  "config.modulation.tweak.extended_clouds.cloud_distance_multiplier": "Cloud Distance Multiplier",
-  "config.modulation.tweak.extended_clouds.cloud_distance_multiplier.tooltip": "How far clouds render relative to your render distance. Higher values cost more VRAM and build time.",
+  "config.modulation.tweak.extended_clouds.cloud_range": "Cloud Range",
+  "config.modulation.tweak.extended_clouds.cloud_range.tooltip": "How far clouds render, in chunks. Independent of your render distance.",
   "config.modulation.tweak.extended_clouds.extend_frustum": "Extend Frustum",
-  "config.modulation.tweak.extended_clouds.extend_frustum.tooltip": "Pushes the camera far plane out by the same multiplier so distant clouds are not clipped. Disable if you see depth artifacts.",
+  "config.modulation.tweak.extended_clouds.extend_frustum.tooltip": "Pushes the camera far plane out to the cloud range so distant clouds are not clipped. Disable if you see depth artifacts.",
   "config.modulation.tweak.extended_clouds.async_cloud_meshing": "Async Cloud Meshing",
   "config.modulation.tweak.extended_clouds.async_cloud_meshing.tooltip": "Builds the cloud mesh on a background thread to avoid frame hitches. Clouds may lag one cell behind while rebuilding.",
 

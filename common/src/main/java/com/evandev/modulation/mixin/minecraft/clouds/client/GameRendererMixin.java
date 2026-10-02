@@ -36,6 +36,6 @@ public class GameRendererMixin {
         if (!ExtendedCloudsModule.EXTEND_FRUSTUM.on()) {
             return original;
         }
-        return (float) (original * ExtendedCloudsModule.CLOUD_DISTANCE_MULTIPLIER.get());
+        return Math.max(original, ExtendedCloudsModule.CLOUD_RANGE.get() * 16.0F);
     }
 }

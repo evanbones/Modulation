@@ -1,6 +1,7 @@
 package com.evandev.modulation.mixin.minecraft.clouds.client;
 
 import com.evandev.modulation.Constants;
+import com.evandev.modulation.client.ExtendedCloudMesher;
 import com.evandev.modulation.modules.vanilla.ExtendedCloudsModule;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -9,8 +10,11 @@ import com.mojang.blaze3d.vertex.MeshData;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexBuffer;
+import net.minecraft.client.CloudStatus;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
@@ -19,9 +23,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.concurrent.ExecutionException;
@@ -31,9 +33,6 @@ import java.util.concurrent.Future;
 
 @Mixin(LevelRenderer.class)
 public abstract class LevelRendererCloudsMixin {
-
-    @Unique
-    private static final int MAX_CLOUD_CELLS = 64;
 
     @Unique
     private static final ExecutorService modulation$CLOUD_MESHER = Executors.newSingleThreadExecutor(runnable -> {
@@ -58,7 +57,10 @@ public abstract class LevelRendererCloudsMixin {
     private VertexBuffer cloudBuffer;
 
     @Shadow
-    private int lastViewDistance;
+    private CloudStatus prevCloudsType;
+
+    @Unique
+    private int modulation$meshRange = Integer.MIN_VALUE;
 
     @Unique
     private Future<MeshData> modulation$cloudBuildTask;
@@ -108,16 +110,26 @@ public abstract class LevelRendererCloudsMixin {
     @Unique
     private float modulation$previousFogEnd;
 
+    @Unique
+    private static int modulation$cloudRange() {
+        return ExtendedCloudsModule.ENABLE_EXTENDED_CLOUDS.on() ? ExtendedCloudsModule.CLOUD_RANGE.get() : -1;
+    }
+
     @Shadow
     protected abstract MeshData buildClouds(Tesselator tesselator, double x, double y, double z, Vec3 cloudColor);
 
     @Unique
-    private int modulation$cloudCells() {
-        if (!ExtendedCloudsModule.ENABLE_EXTENDED_CLOUDS.on()) {
-            return -1;
+    private MeshData modulation$buildCloudMesh(Tesselator tesselator, double x, double y, double z, Vec3 color, CloudStatus status, int range) {
+        if (range < 0) {
+            return this.buildClouds(tesselator, x, y, z, color);
         }
-        int cells = (int) (Math.max(this.lastViewDistance, 2) * ExtendedCloudsModule.CLOUD_DISTANCE_MULTIPLIER.get());
-        return Math.max(1, Math.min(MAX_CLOUD_CELLS, cells));
+        return ExtendedCloudMesher.build(tesselator, x, y, z, color, status, ExtendedCloudMesher.radiusCells(range));
+    }
+
+    @Inject(method = "onResourceManagerReload", at = @At("TAIL"))
+    private void modulation$reloadCloudCells(ResourceManager resourceManager, CallbackInfo ci) {
+        ExtendedCloudMesher.reload(resourceManager);
+        this.generateClouds = true;
     }
 
     @Inject(method = "renderClouds", at = @At("HEAD"))
@@ -125,6 +137,15 @@ public abstract class LevelRendererCloudsMixin {
         this.modulation$cloudStateValid = false;
         if (this.level == null) {
             return;
+        }
+
+        int range = modulation$cloudRange();
+        if (range >= 0) {
+            ExtendedCloudMesher.ensureLoaded();
+        }
+        if (range != this.modulation$meshRange) {
+            this.modulation$meshRange = range;
+            this.generateClouds = true;
         }
 
         float cloudHeight = this.level.effects().getCloudHeight();
@@ -174,9 +195,11 @@ public abstract class LevelRendererCloudsMixin {
             double y = this.modulation$cloudY;
             double z = this.modulation$cloudZ;
             Vec3 color = this.modulation$cloudColor;
+            CloudStatus status = this.prevCloudsType;
+            int range = this.modulation$meshRange;
             this.modulation$cloudBuildTask = modulation$CLOUD_MESHER.submit(() -> {
                 this.modulation$cloudTesselator.clear();
-                return this.buildClouds(this.modulation$cloudTesselator, x, y, z, color);
+                return this.modulation$buildCloudMesh(this.modulation$cloudTesselator, x, y, z, color, status, range);
             });
         }
 
@@ -234,6 +257,17 @@ public abstract class LevelRendererCloudsMixin {
 
     @WrapOperation(
             method = "renderClouds",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/LevelRenderer;buildClouds(Lcom/mojang/blaze3d/vertex/Tesselator;DDDLnet/minecraft/world/phys/Vec3;)Lcom/mojang/blaze3d/vertex/MeshData;")
+    )
+    private MeshData modulation$buildExtendedClouds(LevelRenderer instance, Tesselator tesselator, double x, double y, double z, Vec3 color, Operation<MeshData> original) {
+        if (this.modulation$meshRange < 0) {
+            return original.call(instance, tesselator, x, y, z, color);
+        }
+        return ExtendedCloudMesher.build(tesselator, x, y, z, color, this.prevCloudsType, ExtendedCloudMesher.radiusCells(this.modulation$meshRange));
+    }
+
+    @WrapOperation(
+            method = "renderClouds",
             at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;translate(FFF)V")
     )
     private void modulation$offsetStaleClouds(PoseStack poseStack, float x, float y, float z, Operation<Void> original) {
@@ -254,8 +288,10 @@ public abstract class LevelRendererCloudsMixin {
     )
     private void modulation$extendCloudFog(PoseStack poseStack, Matrix4f frustumMatrix, Matrix4f projectionMatrix, float partialTick, double camX, double camY, double camZ, CallbackInfo ci) {
         this.modulation$previousFogEnd = RenderSystem.getShaderFogEnd();
-        if (ExtendedCloudsModule.ENABLE_EXTENDED_CLOUDS.on()) {
-            RenderSystem.setShaderFogEnd((float) (this.modulation$previousFogEnd * ExtendedCloudsModule.CLOUD_DISTANCE_MULTIPLIER.get()));
+        int range = modulation$cloudRange();
+        float terrainFogEnd = Math.max(Minecraft.getInstance().gameRenderer.getRenderDistance(), 32.0F);
+        if (range >= 0 && this.modulation$previousFogEnd >= terrainFogEnd) {
+            RenderSystem.setShaderFogEnd(Math.max(this.modulation$previousFogEnd, range * 16.0F));
         }
     }
 
@@ -265,35 +301,5 @@ public abstract class LevelRendererCloudsMixin {
     )
     private void modulation$restoreCloudFog(PoseStack poseStack, Matrix4f frustumMatrix, Matrix4f projectionMatrix, float partialTick, double camX, double camY, double camZ, CallbackInfo ci) {
         RenderSystem.setShaderFogEnd(this.modulation$previousFogEnd);
-    }
-
-    @ModifyConstant(method = "buildClouds", constant = @Constant(intValue = -3))
-    private int modulation$fancyCloudsStart(int constant) {
-        int cells = this.modulation$cloudCells();
-        return cells < 0 ? constant : -(cells - 1);
-    }
-
-    @ModifyConstant(method = "buildClouds", constant = @Constant(intValue = 4))
-    private int modulation$fancyCloudsEnd(int constant) {
-        int cells = this.modulation$cloudCells();
-        return cells < 0 ? constant : cells;
-    }
-
-    @ModifyConstant(method = "buildClouds", constant = @Constant(intValue = -32))
-    private int modulation$fastCloudsStart(int constant) {
-        int cells = this.modulation$cloudCells();
-        return cells < 0 ? constant : -(cells * 8);
-    }
-
-    @ModifyConstant(
-            method = "buildClouds",
-            constant = {
-                    @Constant(intValue = 32, ordinal = 1),
-                    @Constant(intValue = 32, ordinal = 2)
-            }
-    )
-    private int modulation$fastCloudsEnd(int constant) {
-        int cells = this.modulation$cloudCells();
-        return cells < 0 ? constant : cells * 8;
     }
 }
