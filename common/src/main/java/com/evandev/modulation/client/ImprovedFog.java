@@ -1,10 +1,12 @@
 package com.evandev.modulation.client;
 
+import com.evandev.modulation.Constants;
 import com.evandev.modulation.mixin.minecraft.accessor.FogRendererAccessor;
 import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
 import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.pipeline.TextureTarget;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.shaders.Uniform;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.BufferUploader;
@@ -22,6 +24,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.material.FogType;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
 import java.util.Set;
@@ -53,6 +57,10 @@ public final class ImprovedFog {
     private static RenderTarget cloudsTarget;
     private static boolean active;
     private static boolean capturingClouds;
+    private static boolean cloudsCaptured;
+    private static int compositeProgram;
+    private static int compositeVao;
+    private static boolean compositeFailed;
     private static float renderFogStart;
     private static float renderFogEnd;
 
@@ -128,12 +136,14 @@ public final class ImprovedFog {
         GlStateManager._glBlitFrameBuffer(0, 0, main.width, main.height, 0, 0, skyTarget.width, skyTarget.height, GL30.GL_COLOR_BUFFER_BIT, GL30.GL_NEAREST);
 
         cloudsTarget.clear(Minecraft.ON_OSX);
+        cloudsCaptured = false;
         if (minecraft.options.getCloudsType() != CloudStatus.OFF) {
             Vec3 pos = camera.getPosition();
             cloudsTarget.bindWrite(false);
             capturingClouds = true;
             try {
                 levelRenderer.renderClouds(new PoseStack(), frustumMatrix, projectionMatrix, partialTick, pos.x, pos.y, pos.z);
+                cloudsCaptured = true;
             } finally {
                 capturingClouds = false;
             }
@@ -151,6 +161,98 @@ public final class ImprovedFog {
         if (cloudsTarget != null) {
             cloudsTarget.bindWrite(false);
         }
+    }
+
+    public static boolean compositeCapturedClouds(LevelRenderer levelRenderer) {
+        if (!active || !cloudsCaptured) {
+            return false;
+        }
+
+        RenderTarget fabulousClouds = levelRenderer.getCloudsTarget();
+        if (fabulousClouds != null) {
+            GlStateManager._glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER, cloudsTarget.frameBufferId);
+            GlStateManager._glBindFramebuffer(GL30.GL_DRAW_FRAMEBUFFER, fabulousClouds.frameBufferId);
+            GlStateManager._glBlitFrameBuffer(0, 0, cloudsTarget.width, cloudsTarget.height, 0, 0, fabulousClouds.width, fabulousClouds.height, GL30.GL_COLOR_BUFFER_BIT | GL30.GL_DEPTH_BUFFER_BIT, GL30.GL_NEAREST);
+            Minecraft.getInstance().getMainRenderTarget().bindWrite(false);
+            return true;
+        }
+
+        if (!ensureCompositeProgram()) {
+            return false;
+        }
+
+        RenderSystem.enableBlend();
+        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+        RenderSystem.enableDepthTest();
+        RenderSystem.depthFunc(GL11.GL_LEQUAL);
+        RenderSystem.depthMask(true);
+
+        GlStateManager._glUseProgram(compositeProgram);
+        Uniform.uploadInteger(Uniform.glGetUniformLocation(compositeProgram, "ModulationCloudsSampler"), CLOUDS_UNIT);
+        Uniform.uploadInteger(Uniform.glGetUniformLocation(compositeProgram, "ModulationCloudsDepthSampler"), CLOUDS_DEPTH_UNIT);
+        bindBackgroundTextures();
+        GlStateManager._glBindVertexArray(compositeVao);
+        GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, 3);
+        GlStateManager._glBindVertexArray(0);
+        BufferUploader.invalidate();
+        GlStateManager._glUseProgram(0);
+
+        RenderSystem.disableDepthTest();
+        RenderSystem.disableBlend();
+        RenderSystem.defaultBlendFunc();
+        return true;
+    }
+
+    private static boolean ensureCompositeProgram() {
+        if (compositeProgram != 0) {
+            return true;
+        }
+        if (compositeFailed) {
+            return false;
+        }
+
+        compositeFailed = true;
+        int vertex = compileShader(GL20.GL_VERTEX_SHADER, "improved_fog_clouds.vsh");
+        int fragment = compileShader(GL20.GL_FRAGMENT_SHADER, "improved_fog_clouds.fsh");
+        if (vertex == 0 || fragment == 0) {
+            GL20.glDeleteShader(vertex);
+            GL20.glDeleteShader(fragment);
+            return false;
+        }
+
+        int program = GL20.glCreateProgram();
+        GL20.glAttachShader(program, vertex);
+        GL20.glAttachShader(program, fragment);
+        GL20.glLinkProgram(program);
+        GL20.glDeleteShader(vertex);
+        GL20.glDeleteShader(fragment);
+        if (GL20.glGetProgrami(program, GL20.GL_LINK_STATUS) == GL11.GL_FALSE) {
+            Constants.LOG.warn("Improved fog cloud composite failed to link, clouds will be drawn twice: {}", GL20.glGetProgramInfoLog(program));
+            GL20.glDeleteProgram(program);
+            return false;
+        }
+
+        compositeProgram = program;
+        compositeVao = GlStateManager._glGenVertexArrays();
+        compositeFailed = false;
+        return true;
+    }
+
+    private static int compileShader(int type, String name) {
+        String source = GlslSnippets.load(name);
+        if (source.isEmpty()) {
+            return 0;
+        }
+
+        int shader = GL20.glCreateShader(type);
+        GL20.glShaderSource(shader, source);
+        GL20.glCompileShader(shader);
+        if (GL20.glGetShaderi(shader, GL20.GL_COMPILE_STATUS) == GL11.GL_FALSE) {
+            Constants.LOG.warn("Improved fog shader {} failed to compile, clouds will be drawn twice: {}", name, GL20.glGetShaderInfoLog(shader));
+            GL20.glDeleteShader(shader);
+            return 0;
+        }
+        return shader;
     }
 
     public static void endFrame() {
