@@ -59,6 +59,7 @@ public final class ImprovedFog {
     private static boolean active;
     private static boolean capturingClouds;
     private static boolean cloudsCaptured;
+    private static int sceneFramebuffer;
     private static int compositeProgram;
     private static int compositeVao;
     private static boolean compositeFailed;
@@ -129,12 +130,14 @@ public final class ImprovedFog {
         }
 
         Minecraft minecraft = Minecraft.getInstance();
-        RenderTarget main = minecraft.getMainRenderTarget();
-        ensureTargets(main.width, main.height);
+        sceneFramebuffer = GlStateManager.getBoundFramebuffer();
+        int width = GlStateManager.Viewport.width();
+        int height = GlStateManager.Viewport.height();
+        ensureTargets(width, height);
 
-        GlStateManager._glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER, main.frameBufferId);
+        GlStateManager._glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER, sceneFramebuffer);
         GlStateManager._glBindFramebuffer(GL30.GL_DRAW_FRAMEBUFFER, skyTarget.frameBufferId);
-        GlStateManager._glBlitFrameBuffer(0, 0, main.width, main.height, 0, 0, skyTarget.width, skyTarget.height, GL30.GL_COLOR_BUFFER_BIT, GL30.GL_NEAREST);
+        GlStateManager._glBlitFrameBuffer(0, 0, width, height, 0, 0, skyTarget.width, skyTarget.height, GL30.GL_COLOR_BUFFER_BIT, GL30.GL_NEAREST);
 
         cloudsTarget.clear(Minecraft.ON_OSX);
         cloudsCaptured = false;
@@ -156,7 +159,7 @@ public final class ImprovedFog {
             }
         }
 
-        main.bindWrite(false);
+        bindSceneFramebuffer();
 
         float farPlane = Math.max(minecraft.gameRenderer.getRenderDistance(), 32.0F);
         renderFogStart = farPlane - Mth.clamp(farPlane / 10.0F, 4.0F, 64.0F);
@@ -180,7 +183,7 @@ public final class ImprovedFog {
             GlStateManager._glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER, cloudsTarget.frameBufferId);
             GlStateManager._glBindFramebuffer(GL30.GL_DRAW_FRAMEBUFFER, fabulousClouds.frameBufferId);
             GlStateManager._glBlitFrameBuffer(0, 0, cloudsTarget.width, cloudsTarget.height, 0, 0, fabulousClouds.width, fabulousClouds.height, GL30.GL_COLOR_BUFFER_BIT | GL30.GL_DEPTH_BUFFER_BIT, GL30.GL_NEAREST);
-            Minecraft.getInstance().getMainRenderTarget().bindWrite(false);
+            bindSceneFramebuffer();
             return true;
         }
 
@@ -208,6 +211,10 @@ public final class ImprovedFog {
         RenderSystem.disableBlend();
         RenderSystem.defaultBlendFunc();
         return true;
+    }
+
+    private static void bindSceneFramebuffer() {
+        GlStateManager._glBindFramebuffer(GL30.GL_FRAMEBUFFER, sceneFramebuffer);
     }
 
     private static boolean ensureCompositeProgram() {
