@@ -39,9 +39,6 @@ dependencies {
     compileOnly "net.caffeinemc:sodium-fabric:${sodium_version}"
     compileOnly "net.caffeinemc:sodium-fabric-api:${sodium_version}"
 
-    // Better Clouds
-    compileOnly "maven.modrinth:better-clouds:UvRCtZxT"
-
     // Vanilla Backport
     compileOnly "maven.modrinth:vanillabackport:rUSWdBok"
 

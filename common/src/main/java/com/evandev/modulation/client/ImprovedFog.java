@@ -51,6 +51,7 @@ public final class ImprovedFog {
     private static final int OCCLUDER_BANDS = 16;
 
     private static final Pattern VERSION_LINE = Pattern.compile("^\\s*#version[^\\r\\n]*", Pattern.MULTILINE);
+    private static final Pattern MAIN_FUNCTION = Pattern.compile("^[ \\t]*void\\s+main\\s*\\(", Pattern.MULTILINE);
 
     private static final Set<String> PATCHED_PROGRAMS = ConcurrentHashMap.newKeySet();
 
@@ -59,7 +60,11 @@ public final class ImprovedFog {
     private static boolean active;
     private static boolean capturingClouds;
     private static boolean cloudsCaptured;
+    private static boolean cloudsReplaced;
+    private static boolean expectingCloudCall;
+    private static boolean cloudCallReached;
     private static int sceneFramebuffer;
+    private static int fabulousCloudsFramebuffer = -1;
     private static int compositeProgram;
     private static int compositeVao;
     private static boolean compositeFailed;
@@ -104,8 +109,21 @@ public final class ImprovedFog {
         }
 
         String replaced = call.replaceAll(replacement);
-        Matcher versionLine = VERSION_LINE.matcher(replaced);
-        if (!versionLine.find()) {
+        return withImprovedFog(replaced, replaced.length(), prelude);
+    }
+
+    public static String patchBeforeMain(String source, String prelude) {
+        Matcher main = MAIN_FUNCTION.matcher(source);
+        if (!main.find()) {
+            return null;
+        }
+
+        return withImprovedFog(source, main.start(), prelude);
+    }
+
+    private static String withImprovedFog(String source, int preludeIndex, String prelude) {
+        Matcher versionLine = VERSION_LINE.matcher(source);
+        if (!versionLine.find() || preludeIndex < versionLine.end()) {
             return null;
         }
 
@@ -115,10 +133,11 @@ public final class ImprovedFog {
             return null;
         }
 
-        return replaced.substring(0, versionLine.end())
+        return source.substring(0, versionLine.end())
                 + "\n" + uniforms
-                + replaced.substring(versionLine.end())
+                + source.substring(versionLine.end(), preludeIndex)
                 + "\n" + prelude
+                + "\n" + source.substring(preludeIndex)
                 + "\n" + body;
     }
 
@@ -141,8 +160,12 @@ public final class ImprovedFog {
 
         cloudsTarget.clear(Minecraft.ON_OSX);
         cloudsCaptured = false;
-        if (minecraft.options.getCloudsType() != CloudStatus.OFF) {
+        cloudCallReached = false;
+        expectingCloudCall = minecraft.options.getCloudsType() != CloudStatus.OFF;
+        if (expectingCloudCall && !cloudsReplaced) {
             Vec3 pos = camera.getPosition();
+            RenderTarget fabulousClouds = levelRenderer.getCloudsTarget();
+            fabulousCloudsFramebuffer = fabulousClouds != null ? fabulousClouds.frameBufferId : -1;
             cloudsTarget.bindWrite(false);
             Matrix4fStack modelViewStack = RenderSystem.getModelViewStack();
             modelViewStack.pushMatrix();
@@ -167,17 +190,31 @@ public final class ImprovedFog {
         active = true;
     }
 
-    public static void bindCloudsTarget() {
-        if (cloudsTarget != null) {
-            cloudsTarget.bindWrite(false);
+    public static int redirectFramebuffer(int target, int framebuffer) {
+        if (!capturingClouds || target == GL30.GL_READ_FRAMEBUFFER) {
+            return framebuffer;
         }
+        if (framebuffer == sceneFramebuffer || framebuffer == fabulousCloudsFramebuffer) {
+            return cloudsTarget.frameBufferId;
+        }
+        return framebuffer;
     }
 
-    public static boolean compositeCapturedClouds(LevelRenderer levelRenderer) {
-        if (!active || !cloudsCaptured) {
+    public static boolean interceptCloudCall(LevelRenderer levelRenderer) {
+        if (!active || capturingClouds) {
             return false;
         }
 
+        cloudCallReached = true;
+        if (!cloudsCaptured) {
+            return false;
+        }
+
+        cloudsCaptured = false;
+        return compositeCapturedClouds(levelRenderer);
+    }
+
+    private static boolean compositeCapturedClouds(LevelRenderer levelRenderer) {
         RenderTarget fabulousClouds = levelRenderer.getCloudsTarget();
         if (fabulousClouds != null) {
             GlStateManager._glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER, cloudsTarget.frameBufferId);
@@ -270,6 +307,11 @@ public final class ImprovedFog {
     }
 
     public static void endFrame() {
+        if (expectingCloudCall) {
+            cloudsReplaced = !cloudCallReached;
+            expectingCloudCall = false;
+        }
+
         if (!active) {
             return;
         }
@@ -371,6 +413,8 @@ public final class ImprovedFog {
     }
 
     private static void release() {
+        cloudsReplaced = false;
+        expectingCloudCall = false;
         if (skyTarget != null) {
             skyTarget.destroyBuffers();
             cloudsTarget.destroyBuffers();

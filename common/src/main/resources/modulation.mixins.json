@@ -109,7 +109,6 @@
     "minecraft.walls.WallBlockMixin"
   ],
   "client": [
-    "betterclouds.client.VanillaRenderTargetMixin",
     "emi.accessor.EmiScreenManagerAccessor",
     "emi.client.EmiScreenSpaceMixin",
     "emi.client.ItemEmiStackMixin",
@@ -124,6 +123,8 @@
     "minecraft.accessor.MinecraftAccessor",
     "minecraft.bugfix.client.BreakingItemParticleMixin",
     "minecraft.bugfix.client.GhastRendererMixin",
+    "minecraft.bugfix.client.GlStateManagerCloudCaptureMixin",
+    "minecraft.bugfix.client.LevelRendererCloudCompositeMixin",
     "minecraft.bugfix.client.LevelRendererFogMixin",
     "minecraft.bugfix.client.LevelRendererSkyMixin",
     "minecraft.bugfix.client.MobMixin",
