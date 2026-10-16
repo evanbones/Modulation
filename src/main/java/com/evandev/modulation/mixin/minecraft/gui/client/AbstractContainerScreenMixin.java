@@ -14,6 +14,7 @@ import com.evandev.modulation.modules.vanilla.VanillaGuiModule;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -116,7 +117,7 @@ public abstract class AbstractContainerScreenMixin<T extends AbstractContainerMe
     private void modulation$onMouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY, CallbackInfoReturnable<Boolean> cir) {
     //?}
         if (VanillaGuiModule.CTRL_DRAG_TO_CRAFTING_GRID.on()) {
-            if (modulation$hasControlDown() && button == 0) {
+            if (modulation$hasControlDown() && button == InputConstants.MOUSE_BUTTON_LEFT) {
                 Slot slot = this.hoveredSlot;
                 if (slot != null && slot.container instanceof Inventory && slot.hasItem()) {
                     if (!modulation$processedDragSlots.contains(slot)) {
