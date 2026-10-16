@@ -1,0 +1,115 @@
+package com.evandev.modulation.mixin.polytone.client;
+
+//? if <26.1 {
+import com.evandev.modulation.client.HorizonFogState;
+import com.evandev.modulation.client.ImprovedFog;
+import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
+import com.mojang.blaze3d.shaders.Uniform;
+import com.moulberry.mixinconstraints.annotations.IfModLoaded;
+import net.minecraft.client.renderer.EffectInstance;
+import org.lwjgl.opengl.GL20;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@IfModLoaded("polytone")
+@Mixin(EffectInstance.class)
+public abstract class EffectInstanceMixin {
+
+    @Unique
+    private static final String modulation$GODRAYS_SHADER = "sunbathing:godrays";
+
+    @Unique
+    private static final String modulation$FOG_UNIFORM = "ModulationFogRange";
+
+    @Unique
+    private static final String modulation$RENDER_FOG_UNIFORM = "ModulationRenderFogRange";
+
+    @Unique
+    private static final String modulation$SHAPE_UNIFORM = "ModulationFogShape";
+
+    @Unique
+    private static final String modulation$SKY_UNIFORM = "ModulationSkyVisibility";
+
+    @Unique
+    private static final String modulation$HIDDEN_UNIFORM = "ModulationSkyHidden";
+
+    @Unique
+    private boolean modulation$locationsResolved;
+
+    @Unique
+    private int modulation$fogLocation;
+
+    @Unique
+    private int modulation$renderFogLocation;
+
+    @Unique
+    private int modulation$shapeLocation;
+
+    @Unique
+    private int modulation$skyLocation;
+
+    @Unique
+    private int modulation$hiddenLocation;
+
+    @Shadow
+    public abstract String getName();
+
+    @Shadow
+    public abstract int getId();
+
+    @Inject(method = "apply", at = @At("TAIL"))
+    private void modulation$uploadFogRange(CallbackInfo ci) {
+        if (!modulation$GODRAYS_SHADER.equals(this.getName())) {
+            return;
+        }
+
+        if (!this.modulation$locationsResolved) {
+            this.modulation$fogLocation = Uniform.glGetUniformLocation(this.getId(), modulation$FOG_UNIFORM);
+            this.modulation$renderFogLocation = Uniform.glGetUniformLocation(this.getId(), modulation$RENDER_FOG_UNIFORM);
+            this.modulation$shapeLocation = Uniform.glGetUniformLocation(this.getId(), modulation$SHAPE_UNIFORM);
+            this.modulation$skyLocation = Uniform.glGetUniformLocation(this.getId(), modulation$SKY_UNIFORM);
+            this.modulation$hiddenLocation = Uniform.glGetUniformLocation(this.getId(), modulation$HIDDEN_UNIFORM);
+            this.modulation$locationsResolved = true;
+        }
+
+        if (this.modulation$fogLocation < 0 && this.modulation$skyLocation < 0 && this.modulation$hiddenLocation < 0) {
+            return;
+        }
+
+        boolean patched = VanillaBugfixesModule.PATCH_SUNBATHING_GODRAYS.on();
+        boolean enabled = patched && VanillaBugfixesModule.IMPROVED_FOG.on();
+
+        if (this.modulation$fogLocation >= 0) {
+            if (enabled) {
+                GL20.glUniform2f(this.modulation$fogLocation, HorizonFogState.getStart(), HorizonFogState.getEnd());
+            } else {
+                GL20.glUniform2f(this.modulation$fogLocation, -1.0F, -1.0F);
+            }
+        }
+
+        if (this.modulation$renderFogLocation >= 0) {
+            if (enabled) {
+                GL20.glUniform2f(this.modulation$renderFogLocation, ImprovedFog.renderFogStart(), ImprovedFog.renderFogEnd());
+            } else {
+                GL20.glUniform2f(this.modulation$renderFogLocation, -1.0F, -1.0F);
+            }
+        }
+
+        if (this.modulation$shapeLocation >= 0) {
+            GL20.glUniform1i(this.modulation$shapeLocation, HorizonFogState.getShape());
+        }
+
+        if (this.modulation$skyLocation >= 0) {
+            GL20.glUniform1f(this.modulation$skyLocation, enabled ? HorizonFogState.getSkyVisibility() : 0.0F);
+        }
+
+        if (this.modulation$hiddenLocation >= 0) {
+            GL20.glUniform1f(this.modulation$hiddenLocation, patched ? HorizonFogState.getSkyHidden() : 0.0F);
+        }
+    }
+}
+//?}

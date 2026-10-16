@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.evandev.modulation.mixin",
+  "plugin": "com.moulberry.mixinconstraints.ConstraintsMixinPlugin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "neoforge.RangedBowAttackGoalMixin"
+  ],
+  "client": [
+    "neoforge.AbstractContainerScreenHighlightMixin"
+  ],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

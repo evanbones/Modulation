@@ -1,0 +1,87 @@
+package com.evandev.modulation.mixin.minecraft.visual.client;
+
+//? if >=26.1 {
+/*import com.evandev.modulation.modules.vanilla.VanillaVisualModule;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+//? if >=26.2 {
+/^import net.minecraft.client.renderer.SubmitNodeCollector;
+^///?} else {
+import net.minecraft.client.renderer.MultiBufferSource;
+//?}
+import net.minecraft.client.renderer.ScreenEffectRenderer;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.world.effect.MobEffects;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@Mixin(ScreenEffectRenderer.class)
+public class ScreenEffectRendererMixin {
+
+    //? if >=26.2 {
+    /^@Inject(method = "submitFire", at = @At("HEAD"), cancellable = true)
+    private static void modulation$lessAnnoyingFireHead(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, TextureAtlasSprite sprite, CallbackInfo ci) {
+    ^///?} else {
+    @Inject(method = "renderFire", at = @At("HEAD"), cancellable = true)
+    private static void modulation$lessAnnoyingFireHead(PoseStack poseStack, MultiBufferSource bufferSource, TextureAtlasSprite sprite, CallbackInfo ci) {
+    //?}
+        if (VanillaVisualModule.LESS_ANNOYING_FIRE.on()) {
+            LocalPlayer player = Minecraft.getInstance().player;
+            if (player != null && (player.getAbilities().invulnerable || player.fireImmune() || player.hasEffect(MobEffects.FIRE_RESISTANCE))) {
+                ci.cancel();
+            } else {
+                poseStack.pushPose();
+                poseStack.translate(0.0F, -0.2F, 0.0F);
+            }
+        }
+    }
+
+    //? if >=26.2 {
+    /^@Inject(method = "submitFire", at = @At("TAIL"))
+    private static void modulation$lessAnnoyingFireTail(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, TextureAtlasSprite sprite, CallbackInfo ci) {
+    ^///?} else {
+    @Inject(method = "renderFire", at = @At("TAIL"))
+    private static void modulation$lessAnnoyingFireTail(PoseStack poseStack, MultiBufferSource bufferSource, TextureAtlasSprite sprite, CallbackInfo ci) {
+    //?}
+        if (VanillaVisualModule.LESS_ANNOYING_FIRE.on()) {
+            poseStack.popPose();
+        }
+    }
+}
+*///?} else {
+import com.evandev.modulation.modules.vanilla.VanillaVisualModule;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ScreenEffectRenderer;
+import net.minecraft.world.effect.MobEffects;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@Mixin(ScreenEffectRenderer.class)
+public class ScreenEffectRendererMixin {
+
+    @Inject(method = "renderFire", at = @At("HEAD"), cancellable = true)
+    private static void modulation$lessAnnoyingFireHead(Minecraft minecraft, PoseStack poseStack, CallbackInfo ci) {
+        if (VanillaVisualModule.LESS_ANNOYING_FIRE.on()) {
+            if (minecraft.player != null && (minecraft.player.isInvulnerableTo(minecraft.player.level().damageSources().onFire()) || minecraft.player.hasEffect(MobEffects.FIRE_RESISTANCE))) {
+                ci.cancel();
+            } else {
+                poseStack.pushPose();
+                poseStack.translate(0.0F, -0.2F, 0.0F);
+            }
+        }
+    }
+
+    @Inject(method = "renderFire", at = @At("TAIL"))
+    private static void modulation$lessAnnoyingFireTail(Minecraft minecraft, PoseStack poseStack, CallbackInfo ci) {
+        if (VanillaVisualModule.LESS_ANNOYING_FIRE.on()) {
+            poseStack.popPose();
+        }
+    }
+}
+//?}

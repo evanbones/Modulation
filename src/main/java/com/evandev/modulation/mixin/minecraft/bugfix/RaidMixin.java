@@ -1,0 +1,22 @@
+package com.evandev.modulation.mixin.minecraft.bugfix;
+
+//? if <26.1 {
+import com.evandev.modulation.modules.vanilla.VanillaBugfixesModule;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.raid.Raid;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
+
+@Mixin(Raid.class)
+public class RaidMixin {
+
+    @ModifyArg(
+            method = "playSound",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/game/ClientboundSoundPacket;<init>(Lnet/minecraft/core/Holder;Lnet/minecraft/sounds/SoundSource;DDDFFJ)V")
+    )
+    private SoundSource modulation$raidHornSoundSource(SoundSource source) {
+        return VanillaBugfixesModule.FIX_RAID_HORN_SOUND.on() ? SoundSource.HOSTILE : source;
+    }
+}
+//?}

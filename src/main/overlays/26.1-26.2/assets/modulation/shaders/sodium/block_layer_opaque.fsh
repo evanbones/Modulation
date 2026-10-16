@@ -1,0 +1,127 @@
+#version 330 core
+
+#import <sodium:include/fog.glsl>
+#import <sodium:include/globals.glsl>
+#import <sodium:include/chunk_material.glsl>
+
+in vec4 v_Color;
+in vec2 v_TexCoord;
+in vec2 v_FragDistance;
+in float fadeFactor;
+
+flat in uint v_Material;
+
+uniform sampler2D u_BlockTex;
+uniform sampler2D ModulationSkySampler;
+uniform sampler2D ModulationCloudsSampler;
+uniform sampler2D ModulationCloudsDepthSampler;
+uniform int ModulationDistanceFog;
+
+out vec4 fragColor;
+
+const float MODULATION_BACKGROUND_BLEND_START = 0.9;
+
+vec3 modulation_backgroundColor(ivec2 pixelCoords) {
+    vec3 skyColor = texelFetch(ModulationSkySampler, pixelCoords, 0).rgb;
+    vec4 cloudColor = texelFetch(ModulationCloudsSampler, pixelCoords, 0);
+    float cloudDepth = texelFetch(ModulationCloudsDepthSampler, pixelCoords, 0).r;
+    float cloudsBehind = step(gl_FragCoord.z, cloudDepth);
+    return mix(skyColor, cloudColor.rgb / (cloudColor.a > 0.0 ? cloudColor.a : 1.0), cloudColor.a * cloudsBehind);
+}
+
+vec4 modulation_distanceFog(vec4 color, vec2 fragDistance, vec4 fogColor, vec2 environmentFog, vec2 renderFog, float fade) {
+    float environmentalValue = linear_fog_value(fragDistance.y, environmentFog.x, environmentFog.y);
+    float renderDistanceValue = linear_fog_value(fragDistance.x, renderFog.x, renderFog.y);
+
+    float environmentalBackgroundValue = smoothstep(MODULATION_BACKGROUND_BLEND_START, 1.0, environmentalValue);
+
+    float fogValue = max(environmentalValue, renderDistanceValue);
+
+    float backgroundFogValue = max(environmentalBackgroundValue, renderDistanceValue);
+
+    if (backgroundFogValue > 0.0 || fade < 1.0) {
+        vec3 backgroundColor = modulation_backgroundColor(ivec2(gl_FragCoord.xy));
+        vec3 targetColor = mix(fogColor.rgb, backgroundColor, backgroundFogValue);
+        vec3 foggedColor = mix(color.rgb, targetColor, fogValue);
+        return vec4(mix(backgroundColor, foggedColor, fade), color.a);
+    }
+
+    return vec4(mix(color.rgb, fogColor.rgb, fogValue), color.a);
+}
+
+vec4 sampleNearest(sampler2D sampler, vec2 uv, vec2 pixelSize, vec2 du, vec2 dv, vec2 texelScreenSize) {
+    vec2 uvTexelCoords = uv / pixelSize;
+    vec2 texelCenter = round(uvTexelCoords) - 0.5f;
+    vec2 texelOffset = uvTexelCoords - texelCenter;
+
+    texelOffset = (texelOffset - 0.5f) * pixelSize / texelScreenSize + 0.5f;
+    texelOffset = clamp(texelOffset, 0.0f, 1.0f);
+
+    uv = (texelCenter + texelOffset) * pixelSize;
+    return textureGrad(sampler, uv, du, dv);
+}
+
+vec4 sampleNearest(sampler2D source, vec2 uv, vec2 pixelSize) {
+    vec2 du = dFdx(uv);
+    vec2 dv = dFdy(uv);
+    vec2 texelScreenSize = sqrt(du * du + dv * dv);
+    return sampleNearest(source, uv, pixelSize, du, dv, texelScreenSize);
+}
+
+vec4 sampleRGSS(sampler2D source, vec2 uv, vec2 pixelSize) {
+    vec2 du = dFdx(uv);
+    vec2 dv = dFdy(uv);
+
+    vec2 texelScreenSize = sqrt(du * du + dv * dv);
+    float maxTexelSize = max(texelScreenSize.x, texelScreenSize.y);
+
+    float minPixelSize = min(pixelSize.x, pixelSize.y);
+
+    float transitionStart = minPixelSize * 1.0;
+    float transitionEnd = minPixelSize * 2.0;
+    float blendFactor = smoothstep(transitionStart, transitionEnd, maxTexelSize);
+
+    float duLength = length(du);
+    float dvLength = length(dv);
+    float minDerivative = min(duLength, dvLength);
+    float maxDerivative = max(duLength, dvLength);
+
+    float effectiveDerivative = sqrt(minDerivative * maxDerivative);
+
+    float mipLevelExact = max(0.0, log2(effectiveDerivative / minPixelSize));
+
+    const vec2 offsets[4] = vec2[](
+    vec2(0.125, 0.375),
+    vec2(-0.125, -0.375),
+    vec2(0.375, -0.125),
+    vec2(-0.375, 0.125)
+    );
+
+    vec4 rgssColor = vec4(0.0);
+    for (int i = 0; i < 4; ++i) {
+        vec2 sampleUV = uv + offsets[i] * pixelSize;
+        rgssColor += textureLod(source, sampleUV, mipLevelExact);
+    }
+    rgssColor *= 0.25;
+
+    vec4 nearestColor = sampleNearest(source, uv, pixelSize, du, dv, texelScreenSize);
+
+    return mix(nearestColor, rgssColor, blendFactor);
+}
+
+void main() {
+    vec4 color = u_UseRGSS ? sampleRGSS(u_BlockTex, v_TexCoord, u_TexelSize) : sampleNearest(u_BlockTex, v_TexCoord, u_TexelSize);
+    color *= v_Color;
+
+#ifdef USE_FRAGMENT_DISCARD
+    if (color.a < _material_alpha_cutoff(v_Material)) {
+        discard;
+    }
+#endif
+
+    if (ModulationDistanceFog == 1) {
+        fragColor = modulation_distanceFog(color, v_FragDistance, u_FogColor, u_EnvironmentFog, u_RenderFog, fadeFactor);
+    } else {
+        fragColor = _linearFog(color, v_FragDistance, u_FogColor, u_EnvironmentFog, u_RenderFog, fadeFactor);
+    }
+}
