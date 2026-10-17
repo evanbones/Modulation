@@ -30,15 +30,16 @@ public abstract class LeavesBlockMixin {
             cancellable = true
     )
     private void modulation$getCollisionShape(BlockGetter level, BlockPos pos, CollisionContext context, CallbackInfoReturnable<VoxelShape> cir) {
+        if (context instanceof EntityCollisionContext entityContext && entityContext.getEntity() == null) {
+            return;
+        }
         BlockState state = (BlockState) (Object) this;
         if (PassableFoliageModule.ENABLE_PASSABLE_FOLIAGE.on()) {
             if (state.is(ModTags.PASSABLE_LEAVES)) {
                 if (PassableFoliageModule.ENABLE_SCAFFOLDING_MODE.on() && context.isAbove(Shapes.block(), pos, true) && !context.isDescending()) {
                     return;
                 }
-                if (!(context instanceof EntityCollisionContext entityContext && entityContext.getEntity() == null)) {
-                    cir.setReturnValue(Shapes.empty());
-                }
+                cir.setReturnValue(Shapes.empty());
             }
         }
     }

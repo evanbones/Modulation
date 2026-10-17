@@ -1,6 +1,7 @@
 package com.evandev.modulation.mixin.minecraft.gameplay;
 
 import com.evandev.modulation.modules.vanilla.VanillaGameplayModule;
+import com.evandev.modulation.registry.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
@@ -46,7 +47,6 @@ public abstract class BlockStateBaseMixin {
         if (!VanillaGameplayModule.LEAVES_SUPPORT_BLOCKS.on()) {
             return false;
         }
-        BlockState state = (BlockState) (Object) this;
-        return state.is(BlockTags.LEAVES);
+        return ModTags.isSafe((BlockState) (Object) this, BlockTags.LEAVES);
     }
 }

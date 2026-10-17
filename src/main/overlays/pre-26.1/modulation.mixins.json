@@ -15,6 +15,7 @@
     "minecraft.accessor.CropBlockInvoker",
     "minecraft.accessor.DisplayAccessor",
     "minecraft.accessor.FollowTemptationAccessor",
+    "minecraft.accessor.HolderReferenceAccessor",
     "minecraft.accessor.MapColorAccessor",
     "minecraft.accessor.NodeEvaluatorAccessor",
     "minecraft.accessor.ResourceFilterSectionAccessor",
