@@ -27,8 +27,9 @@ public abstract class SodiumDistanceFogPipelineMixin {
     @WrapOperation(method = "createShader", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/pipeline/RenderPipeline$Builder;build()Lcom/mojang/blaze3d/pipeline/RenderPipeline;"))
     //?}
     private RenderPipeline modulation$buildDistanceFogVariant(RenderPipeline.Builder builder, Operation<RenderPipeline> original, @Local(argsOnly = true) TerrainRenderPass pass) {
+        RenderPipeline.Builder variant = DistanceFog.sodiumVariant(RenderPipeline.builder(builder.buildSnippet()), pass.getPipeline().getLocation().getPath());
         RenderPipeline pipeline = original.call(builder);
-        DistanceFog.registerSodiumPipeline(pipeline, original.call(DistanceFog.sodiumVariant(builder, pass.getPipeline().getLocation().getPath())));
+        DistanceFog.registerSodiumPipeline(pipeline, original.call(variant));
         return pipeline;
     }
 
