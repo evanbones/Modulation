@@ -1,7 +1,7 @@
 package com.evandev.modulation.mixin.vanillabackport.client;
 
 //? if <26.1 {
-import com.blackgear.vanillabackport.client.level.particles.FallingLeavesParticle;
+import com.blackgear.vanillabackport.client.level.particle.FallingLeavesParticle;
 import com.blackgear.vanillabackport.client.registries.ModParticles;
 import com.evandev.modulation.modules.vanilla.PassableFoliageModule;
 import com.evandev.modulation.modules.vanillabackport.client.LeafFling;

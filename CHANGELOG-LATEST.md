@@ -1,3 +1,3 @@
 ### Fixed
 
-- Fixed Passable Foliage crash with certain mods.
+- Fixed crash with latest Vanilla Backport.

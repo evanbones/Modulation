@@ -1,7 +1,7 @@
 package com.evandev.modulation.mixin.vanillabackport.client;
 
 //? if <26.1 {
-import com.blackgear.vanillabackport.client.level.particles.FallingLeavesParticle;
+import com.blackgear.vanillabackport.client.level.particle.FallingLeavesParticle;
 import com.evandev.modulation.mixin.minecraft.foliage.client.ParticleAccessor;
 import com.evandev.modulation.modules.vanillabackport.client.LeafFlingAccess;
 import com.moulberry.mixinconstraints.annotations.IfModLoaded;
@@ -28,7 +28,7 @@ public abstract class FallingLeavesParticleMixin implements LeafFlingAccess {
         this.modulation$flung = flung;
     }
 
-    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/blackgear/vanillabackport/client/level/particles/FallingLeavesParticle;remove()V", ordinal = 1), cancellable = true)
+    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/blackgear/vanillabackport/client/level/particle/FallingLeavesParticle;remove()V", ordinal = 1), cancellable = true)
     private void modulation$keepFlungAlive(CallbackInfo ci) {
         if (this.modulation$flung && !((ParticleAccessor) this).modulation$isOnGround()) {
             ci.cancel();

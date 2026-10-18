@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.TintedParticleLeavesBlock;
 *///?} else {
 import com.blackgear.vanillabackport.client.registries.ModParticles;
-import com.blackgear.vanillabackport.common.registries.ModBlocks;
+import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import com.evandev.modulation.platform.Services;
 //?}
