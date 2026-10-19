@@ -39,3 +39,58 @@ type = "optional"
 versionRange = "[${yacl_version},)"
 ordering = "NONE"
 side = "CLIENT"
+
+[[dependencies.${mod_id}]]
+modId = "emi"
+type = "optional"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.${mod_id}]]
+modId = "jei"
+type = "optional"
+versionRange = "[19.34,)"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.${mod_id}]]
+modId = "sodium"
+type = "optional"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.${mod_id}]]
+modId = "polytone"
+type = "optional"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.${mod_id}]]
+modId = "figura"
+type = "optional"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.${mod_id}]]
+modId = "vanillabackport"
+type = "optional"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.${mod_id}]]
+modId = "farmersdelight"
+type = "optional"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.${mod_id}]]
+modId = "connectiblechains"
+type = "optional"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.${mod_id}]]
+modId = "dyedflames"
+type = "optional"
+ordering = "NONE"
+side = "BOTH"

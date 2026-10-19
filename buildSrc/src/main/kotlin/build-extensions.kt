@@ -45,7 +45,10 @@ fun RepositoryHandler.modulationRepositories() {
     }
     maven("https://maven.blamejared.com") {
         name = "BlameJared (JEI)"
-        content { includeGroupAndSubgroups("mezz.jei") }
+        content {
+            includeGroupAndSubgroups("mezz.jei")
+            includeGroupAndSubgroups("net.mezzdev")
+        }
     }
     maven("https://maven.parchmentmc.org") {
         name = "ParchmentMC"

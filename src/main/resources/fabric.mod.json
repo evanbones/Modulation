@@ -37,6 +37,16 @@
     "java": ">=${java_version}"
   },
   "suggests": {
-    "yet_another_config_lib_v3": ">=${yacl_version}"
+    "yet_another_config_lib_v3": ">=${yacl_version}",
+    "modmenu": "*",
+    "emi": "*",
+    "jei": ">=19.34.0",
+    "sodium": "*",
+    "polytone": "*",
+    "figura": "*",
+    "trinkets": "*",
+    "vanillabackport": "*",
+    "farmersdelight": "*",
+    "connectiblechains": "*"
   }
 }

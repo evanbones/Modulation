@@ -1,3 +1,3 @@
 ### Fixed
 
-- Fixed crash with latest Vanilla Backport.
+- Fixed crash with JEI 19.64+.
