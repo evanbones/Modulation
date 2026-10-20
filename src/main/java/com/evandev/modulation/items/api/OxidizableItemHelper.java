@@ -54,7 +54,7 @@ public final class OxidizableItemHelper {
 
             if (effectiveBlockForWeathering instanceof WeatheringCopper weatheringCopper) {
                 oxidizationCache.modulation$setWeatherState(weatheringCopper.getAge());
-            } else {
+            } else if (baseBlock.isPresent()) {
                 String path = itemLoc.getPath();
                 if (path.contains("oxidized_"))
                     oxidizationCache.modulation$setWeatherState(WeatheringCopper.WeatherState.OXIDIZED);
@@ -104,8 +104,8 @@ public final class OxidizableItemHelper {
 
         for (String prefix : prefixes) {
             if (path.startsWith(prefix)) {
-                String baseName = path.substring(prefix.length());
-                return findBlockByPath(loc.getNamespace(), baseName);
+                ResourceLocation baseLoc = ResourceLocation.fromNamespaceAndPath(loc.getNamespace(), path.substring(prefix.length()));
+                return BuiltInRegistries.BLOCK.containsKey(baseLoc) ? Optional.of(BuiltInRegistries.BLOCK.get(baseLoc)) : Optional.empty();
             }
         }
 
