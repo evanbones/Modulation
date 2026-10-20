@@ -49,7 +49,6 @@ side = "CLIENT"
 [[dependencies.${mod_id}]]
 modId = "jei"
 type = "optional"
-versionRange = "[19.34,)"
 ordering = "NONE"
 side = "CLIENT"
 
