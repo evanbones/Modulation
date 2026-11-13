@@ -1,3 +1,3 @@
-### Changed
+### Fixed
 
-- Loosened JEI version requirement.
+- Fixed crash with latest JEI.
