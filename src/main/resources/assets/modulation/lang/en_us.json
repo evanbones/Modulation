@@ -9,6 +9,7 @@
   "config.modulation.mod.flwr-8187": "flwr-8187",
   "config.modulation.mod.pathunderfencegates": "Path under Fence Gates",
   "config.modulation.mod.brainierbees": "Brainier Bees",
+  "config.modulation.mod.betterbees": "Better Bees",
   "config.modulation.mod.ghastdirection": "Ghast Direction",
   "config.modulation.mod.panorama_screenshot": "Panorama Screenshot",
 
@@ -335,7 +336,7 @@
 
   "config.modulation.module.brainier_bees": "Brainier Bees",
   "config.modulation.tweak.brainier_bees.enable_brainier_bees": "Enable Brainier Bees",
-  "config.modulation.tweak.brainier_bees.enable_brainier_bees.tooltip": "Replaces the vanilla goal-based bee AI with a brain-based one, so bees stop getting stuck on ceilings, losing their hive and failing to reach flowers. Ported from Brainier Bees by dopadream, and disabled automatically if that mod is installed.",
+  "config.modulation.tweak.brainier_bees.enable_brainier_bees.tooltip": "Replaces the vanilla goal-based bee AI with a brain-based one, so bees stop getting stuck on ceilings, losing their hive and failing to reach flowers. Ported from Brainier Bees by dopadream, and disabled automatically if Brainier Bees or Better Bees is installed.",
   "config.modulation.tweak.brainier_bees.max_wander_radius": "Max Wander Radius",
   "config.modulation.tweak.brainier_bees.max_wander_radius.tooltip": "How far in blocks a bee may wander from its hive, and how long it is allowed to spend flying home before giving that hive up. Defaults to 22, matching vanilla.",
   "config.modulation.tweak.brainier_bees.flower_locate_range": "Flower Locate Range",

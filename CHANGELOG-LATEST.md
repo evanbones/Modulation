@@ -1,3 +1,3 @@
 ### Fixed
 
-- Fixed crash with latest JEI.
+- Fixed crash with Better Bees.

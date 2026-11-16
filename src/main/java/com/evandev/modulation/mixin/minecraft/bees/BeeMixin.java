@@ -30,6 +30,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @IfModAbsent("brainierbees")
+@IfModAbsent("betterbees")
 @Mixin(Bee.class)
 public abstract class BeeMixin extends Animal {
 
