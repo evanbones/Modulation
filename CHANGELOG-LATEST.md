@@ -1,3 +1,3 @@
 ### Fixed
 
-- Fixed crash with Better Bees.
+- Mobs no longer spin in place when standing inside passable leaves.

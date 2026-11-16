@@ -75,6 +75,7 @@
     "minecraft.bugfix.ZombieVillagerMixin",
     "minecraft.foliage.EntityLeafDragMixin",
     "minecraft.foliage.LeavesBlockMixin",
+    "minecraft.foliage.WalkNodeEvaluatorLeavesMixin",
     "minecraft.gameplay.AnvilMenuMixin",
     "minecraft.gameplay.AxeItemMixin",
     "minecraft.gameplay.BarrelBlockMixin",
