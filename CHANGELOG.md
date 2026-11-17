@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.1.0] - 2026-11-16
+
+### Added
+
+- Added a `modulation:respawn_anchor_fuel` item tag for items that can charge respawn anchors, by hand or from a
+  dispenser (contains glowstone by default).
+
+### Changed
+
+- Chests being unopenable when targetted by mobs only applies to loot chests.
+
+### Fixed
+
+- Fixed water bottles on concrete powder giving an extra glass bottle when potions are stackable.
+
 ## [4.0.9] - 2026-11-16
 
 ### Fixed

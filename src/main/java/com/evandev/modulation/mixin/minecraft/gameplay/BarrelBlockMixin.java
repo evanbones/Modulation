@@ -23,7 +23,7 @@ public abstract class BarrelBlockMixin {
     @Inject(method = "useWithoutItem", at = @At("HEAD"), cancellable = true)
     private void modulation$noBarrelWhenTargeted(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> cir) {
         if (VanillaGameplayModule.NO_CHEST_WHEN_TARGETED.on()) {
-            if (TargetHelper.isPlayerTargeted(level, player)) {
+            if (TargetHelper.isLootContainerBlocked(level, pos, player)) {
                 if (!level.isClientSide()) {
                     PlayerMessages.actionBar(player, Component.translatable("message.modulation.no_chest_when_targeted"));
                 }

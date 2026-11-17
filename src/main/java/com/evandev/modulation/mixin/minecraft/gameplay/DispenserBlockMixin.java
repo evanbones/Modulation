@@ -2,6 +2,9 @@ package com.evandev.modulation.mixin.minecraft.gameplay;
 
 import com.evandev.modulation.mixin.minecraft.accessor.ConcretePowderBlockAccessor;
 import com.evandev.modulation.modules.vanilla.VanillaGameplayModule;
+import com.evandev.modulation.registry.ModTags;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.BlockSource;
@@ -70,5 +73,16 @@ public class DispenserBlockMixin {
                 }
             });
         }
+    }
+
+    @ModifyReturnValue(method = "getDispenseMethod", at = @At("RETURN"))
+    private DispenseItemBehavior modulation$dispenseRespawnAnchorFuel(DispenseItemBehavior original, @Local(argsOnly = true) ItemStack item) {
+        if (original.getClass() == DefaultDispenseItemBehavior.class && !item.is(Items.GLOWSTONE) && item.is(ModTags.RESPAWN_ANCHOR_FUEL)) {
+            DispenseItemBehavior glowstoneBehavior = DispenserBlock.DISPENSER_REGISTRY.get(Items.GLOWSTONE);
+            if (glowstoneBehavior != null) {
+                return glowstoneBehavior;
+            }
+        }
+        return original;
     }
 }

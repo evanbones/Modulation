@@ -69,7 +69,11 @@ public class PotionItemMixin {
                 level.gameEvent(null, GameEvent.FLUID_PLACE, blockpos);
                 Block concreteBlock = ((ConcretePowderBlockAccessor) powder).modulation$getConcrete();
                 level.setBlockAndUpdate(blockpos, concreteBlock.defaultBlockState());
+                //? if >=26.1 {
+                /*cir.setReturnValue(InteractionResult.SUCCESS.withoutItem());
+                *///?} else {
                 cir.setReturnValue(InteractionResults.sidedSuccess(level.isClientSide()));
+                //?}
             }
         }
     }
