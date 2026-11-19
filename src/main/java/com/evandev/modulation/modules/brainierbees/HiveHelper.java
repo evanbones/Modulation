@@ -16,9 +16,6 @@ public final class HiveHelper {
     public static final int RELOCATE_COOLDOWN = 200;
     private static final int MAX_BLACKLISTED_HIVES = 3;
 
-    private HiveHelper() {
-    }
-
     public static BlockPos getHivePos(Bee bee) {
         return bee.getBrain().getMemory(ModMemoryTypes.BEE_HIVE_POS).map(GlobalPos::pos).orElse(null);
     }

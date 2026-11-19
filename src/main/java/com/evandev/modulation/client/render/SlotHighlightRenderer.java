@@ -19,9 +19,6 @@ public final class SlotHighlightRenderer {
 
     private static Slot deferredBackSlot;
 
-    private SlotHighlightRenderer() {
-    }
-
     public static boolean isEnabled() {
         return VanillaGuiModule.SLOT_HIGHLIGHT_BEHIND_ITEM.on();
     }

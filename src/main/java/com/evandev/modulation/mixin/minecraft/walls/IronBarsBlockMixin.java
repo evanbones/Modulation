@@ -22,7 +22,6 @@ public class IronBarsBlockMixin {
             return original;
         return original
                 || state.is(BlockTags.FENCES)
-                || state.is(BlockTags.FENCE_GATES)
-                || state.is(BlockTags.WALL_SIGNS);
+                || state.is(BlockTags.FENCE_GATES);
     }
 }

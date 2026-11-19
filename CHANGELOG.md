@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.2.0] - 2026-11-19
+
+### Fixed
+
+- Fixed shift-clicking hotbar items in the Creative survival inventory moving them instead of deleting them.
+- Walls and fences no longer connect to every wall sign next to them, only to signs hung on their side, and that
+  connection has its own Connect to Wall Signs option.
+- Iron bars and panes no longer connect to wall signs.
+
 ## [4.1.0] - 2026-11-16
 
 ### Added

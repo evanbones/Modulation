@@ -7,6 +7,7 @@ package com.evandev.modulation.mixin.minecraft.walls;
 import com.evandev.modulation.modules.vanilla.VanillaWallsModule;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
+import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.IronBarsBlock;
@@ -18,13 +19,11 @@ import org.spongepowered.asm.mixin.injection.At;
 public class FenceBlockMixin {
 
     @ModifyReturnValue(method = "connectsTo", at = @At("RETURN"))
-    private boolean modulation$connectsTo(boolean original, @Local(argsOnly = true) BlockState state) {
-        if (!VanillaWallsModule.FENCES_CONNECT_TO_WALLS_AND_BARS.on())
-            return original;
-        return original
-                || state.is(BlockTags.WALLS)
-                || state.is(BlockTags.FENCES)
-                || state.getBlock() instanceof IronBarsBlock
-                || state.is(BlockTags.WALL_SIGNS);
+    private boolean modulation$connectsTo(boolean original, @Local(argsOnly = true) BlockState state, @Local(argsOnly = true) Direction direction) {
+        if (original || VanillaWallsModule.isWallSignMountedOn(state, direction)) {
+            return true;
+        }
+        return VanillaWallsModule.FENCES_CONNECT_TO_WALLS_AND_BARS.on()
+                && (state.is(BlockTags.WALLS) || state.is(BlockTags.FENCES) || state.getBlock() instanceof IronBarsBlock);
     }
 }

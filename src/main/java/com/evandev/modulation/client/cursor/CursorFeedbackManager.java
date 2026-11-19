@@ -29,9 +29,6 @@ public final class CursorFeedbackManager {
     private static final long[] HANDLES = new long[Shape.values().length];
     private static Shape current = Shape.DEFAULT;
 
-    private CursorFeedbackManager() {
-    }
-
     public static void update(Screen screen, int mouseX, int mouseY) {
         Minecraft mc = Minecraft.getInstance();
         if (!VanillaGuiModule.CURSOR_FEEDBACK.on()

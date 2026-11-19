@@ -182,6 +182,7 @@ tasks.withType<Jar>().configureEach {
     from(rootProject.file("LICENSE")) {
         rename("LICENSE", "LICENSE_$modName")
     }
+    from(rootProject.file("LICENSE-COPPERIER-AGE"))
 }
 
 publishing {

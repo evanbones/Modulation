@@ -236,11 +236,13 @@
 
   "config.modulation.module.vanilla_walls": "Wall Connections",
   "config.modulation.tweak.vanilla_walls.walls_connect_to_fences": "Walls Connect to Fences",
-  "config.modulation.tweak.vanilla_walls.walls_connect_to_fences.tooltip": "Allows walls to visually connect to fences and wall signs.",
+  "config.modulation.tweak.vanilla_walls.walls_connect_to_fences.tooltip": "Allows walls to visually connect to fences.",
+  "config.modulation.tweak.vanilla_walls.connect_to_wall_signs": "Connect to Wall Signs",
+  "config.modulation.tweak.vanilla_walls.connect_to_wall_signs.tooltip": "Walls and fences connect to wall signs hung on their sides.",
   "config.modulation.tweak.vanilla_walls.fences_connect_to_walls_and_bars": "Fences Connect to Walls & Bars",
-  "config.modulation.tweak.vanilla_walls.fences_connect_to_walls_and_bars.tooltip": "Allows fences to visually connect to walls, iron bars/panes, other fence types, and wall signs.",
+  "config.modulation.tweak.vanilla_walls.fences_connect_to_walls_and_bars.tooltip": "Allows fences to visually connect to walls, iron bars/panes, and other fence types.",
   "config.modulation.tweak.vanilla_walls.bars_connect_to_fences": "Bars Connect to Fences",
-  "config.modulation.tweak.vanilla_walls.bars_connect_to_fences.tooltip": "Allows iron bars and glass panes to visually connect to fences, fence gates, and wall signs.",
+  "config.modulation.tweak.vanilla_walls.bars_connect_to_fences.tooltip": "Allows iron bars and glass panes to visually connect to fences and fence gates.",
 
   "config.modulation.module.vanilla_gui": "Vanilla GUI Tweaks",
   "config.modulation.tweak.vanilla_gui.ctrl_drag_to_crafting_grid": "Ctrl+Click/Drag to Crafting Grid",

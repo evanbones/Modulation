@@ -11,9 +11,6 @@ import net.minecraft.world.item.component.SwingAnimation;
 
 public final class EntityActions {
 
-    private EntityActions() {
-    }
-
     public static void drop(Player player, ItemStack stack, boolean thrownFromHand) {
         //? if >=26.3 {
         /*player.drop(stack, thrownFromHand, player.level().isClientSide() ? Prediction.PREDICTED : Prediction.SERVER_ONLY);

@@ -29,9 +29,6 @@ public final class SkyExposure {
     private static float previousFactor;
     private static float factor;
 
-    private SkyExposure() {
-    }
-
     public static float localSkyLight(Level level, BlockPos pos) {
         if (!level.dimensionType().hasSkyLight()) {
             return 0.0F;

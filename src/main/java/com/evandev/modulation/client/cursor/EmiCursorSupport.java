@@ -8,9 +8,6 @@ import net.minecraft.client.gui.components.AbstractWidget;
 
 final class EmiCursorSupport {
 
-    private EmiCursorSupport() {
-    }
-
     static boolean isHoveringSearchField(int mouseX, int mouseY) {
         if (!isEmiActive()) {
             return false;

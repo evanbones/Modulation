@@ -169,6 +169,7 @@ If you are thinking about using the code or assets from Modulation, please note 
 * The **Debugify-derived bugfixes** in the Bugfixes module are licensed under **LGPL-3.0-or-later**, following [Debugify](https://github.com/isXander/Debugify).
 * The **MC-84731 dirt path fix** is licensed under **LGPL-3.0-or-later**, following [Path under Fence Gates](https://modrinth.com/mod/pathunderfencegates).
 * The **Panorama Screenshot** feature is licensed under **LGPL-3.0-or-later**, following [Panorama Screenshot](https://github.com/Fridtjof-DE/PanoramaScreenshot).
+* The **improved copper tooltips and item slot overlays** (waxed, weathering, trapped and infested) are licensed under the **[FrozenBlock Modding Oasis License](https://github.com/evanbones/Modulation/blob/HEAD/LICENSE-COPPERIER-AGE)**, following [The Copperier Age](https://github.com/FrozenBlock/The-Copperier-Age). They are not covered by the MIT license.
 
 Everything else is MIT, matching both Modulation and the projects those features were ported from.
 
@@ -177,7 +178,7 @@ Everything else is MIT, matching both Modulation and the projects those features
 ## Credits
 
 * Textures and original concepts for the Reconnectible Chains module come from [Nekomaster](https://www.curseforge.com/members/nekomaster1000) and were originally created for the modpack [Resurvival](https://www.curseforge.com/minecraft/modpacks/resurvival)!
-* The improved tooltips feature is modified from [The Copperier Age](https://modrinth.com/mod/the-copperier-age).
+* The improved copper tooltips and the waxed, trapped and infested item slot overlays, including their textures, are ported from [The Copperier Age](https://github.com/FrozenBlock/The-Copperier-Age) by FrozenBlock. See [LICENSE-COPPERIER-AGE](https://github.com/evanbones/Modulation/blob/HEAD/LICENSE-COPPERIER-AGE) for the affected files.
 * The Vanilla Walls module's wall/fence/pane connection logic is ported from [BetterWalls](https://modrinth.com/mod/betterwalls) by Lemonnik6484 and JX_Snack, licensed under AGPL-3.0-only.
 * The creative inventory removal is modified from [Raspberry Core](https://modrinth.com/mod/raspberry-core), used under its MIT license.
 * The passable foliage feature is modified from [Soft Leaves](https://modrinth.com/mod/soft-leaves), used under its MIT license.

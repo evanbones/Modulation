@@ -23,9 +23,6 @@ import com.evandev.modulation.platform.Services;
 
 public final class LeafParticles {
 
-    private LeafParticles() {
-    }
-
     public static ParticleOptions resolve(BlockState state, ServerLevel level, BlockPos pos) {
         if (!PassableFoliageModule.ENABLE_PASSABLE_FOLIAGE.on()) {
             return null;

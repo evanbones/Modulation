@@ -72,9 +72,6 @@ public final class ImprovedFog {
     private static float renderFogStart;
     private static float renderFogEnd;
 
-    private ImprovedFog() {
-    }
-
     public static boolean enabled() {
         return VanillaBugfixesModule.IMPROVED_FOG.on();
     }

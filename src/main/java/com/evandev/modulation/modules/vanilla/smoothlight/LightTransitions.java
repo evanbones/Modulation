@@ -18,9 +18,6 @@ public final class LightTransitions {
     private static final int MAX_ENTRIES = 8192;
     private static final int MIN_OPACITY = 1;
 
-    private LightTransitions() {
-    }
-
     public static void onBlockChanged(Level level, BlockPos pos, BlockState oldState, BlockState newState) {
         if (!VanillaVisualModule.SMOOTH_LIGHT.on()) return;
         if (!level.isClientSide()) return;

@@ -3,14 +3,12 @@ package com.evandev.modulation.client;
 import com.evandev.modulation.util.EntityActions;
 import com.evandev.modulation.modules.vanilla.VanillaGuiModule;
 import net.minecraft.client.Minecraft;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
 public final class CreativeInventoryClicks {
-
-    private CreativeInventoryClicks() {
-    }
 
     public static boolean handle(Slot slot, int slotId, int mouseButton, ClickType type) {
         Minecraft mc = Minecraft.getInstance();
@@ -45,6 +43,11 @@ public final class CreativeInventoryClicks {
             EntityActions.drop(mc.player, mc.player.inventoryMenu.getCarried(), true);
             mc.gameMode.handleCreativeModeItemDrop(mc.player.inventoryMenu.getCarried());
             mc.player.inventoryMenu.setCarried(ItemStack.EMPTY);
+        } else if (type == ClickType.QUICK_MOVE && slot != null && slot.container instanceof Inventory && Inventory.isHotbarSlot(slot.getContainerSlot())) {
+            if (slot.hasItem()) {
+                slot.setByPlayer(ItemStack.EMPTY);
+                mc.gameMode.handleCreativeModeItemAdd(ItemStack.EMPTY, slot.index);
+            }
         } else {
             int index = slot == null ? slotId : slot.index;
             mc.player.inventoryMenu.clicked(index, mouseButton, type, mc.player);

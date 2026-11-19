@@ -14,9 +14,6 @@ public final class GlslSnippets {
 
     private static final Map<String, String> CACHE = new ConcurrentHashMap<>();
 
-    private GlslSnippets() {
-    }
-
     public static String load(String name) {
         return CACHE.computeIfAbsent(name, GlslSnippets::read);
     }

@@ -7,9 +7,6 @@ import net.minecraft.world.entity.LivingEntity;
 
 public final class HandSlots {
 
-    private HandSlots() {
-    }
-
     public static EquipmentSlot of(InteractionHand hand) {
         //? if >=26.1 {
         /*return hand.asEquipmentSlot();

@@ -38,9 +38,6 @@ public final class PanoramaScreenshot {
 
     private static KeyMapping key;
 
-    private PanoramaScreenshot() {
-    }
-
     public static boolean isAvailable() {
         return !Services.PLATFORM.isModLoaded(CONFLICTING_MOD);
     }

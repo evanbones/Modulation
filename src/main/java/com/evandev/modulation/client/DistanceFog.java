@@ -102,9 +102,6 @@ public final class DistanceFog {
     private static @Nullable RenderTarget redirect;
     private static boolean active;
 
-    private DistanceFog() {
-    }
-
     public static boolean enabled() {
         return VanillaBugfixesModule.IMPROVED_FOG.on();
     }

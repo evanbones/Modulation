@@ -26,9 +26,6 @@ public final class ExtendedCloudMesher {
 
     private static volatile CloudCells cells;
 
-    private ExtendedCloudMesher() {
-    }
-
     public static void reload(ResourceManager resourceManager) {
         cells = load(resourceManager);
     }
